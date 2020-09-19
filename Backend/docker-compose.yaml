@@ -1,0 +1,84 @@
+﻿version: '3.8'
+
+services:
+  # Nginx
+  proxy:
+    image: nginx:latest
+    container_name: onegate_proxy
+    ports:
+      - 80:80
+    depends_on:
+      - gateway
+    networks:
+      - metrics
+      - http_api
+  # RabbitMQ
+  rabbitmq:
+    image: rabbitmq:management
+    container_name: onegate_rabbitmq
+    expose:
+      - 15672
+    networks:
+      - services
+  # Postgres
+  postgres:
+    image: postgres:latest
+    container_name: onegate_postgres
+    expose:
+      - 5432
+    networks:
+      - services
+  # Api
+  gateway:
+    build:
+      context: ../
+      dockerfile: Backend/Dockerfile
+      args:
+        PROJECT_NAME: OneGate.Backend.Gateway
+    container_name: onegate_gateway
+    expose:
+      - 80
+    networks:
+      - http_api
+      - services
+  # Account service
+  account:
+    build:
+      context: ../
+      dockerfile: Backend/Dockerfile
+      args:
+        PROJECT_NAME: OneGate.Backend.AccountService
+    container_name: onegate_account
+    depends_on:
+      - rabbitmq
+    networks:
+      - services
+  # Asset service
+  asset:
+    build:
+      context: ../
+      dockerfile: Backend/Dockerfile
+      args:
+        PROJECT_NAME: OneGate.Backend.AssetService
+    container_name: onegate_asset
+    depends_on:
+      - rabbitmq
+    networks:
+      - services
+  # Ohlc service
+  ohlc:
+    build:
+      context: ../
+      dockerfile: Backend/Dockerfile
+      args:
+        PROJECT_NAME: OneGate.Backend.OhlcService
+    container_name: onegate_ohlc
+    depends_on:
+      - rabbitmq
+    networks:
+      - services
+networks:
+  http_api:
+  services:
+  metrics:
+      

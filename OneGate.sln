@@ -1,0 +1,76 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backend", "Backend", "{FFA0ED56-F947-48AF-ABCA-069867C688C7}"
+ProjectSection(SolutionItems) = preProject
+	Backend\docker-compose.yaml = Backend\docker-compose.yaml
+	Backend\prometheus.yml = Backend\prometheus.yml
+	Backend\docker-compose.dev.yaml = Backend\docker-compose.dev.yaml
+	Backend\dev.env = Backend\dev.env
+	Backend\Dockerfile = Backend\Dockerfile
+	Backend\docker-compose.qa.yaml = Backend\docker-compose.qa.yaml
+	Backend\qa.env = Backend\qa.env
+	Backend\nginx.dev.conf = Backend\nginx.dev.conf
+	Backend\nginx.qa.conf = Backend\nginx.qa.conf
+EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Gateway", "Backend\OneGate.Backend.Gateway\OneGate.Backend.Gateway.csproj", "{C5E1268E-DBBD-43CF-A4DE-F65DF1E40E02}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Rpc", "Backend\OneGate.Backend.Rpc\OneGate.Backend.Rpc.csproj", "{AC0F06A3-4203-4AB9-B2AC-A7591350DBB1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.AccountService", "Backend\OneGate.Backend.AccountService\OneGate.Backend.AccountService.csproj", "{52193E46-0143-42EF-8D8D-0E4219A6B07B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Database", "Backend\OneGate.Backend.Database\OneGate.Backend.Database.csproj", "{D8741020-D19D-4E40-9D3B-1A2613A2B36C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{BD7695F3-22E2-4531-B518-8A8A7B1DF6CF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Shared.Models", "Shared\OneGate.Shared.Models\OneGate.Shared.Models.csproj", "{B7894973-C750-433F-954F-A182F92BF503}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.AssetService", "Backend\OneGate.Backend.AssetService\OneGate.Backend.AssetService.csproj", "{D2BA8EBD-D49E-4935-958A-B0C099E2B179}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.OhlcService", "Backend\OneGate.Backend.OhlcService\OneGate.Backend.OhlcService.csproj", "{59C58749-CB78-4CAF-9D74-DC17E55B0E81}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C5E1268E-DBBD-43CF-A4DE-F65DF1E40E02} = {FFA0ED56-F947-48AF-ABCA-069867C688C7}
+		{AC0F06A3-4203-4AB9-B2AC-A7591350DBB1} = {FFA0ED56-F947-48AF-ABCA-069867C688C7}
+		{52193E46-0143-42EF-8D8D-0E4219A6B07B} = {FFA0ED56-F947-48AF-ABCA-069867C688C7}
+		{D8741020-D19D-4E40-9D3B-1A2613A2B36C} = {FFA0ED56-F947-48AF-ABCA-069867C688C7}
+		{B7894973-C750-433F-954F-A182F92BF503} = {BD7695F3-22E2-4531-B518-8A8A7B1DF6CF}
+		{D2BA8EBD-D49E-4935-958A-B0C099E2B179} = {FFA0ED56-F947-48AF-ABCA-069867C688C7}
+		{59C58749-CB78-4CAF-9D74-DC17E55B0E81} = {FFA0ED56-F947-48AF-ABCA-069867C688C7}
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C5E1268E-DBBD-43CF-A4DE-F65DF1E40E02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5E1268E-DBBD-43CF-A4DE-F65DF1E40E02}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5E1268E-DBBD-43CF-A4DE-F65DF1E40E02}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5E1268E-DBBD-43CF-A4DE-F65DF1E40E02}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC0F06A3-4203-4AB9-B2AC-A7591350DBB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC0F06A3-4203-4AB9-B2AC-A7591350DBB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC0F06A3-4203-4AB9-B2AC-A7591350DBB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC0F06A3-4203-4AB9-B2AC-A7591350DBB1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52193E46-0143-42EF-8D8D-0E4219A6B07B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52193E46-0143-42EF-8D8D-0E4219A6B07B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52193E46-0143-42EF-8D8D-0E4219A6B07B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52193E46-0143-42EF-8D8D-0E4219A6B07B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8741020-D19D-4E40-9D3B-1A2613A2B36C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8741020-D19D-4E40-9D3B-1A2613A2B36C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8741020-D19D-4E40-9D3B-1A2613A2B36C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8741020-D19D-4E40-9D3B-1A2613A2B36C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B7894973-C750-433F-954F-A182F92BF503}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7894973-C750-433F-954F-A182F92BF503}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7894973-C750-433F-954F-A182F92BF503}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7894973-C750-433F-954F-A182F92BF503}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2BA8EBD-D49E-4935-958A-B0C099E2B179}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2BA8EBD-D49E-4935-958A-B0C099E2B179}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2BA8EBD-D49E-4935-958A-B0C099E2B179}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2BA8EBD-D49E-4935-958A-B0C099E2B179}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59C58749-CB78-4CAF-9D74-DC17E55B0E81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59C58749-CB78-4CAF-9D74-DC17E55B0E81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59C58749-CB78-4CAF-9D74-DC17E55B0E81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59C58749-CB78-4CAF-9D74-DC17E55B0E81}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

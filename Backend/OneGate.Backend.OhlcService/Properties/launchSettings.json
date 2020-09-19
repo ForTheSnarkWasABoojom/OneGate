@@ -1,0 +1,10 @@
+﻿{
+  "profiles": {
+    "OneGate.Backend.OhlcService": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}

@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <UserSecretsId>dotnet-OneGate.Backend.AssetService-D5CB1311-C589-415C-9DBA-3BFCC37C8AE8</UserSecretsId>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="EasyNetQ" Version="5.2.2" />
+        <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.6" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\OneGate.Backend.Database\OneGate.Backend.Database.csproj" />
+      <ProjectReference Include="..\OneGate.Backend.Rpc\OneGate.Backend.Rpc.csproj" />
+    </ItemGroup>
+</Project>

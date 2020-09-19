@@ -1,0 +1,40 @@
+﻿version: '3.8'
+
+services:
+  # Nginx
+  proxy:
+    volumes:
+      - ./nginx.dev.conf:/etc/nginx/nginx.conf
+  # RabbitMQ
+  rabbitmq:
+    ports:
+      - 15672:15672
+    env_file:
+      - dev.env
+  # Postgres
+  postgres:
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres_dev:/var/lib/postgresql/data
+    env_file:
+      - dev.env  
+  # Gateway
+  gateway:
+    env_file:
+      - dev.env
+  # Account service
+  account:
+    env_file:
+      - dev.env
+  # Asset service
+  asset:
+    env_file:
+      - dev.env
+  # Ohlc service
+  ohlc:
+    env_file:
+      - dev.env
+volumes:
+  postgres_dev:
+  

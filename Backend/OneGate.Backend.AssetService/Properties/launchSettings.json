@@ -1,0 +1,10 @@
+﻿{
+  "profiles": {
+    "OneGate.Backend.AssetService": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}
