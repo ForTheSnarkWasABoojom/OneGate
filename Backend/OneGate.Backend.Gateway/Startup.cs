@@ -146,10 +146,11 @@ namespace OneGate.Backend.Gateway
             Thread.Sleep(3000);
             db.Database.EnsureDeleted();
             db.Database.EnsureCreated();
-            db.Accounts.Add(new Account
+
+            var account = new Account
             {
-                FirstName = "OneGate",
-                LastName = "Administrator",
+                FirstName = "ONEGATE",
+                LastName = "ADMINISTRATOR",
                 Email = Environment.GetEnvironmentVariable("API_ADMIN_EMAIL"),
                 Password = Convert.ToBase64String(KeyDerivation.Pbkdf2(
                     password: Environment.GetEnvironmentVariable("API_ADMIN_PASSWORD"),
@@ -158,7 +159,16 @@ namespace OneGate.Backend.Gateway
                     iterationCount: 10000,
                     numBytesRequested: 256 / 8)),
                 IsAdmin = true
-            });
+            };
+            
+            var exchange = new Exchange
+            {
+                Title = "DEFAULT",
+                Description = "Default exchange"
+            };
+
+            db.Accounts.Add(account);
+            db.Exchanges.Add(exchange);
             db.SaveChanges();
         }
 

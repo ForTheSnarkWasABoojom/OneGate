@@ -23,7 +23,7 @@ namespace OneGate.Backend.Rpc.Services
         {
             _bus = bus;
         }
-
+        
         public async Task<HealthCheckResponse> HealthCheckAsync(HealthCheckRequest request)
         {
             return await _bus.CallAsync<HealthCheckRequest, HealthCheckResponse>(request);

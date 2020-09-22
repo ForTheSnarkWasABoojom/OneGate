@@ -15,10 +15,18 @@ using OneGate.Backend.Rpc.Contracts.Account.CreateToken;
 using OneGate.Backend.Rpc.Contracts.Account.DeleteAccount;
 using OneGate.Backend.Rpc.Contracts.Account.GetAccount;
 using OneGate.Backend.Rpc.Contracts.Account.GetAccountsByFilter;
+using OneGate.Backend.Rpc.Contracts.Asset.CreateAsset;
 using OneGate.Backend.Rpc.Contracts.Base.HealthCheck;
+using OneGate.Backend.Rpc.Contracts.Order.CreateOrder;
+using OneGate.Backend.Rpc.Contracts.Order.DeleteOrder;
+using OneGate.Backend.Rpc.Contracts.Order.GetOrder;
+using OneGate.Backend.Rpc.Contracts.Order.GetOrdersByFilter;
 using OneGate.Backend.Rpc.Services;
 using OneGate.Shared.Models.Account;
+using OneGate.Shared.Models.Asset;
+using OneGate.Shared.Models.Order;
 using static Microsoft.AspNetCore.Http.StatusCodes;
+using Index = Microsoft.EntityFrameworkCore.Metadata.Internal.Index;
 
 namespace OneGate.Backend.AccountService
 {
@@ -39,6 +47,10 @@ namespace OneGate.Backend.AccountService
             _bus.RegisterMethodAsync<GetAccountRequest, GetAccountResponse>(GetAccountAsync);
             _bus.RegisterMethodAsync<DeleteAccountRequest, DeleteAccountResponse>(DeleteAccountAsync);
             _bus.RegisterMethodAsync<GetAccountsByFilterRequest, GetAccountsByFilterResponse>(GetAccountsByFilterAsync);
+            _bus.RegisterMethodAsync<CreateOrderRequest, CreateOrderResponse>(CreateOrderAsync);
+            _bus.RegisterMethodAsync<GetOrderRequest, GetOrderResponse>(GetOrderAsync);
+            _bus.RegisterMethodAsync<GetOrdersByFilterRequest, GetOrdersByFilterResponse>(GetOrdersByFiltersAsync);
+            _bus.RegisterMethodAsync<DeleteOrderRequest,DeleteOrderResponse>(DeleteOrderAsync);
         }
 
         public async Task<HealthCheckResponse> HealthCheckAsync(HealthCheckRequest request)
@@ -52,7 +64,7 @@ namespace OneGate.Backend.AccountService
         public async Task<CreateTokenResponse> CreateTokenAsync(CreateTokenRequest request)
         {
             await using var db = new DatabaseContext();
-            
+
             var account = await db.Accounts.FirstOrDefaultAsync(x =>
                 x.Password == GetHash(request.Password) &&
                 x.Email == request.Email);
@@ -71,7 +83,7 @@ namespace OneGate.Backend.AccountService
         public async Task<CreateAccountResponse> CreateAccountAsync(CreateAccountRequest request)
         {
             await using var db = new DatabaseContext();
-            
+
             if (await db.Accounts.FirstOrDefaultAsync(x => x.Email == request.Account.Email) != null)
                 throw new ApiException("Account must have unique email", Status400BadRequest);
 
@@ -93,7 +105,7 @@ namespace OneGate.Backend.AccountService
         public async Task<GetAccountResponse> GetAccountAsync(GetAccountRequest request)
         {
             await using var db = new DatabaseContext();
-            
+
             var account = await db.Accounts.FindAsync(request.Id);
             if (account is null)
                 throw new ApiException("Account with specified id does not exist", Status404NotFound);
@@ -107,7 +119,7 @@ namespace OneGate.Backend.AccountService
         public async Task<DeleteAccountResponse> DeleteAccountAsync(DeleteAccountRequest request)
         {
             await using var db = new DatabaseContext();
-            
+
             var account = await db.Accounts.FirstOrDefaultAsync(x => x.Id == request.Id);
             if (account == null)
                 throw new ApiException("Account with specified id does not exist", Status404NotFound);
@@ -121,17 +133,20 @@ namespace OneGate.Backend.AccountService
         public async Task<GetAccountsByFilterResponse> GetAccountsByFilterAsync(GetAccountsByFilterRequest request)
         {
             await using var db = new DatabaseContext();
-            
+
             var accountsQuery = db.Accounts.AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(request.Filter.FirstName))
-                accountsQuery = accountsQuery.Where(x => x.FirstName.Contains(request.Filter.FirstName, StringComparison.OrdinalIgnoreCase));
+                accountsQuery = accountsQuery.Where(x =>
+                    x.FirstName.Contains(request.Filter.FirstName, StringComparison.OrdinalIgnoreCase));
 
             if (!string.IsNullOrWhiteSpace(request.Filter.LastName))
-                accountsQuery = accountsQuery.Where(x => x.LastName.Contains(request.Filter.LastName, StringComparison.OrdinalIgnoreCase));
+                accountsQuery = accountsQuery.Where(x =>
+                    x.LastName.Contains(request.Filter.LastName, StringComparison.OrdinalIgnoreCase));
 
             if (!string.IsNullOrWhiteSpace(request.Filter.Email))
-                accountsQuery = accountsQuery.Where(x => x.Email.Contains(request.Filter.Email, StringComparison.OrdinalIgnoreCase));
+                accountsQuery = accountsQuery.Where(x =>
+                    x.Email.Contains(request.Filter.Email, StringComparison.OrdinalIgnoreCase));
 
             if (request.Filter.IsAdmin != null)
                 accountsQuery = accountsQuery.Where(x => x.IsAdmin == request.Filter.IsAdmin);
@@ -141,6 +156,87 @@ namespace OneGate.Backend.AccountService
             {
                 Accounts = accounts.Select(ConvertAccountToDto).ToList()
             };
+        }
+
+        public async Task<CreateOrderResponse> CreateOrderAsync(CreateOrderRequest request)
+        {
+            await using var db = new DatabaseContext();
+            if (!await db.Assets.AnyAsync(x => x.Id == request.Order.AssetId))
+                throw new ApiException("Asset with specified id does not exist", Status400BadRequest);
+
+            OrderBase order = request.Order switch
+            {
+                CreateMarketOrderDto marketOrderDto => (await db.MarketOrders.AddAsync(new MarketOrder
+                {
+                    AccountId = request.AccountId,
+                    State = OrderStateDto.WAITING.ToString(),
+                    Type = marketOrderDto.Type.ToString(),
+                    AssetId = marketOrderDto.AssetId,
+                    Side = marketOrderDto.Side.ToString(),
+                    Quantity = marketOrderDto.Quantity
+                })).Entity,
+                _ => throw new ApiException("Unknown order type", Status400BadRequest)
+            };
+
+            await db.SaveChangesAsync();
+            return new CreateOrderResponse()
+            {
+                Order = ConvertOrderToDto(order)
+            };
+        }
+
+        public async Task<GetOrderResponse> GetOrderAsync(GetOrderRequest request)
+        {
+            await using var db = new DatabaseContext();
+            var order = await db.Orders.FirstOrDefaultAsync(x => 
+                x.Id == request.Id && x.AccountId == request.AccountId);
+
+            if (order is null)
+                throw new ApiException("Order with specified id does not exist", Status404NotFound);
+
+            return new GetOrderResponse
+            {
+                Order = ConvertOrderToDto(order)
+            };
+        }
+
+        public async Task<GetOrdersByFilterResponse> GetOrdersByFiltersAsync(GetOrdersByFilterRequest request)
+        {
+            await using var db = new DatabaseContext();
+            var orderQuery = db.Orders.Where(x => x.AccountId == request.AccountId);
+
+            if (request.Filter.AssetId != null)
+                orderQuery = orderQuery.Where(x => x.AssetId == request.Filter.AssetId);
+            
+            if (request.Filter.Type != null)
+                orderQuery = orderQuery.Where(x => x.Type == request.Filter.Type.ToString());
+
+            if (request.Filter.State != null)
+                orderQuery = orderQuery.Where(x => x.State == request.Filter.State.ToString());
+            
+            if (request.Filter.Side != null)
+                orderQuery = orderQuery.Where(x => x.Side == request.Filter.Side.ToString());
+
+            var orders = await orderQuery.Skip(request.Filter.Shift).Take(request.Filter.Count).ToListAsync();
+            return new GetOrdersByFilterResponse
+            {
+                Orders = orders.Select(ConvertOrderToDto).ToList()
+            };
+        }
+
+        public async Task<DeleteOrderResponse> DeleteOrderAsync(DeleteOrderRequest request)
+        {
+            await using var db = new DatabaseContext();
+            var order = await db.Orders.FirstOrDefaultAsync(x => 
+                x.Id == request.Id && x.AccountId == request.AccountId);
+
+            if (order == null)
+                throw new ApiException("Order with specified id does not exist", Status404NotFound);
+
+            db.Orders.Remove(order);
+            await db.SaveChangesAsync();
+
+            return new DeleteOrderResponse();
         }
 
         public async Task StartAsync(CancellationToken cancellationToken)
@@ -161,6 +257,27 @@ namespace OneGate.Backend.AccountService
                 Email = account.Email,
                 FirstName = account.FirstName,
                 LastName = account.LastName
+            };
+        }
+
+        private OrderBaseDto ConvertOrderToDto(OrderBase order)
+        {
+            return order switch
+            {
+                MarketOrder market => ConvertMarketToDto(market),
+                _ => null
+            };
+        }
+
+        private MarketOrderDto ConvertMarketToDto(MarketOrder market)
+        {
+            return new MarketOrderDto()
+            {
+                Id = market.Id,
+                AssetId = market.AssetId,
+                State = Enum.Parse<OrderStateDto>(market.State),
+                Side = Enum.Parse<OrderSideDto>(market.Side),
+                Quantity = market.Quantity
             };
         }
 

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace OneGate.Backend.Database.Models
 {
     [Table("asset")]
-    public class Index : AssetBase
+    public class IndexAsset : AssetBase
     {
         [MaxLength(100)]
         [Column("country")]

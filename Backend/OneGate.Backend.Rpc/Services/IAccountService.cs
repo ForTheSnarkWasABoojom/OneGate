@@ -6,6 +6,10 @@ using OneGate.Backend.Rpc.Contracts.Account.DeleteAccount;
 using OneGate.Backend.Rpc.Contracts.Account.GetAccount;
 using OneGate.Backend.Rpc.Contracts.Account.GetAccountsByFilter;
 using OneGate.Backend.Rpc.Contracts.Base.HealthCheck;
+using OneGate.Backend.Rpc.Contracts.Order.CreateOrder;
+using OneGate.Backend.Rpc.Contracts.Order.DeleteOrder;
+using OneGate.Backend.Rpc.Contracts.Order.GetOrder;
+using OneGate.Backend.Rpc.Contracts.Order.GetOrdersByFilter;
 
 namespace OneGate.Backend.Rpc.Services
 {
@@ -18,6 +22,10 @@ namespace OneGate.Backend.Rpc.Services
         public Task<GetAccountResponse> GetAccountAsync(GetAccountRequest request);
         public Task<DeleteAccountResponse> DeleteAccountAsync(DeleteAccountRequest request);
         public Task<GetAccountsByFilterResponse> GetAccountsByFilterAsync(GetAccountsByFilterRequest request);
+        public Task<CreateOrderResponse> CreateOrderAsync(CreateOrderRequest request);
+        public Task<GetOrderResponse> GetOrderAsync(GetOrderRequest request);
+        public Task<GetOrdersByFilterResponse> GetOrdersByFiltersAsync(GetOrdersByFilterRequest request);
+        public Task<DeleteOrderResponse> DeleteOrderAsync(DeleteOrderRequest request);
     }
 
     public class AccountService : IAccountService
@@ -57,6 +65,26 @@ namespace OneGate.Backend.Rpc.Services
         public async Task<GetAccountsByFilterResponse> GetAccountsByFilterAsync(GetAccountsByFilterRequest request)
         {
             return await _bus.CallAsync<GetAccountsByFilterRequest, GetAccountsByFilterResponse>(request);
+        }
+
+        public async Task<CreateOrderResponse> CreateOrderAsync(CreateOrderRequest request)
+        {
+            return await _bus.CallAsync<CreateOrderRequest, CreateOrderResponse>(request);
+        }
+
+        public async Task<GetOrderResponse> GetOrderAsync(GetOrderRequest request)
+        {
+            return await _bus.CallAsync<GetOrderRequest, GetOrderResponse>(request);
+        }
+
+        public async Task<GetOrdersByFilterResponse> GetOrdersByFiltersAsync(GetOrdersByFilterRequest request)
+        {
+            return await _bus.CallAsync<GetOrdersByFilterRequest, GetOrdersByFilterResponse>(request);
+        }
+
+        public async Task<DeleteOrderResponse> DeleteOrderAsync(DeleteOrderRequest request)
+        {
+            return await _bus.CallAsync<DeleteOrderRequest, DeleteOrderResponse>(request);
         }
     }
 }

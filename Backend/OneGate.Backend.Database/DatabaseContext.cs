@@ -1,7 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using OneGate.Backend.Database.Models;
-using Index = OneGate.Backend.Database.Models.Index;
 
 namespace OneGate.Backend.Database
 {
@@ -20,15 +19,25 @@ namespace OneGate.Backend.Database
         {
             modelBuilder.Entity<AssetBase>()
                 .HasDiscriminator(x => x.Type)
-                .HasValue<Stock>("STOCK")
-                .HasValue<Index>("INDEX");
+                .HasValue<StockAsset>("STOCK")
+                .HasValue<IndexAsset>("INDEX");
+
+            modelBuilder.Entity<OrderBase>()
+                .HasDiscriminator(x => x.Type)
+                .HasValue<MarketOrder>("MARKET");
         }
 
         public DbSet<Account> Accounts { get; set; }
+        
         public DbSet<Exchange> Exchanges { get; set; }
+        
         public DbSet<Ohlc> Ohlcs { get; set; }
+        
         public DbSet<AssetBase> Assets { get; set; }
-        public DbSet<Stock> Stocks { get; set; }
-        public DbSet<Index> Indexes { get; set; }
+        public DbSet<StockAsset> StocksAssets { get; set; }
+        public DbSet<IndexAsset> IndexAssets { get; set; }
+        
+        public DbSet<OrderBase> Orders { get; set; }
+        public DbSet<MarketOrder> MarketOrders { get; set; }
     }
 }

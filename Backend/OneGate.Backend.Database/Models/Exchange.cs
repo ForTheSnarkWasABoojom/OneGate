@@ -25,7 +25,6 @@ namespace OneGate.Backend.Database.Models
 
         [MaxLength(150)]
         [Column("website")]
-        [Required]
         public string Website { get; set; }
     }
 }

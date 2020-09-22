@@ -1,11 +1,9 @@
 using System;
-using System.Collections;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using EasyNetQ;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using OneGate.Backend.Database;
@@ -24,7 +22,6 @@ using OneGate.Backend.Rpc.Services;
 using OneGate.Shared.Models.Asset;
 using OneGate.Shared.Models.Exchange;
 using static Microsoft.AspNetCore.Http.StatusCodes;
-using Index = OneGate.Backend.Database.Models.Index;
 
 namespace OneGate.Backend.AssetService
 {
@@ -75,14 +72,14 @@ namespace OneGate.Backend.AssetService
 
             AssetBase asset = request.Asset switch
             {
-                CreateStockDto stockDto => (await db.Stocks.AddAsync(new Stock
+                CreateStockAssetDto stockDto => (await db.StocksAssets.AddAsync(new StockAsset
                 {
                     ExchangeId = stockDto.ExchangeId,
                     Ticker = stockDto.Ticker,
                     Description = stockDto.Description,
                     Company = stockDto.Company
                 })).Entity,
-                CreateIndexDto indexDto => (await db.Indexes.AddAsync(new Index
+                CreateIndexAssetDto indexDto => (await db.IndexAssets.AddAsync(new IndexAsset
                 {
                     ExchangeId = indexDto.ExchangeId,
                     Ticker = indexDto.Ticker,
@@ -232,9 +229,9 @@ namespace OneGate.Backend.AssetService
             };
         }
 
-        private StockDto ConvertStockToDto(Stock stock)
+        private StockAssetDto ConvertStockToDto(StockAsset stock)
         {
-            return new StockDto
+            return new StockAssetDto
             {
                 Id = stock.Id,
                 ExchangeId = stock.ExchangeId,
@@ -244,9 +241,9 @@ namespace OneGate.Backend.AssetService
             };
         }
 
-        private IndexDto ConvertIndexToDto(Index index)
+        private IndexAssetDto ConvertIndexToDto(IndexAsset index)
         {
-            return new IndexDto
+            return new IndexAssetDto
             {
                 Id = index.Id,
                 ExchangeId = index.ExchangeId,
@@ -260,8 +257,8 @@ namespace OneGate.Backend.AssetService
         {
             return asset switch
             {
-                Stock stock => ConvertStockToDto(stock),
-                Index index => ConvertIndexToDto(index),
+                StockAsset stock => ConvertStockToDto(stock),
+                IndexAsset index => ConvertIndexToDto(index),
                 _ => null
             };
         }

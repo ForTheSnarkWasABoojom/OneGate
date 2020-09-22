@@ -7,11 +7,11 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace OneGate.Shared.Models.Asset
 {
     [JsonConverter(typeof(JsonSubtypes), nameof(Type))]
-    [JsonSubtypes.KnownSubType(typeof(CreateStockDto), AssetTypeDto.STOCK)]
-    [JsonSubtypes.KnownSubType(typeof(CreateIndexDto), AssetTypeDto.INDEX)]
+    [JsonSubtypes.KnownSubType(typeof(CreateStockAssetDto), AssetTypeDto.STOCK)]
+    [JsonSubtypes.KnownSubType(typeof(CreateIndexAssetDto), AssetTypeDto.INDEX)]
     [SwaggerDiscriminator("type")]
-    [SwaggerSubType(typeof(CreateStockDto), DiscriminatorValue = nameof(AssetTypeDto.STOCK))]
-    [SwaggerSubType(typeof(CreateIndexDto), DiscriminatorValue = nameof(AssetTypeDto.INDEX))]
+    [SwaggerSubType(typeof(CreateStockAssetDto), DiscriminatorValue = nameof(AssetTypeDto.STOCK))]
+    [SwaggerSubType(typeof(CreateIndexAssetDto), DiscriminatorValue = nameof(AssetTypeDto.INDEX))]
     public abstract class CreateAssetBaseDto
     {
         [Required]
