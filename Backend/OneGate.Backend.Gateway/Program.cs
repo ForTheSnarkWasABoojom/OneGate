@@ -1,11 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using OneGate.Backend.Gateway.EventListeners;
 
 namespace OneGate.Backend.Gateway
 {
@@ -18,6 +14,14 @@ namespace OneGate.Backend.Gateway
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.UseStartup<Startup>();
+                })
+                .ConfigureServices(services =>
+                {
+                    services.AddHostedService<AccountEventListener>();
+                    services.AddHostedService<TimeseriesEventListener>();
+                });
     }
 }

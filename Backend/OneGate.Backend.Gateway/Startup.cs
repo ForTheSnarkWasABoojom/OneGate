@@ -1,14 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Threading;
-using EasyNetQ;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -16,6 +13,7 @@ using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Converters;
 using OneGate.Backend.Database;
 using OneGate.Backend.Database.Models;
+using OneGate.Backend.Gateway.EventHubs;
 using OneGate.Backend.Gateway.Extensions;
 using OneGate.Backend.Gateway.HealthChecks;
 using OneGate.Backend.Gateway.Middleware;
@@ -124,16 +122,19 @@ namespace OneGate.Backend.Gateway
                 .AddCheck<OhlcServiceHealthCheck>("ohlc_service")
                 .ForwardToPrometheus();
 
-            // Remote call bus.
-            services.AddSingleton<IBus>(provider => BusFactory.GetInstance());
-
             // Migration.
             services.AddDbContext<DatabaseContext>();
+            
+            // Remote call bus.
+            services.AddSingleton(provider => BusFactory.GetInstance());
 
             // Remote services.
-            services.AddSingleton<IAccountService, AccountService>();
-            services.AddSingleton<IAssetService, AssetService>();
-            services.AddSingleton<IOhlcService, OhlcService>();
+            services.AddTransient<IAccountService, AccountService>();
+            services.AddTransient<IAssetService, AssetService>();
+            services.AddTransient<IOhlcService, OhlcService>();
+            
+            // Event hub.
+            services.AddSignalR();
         }
 
         private static void MigrateDatabase(IApplicationBuilder app)
@@ -196,8 +197,11 @@ namespace OneGate.Backend.Gateway
             // Endpoints.
             app.UseEndpoints(endpoints =>
             {
-                // API
+                // Api.
                 endpoints.MapControllers().RequireAuthorization();
+                // Event hubs.
+                endpoints.MapHub<AccountEventHub>("/api/v1/events/account").RequireAuthorization();
+                endpoints.MapHub<TimeseriesEventHub>("/api/v1/events/timeseries").RequireAuthorization();
                 // Health checks.
                 endpoints.MapHealthChecks("/health");
                 // Prometheus.
