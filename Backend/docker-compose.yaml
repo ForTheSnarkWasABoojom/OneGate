@@ -65,14 +65,14 @@ services:
       - rabbitmq
     networks:
       - services
-  # Ohlc service
-  ohlc:
+  # Timeseries service
+  timeseries:
     build:
       context: ../
       dockerfile: Backend/Dockerfile
       args:
-        PROJECT_NAME: OneGate.Backend.OhlcService
-    container_name: onegate_ohlc
+        PROJECT_NAME: OneGate.Backend.TimeseriesService
+    container_name: onegate_timeseries
     depends_on:
       - rabbitmq
     networks:

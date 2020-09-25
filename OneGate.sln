@@ -27,7 +27,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Shared.Models", "Sh
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.AssetService", "Backend\OneGate.Backend.AssetService\OneGate.Backend.AssetService.csproj", "{D2BA8EBD-D49E-4935-958A-B0C099E2B179}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.OhlcService", "Backend\OneGate.Backend.OhlcService\OneGate.Backend.OhlcService.csproj", "{59C58749-CB78-4CAF-9D74-DC17E55B0E81}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.TimeseriesService", "Backend\OneGate.Backend.TimeseriesService\OneGate.Backend.TimeseriesService.csproj", "{A9F9D286-42CA-4CC6-ABD8-5BC28704EE5F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,7 +41,7 @@ Global
 		{D8741020-D19D-4E40-9D3B-1A2613A2B36C} = {FFA0ED56-F947-48AF-ABCA-069867C688C7}
 		{B7894973-C750-433F-954F-A182F92BF503} = {BD7695F3-22E2-4531-B518-8A8A7B1DF6CF}
 		{D2BA8EBD-D49E-4935-958A-B0C099E2B179} = {FFA0ED56-F947-48AF-ABCA-069867C688C7}
-		{59C58749-CB78-4CAF-9D74-DC17E55B0E81} = {FFA0ED56-F947-48AF-ABCA-069867C688C7}
+		{A9F9D286-42CA-4CC6-ABD8-5BC28704EE5F} = {FFA0ED56-F947-48AF-ABCA-069867C688C7}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{C5E1268E-DBBD-43CF-A4DE-F65DF1E40E02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -68,9 +68,9 @@ Global
 		{D2BA8EBD-D49E-4935-958A-B0C099E2B179}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D2BA8EBD-D49E-4935-958A-B0C099E2B179}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D2BA8EBD-D49E-4935-958A-B0C099E2B179}.Release|Any CPU.Build.0 = Release|Any CPU
-		{59C58749-CB78-4CAF-9D74-DC17E55B0E81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{59C58749-CB78-4CAF-9D74-DC17E55B0E81}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{59C58749-CB78-4CAF-9D74-DC17E55B0E81}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{59C58749-CB78-4CAF-9D74-DC17E55B0E81}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A9F9D286-42CA-4CC6-ABD8-5BC28704EE5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9F9D286-42CA-4CC6-ABD8-5BC28704EE5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9F9D286-42CA-4CC6-ABD8-5BC28704EE5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9F9D286-42CA-4CC6-ABD8-5BC28704EE5F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

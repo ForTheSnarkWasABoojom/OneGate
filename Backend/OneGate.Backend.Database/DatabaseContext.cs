@@ -28,15 +28,16 @@ namespace OneGate.Backend.Database
         }
 
         public DbSet<Account> Accounts { get; set; }
-        
+
         public DbSet<Exchange> Exchanges { get; set; }
-        
-        public DbSet<Ohlc> Ohlcs { get; set; }
+
+        public DbSet<OhlcTimeseries> OhlcTimeseries { get; set; }
+        public DbSet<ValueTimeseries> ValueTimeseries { get; set; }
         
         public DbSet<AssetBase> Assets { get; set; }
         public DbSet<StockAsset> StocksAssets { get; set; }
         public DbSet<IndexAsset> IndexAssets { get; set; }
-        
+
         public DbSet<OrderBase> Orders { get; set; }
         public DbSet<MarketOrder> MarketOrders { get; set; }
     }

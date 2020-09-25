@@ -131,7 +131,7 @@ namespace OneGate.Backend.Gateway
             // Remote services.
             services.AddTransient<IAccountService, AccountService>();
             services.AddTransient<IAssetService, AssetService>();
-            services.AddTransient<IOhlcService, OhlcService>();
+            services.AddTransient<ITimeseriesService, OhlcService>();
             
             // Event hub.
             services.AddSignalR();

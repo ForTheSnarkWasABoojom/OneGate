@@ -44,7 +44,7 @@ namespace OneGate.Backend.Gateway.Controllers
 
             return payload.Exchange;
         }
-        
+
         [HttpGet]
         [ProducesResponseType(typeof(List<ExchangeDto>), Status200OK)]
         [SwaggerOperation("Search exchanges")]
@@ -54,7 +54,7 @@ namespace OneGate.Backend.Gateway.Controllers
             {
                 Filter = request
             });
-            
+
             return payload.Exchanges;
         }
 

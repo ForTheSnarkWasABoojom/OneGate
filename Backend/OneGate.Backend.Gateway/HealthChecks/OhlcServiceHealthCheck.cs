@@ -10,10 +10,10 @@ namespace OneGate.Backend.Gateway.HealthChecks
 {
     public class OhlcServiceHealthCheck : IHealthCheck
     {
-        private readonly IOhlcService _ohlcService;
+        private readonly ITimeseriesService _ohlcService;
         private readonly ILogger<OhlcServiceHealthCheck> _logger;
 
-        public OhlcServiceHealthCheck(IOhlcService ohlcService, ILogger<OhlcServiceHealthCheck> logger)
+        public OhlcServiceHealthCheck(ITimeseriesService ohlcService, ILogger<OhlcServiceHealthCheck> logger)
         {
             _ohlcService = ohlcService;
             _logger = logger;

@@ -44,7 +44,7 @@ namespace OneGate.Backend.Gateway.Controllers
 
             return payload.Asset;
         }
-        
+
         [HttpGet]
         [ProducesResponseType(typeof(List<AssetBaseDto>), Status200OK)]
         [SwaggerOperation("Search assets")]
@@ -54,7 +54,7 @@ namespace OneGate.Backend.Gateway.Controllers
             {
                 Filter = request
             });
-            
+
             return payload.Assets;
         }
 
@@ -68,7 +68,7 @@ namespace OneGate.Backend.Gateway.Controllers
             {
                 Id = id
             });
-            
+
             return payload.Asset;
         }
 

@@ -27,8 +27,8 @@ services:
   asset:
     env_file:
       - qa.env
-  # Ohlc service
-  ohlc:
+  # Timeseries service
+  timeseries:
     env_file:
       - qa.env
   # Prometheus

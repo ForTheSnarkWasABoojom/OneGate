@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
-using OneGate.Shared.Models.Ohlc;
+using OneGate.Shared.Models.Timeseries;
 
 namespace OneGate.Backend.Gateway.EventHubs
 {

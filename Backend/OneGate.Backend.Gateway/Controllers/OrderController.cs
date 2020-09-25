@@ -44,7 +44,7 @@ namespace OneGate.Backend.Gateway.Controllers
 
             return payload.Order;
         }
-        
+
         [HttpGet]
         [ProducesResponseType(typeof(OrderBaseDto), Status200OK)]
         [SwaggerOperation("Order details")]
@@ -56,10 +56,10 @@ namespace OneGate.Backend.Gateway.Controllers
                 Id = id,
                 AccountId = User.GetAccountId()
             });
-            
+
             return payload.Order;
         }
-        
+
         [HttpGet]
         [ProducesResponseType(typeof(List<OrderBaseDto>), Status200OK)]
         [SwaggerOperation("Search orders")]
@@ -73,7 +73,7 @@ namespace OneGate.Backend.Gateway.Controllers
 
             return payload.Orders;
         }
-        
+
         [HttpDelete]
         [ProducesResponseType(typeof(OrderBaseDto), Status200OK)]
         [SwaggerOperation("Delete order")]

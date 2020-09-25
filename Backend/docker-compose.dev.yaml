@@ -31,8 +31,8 @@ services:
   asset:
     env_file:
       - dev.env
-  # Ohlc service
-  ohlc:
+  # Timeseries service
+  timeseries:
     env_file:
       - dev.env
 volumes:
