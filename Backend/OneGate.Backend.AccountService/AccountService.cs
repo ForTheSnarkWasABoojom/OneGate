@@ -175,6 +175,26 @@ namespace OneGate.Backend.AccountService
                     Side = marketOrderDto.Side.ToString(),
                     Quantity = marketOrderDto.Quantity
                 })).Entity,
+                CreateStopOrderDto stopOrderDto => (await db.StopOrders.AddAsync(new StopOrder
+                {
+                    AccountId = request.AccountId,
+                    State = OrderStateDto.WAITING.ToString(),
+                    Type = stopOrderDto.Type.ToString(),
+                    AssetId = stopOrderDto.AssetId,
+                    Side = stopOrderDto.Side.ToString(),
+                    Quantity = stopOrderDto.Quantity,
+                    Price = stopOrderDto.Price
+                })).Entity,
+                CreateLimitOrderDto limitOrderDto => (await db.LimitOrders.AddAsync(new LimitOrder
+                {
+                    AccountId = request.AccountId,
+                    State = OrderStateDto.WAITING.ToString(),
+                    Type = limitOrderDto.Type.ToString(),
+                    AssetId = limitOrderDto.AssetId,
+                    Side = limitOrderDto.Side.ToString(),
+                    Quantity = limitOrderDto.Quantity,
+                    Price = limitOrderDto.Price
+                })).Entity,
                 _ => throw new ApiException("Unknown order type", Status400BadRequest)
             };
 
@@ -244,7 +264,7 @@ namespace OneGate.Backend.AccountService
             _logger.LogInformation("Account service started");
         }
 
-        public async Task StopAsync(CancellationToken cancellationToken)
+        public async Task StopAsync(CancellationToken cancellationToken) 
         {
             _logger.LogInformation("Account service stopped");
         }
@@ -264,23 +284,50 @@ namespace OneGate.Backend.AccountService
         {
             return order switch
             {
-                MarketOrder market => ConvertMarketToDto(market),
+                MarketOrder market => ConvertMarketOrderToDto(market),
+                StopOrder stop => ConvertStopOrderToDto(stop),
+                LimitOrder limit => ConvertLimitOrderToDto(limit),
                 _ => null
             };
         }
 
-        private MarketOrderDto ConvertMarketToDto(MarketOrder market)
+        private MarketOrderDto ConvertMarketOrderToDto(MarketOrder order)
         {
             return new MarketOrderDto()
             {
-                Id = market.Id,
-                AssetId = market.AssetId,
-                State = Enum.Parse<OrderStateDto>(market.State),
-                Side = Enum.Parse<OrderSideDto>(market.Side),
-                Quantity = market.Quantity
+                Id = order.Id,
+                AssetId = order.AssetId,
+                State = Enum.Parse<OrderStateDto>(order.State),
+                Side = Enum.Parse<OrderSideDto>(order.Side),
+                Quantity = order.Quantity
             };
         }
-
+        
+        private StopOrderDto ConvertStopOrderToDto(StopOrder order)
+        {
+            return new StopOrderDto()
+            {
+                Id = order.Id,
+                AssetId = order.AssetId,
+                State = Enum.Parse<OrderStateDto>(order.State),
+                Side = Enum.Parse<OrderSideDto>(order.Side),
+                Quantity = order.Quantity,
+                Price = order.Price
+            };
+        }
+        
+        private LimitOrderDto ConvertLimitOrderToDto(LimitOrder order)
+        {
+            return new LimitOrderDto()
+            {
+                Id = order.Id,
+                AssetId = order.AssetId,
+                State = Enum.Parse<OrderStateDto>(order.State),
+                Side = Enum.Parse<OrderSideDto>(order.Side),
+                Quantity = order.Quantity,
+                Price = order.Price
+            };
+        }
         private string GetHash(string str)
         {
             return Convert.ToBase64String(KeyDerivation.Pbkdf2(

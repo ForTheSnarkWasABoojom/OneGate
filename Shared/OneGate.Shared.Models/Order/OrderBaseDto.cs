@@ -8,8 +8,12 @@ namespace OneGate.Shared.Models.Order
 {
     [JsonConverter(typeof(JsonSubtypes), nameof(Type))]
     [JsonSubtypes.KnownSubType(typeof(MarketOrderDto), OrderTypeDto.MARKET)]
+    [JsonSubtypes.KnownSubType(typeof(LimitOrderDto), OrderTypeDto.LIMIT)]
+    [JsonSubtypes.KnownSubType(typeof(StopOrderDto), OrderTypeDto.STOP)]
     [SwaggerDiscriminator("type")]
     [SwaggerSubType(typeof(MarketOrderDto), DiscriminatorValue = nameof(OrderTypeDto.MARKET))]
+    [SwaggerSubType(typeof(LimitOrderDto), DiscriminatorValue = nameof(OrderTypeDto.LIMIT))]
+    [SwaggerSubType(typeof(StopOrderDto), DiscriminatorValue = nameof(OrderTypeDto.STOP))]
     public abstract class OrderBaseDto
     {
         [JsonProperty("id")] 

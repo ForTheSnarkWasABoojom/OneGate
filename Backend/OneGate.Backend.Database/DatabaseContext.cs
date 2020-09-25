@@ -40,5 +40,7 @@ namespace OneGate.Backend.Database
 
         public DbSet<OrderBase> Orders { get; set; }
         public DbSet<MarketOrder> MarketOrders { get; set; }
+        public DbSet<StopOrder> StopOrders { get; set; }
+        public DbSet<LimitOrder> LimitOrders { get; set; }
     }
 }

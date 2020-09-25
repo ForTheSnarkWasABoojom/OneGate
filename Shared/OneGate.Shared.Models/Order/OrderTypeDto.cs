@@ -2,6 +2,8 @@
 {
     public enum OrderTypeDto
     {
-        MARKET
+        MARKET,
+        LIMIT,
+        STOP
     }
 }

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OneGate.Backend.Database.Models
 {
-    public class LimitOrder:OrderBase
+    public class StopOrder:OrderBase
     {
         [Required]
         [Column("price")]
