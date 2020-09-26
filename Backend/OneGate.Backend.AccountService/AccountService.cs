@@ -138,15 +138,15 @@ namespace OneGate.Backend.AccountService
 
             if (!string.IsNullOrWhiteSpace(request.Filter.FirstName))
                 accountsQuery = accountsQuery.Where(x =>
-                    x.FirstName.Contains(request.Filter.FirstName, StringComparison.OrdinalIgnoreCase));
+                    x.FirstName.ToLower().Contains(request.Filter.FirstName.ToLower()));
 
             if (!string.IsNullOrWhiteSpace(request.Filter.LastName))
                 accountsQuery = accountsQuery.Where(x =>
-                    x.LastName.Contains(request.Filter.LastName, StringComparison.OrdinalIgnoreCase));
+                    x.LastName.ToLower().Contains(request.Filter.LastName.ToLower()));
 
             if (!string.IsNullOrWhiteSpace(request.Filter.Email))
                 accountsQuery = accountsQuery.Where(x =>
-                    x.Email.Contains(request.Filter.Email, StringComparison.OrdinalIgnoreCase));
+                    x.Email.ToLower().Contains(request.Filter.Email.ToLower()));
 
             if (request.Filter.IsAdmin != null)
                 accountsQuery = accountsQuery.Where(x => x.IsAdmin == request.Filter.IsAdmin);

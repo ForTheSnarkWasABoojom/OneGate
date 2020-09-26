@@ -133,7 +133,7 @@ namespace OneGate.Backend.AssetService
                 assetsQuery = assetsQuery.Where(x => x.Type == request.Filter.Type.ToString());
 
             if (!string.IsNullOrWhiteSpace(request.Filter.Ticker))
-                assetsQuery = assetsQuery.Where(x => x.Ticker.Contains(request.Filter.Ticker, StringComparison.OrdinalIgnoreCase));
+                assetsQuery = assetsQuery.Where(x => x.Ticker.ToLower().Contains(request.Filter.Ticker.ToLower()));
 
             if (request.Filter.ExchangeId != null)
                 assetsQuery = assetsQuery.Where(x => x.ExchangeId == request.Filter.ExchangeId);
@@ -199,7 +199,7 @@ namespace OneGate.Backend.AssetService
             var exchangesQuery = db.Exchanges.AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(request.Filter.Title))
-                exchangesQuery = exchangesQuery.Where(x => x.Title.Contains(request.Filter.Title, StringComparison.OrdinalIgnoreCase));
+                exchangesQuery = exchangesQuery.Where(x => x.Title.ToLower().Contains(request.Filter.Title.ToLower()));
 
             var exchanges = await exchangesQuery.Skip(request.Filter.Shift).Take(request.Filter.Count).ToListAsync();
             return new GetExchangesByFilterResponse
