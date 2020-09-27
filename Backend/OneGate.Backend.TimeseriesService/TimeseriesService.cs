@@ -147,8 +147,10 @@ namespace OneGate.Backend.TimeseriesService
 
             if (request.Filter.EndTimestamp != null)
                 query = query.Where(x => x.Timestamp <= request.Filter.EndTimestamp);
-
-            db.OhlcTimeseries.RemoveRange(query);
+            
+            var queryTimeseries = await query.Skip(request.Filter.Shift).Take(request.Filter.Count).ToListAsync();
+            
+            db.OhlcTimeseries.RemoveRange(queryTimeseries);
             await db.SaveChangesAsync();
 
             return new DeleteOhlcTimeseriesResponse();
@@ -243,8 +245,10 @@ namespace OneGate.Backend.TimeseriesService
 
             if (request.Filter.EndTimestamp != null)
                 query = query.Where(x => x.Timestamp <= request.Filter.EndTimestamp);
-
-            db.ValueTimeseries.RemoveRange(query);
+            
+            var queryTimeseries = await query.Skip(request.Filter.Shift).Take(request.Filter.Count).ToListAsync();
+          
+            db.ValueTimeseries.RemoveRange(queryTimeseries);
             await db.SaveChangesAsync();
 
             return new DeleteValueTimeseriesResponse();

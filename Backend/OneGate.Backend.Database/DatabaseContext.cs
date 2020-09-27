@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using Microsoft.EntityFrameworkCore;
 using OneGate.Backend.Database.Models;
 
@@ -24,7 +24,9 @@ namespace OneGate.Backend.Database
 
             modelBuilder.Entity<OrderBase>()
                 .HasDiscriminator(x => x.Type)
-                .HasValue<MarketOrder>("MARKET");
+                .HasValue<MarketOrder>("MARKET")
+                .HasValue<LimitOrder>("LIMIT")
+                .HasValue<StopOrder>("STOP");
         }
 
         public DbSet<Account> Accounts { get; set; }

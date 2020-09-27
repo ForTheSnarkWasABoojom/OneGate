@@ -252,7 +252,6 @@ namespace OneGate.Backend.AccountService
 
             if (order == null)
                 throw new ApiException("Order with specified id does not exist", Status404NotFound);
-
             db.Orders.Remove(order);
             await db.SaveChangesAsync();
 
