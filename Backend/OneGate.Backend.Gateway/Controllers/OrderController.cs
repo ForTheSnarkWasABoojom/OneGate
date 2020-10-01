@@ -34,7 +34,7 @@ namespace OneGate.Backend.Gateway.Controllers
         [HttpPost]
         [ProducesResponseType(typeof(OrderBaseDto), Status200OK)]
         [SwaggerOperation("Create order")]
-        public async Task<OrderBaseDto> CreateAssetAsync([FromBody] CreateOrderBaseDto request)
+        public async Task<CreatedResourceDto> CreateAssetAsync([FromBody] CreateOrderBaseDto request)
         {
             var payload = await _accountService.CreateOrderAsync(new CreateOrderRequest
             {
@@ -42,7 +42,7 @@ namespace OneGate.Backend.Gateway.Controllers
                 AccountId = User.GetAccountId()
             });
 
-            return payload.Order;
+            return payload.CreatedResource;
         }
 
         [HttpGet]

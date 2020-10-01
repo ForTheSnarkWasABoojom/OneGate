@@ -22,7 +22,7 @@ namespace OneGate.Backend.Database.Models
 
         [Column("email")]
         [Required]
-        [MaxLength(30)]
+        [MaxLength(100)]
         public string Email { get; set; }
         
         [Column("password")]

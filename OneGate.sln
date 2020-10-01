@@ -29,6 +29,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.AssetServic
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.TimeseriesService", "Backend\OneGate.Backend.TimeseriesService\OneGate.Backend.TimeseriesService.csproj", "{A9F9D286-42CA-4CC6-ABD8-5BC28704EE5F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Frontend", "Frontend", "{1EFEA8B9-F89B-4B24-B442-790EBBE08C88}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Frontend.ClientLibrary", "Frontend\OneGate.Frontend.ClientLibrary\OneGate.Frontend.ClientLibrary.csproj", "{5A92552A-5613-48E5-9F33-26E21185CDC1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Frontend.ClientLibrary.Tests", "Frontend\OneGate.Frontend.ClientLibrary.Tests\OneGate.Frontend.ClientLibrary.Tests.csproj", "{6628EAAD-3816-4809-8009-BCDD86FC9A1C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,6 +48,8 @@ Global
 		{B7894973-C750-433F-954F-A182F92BF503} = {BD7695F3-22E2-4531-B518-8A8A7B1DF6CF}
 		{D2BA8EBD-D49E-4935-958A-B0C099E2B179} = {FFA0ED56-F947-48AF-ABCA-069867C688C7}
 		{A9F9D286-42CA-4CC6-ABD8-5BC28704EE5F} = {FFA0ED56-F947-48AF-ABCA-069867C688C7}
+		{5A92552A-5613-48E5-9F33-26E21185CDC1} = {1EFEA8B9-F89B-4B24-B442-790EBBE08C88}
+		{6628EAAD-3816-4809-8009-BCDD86FC9A1C} = {1EFEA8B9-F89B-4B24-B442-790EBBE08C88}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{C5E1268E-DBBD-43CF-A4DE-F65DF1E40E02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -72,5 +80,13 @@ Global
 		{A9F9D286-42CA-4CC6-ABD8-5BC28704EE5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A9F9D286-42CA-4CC6-ABD8-5BC28704EE5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A9F9D286-42CA-4CC6-ABD8-5BC28704EE5F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A92552A-5613-48E5-9F33-26E21185CDC1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A92552A-5613-48E5-9F33-26E21185CDC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A92552A-5613-48E5-9F33-26E21185CDC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A92552A-5613-48E5-9F33-26E21185CDC1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6628EAAD-3816-4809-8009-BCDD86FC9A1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6628EAAD-3816-4809-8009-BCDD86FC9A1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6628EAAD-3816-4809-8009-BCDD86FC9A1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6628EAAD-3816-4809-8009-BCDD86FC9A1C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

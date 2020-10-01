@@ -1,18 +1,19 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace OneGate.Shared.Models.Account
 {
     public class OAuthDto
     {
         [Required]
-        [MaxLength(30)]
-        [FromForm(Name = "username")]
+        [MaxLength(100)]
+        [JsonProperty("username")]
         public string Username { get; set; }
         
         [Required]
-        [MaxLength(30)]
-        [FromForm(Name = "password")]
+        [MaxLength(100)]
+        [JsonProperty("password")]
         public string Password { get; set; }
     }
 }

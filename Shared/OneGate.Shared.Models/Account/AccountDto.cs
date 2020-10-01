@@ -8,7 +8,7 @@ namespace OneGate.Shared.Models.Account
         [JsonProperty("id")]
         public int Id { get; set; }
         
-        [MaxLength(30)]
+        [MaxLength(100)]
         [JsonProperty("email")]
         public string Email { get; set; }
         

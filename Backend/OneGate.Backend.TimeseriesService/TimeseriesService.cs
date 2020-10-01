@@ -17,6 +17,7 @@ using OneGate.Backend.Rpc.Contracts.Timeseries.DeleteValueTimeseries;
 using OneGate.Backend.Rpc.Contracts.Timeseries.GetOhlcTimeseriesByFilter;
 using OneGate.Backend.Rpc.Contracts.Timeseries.GetValueTimeseriesByFilter;
 using OneGate.Backend.Rpc.Services;
+using OneGate.Shared.Models.Common;
 using OneGate.Shared.Models.Timeseries;
 using static Microsoft.AspNetCore.Http.StatusCodes;
 
@@ -90,20 +91,7 @@ namespace OneGate.Backend.TimeseriesService
 
             return new CreateOhlcTimeseriesResponse
             {
-                OhlcRange = new OhlcTimeseriesRangeDto
-                {
-                    Interval = request.OhlcRange.Interval,
-                    AssetId = request.OhlcRange.AssetId,
-                    Range = request.OhlcRange.Range.Select(x =>
-                        new OhlcTimeseriesDto
-                        {
-                            Low = x.Low,
-                            High = x.High,
-                            Open = x.Open,
-                            Close = x.Close
-                        }
-                    ).ToList()
-                }
+                CreatedResource = null
             };
         }
 
@@ -189,18 +177,7 @@ namespace OneGate.Backend.TimeseriesService
 
             return new CreateValueTimeseriesResponse
             {
-                ValueTimeseriesRange = new ValueTimeseriesRangeDto
-                {
-                    Name = request.ValueTimeseriesRange.Name,
-                    AssetId = request.ValueTimeseriesRange.AssetId,
-                    Range = request.ValueTimeseriesRange.Range.Select(x =>
-                        new ValueTimeseriesDto
-                        {
-                            Value = x.Value,
-                            Timestamp = x.Timestamp
-                        }
-                    ).ToList()
-                }
+               CreatedResource = null
             };
         }
 

@@ -20,6 +20,7 @@ using OneGate.Backend.Rpc.Contracts.Exchange.GetExchange;
 using OneGate.Backend.Rpc.Contracts.Exchange.GetExchangesByFilter;
 using OneGate.Backend.Rpc.Services;
 using OneGate.Shared.Models.Asset;
+using OneGate.Shared.Models.Common;
 using OneGate.Shared.Models.Exchange;
 using static Microsoft.AspNetCore.Http.StatusCodes;
 
@@ -92,7 +93,10 @@ namespace OneGate.Backend.AssetService
             await db.SaveChangesAsync();
             return new CreateAssetResponse()
             {
-                Asset = ConvertAssetToDto(asset)
+                CreatedResource = new CreatedResourceDto
+                {
+                    Id = asset.Id
+                }
             };
         }
 
@@ -159,9 +163,12 @@ namespace OneGate.Backend.AssetService
             });
             await db.SaveChangesAsync();
 
-            return new CreateExchangeResponse()
+            return new CreateExchangeResponse
             {
-                Exchange = ConvertExchangeToDto(exchange.Entity)
+                CreatedResource = new CreatedResourceDto
+                {
+                    Id=exchange.Entity.Id
+                }
             };
         }
 

@@ -7,12 +7,12 @@ namespace OneGate.Shared.Models.Account
     {
         [Required]
         [EmailAddress]
-        [MaxLength(30)]
+        [MaxLength(100)]
         [JsonProperty("email")]
         public string Email { get; set; }
         
         [Required]
-        [MaxLength(30)]
+        [MaxLength(100)]
         [JsonProperty("password")]
         public string Password { get; set; }
         

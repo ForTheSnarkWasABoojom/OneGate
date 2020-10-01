@@ -24,6 +24,7 @@ using OneGate.Backend.Rpc.Contracts.Order.GetOrdersByFilter;
 using OneGate.Backend.Rpc.Services;
 using OneGate.Shared.Models.Account;
 using OneGate.Shared.Models.Asset;
+using OneGate.Shared.Models.Common;
 using OneGate.Shared.Models.Order;
 using static Microsoft.AspNetCore.Http.StatusCodes;
 using Index = Microsoft.EntityFrameworkCore.Metadata.Internal.Index;
@@ -98,7 +99,10 @@ namespace OneGate.Backend.AccountService
 
             return new CreateAccountResponse()
             {
-                Account = ConvertAccountToDto(account.Entity),
+                CreatedResource = new CreatedResourceDto
+                {
+                    Id = account.Entity.Id
+                }
             };
         }
 
@@ -199,9 +203,12 @@ namespace OneGate.Backend.AccountService
             };
 
             await db.SaveChangesAsync();
-            return new CreateOrderResponse()
+            return new CreateOrderResponse
             {
-                Order = ConvertOrderToDto(order)
+                CreatedResource = new CreatedResourceDto
+                {
+                    Id=order.Id
+                }
             };
         }
 

@@ -48,10 +48,10 @@ namespace OneGate.Backend.Gateway.Controllers
         [ProducesResponseType(typeof(AccessTokenDto), Status200OK)]
         [SwaggerOperation("Bearer authorization")]
         [Route("auth")]
-        public async Task<AccessTokenDto> CreateTokenAsync([FromForm] OAuthDto request,
-            [FromQuery] string clientKey)
+        public async Task<AccessTokenDto> CreateTokenAsync([FromBody] OAuthDto request,
+            [FromQuery] ClientKeyDto clientKey)
         {
-            if (clientKey != AuthPolicy.ClientKey)
+            if (clientKey.ClientKey != AuthPolicy.ClientKey)
                 throw new ApiException("Invalid client key", Status403Forbidden);
 
             var payload = await _accountService.CreateTokenAsync(new CreateTokenRequest
@@ -77,28 +77,28 @@ namespace OneGate.Backend.Gateway.Controllers
         }
 
         [HttpPost, AllowAnonymous]
-        [ProducesResponseType(typeof(AccountDto), Status200OK)]
+        [ProducesResponseType(typeof(CreatedResourceDto), Status200OK)]
         [SwaggerOperation("Register new account")]
-        public async Task<AccountDto> CreateAccountAsync([FromBody] CreateAccountDto request,
-            [FromQuery] string clientKey)
+        public async Task<CreatedResourceDto> CreateAccountAsync([FromBody] CreateAccountDto request,
+            [FromQuery] ClientKeyDto clientKey)
         {
-            if (clientKey != AuthPolicy.ClientKey)
+            if (clientKey.ClientKey != AuthPolicy.ClientKey)
                 throw new ApiException("Invalid client key", Status403Forbidden);
 
             var payload = await _accountService.CreateAccountAsync(new CreateAccountRequest
             {
                 Account = request,
-                ClientKey = clientKey
+                ClientKey = clientKey.ClientKey
             });
 
-            return payload.Account;
+            return payload.CreatedResource;
         }
 
         [HttpGet]
         [ProducesResponseType(typeof(AccountDto), Status200OK)]
         [SwaggerOperation("Current account details")]
         [Route("me")]
-        public async Task<AccountDto> GetAccountAsync()
+        public async Task<AccountDto> GetMyAccountAsync()
         {
             var payload = await _accountService.GetAccountAsync(new GetAccountRequest
             {
