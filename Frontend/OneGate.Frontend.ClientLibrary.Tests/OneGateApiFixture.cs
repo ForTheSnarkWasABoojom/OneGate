@@ -8,12 +8,11 @@ namespace OneGate.Frontend.ClientLibrary.Tests
     public class OneGateApiFixture : IDisposable
     {
         public OneGateApi AdminApi { get; }
-        
         public OneGateApi UserApi { get; }
-        private int UserId { get; }
-        
+        private int? UserId { get; }
         public Uri EndpointUri { get; } = new Uri("http://localhost/api/v1/");
-        
+
+        private readonly Random _generator = new Random();
         
         public OneGateApiFixture()
         {
@@ -54,9 +53,16 @@ namespace OneGate.Frontend.ClientLibrary.Tests
             UserApi = new OneGateApi(EndpointUri, userAccessTokenDto.AccessToken);
         }
         
+        public DateTime GetRandomDay()
+        {
+            DateTime start = new DateTime(1995, 1, 1);
+            int range = (DateTime.Today - start).Days;           
+            return start.AddDays(_generator.Next(range));
+        }
+        
         public void Dispose()
         {
-            AdminApi.DeleteAccountAsync(UserId);
+            AdminApi.DeleteAccountAsync(UserId.Value);
         }
     }
 }

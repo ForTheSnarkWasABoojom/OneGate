@@ -152,44 +152,34 @@ namespace OneGate.Frontend.ClientLibrary
 
         #region Timeseries controller
 
-        public async Task<CreatedResourceDto> CreateOhlcTimeseriesAsync(CreateOhlcTimeseriesDto model)
+        public async Task CreateOhlcTimeseriesAsync(CreateOhlcTimeseriesRangeDto model)
         {
-            return await PostAsync<CreateOhlcTimeseriesDto, CreatedResourceDto>("ohlc", model);
+            await PostAsync<CreateOhlcTimeseriesRangeDto, CreatedResourceDto>("timeseries/ohlc", model);
         }
 
-        public async Task<OhlcTimeseriesDto> GetOhlcTimeseriesAsync(int id)
+        public async Task<OhlcTimeseriesRangeDto> GetOhlcTimeseriesByFilterAsync(OhlcTimeseriesFilterDto model)
         {
-            return await GetAsync<OhlcTimeseriesDto>($"ohlc/{id}");
+            return await GetAsync<OhlcTimeseriesRangeDto>("timeseries/ohlc", model);
         }
 
-        public async Task<List<OhlcTimeseriesDto>> GetOhlcTimeseriesByFilterAsync(OhlcTimeseriesFilterDto model)
+        public async Task DeleteOhlcTimeseriesAsync(OhlcTimeseriesFilterDto model)
         {
-            return await GetAsync<List<OhlcTimeseriesDto>>("ohlc", model);
+            await DeleteAsync("timeseries/ohlc", model);
         }
 
-        public async Task DeleteOhlcTimeseriesAsync(int id)
+        public async Task CreateValueTimeseriesAsync(CreateValueTimeseriesRangeDto model)
         {
-            await DeleteAsync($"ohlc/{id}");
+            await PostAsync<CreateValueTimeseriesRangeDto, CreatedResourceDto>("timeseries/value", model);
         }
 
-        public async Task<CreatedResourceDto> CreateValueTimeseriesAsync(CreateValueTimeseriesDto model)
+        public async Task<ValueTimeseriesRangeDto> GetValueTimeseriesByFilterAsync(ValueTimeseriesFilterDto model)
         {
-            return await PostAsync<CreateValueTimeseriesDto, CreatedResourceDto>("value", model);
+            return await GetAsync<ValueTimeseriesRangeDto>("timeseries/value", model);
         }
 
-        public async Task<ValueTimeseriesDto> GetValueTimeseriesAsync(int id)
+        public async Task DeleteValueTimeseriesAsync(ValueTimeseriesFilterDto model)
         {
-            return await GetAsync<ValueTimeseriesDto>($"value/{id}");
-        }
-
-        public async Task<List<ValueTimeseriesDto>> GetValueTimeseriesByFilterAsync(ValueTimeseriesFilterDto model)
-        {
-            return await GetAsync<List<ValueTimeseriesDto>>("value", model);
-        }
-
-        public async Task DeleteValueTimeseriesAsync(int id)
-        {
-            await DeleteAsync($"value/{id}");
+            await DeleteAsync("timeseries/value", model);
         }
 
         #endregion

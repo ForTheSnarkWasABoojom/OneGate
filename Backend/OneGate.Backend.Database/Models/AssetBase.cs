@@ -16,7 +16,7 @@ namespace OneGate.Backend.Database.Models
         [Required]
         public int ExchangeId { get; set; }
         
-        [MaxLength(30)]
+        [MaxLength(50)]
         [Column("ticker")]
         public string Ticker { get; set; }
         

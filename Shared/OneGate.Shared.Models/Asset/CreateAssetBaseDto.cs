@@ -23,7 +23,7 @@ namespace OneGate.Shared.Models.Asset
         public int ExchangeId { get; set; }
 
         [Required]
-        [MaxLength(30)]
+        [MaxLength(50)]
         [JsonProperty("ticker")]
         public string Ticker { get; set; }
 

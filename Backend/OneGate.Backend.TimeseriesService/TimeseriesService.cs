@@ -91,7 +91,10 @@ namespace OneGate.Backend.TimeseriesService
 
             return new CreateOhlcTimeseriesResponse
             {
-                CreatedResource = null
+                CreatedResource = new CreatedResourceDto
+                {
+                    Id = -1
+                }
             };
         }
 
@@ -177,7 +180,10 @@ namespace OneGate.Backend.TimeseriesService
 
             return new CreateValueTimeseriesResponse
             {
-               CreatedResource = null
+               CreatedResource = new CreatedResourceDto
+               {
+                   Id = -1
+               }
             };
         }
 
