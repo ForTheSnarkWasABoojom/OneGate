@@ -4,7 +4,7 @@ using Microsoft.Extensions.Hosting;
 using OneGate.Backend.Database;
 using OneGate.Backend.Rpc;
 
-namespace OneGate.Backend.TimeseriesService
+namespace OneGate.Backend.Services.TimeseriesService
 {
     public class Program
     {
@@ -17,7 +17,7 @@ namespace OneGate.Backend.TimeseriesService
             Host.CreateDefaultBuilder(args)
                 .ConfigureServices((hostContext, services) =>
                 {
-                    services.AddHostedService<TimeseriesService>();
+                    services.AddHostedService<ExecutorService>();
 
                     services.AddSingleton<IBus>(provider => BusFactory.GetInstance());
 

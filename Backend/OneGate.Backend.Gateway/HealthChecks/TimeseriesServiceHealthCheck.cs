@@ -8,14 +8,14 @@ using OneGate.Backend.Rpc.Services;
 
 namespace OneGate.Backend.Gateway.HealthChecks
 {
-    public class OhlcServiceHealthCheck : IHealthCheck
+    public class TimeseriesServiceHealthCheck : IHealthCheck
     {
-        private readonly ITimeseriesService _ohlcService;
-        private readonly ILogger<OhlcServiceHealthCheck> _logger;
+        private readonly ITimeseriesService _timeseriesService;
+        private readonly ILogger<TimeseriesServiceHealthCheck> _logger;
 
-        public OhlcServiceHealthCheck(ITimeseriesService ohlcService, ILogger<OhlcServiceHealthCheck> logger)
+        public TimeseriesServiceHealthCheck(ITimeseriesService timeseriesService, ILogger<TimeseriesServiceHealthCheck> logger)
         {
-            _ohlcService = ohlcService;
+            _timeseriesService = timeseriesService;
             _logger = logger;
         }
 
@@ -24,7 +24,7 @@ namespace OneGate.Backend.Gateway.HealthChecks
         {
             try
             {
-                var payload = await _ohlcService.HealthCheckAsync(new HealthCheckRequest());
+                var payload = await _timeseriesService.HealthCheckAsync(new HealthCheckRequest());
                 return HealthCheckResult.Healthy($"Ping [{payload.Timestamp}]");
             }
             catch (Exception)

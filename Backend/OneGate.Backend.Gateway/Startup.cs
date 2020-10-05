@@ -16,6 +16,7 @@ using OneGate.Backend.Database.Models;
 using OneGate.Backend.Gateway.EventHubs;
 using OneGate.Backend.Gateway.Extensions;
 using OneGate.Backend.Gateway.HealthChecks;
+using OneGate.Backend.Gateway.HealthChecks.Engine;
 using OneGate.Backend.Gateway.Middleware;
 using OneGate.Backend.Rpc;
 using OneGate.Backend.Rpc.Services;
@@ -119,7 +120,9 @@ namespace OneGate.Backend.Gateway
             services.AddHealthChecks()
                 .AddCheck<AccountServiceHealthCheck>("account_service")
                 .AddCheck<AssetServiceHealthCheck>("asset_service")
-                .AddCheck<OhlcServiceHealthCheck>("ohlc_service")
+                .AddCheck<TimeseriesServiceHealthCheck>("timeseries_service")
+                .AddCheck<FakeEngineHealthCheck>("fake_engine")
+                .AddCheck<FakeStaticEngineHealthCheck>("fake_static_engine")
                 .ForwardToPrometheus();
 
             // Migration.
@@ -132,6 +135,7 @@ namespace OneGate.Backend.Gateway
             services.AddTransient<IAccountService, AccountService>();
             services.AddTransient<IAssetService, AssetService>();
             services.AddTransient<ITimeseriesService, OhlcService>();
+            services.AddTransient<IEngineService, EngineService>();
             
             // Event hub.
             services.AddSignalR();

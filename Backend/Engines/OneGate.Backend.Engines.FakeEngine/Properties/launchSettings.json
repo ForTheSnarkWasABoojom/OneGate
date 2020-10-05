@@ -1,6 +1,6 @@
 ﻿{
   "profiles": {
-    "OneGate.Backend.AssetService": {
+    "OneGate.Backend.Engines.FakeEngine": {
       "commandName": "Project",
       "environmentVariables": {
         "DOTNET_ENVIRONMENT": "Development"

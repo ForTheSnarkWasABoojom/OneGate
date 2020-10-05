@@ -10,7 +10,6 @@ services:
     depends_on:
       - gateway
     networks:
-      - metrics
       - http_api
   # RabbitMQ
   rabbitmq:
@@ -42,37 +41,65 @@ services:
       - http_api
       - services
   # Account service
-  account:
+  account_service:
     build:
       context: ../
       dockerfile: Backend/Dockerfile
       args:
-        PROJECT_NAME: OneGate.Backend.AccountService
-    container_name: onegate_account
+        PROJECT_PATH: Services
+        PROJECT_NAME: OneGate.Backend.Services.AccountService
+    container_name: onegate_account_service
     depends_on:
       - rabbitmq
     networks:
       - services
   # Asset service
-  asset:
+  asset_service:
     build:
       context: ../
       dockerfile: Backend/Dockerfile
       args:
-        PROJECT_NAME: OneGate.Backend.AssetService
-    container_name: onegate_asset
+        PROJECT_PATH: Services
+        PROJECT_NAME: OneGate.Backend.Services.AssetService
+    container_name: onegate_asset_service
     depends_on:
       - rabbitmq
     networks:
       - services
   # Timeseries service
-  timeseries:
+  timeseries_service:
     build:
       context: ../
       dockerfile: Backend/Dockerfile
       args:
-        PROJECT_NAME: OneGate.Backend.TimeseriesService
-    container_name: onegate_timeseries
+        PROJECT_PATH: Services
+        PROJECT_NAME: OneGate.Backend.Services.TimeseriesService
+    container_name: onegate_timeseries_service
+    depends_on:
+      - rabbitmq
+    networks:
+      - services
+  # Fake engine service
+  fake_engine:
+    build:
+      context: ../
+      dockerfile: Backend/Dockerfile
+      args:
+        PROJECT_PATH: Engines
+        PROJECT_NAME: OneGate.Backend.Engines.FakeEngine
+    container_name: onegate_fake_engine
+    depends_on:
+      - rabbitmq
+    networks:
+      - services
+  fake_static_engine:
+    build:
+      context: ../
+      dockerfile: Backend/Dockerfile
+      args:
+        PROJECT_PATH: Engines
+        PROJECT_NAME: OneGate.Backend.Engines.FakeStaticEngine
+    container_name: onegate_fake_static_engine
     depends_on:
       - rabbitmq
     networks:
@@ -80,5 +107,4 @@ services:
 networks:
   http_api:
   services:
-  metrics:
       

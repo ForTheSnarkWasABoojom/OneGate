@@ -21,14 +21,14 @@ using OneGate.Shared.Models.Common;
 using OneGate.Shared.Models.Timeseries;
 using static Microsoft.AspNetCore.Http.StatusCodes;
 
-namespace OneGate.Backend.TimeseriesService
+namespace OneGate.Backend.Services.TimeseriesService
 {
-    public class TimeseriesService : IHostedService, ITimeseriesService
+    public class ExecutorService : IHostedService, ITimeseriesService
     {
-        private readonly ILogger<TimeseriesService> _logger;
+        private readonly ILogger<ExecutorService> _logger;
         private readonly IBus _bus;
 
-        public TimeseriesService(ILogger<TimeseriesService> logger, IBus bus)
+        public ExecutorService(ILogger<ExecutorService> logger, IBus bus)
         {
             _logger = logger;
             _bus = bus;

@@ -20,15 +20,22 @@ services:
     env_file:
       - qa.env
   # Account service
-  account:
+  account_service:
     env_file:
       - qa.env
   # Asset service
-  asset:
+  asset_service:
     env_file:
       - qa.env
   # Timeseries service
-  timeseries:
+  timeseries_service:
+    env_file:
+      - qa.env
+  # Fake engine service
+  fake_engine:
+    env_file:
+      - qa.env
+  fake_static_engine:
     env_file:
       - qa.env
   # Prometheus
@@ -47,7 +54,6 @@ services:
     env_file:
       - qa.env
     networks:
-      - metrics
       - http_api
   # Grafana
   grafana:
@@ -62,7 +68,18 @@ services:
     env_file:
       - qa.env
     networks:
-      - metrics
+      - http_api
+  # Loki
+  loki:
+    image: grafana/loki:latest
+    container_name: onegate_loki
+    expose:
+      - 3100
+    command: -config.file=/etc/loki/local-config.yaml
+    env_file:
+      - qa.env
+    networks:
+      - http_api
 volumes:
   postgres_qa:
   prometheus_qa:

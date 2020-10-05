@@ -24,14 +24,14 @@ using OneGate.Shared.Models.Common;
 using OneGate.Shared.Models.Exchange;
 using static Microsoft.AspNetCore.Http.StatusCodes;
 
-namespace OneGate.Backend.AssetService
+namespace OneGate.Backend.Services.AssetService
 {
-    public class AssetService : IHostedService, IAssetService
+    public class ExecutorService : IHostedService, IAssetService
     {
-        private readonly ILogger<AssetService> _logger;
+        private readonly ILogger<ExecutorService> _logger;
         private readonly IBus _bus;
 
-        public AssetService(ILogger<AssetService> logger, IBus bus)
+        public ExecutorService(ILogger<ExecutorService> logger, IBus bus)
         {
             _logger = logger;
             _bus = bus;

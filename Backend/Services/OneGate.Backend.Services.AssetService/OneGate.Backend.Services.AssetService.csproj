@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <TargetFramework>netcoreapp3.1</TargetFramework>
-        <UserSecretsId>dotnet-OneGate.Backend.AssetService-D5CB1311-C589-415C-9DBA-3BFCC37C8AE8</UserSecretsId>
+        <UserSecretsId>dotnet-OneGate.Backend.Services.AssetService-B4649CA0-076F-455E-A450-D6653D40C757</UserSecretsId>
     </PropertyGroup>
 
     <ItemGroup>
@@ -11,7 +11,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\OneGate.Backend.Database\OneGate.Backend.Database.csproj" />
-      <ProjectReference Include="..\OneGate.Backend.Rpc\OneGate.Backend.Rpc.csproj" />
+      <ProjectReference Include="..\..\OneGate.Backend.Database\OneGate.Backend.Database.csproj" />
+      <ProjectReference Include="..\..\OneGate.Backend.Rpc\OneGate.Backend.Rpc.csproj" />
     </ItemGroup>
 </Project>

@@ -24,15 +24,22 @@ services:
     env_file:
       - dev.env
   # Account service
-  account:
+  account_service:
     env_file:
       - dev.env
   # Asset service
-  asset:
+  asset_service:
     env_file:
       - dev.env
   # Timeseries service
-  timeseries:
+  timeseries_service:
+    env_file:
+      - dev.env
+  # Fake engine service
+  fake_engine:
+    env_file:
+      - dev.env
+  fake_static_engine:
     env_file:
       - dev.env
 volumes:

@@ -1,6 +1,6 @@
 ﻿{
   "profiles": {
-    "OneGate.Backend.TimeseriesService": {
+    "OneGate.Backend.Engines.FakeStaticEngine": {
       "commandName": "Project",
       "environmentVariables": {
         "DOTNET_ENVIRONMENT": "Development"

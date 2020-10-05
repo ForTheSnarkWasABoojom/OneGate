@@ -9,7 +9,7 @@ namespace OneGate.Frontend.ClientLibrary.Tests
     {
         public OneGateApi AdminApi { get; }
         public OneGateApi UserApi { get; }
-        private int? UserId { get; }
+        private int UserId { get; }
         public Uri EndpointUri { get; } = new Uri("http://localhost/api/v1/");
 
         private readonly Random _generator = new Random();
@@ -62,7 +62,7 @@ namespace OneGate.Frontend.ClientLibrary.Tests
         
         public void Dispose()
         {
-            AdminApi.DeleteAccountAsync(UserId.Value);
+            AdminApi.DeleteAccountAsync(UserId);
         }
     }
 }

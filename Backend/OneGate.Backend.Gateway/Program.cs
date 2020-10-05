@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using OneGate.Backend.Gateway.EventListeners;
+using Serilog;
+using Serilog.Sinks.Loki;
 
 namespace OneGate.Backend.Gateway
 {
@@ -9,7 +11,15 @@ namespace OneGate.Backend.Gateway
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Information()
+                .Enrich.FromLogContext()
+                .WriteTo.Console()
+                .WriteTo.LokiHttp(new NoAuthCredentials("http://loki:3100"))
+                .CreateLogger();
+            
+            CreateHostBuilder(args)
+                .UseSerilog().Build().Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>

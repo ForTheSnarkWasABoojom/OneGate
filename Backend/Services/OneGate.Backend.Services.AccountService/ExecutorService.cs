@@ -15,7 +15,6 @@ using OneGate.Backend.Rpc.Contracts.Account.CreateToken;
 using OneGate.Backend.Rpc.Contracts.Account.DeleteAccount;
 using OneGate.Backend.Rpc.Contracts.Account.GetAccount;
 using OneGate.Backend.Rpc.Contracts.Account.GetAccountsByFilter;
-using OneGate.Backend.Rpc.Contracts.Asset.CreateAsset;
 using OneGate.Backend.Rpc.Contracts.Base.HealthCheck;
 using OneGate.Backend.Rpc.Contracts.Order.CreateOrder;
 using OneGate.Backend.Rpc.Contracts.Order.DeleteOrder;
@@ -23,20 +22,18 @@ using OneGate.Backend.Rpc.Contracts.Order.GetOrder;
 using OneGate.Backend.Rpc.Contracts.Order.GetOrdersByFilter;
 using OneGate.Backend.Rpc.Services;
 using OneGate.Shared.Models.Account;
-using OneGate.Shared.Models.Asset;
 using OneGate.Shared.Models.Common;
 using OneGate.Shared.Models.Order;
 using static Microsoft.AspNetCore.Http.StatusCodes;
-using Index = Microsoft.EntityFrameworkCore.Metadata.Internal.Index;
 
-namespace OneGate.Backend.AccountService
+namespace OneGate.Backend.Services.AccountService
 {
-    public class AccountService : IHostedService, IAccountService
+    public class ExecutorService : IHostedService, IAccountService
     {
-        private readonly ILogger<AccountService> _logger;
+        private readonly ILogger<ExecutorService> _logger;
         private readonly IBus _bus;
 
-        public AccountService(ILogger<AccountService> logger, IBus bus)
+        public ExecutorService(ILogger<ExecutorService> logger, IBus bus)
         {
             _logger = logger;
             _bus = bus;

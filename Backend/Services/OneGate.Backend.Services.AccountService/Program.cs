@@ -4,7 +4,7 @@ using Microsoft.Extensions.Hosting;
 using OneGate.Backend.Database;
 using OneGate.Backend.Rpc;
 
-namespace OneGate.Backend.AssetService
+namespace OneGate.Backend.Services.AccountService
 {
     public class Program
     {
@@ -17,7 +17,7 @@ namespace OneGate.Backend.AssetService
             Host.CreateDefaultBuilder(args)
                 .ConfigureServices((hostContext, services) =>
                 {
-                    services.AddHostedService<AssetService>();
+                    services.AddHostedService<Services.AccountService.ExecutorService>();
 
                     services.AddSingleton<IBus>(provider => BusFactory.GetInstance());
 

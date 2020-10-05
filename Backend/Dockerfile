@@ -1,10 +1,11 @@
 ﻿# Builder
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build-env
+ARG PROJECT_PATH
 ARG PROJECT_NAME
 WORKDIR /app
 
 COPY . .
-RUN dotnet publish Backend/${PROJECT_NAME} -c Release -o out
+RUN dotnet publish Backend/${PROJECT_PATH}/${PROJECT_NAME} -c Release -o out
 
 # Runner
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.1
