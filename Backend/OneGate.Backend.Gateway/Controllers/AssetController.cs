@@ -33,16 +33,16 @@ namespace OneGate.Backend.Gateway.Controllers
         }
 
         [HttpPost, Authorize(AuthPolicy.Admin)]
-        [ProducesResponseType(typeof(CreatedResourceDto), Status200OK)]
+        [ProducesResponseType(typeof(ResourceDto), Status200OK)]
         [SwaggerOperation("[ADMIN] Create asset")]
-        public async Task<CreatedResourceDto> CreateAssetAsync([FromBody] CreateAssetBaseDto request)
+        public async Task<ResourceDto> CreateAssetAsync([FromBody] CreateAssetBaseDto request)
         {
             var payload = await _assetService.CreateAssetAsync(new CreateAssetRequest
             {
                 Asset = request
             });
 
-            return payload.CreatedResource;
+            return payload.Resource;
         }
 
         [HttpGet]

@@ -26,5 +26,9 @@ namespace OneGate.Backend.Database.Models
         [MaxLength(150)]
         [Column("website")]
         public string Website { get; set; }
+        
+        [Column("engine_type")]
+        [Required]
+        public string EngineType { get; set; }
     }
 }

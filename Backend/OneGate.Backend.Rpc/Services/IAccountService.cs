@@ -10,6 +10,7 @@ using OneGate.Backend.Rpc.Contracts.Order.CreateOrder;
 using OneGate.Backend.Rpc.Contracts.Order.DeleteOrder;
 using OneGate.Backend.Rpc.Contracts.Order.GetOrder;
 using OneGate.Backend.Rpc.Contracts.Order.GetOrdersByFilter;
+using OneGate.Backend.Rpc.Contracts.Order.UpdateOrder;
 
 namespace OneGate.Backend.Rpc.Services
 {
@@ -25,6 +26,7 @@ namespace OneGate.Backend.Rpc.Services
         public Task<CreateOrderResponse> CreateOrderAsync(CreateOrderRequest request);
         public Task<GetOrderResponse> GetOrderAsync(GetOrderRequest request);
         public Task<GetOrdersByFilterResponse> GetOrdersByFiltersAsync(GetOrdersByFilterRequest request);
+        public Task<UpdateOrderResponse> UpdateOrderAsync(UpdateOrderRequest request);
         public Task<DeleteOrderResponse> DeleteOrderAsync(DeleteOrderRequest request);
     }
 
@@ -80,6 +82,11 @@ namespace OneGate.Backend.Rpc.Services
         public async Task<GetOrdersByFilterResponse> GetOrdersByFiltersAsync(GetOrdersByFilterRequest request)
         {
             return await _bus.CallAsync<GetOrdersByFilterRequest, GetOrdersByFilterResponse>(request);
+        }
+
+        public async Task<UpdateOrderResponse> UpdateOrderAsync(UpdateOrderRequest request)
+        {
+            return await _bus.CallAsync<UpdateOrderRequest, UpdateOrderResponse>(request);
         }
 
         public async Task<DeleteOrderResponse> DeleteOrderAsync(DeleteOrderRequest request)

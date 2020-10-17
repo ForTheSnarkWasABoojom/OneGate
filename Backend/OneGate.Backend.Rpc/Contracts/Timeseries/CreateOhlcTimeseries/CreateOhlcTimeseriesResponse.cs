@@ -6,6 +6,6 @@ namespace OneGate.Backend.Rpc.Contracts.Timeseries.CreateOhlcTimeseries
 {
     public class CreateOhlcTimeseriesResponse : SuccessResponse
     {
-        public CreatedResourceDto CreatedResource { get; set; }
+        public ResourceDto Resource { get; set; }
     }
 }

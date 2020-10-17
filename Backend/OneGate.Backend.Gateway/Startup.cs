@@ -20,6 +20,7 @@ using OneGate.Backend.Gateway.HealthChecks.Engine;
 using OneGate.Backend.Gateway.Middleware;
 using OneGate.Backend.Rpc;
 using OneGate.Backend.Rpc.Services;
+using OneGate.Shared.Models.Exchange;
 using Prometheus;
 
 namespace OneGate.Backend.Gateway
@@ -166,14 +167,26 @@ namespace OneGate.Backend.Gateway
                 IsAdmin = true
             };
             
-            var exchange = new Exchange
+            db.Accounts.Add(account);
+            
+            var fakeExchange = new Exchange
             {
-                Title = "DEFAULT",
-                Description = "Default exchange"
+                Title = "FAKE",
+                Description = "Fake exchange",
+                EngineType = EngineTypeDto.FAKE.ToString()
+            };
+            
+            var fakeIndex = new IndexAsset
+            {
+                Ticker = "OG",
+                Country = "Russia",
+                Exchange = fakeExchange,
+                Description = "Fake index"
             };
 
-            db.Accounts.Add(account);
-            db.Exchanges.Add(exchange);
+            db.Exchanges.Add(fakeExchange);
+            db.Assets.Add(fakeIndex);
+            
             db.SaveChanges();
         }
 

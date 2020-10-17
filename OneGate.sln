@@ -43,6 +43,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Services.Ti
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Engines.FakeStaticEngine", "Backend\Engines\OneGate.Backend.Engines.FakeStaticEngine\OneGate.Backend.Engines.FakeStaticEngine.csproj", "{711697A5-4847-4E0B-B05B-6776113B4F62}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Engines.Base", "Backend\Engines\OneGate.Backend.Engines.Base\OneGate.Backend.Engines.Base.csproj", "{428CDC7A-DF53-400B-BE35-AA652A949541}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -62,6 +64,7 @@ Global
 		{78D806AD-82DE-4E0E-95A2-D3B8433F2ED1} = {6B16A1EC-9656-4BF4-80E5-AA21E44F1A67}
 		{2ED1B479-3E31-4F5E-9DDB-39A16857C462} = {6B16A1EC-9656-4BF4-80E5-AA21E44F1A67}
 		{711697A5-4847-4E0B-B05B-6776113B4F62} = {4788FABF-853E-480C-9C26-46DB896C2E0B}
+		{428CDC7A-DF53-400B-BE35-AA652A949541} = {4788FABF-853E-480C-9C26-46DB896C2E0B}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{C5E1268E-DBBD-43CF-A4DE-F65DF1E40E02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -108,5 +111,9 @@ Global
 		{711697A5-4847-4E0B-B05B-6776113B4F62}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{711697A5-4847-4E0B-B05B-6776113B4F62}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{711697A5-4847-4E0B-B05B-6776113B4F62}.Release|Any CPU.Build.0 = Release|Any CPU
+		{428CDC7A-DF53-400B-BE35-AA652A949541}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{428CDC7A-DF53-400B-BE35-AA652A949541}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{428CDC7A-DF53-400B-BE35-AA652A949541}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{428CDC7A-DF53-400B-BE35-AA652A949541}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

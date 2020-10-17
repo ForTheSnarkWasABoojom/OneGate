@@ -6,6 +6,6 @@ namespace OneGate.Backend.Rpc.Contracts.Exchange.CreateExchange
 {
     public class CreateExchangeResponse : SuccessResponse
     {
-        public CreatedResourceDto CreatedResource { get; set; }
+        public ResourceDto Resource { get; set; }
     }
 }

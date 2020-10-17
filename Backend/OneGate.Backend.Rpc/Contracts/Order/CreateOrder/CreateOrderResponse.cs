@@ -6,6 +6,6 @@ namespace OneGate.Backend.Rpc.Contracts.Order.CreateOrder
 {
     public class CreateOrderResponse : SuccessResponse
     {
-        public CreatedResourceDto CreatedResource { get; set; }
+        public ResourceDto Resource { get; set; }
     }
 }

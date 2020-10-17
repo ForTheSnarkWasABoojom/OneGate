@@ -49,10 +49,10 @@ namespace OneGate.Frontend.ClientLibrary
                 clientKey);
         }
 
-        public static async Task<CreatedResourceDto> CreateAccountAsync(Uri baseEndpoint, CreateAccountDto model,
+        public static async Task<ResourceDto> CreateAccountAsync(Uri baseEndpoint, CreateAccountDto model,
             ClientKeyDto clientKey)
         {
-            return await HttpUtils.PostAsync<CreateAccountDto, CreatedResourceDto>(baseEndpoint, null, "account", model,
+            return await HttpUtils.PostAsync<CreateAccountDto, ResourceDto>(baseEndpoint, null, "account", model,
                 clientKey);
         }
 
@@ -80,9 +80,9 @@ namespace OneGate.Frontend.ClientLibrary
 
         #region Asset controller
 
-        public async Task<CreatedResourceDto> CreateAssetAsync(CreateAssetBaseDto model)
+        public async Task<ResourceDto> CreateAssetAsync(CreateAssetBaseDto model)
         {
-            return await PostAsync<CreateAssetBaseDto, CreatedResourceDto>("asset", model);
+            return await PostAsync<CreateAssetBaseDto, ResourceDto>("asset", model);
         }
 
         public async Task<AssetBaseDto> GetAssetAsync(int id)
@@ -104,9 +104,9 @@ namespace OneGate.Frontend.ClientLibrary
         
         #region Exchange controller
         
-        public async Task<CreatedResourceDto> CreateExchangeAsync(CreateExchangeDto model)
+        public async Task<ResourceDto> CreateExchangeAsync(CreateExchangeDto model)
         {
-            return await PostAsync<CreateExchangeDto, CreatedResourceDto>("exchange", model);
+            return await PostAsync<CreateExchangeDto, ResourceDto>("exchange", model);
         }
         
         public async Task<ExchangeDto> GetExchangeAsync(int id)
@@ -128,9 +128,9 @@ namespace OneGate.Frontend.ClientLibrary
         
         #region Order controller
         
-        public async Task<CreatedResourceDto> CreateOrderAsync(CreateOrderBaseDto model)
+        public async Task<ResourceDto> CreateOrderAsync(CreateOrderBaseDto model)
         {
-            return await PostAsync<CreateOrderBaseDto, CreatedResourceDto>("order", model);
+            return await PostAsync<CreateOrderBaseDto, ResourceDto>("order", model);
         }
 
         public async Task<OrderBaseDto> GetOrderAsync(int id)
@@ -152,9 +152,9 @@ namespace OneGate.Frontend.ClientLibrary
 
         #region Timeseries controller
 
-        public async Task CreateOhlcTimeseriesAsync(CreateOhlcTimeseriesRangeDto model)
+        public async Task CreateOhlcTimeseriesAsync(OhlcTimeseriesRangeDto model)
         {
-            await PostAsync<CreateOhlcTimeseriesRangeDto, CreatedResourceDto>("timeseries/ohlc", model);
+            await PostAsync<OhlcTimeseriesRangeDto, ResourceDto>("timeseries/ohlc", model);
         }
 
         public async Task<OhlcTimeseriesRangeDto> GetOhlcTimeseriesByFilterAsync(OhlcTimeseriesFilterDto model)
@@ -169,7 +169,7 @@ namespace OneGate.Frontend.ClientLibrary
 
         public async Task CreateValueTimeseriesAsync(CreateValueTimeseriesRangeDto model)
         {
-            await PostAsync<CreateValueTimeseriesRangeDto, CreatedResourceDto>("timeseries/value", model);
+            await PostAsync<CreateValueTimeseriesRangeDto, ResourceDto>("timeseries/value", model);
         }
 
         public async Task<ValueTimeseriesRangeDto> GetValueTimeseriesByFilterAsync(ValueTimeseriesFilterDto model)

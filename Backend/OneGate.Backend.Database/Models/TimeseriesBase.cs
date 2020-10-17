@@ -18,6 +18,9 @@ namespace OneGate.Backend.Database.Models
         [Required] 
         [Column("asset_id")]
         public int AssetId { get; set; }
+        
+        [Column("last_update")]
+        public DateTime LastUpdate { get; set; }
 
         [ForeignKey("AssetId")]
         [Required] 

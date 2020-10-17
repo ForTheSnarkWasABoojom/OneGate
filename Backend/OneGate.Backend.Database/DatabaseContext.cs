@@ -1,4 +1,5 @@
-﻿﻿using System;
+﻿using System;
+using EntityFramework.Exceptions.PostgreSQL;
 using Microsoft.EntityFrameworkCore;
 using OneGate.Backend.Database.Models;
 
@@ -8,15 +9,37 @@ namespace OneGate.Backend.Database
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            optionsBuilder.UseExceptionProcessor();
+
             optionsBuilder.UseNpgsql(
                 $"Host=postgres;Port=5432;" +
                 $"Database={Environment.GetEnvironmentVariable("POSTGRES_DB")};" +
                 $"Username={Environment.GetEnvironmentVariable("POSTGRES_USER")};" +
                 $"Password={Environment.GetEnvironmentVariable("POSTGRES_PASSWORD")}");
         }
-        
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Account>()
+                .HasIndex(x => new {x.Email})
+                .IsUnique();
+            
+            modelBuilder.Entity<AssetBase>()
+                .HasIndex(x => new {x.Type, x.ExchangeId, x.Ticker})
+                .IsUnique();
+            
+            modelBuilder.Entity<Exchange>()
+                .HasIndex(x => new {x.Title})
+                .IsUnique();
+
+            modelBuilder.Entity<OhlcTimeseries>()
+                .HasIndex(x => new {x.AssetId, x.Interval, x.Timestamp})
+                .IsUnique();
+
+            modelBuilder.Entity<ValueTimeseries>()
+                .HasIndex(x => new {x.AssetId, x.Name, x.Timestamp})
+                .IsUnique();
+
             modelBuilder.Entity<AssetBase>()
                 .HasDiscriminator(x => x.Type)
                 .HasValue<StockAsset>("STOCK")
@@ -35,7 +58,7 @@ namespace OneGate.Backend.Database
 
         public DbSet<OhlcTimeseries> OhlcTimeseries { get; set; }
         public DbSet<ValueTimeseries> ValueTimeseries { get; set; }
-        
+
         public DbSet<AssetBase> Assets { get; set; }
         public DbSet<StockAsset> StocksAssets { get; set; }
         public DbSet<IndexAsset> IndexAssets { get; set; }

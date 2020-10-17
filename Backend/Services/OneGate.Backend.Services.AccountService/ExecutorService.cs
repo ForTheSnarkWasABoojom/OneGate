@@ -20,6 +20,7 @@ using OneGate.Backend.Rpc.Contracts.Order.CreateOrder;
 using OneGate.Backend.Rpc.Contracts.Order.DeleteOrder;
 using OneGate.Backend.Rpc.Contracts.Order.GetOrder;
 using OneGate.Backend.Rpc.Contracts.Order.GetOrdersByFilter;
+using OneGate.Backend.Rpc.Contracts.Order.UpdateOrder;
 using OneGate.Backend.Rpc.Services;
 using OneGate.Shared.Models.Account;
 using OneGate.Shared.Models.Common;
@@ -48,7 +49,8 @@ namespace OneGate.Backend.Services.AccountService
             _bus.RegisterMethodAsync<CreateOrderRequest, CreateOrderResponse>(CreateOrderAsync);
             _bus.RegisterMethodAsync<GetOrderRequest, GetOrderResponse>(GetOrderAsync);
             _bus.RegisterMethodAsync<GetOrdersByFilterRequest, GetOrdersByFilterResponse>(GetOrdersByFiltersAsync);
-            _bus.RegisterMethodAsync<DeleteOrderRequest,DeleteOrderResponse>(DeleteOrderAsync);
+            _bus.RegisterMethodAsync<UpdateOrderRequest, UpdateOrderResponse>(UpdateOrderAsync);
+            _bus.RegisterMethodAsync<DeleteOrderRequest, DeleteOrderResponse>(DeleteOrderAsync);
         }
 
         public async Task<HealthCheckResponse> HealthCheckAsync(HealthCheckRequest request)
@@ -67,10 +69,6 @@ namespace OneGate.Backend.Services.AccountService
                 x.Password == GetHash(request.Password) &&
                 x.Email == request.Email);
 
-            if (account is null)
-                throw new ApiException("Account with specified username and password does not exist",
-                    Status401Unauthorized);
-
             return new CreateTokenResponse
             {
                 Account = ConvertAccountToDto(account),
@@ -81,9 +79,6 @@ namespace OneGate.Backend.Services.AccountService
         public async Task<CreateAccountResponse> CreateAccountAsync(CreateAccountRequest request)
         {
             await using var db = new DatabaseContext();
-
-            if (await db.Accounts.FirstOrDefaultAsync(x => x.Email == request.Account.Email) != null)
-                throw new ApiException("Account must have unique email", Status400BadRequest);
 
             var account = await db.Accounts.AddAsync(new Account
             {
@@ -96,7 +91,7 @@ namespace OneGate.Backend.Services.AccountService
 
             return new CreateAccountResponse()
             {
-                CreatedResource = new CreatedResourceDto
+                Resource = new ResourceDto
                 {
                     Id = account.Entity.Id
                 }
@@ -106,10 +101,7 @@ namespace OneGate.Backend.Services.AccountService
         public async Task<GetAccountResponse> GetAccountAsync(GetAccountRequest request)
         {
             await using var db = new DatabaseContext();
-
             var account = await db.Accounts.FindAsync(request.Id);
-            if (account is null)
-                throw new ApiException("Account with specified id does not exist", Status404NotFound);
 
             return new GetAccountResponse
             {
@@ -120,10 +112,7 @@ namespace OneGate.Backend.Services.AccountService
         public async Task<DeleteAccountResponse> DeleteAccountAsync(DeleteAccountRequest request)
         {
             await using var db = new DatabaseContext();
-
             var account = await db.Accounts.FirstOrDefaultAsync(x => x.Id == request.Id);
-            if (account == null)
-                throw new ApiException("Account with specified id does not exist", Status404NotFound);
 
             db.Accounts.Remove(account);
             await db.SaveChangesAsync();
@@ -162,8 +151,6 @@ namespace OneGate.Backend.Services.AccountService
         public async Task<CreateOrderResponse> CreateOrderAsync(CreateOrderRequest request)
         {
             await using var db = new DatabaseContext();
-            if (!await db.Assets.AnyAsync(x => x.Id == request.Order.AssetId))
-                throw new ApiException("Asset with specified id does not exist", Status400BadRequest);
 
             OrderBase order = request.Order switch
             {
@@ -202,9 +189,9 @@ namespace OneGate.Backend.Services.AccountService
             await db.SaveChangesAsync();
             return new CreateOrderResponse
             {
-                CreatedResource = new CreatedResourceDto
+                Resource = new ResourceDto
                 {
-                    Id=order.Id
+                    Id = order.Id
                 }
             };
         }
@@ -212,11 +199,8 @@ namespace OneGate.Backend.Services.AccountService
         public async Task<GetOrderResponse> GetOrderAsync(GetOrderRequest request)
         {
             await using var db = new DatabaseContext();
-            var order = await db.Orders.FirstOrDefaultAsync(x => 
+            var order = await db.Orders.FirstOrDefaultAsync(x =>
                 x.Id == request.Id && x.AccountId == request.AccountId);
-
-            if (order is null)
-                throw new ApiException("Order with specified id does not exist", Status404NotFound);
 
             return new GetOrderResponse
             {
@@ -231,13 +215,13 @@ namespace OneGate.Backend.Services.AccountService
 
             if (request.Filter.AssetId != null)
                 orderQuery = orderQuery.Where(x => x.AssetId == request.Filter.AssetId);
-            
+
             if (request.Filter.Type != null)
                 orderQuery = orderQuery.Where(x => x.Type == request.Filter.Type.ToString());
 
             if (request.Filter.State != null)
                 orderQuery = orderQuery.Where(x => x.State == request.Filter.State.ToString());
-            
+
             if (request.Filter.Side != null)
                 orderQuery = orderQuery.Where(x => x.Side == request.Filter.Side.ToString());
 
@@ -248,14 +232,28 @@ namespace OneGate.Backend.Services.AccountService
             };
         }
 
+        public async Task<UpdateOrderResponse> UpdateOrderAsync(UpdateOrderRequest request)
+        {
+            await using var db = new DatabaseContext();
+            var order = await db.Orders.FirstOrDefaultAsync(x =>
+                x.Id == request.Id && x.AccountId == request.AccountId);
+
+            order.State = request.StateDto.ToString();
+
+            await db.SaveChangesAsync();
+
+            return new UpdateOrderResponse
+            {
+                Order = ConvertOrderToDto(order)
+            };
+        }
+
         public async Task<DeleteOrderResponse> DeleteOrderAsync(DeleteOrderRequest request)
         {
             await using var db = new DatabaseContext();
-            var order = await db.Orders.FirstOrDefaultAsync(x => 
+            var order = await db.Orders.FirstOrDefaultAsync(x =>
                 x.Id == request.Id && x.AccountId == request.AccountId);
 
-            if (order == null)
-                throw new ApiException("Order with specified id does not exist", Status404NotFound);
             db.Orders.Remove(order);
             await db.SaveChangesAsync();
 
@@ -267,7 +265,7 @@ namespace OneGate.Backend.Services.AccountService
             _logger.LogInformation("Account service started");
         }
 
-        public async Task StopAsync(CancellationToken cancellationToken) 
+        public async Task StopAsync(CancellationToken cancellationToken)
         {
             _logger.LogInformation("Account service stopped");
         }
@@ -305,7 +303,7 @@ namespace OneGate.Backend.Services.AccountService
                 Quantity = order.Quantity
             };
         }
-        
+
         private StopOrderDto ConvertStopOrderToDto(StopOrder order)
         {
             return new StopOrderDto()
@@ -318,7 +316,7 @@ namespace OneGate.Backend.Services.AccountService
                 Price = order.Price
             };
         }
-        
+
         private LimitOrderDto ConvertLimitOrderToDto(LimitOrder order)
         {
             return new LimitOrderDto()
@@ -331,6 +329,7 @@ namespace OneGate.Backend.Services.AccountService
                 Price = order.Price
             };
         }
+
         private string GetHash(string str)
         {
             return Convert.ToBase64String(KeyDerivation.Pbkdf2(

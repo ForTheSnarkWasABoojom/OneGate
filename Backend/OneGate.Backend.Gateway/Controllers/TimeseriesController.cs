@@ -34,17 +34,17 @@ namespace OneGate.Backend.Gateway.Controllers
         }
 
         [HttpPost, Authorize(AuthPolicy.Admin)]
-        [ProducesResponseType(typeof(CreatedResourceDto), Status200OK)]
+        [ProducesResponseType(typeof(ResourceDto), Status200OK)]
         [SwaggerOperation("[ADMIN] Create OHLC timeseries range")]
         [Route("ohlc")]
-        public async Task<CreatedResourceDto> CreateOhlcTimeseriesAsync([FromBody] CreateOhlcTimeseriesRangeDto request)
+        public async Task<ResourceDto> CreateOhlcTimeseriesAsync([FromBody] OhlcTimeseriesRangeDto request)
         {
             var payload = await _timeseriesService.CreateOhlcTimeseriesAsync(new CreateOhlcTimeseriesRequest
             {
                 OhlcRange = request
             });
 
-            return payload.CreatedResource;
+            return payload.Resource;
         }
 
         [HttpGet]
@@ -73,17 +73,17 @@ namespace OneGate.Backend.Gateway.Controllers
         }
         
         [HttpPost, Authorize(AuthPolicy.Admin)]
-        [ProducesResponseType(typeof(CreatedResourceDto), Status200OK)]
+        [ProducesResponseType(typeof(ResourceDto), Status200OK)]
         [SwaggerOperation("[ADMIN] Create value timeseries range")]
         [Route("value")]
-        public async Task<CreatedResourceDto> CreateOhlcTimeseriesAsync([FromBody] CreateValueTimeseriesRangeDto request)
+        public async Task<ResourceDto> CreateOhlcTimeseriesAsync([FromBody] CreateValueTimeseriesRangeDto request)
         {
             var payload = await _timeseriesService.CreateValueTimeseriesAsync(new CreateValueTimeseriesRequest
             {
-                ValueTimeseriesRange = request
+                ValueRange = request
             });
 
-            return payload.CreatedResource;
+            return payload.Resource;
         }
 
         [HttpGet]

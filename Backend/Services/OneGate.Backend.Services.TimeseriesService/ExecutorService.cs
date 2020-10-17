@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -10,6 +11,7 @@ using OneGate.Backend.Database;
 using OneGate.Backend.Database.Models;
 using OneGate.Backend.Rpc;
 using OneGate.Backend.Rpc.Contracts.Base.HealthCheck;
+using OneGate.Backend.Rpc.Contracts.Timeseries;
 using OneGate.Backend.Rpc.Contracts.Timeseries.CreateOhlcTimeseries;
 using OneGate.Backend.Rpc.Contracts.Timeseries.CreateValueTimeseries;
 using OneGate.Backend.Rpc.Contracts.Timeseries.DeleteOhlcTimeseries;
@@ -48,6 +50,57 @@ namespace OneGate.Backend.Services.TimeseriesService
                 GetValueTimeseriesByFilterAsync);
             _bus.RegisterMethodAsync<DeleteValueTimeseriesRequest, DeleteValueTimeseriesResponse>(
                 DeleteValueTimeseriesAsync);
+
+            // Register subscribers.
+            _bus.SubscribeAsync<OnOhlcTimeseriesChanged>("timeseries_service", OhlcTimeseriesChangedHandler);
+        }
+
+        private async Task OhlcTimeseriesChangedHandler(OnOhlcTimeseriesChanged model)
+        {
+            foreach (var (intervalDto, ohlcDto) in model.OhlcByInterval)
+            {
+                await CreateOrUpdateOhlcTimeseriesAsync(new OhlcTimeseriesRangeDto
+                {
+                    AssetId = model.AssetId,
+                    Interval = intervalDto,
+                    Range = new List<OhlcTimeseriesDto>
+                    {
+                        ohlcDto
+                    }
+                });
+            }
+        }
+
+        private async Task CreateOrUpdateOhlcTimeseriesAsync(OhlcTimeseriesRangeDto request,
+            DateTime? lastUpdate = null)
+        {
+            await using var db = new DatabaseContext();
+
+            foreach (var ohlcDto in request.Range)
+            {
+                await db.OhlcTimeseries
+                    .Upsert(new OhlcTimeseries
+                    {
+                        Low = ohlcDto.Low,
+                        High = ohlcDto.High,
+                        Open = ohlcDto.Open,
+                        Close = ohlcDto.Close,
+                        Timestamp = ohlcDto.Timestamp,
+                        Interval = request.Interval.ToString(),
+                        AssetId = request.AssetId,
+                        LastUpdate = DateTime.Now
+                    })
+                    .On(x => new {x.AssetId, x.Interval, x.Timestamp})
+                    .WhenMatched(x => new OhlcTimeseries
+                    {
+                        Open = ohlcDto.Open,
+                        Close = ohlcDto.Close,
+                        Low = ohlcDto.Low,
+                        High = ohlcDto.High,
+                        LastUpdate = lastUpdate ?? DateTime.Now
+                    })
+                    .RunAsync();
+            }
         }
 
         public async Task<HealthCheckResponse> HealthCheckAsync(HealthCheckRequest request)
@@ -61,21 +114,7 @@ namespace OneGate.Backend.Services.TimeseriesService
         public async Task<CreateOhlcTimeseriesResponse> CreateOhlcTimeseriesAsync(CreateOhlcTimeseriesRequest request)
         {
             await using var db = new DatabaseContext();
-
-            if (request.OhlcRange.Range.GroupBy(x => x.Timestamp).Count() != request.OhlcRange.Range.Count)
-                throw new ApiException("OHLC range must be unique", Status400BadRequest);
-
-            if (!await db.Assets.AnyAsync(x => x.Id == request.OhlcRange.AssetId))
-                throw new ApiException("Asset with specified id does not exist", Status404NotFound);
-
-            foreach (var ohlc in request.OhlcRange.Range)
-            {
-                if (await db.OhlcTimeseries.AnyAsync(x =>
-                    request.OhlcRange.AssetId == x.AssetId &&
-                    ohlc.Timestamp == x.Timestamp &&
-                    request.OhlcRange.Interval.ToString() == x.Interval))
-                    throw new ApiException("OHLC range must be unique", Status400BadRequest);
-            }
+            request.OhlcRange.Range = request.OhlcRange.Range.GroupBy(x => x.Timestamp).Select(x => x.First()).ToList();
 
             await db.OhlcTimeseries.AddRangeAsync(request.OhlcRange.Range.Select(ohlc => new OhlcTimeseries
             {
@@ -85,16 +124,14 @@ namespace OneGate.Backend.Services.TimeseriesService
                 Close = ohlc.Close,
                 Timestamp = ohlc.Timestamp,
                 Interval = request.OhlcRange.Interval.ToString(),
-                AssetId = request.OhlcRange.AssetId
+                AssetId = request.OhlcRange.AssetId,
+                LastUpdate = DateTime.Now
             }));
             await db.SaveChangesAsync();
 
             return new CreateOhlcTimeseriesResponse
             {
-                CreatedResource = new CreatedResourceDto
-                {
-                    Id = -1
-                }
+                Resource = new ResourceDto()
             };
         }
 
@@ -138,9 +175,9 @@ namespace OneGate.Backend.Services.TimeseriesService
 
             if (request.Filter.EndTimestamp != null)
                 query = query.Where(x => x.Timestamp <= request.Filter.EndTimestamp);
-            
+
             var queryTimeseries = await query.Skip(request.Filter.Shift).Take(request.Filter.Count).ToListAsync();
-            
+
             db.OhlcTimeseries.RemoveRange(queryTimeseries);
             await db.SaveChangesAsync();
 
@@ -151,28 +188,14 @@ namespace OneGate.Backend.Services.TimeseriesService
             CreateValueTimeseriesRequest request)
         {
             await using var db = new DatabaseContext();
+            request.ValueRange.Range =
+                request.ValueRange.Range.GroupBy(x => x.Timestamp).Select(x => x.First()).ToList();
 
-            if (request.ValueTimeseriesRange.Range.GroupBy(x => x.Timestamp).Count() !=
-                request.ValueTimeseriesRange.Range.Count)
-                throw new ApiException("Value timeseries range must be unique", Status400BadRequest);
-
-            if (!await db.Assets.AnyAsync(x => x.Id == request.ValueTimeseriesRange.AssetId))
-                throw new ApiException("Asset with specified id does not exist", Status404NotFound);
-
-            foreach (var value in request.ValueTimeseriesRange.Range)
-            {
-                if (await db.ValueTimeseries.AnyAsync(x =>
-                    request.ValueTimeseriesRange.AssetId == x.AssetId &&
-                    request.ValueTimeseriesRange.Name == x.Name &&
-                    value.Timestamp == x.Timestamp))
-                    throw new ApiException("Value timeseries range must be unique", Status400BadRequest);
-            }
-
-            await db.ValueTimeseries.AddRangeAsync(request.ValueTimeseriesRange.Range.Select(value =>
+            await db.ValueTimeseries.AddRangeAsync(request.ValueRange.Range.Select(value =>
                 new ValueTimeseries
                 {
-                    Name = request.ValueTimeseriesRange.Name,
-                    AssetId = request.ValueTimeseriesRange.AssetId,
+                    Name = request.ValueRange.Name,
+                    AssetId = request.ValueRange.AssetId,
                     Timestamp = value.Timestamp,
                     Value = value.Value
                 }));
@@ -180,10 +203,7 @@ namespace OneGate.Backend.Services.TimeseriesService
 
             return new CreateValueTimeseriesResponse
             {
-               CreatedResource = new CreatedResourceDto
-               {
-                   Id = -1
-               }
+                Resource = new ResourceDto()
             };
         }
 
@@ -228,9 +248,9 @@ namespace OneGate.Backend.Services.TimeseriesService
 
             if (request.Filter.EndTimestamp != null)
                 query = query.Where(x => x.Timestamp <= request.Filter.EndTimestamp);
-            
+
             var queryTimeseries = await query.Skip(request.Filter.Shift).Take(request.Filter.Count).ToListAsync();
-          
+
             db.ValueTimeseries.RemoveRange(queryTimeseries);
             await db.SaveChangesAsync();
 
@@ -239,12 +259,12 @@ namespace OneGate.Backend.Services.TimeseriesService
 
         public async Task StartAsync(CancellationToken cancellationToken)
         {
-            _logger.LogInformation("Account service started");
+            _logger.LogInformation("Timeseries service started");
         }
 
         public async Task StopAsync(CancellationToken cancellationToken)
         {
-            _logger.LogInformation("Account service stopped");
+            _logger.LogInformation("Timeseries service stopped");
         }
 
         private OhlcTimeseriesDto ConvertOhlcToDto(OhlcTimeseries model)

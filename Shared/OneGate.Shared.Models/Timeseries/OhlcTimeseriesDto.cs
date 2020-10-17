@@ -8,19 +8,19 @@ namespace OneGate.Shared.Models.Timeseries
     {
         [Required]
         [JsonProperty("low")]
-        public float Low { get; set; }
+        public double Low { get; set; }
 
         [Required]
         [JsonProperty("high")]
-        public float High { get; set; }
+        public double High { get; set; }
 
         [Required]
         [JsonProperty("open")]
-        public float Open { get; set; }
+        public double Open { get; set; }
 
         [Required]
         [JsonProperty("close")]
-        public float Close { get; set; }
+        public double Close { get; set; }
 
         [Required]
         [JsonProperty("timestamp")]

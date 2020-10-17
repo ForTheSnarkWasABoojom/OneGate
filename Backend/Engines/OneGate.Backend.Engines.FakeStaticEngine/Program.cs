@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using OneGate.Backend.Database;
 using OneGate.Backend.Rpc;
+using OneGate.Backend.Rpc.Services;
 
 namespace OneGate.Backend.Engines.FakeStaticEngine
 {
@@ -20,6 +21,7 @@ namespace OneGate.Backend.Engines.FakeStaticEngine
                     services.AddHostedService<DaemonService>();
 
                     services.AddSingleton<IBus>(provider => BusFactory.GetInstance());
+                    services.AddTransient<IAssetService, AssetService>();
 
                     services.AddEntityFrameworkNpgsql().AddDbContext<DatabaseContext>();
                 });

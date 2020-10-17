@@ -16,8 +16,13 @@ namespace OneGate.Shared.Models.Exchange
         [JsonProperty("description")]
         public string Description { get; set; }
         
+        [Required]
         [MaxLength(150)]
         [JsonProperty("website")]
         public string Website { get; set; }
+        
+        [Required]
+        [JsonProperty("engine")]
+        public EngineTypeDto EngineType { get; set; }
     }
 }

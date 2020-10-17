@@ -4,7 +4,10 @@ using EasyNetQ;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using OneGate.Backend.Gateway.EventHubs;
+using OneGate.Backend.Rpc.Contracts.Timeseries;
+using Serilog;
 
 namespace OneGate.Backend.Gateway.EventListeners
 {
@@ -21,6 +24,15 @@ namespace OneGate.Backend.Gateway.EventListeners
             _logger = logger;
             _bus = bus;
             _hubContext = hubContext;
+
+            // Register subscribers.
+            _bus.SubscribeAsync<OnOhlcTimeseriesChanged>("gateway", OnOhlcTimeseriesChanged);
+        }
+
+        public async Task OnOhlcTimeseriesChanged(OnOhlcTimeseriesChanged model)
+        {
+            await _hubContext.Clients.Group($"ohlc.{model.AssetId}")
+                .SendAsync("on_ohlc_timeseries_changed", model.OhlcByInterval);
         }
 
         public async Task StartAsync(CancellationToken cancellationToken)

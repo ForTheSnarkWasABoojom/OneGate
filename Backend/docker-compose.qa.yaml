@@ -41,7 +41,6 @@ services:
   # Prometheus
   prometheus:
     image: prom/prometheus:latest
-    container_name: onegate_prometheus
     expose:
       - 9090
     volumes:
@@ -58,7 +57,6 @@ services:
   # Grafana
   grafana:
     image: grafana/grafana:latest
-    container_name: onegate_grafana
     expose:
       - 3000
     volumes:
@@ -72,7 +70,6 @@ services:
   # Loki
   loki:
     image: grafana/loki:latest
-    container_name: onegate_loki
     expose:
       - 3100
     command: -config.file=/etc/loki/local-config.yaml

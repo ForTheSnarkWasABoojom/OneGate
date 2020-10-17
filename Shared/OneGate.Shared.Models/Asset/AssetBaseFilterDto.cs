@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Mvc;
 using OneGate.Shared.Models.Common;
+using OneGate.Shared.Models.Exchange;
 
 namespace OneGate.Shared.Models.Asset
 {
@@ -10,14 +11,14 @@ namespace OneGate.Shared.Models.Asset
         [FromQuery(Name = "type")]
         [JsonProperty("type")]
         public AssetTypeDto? Type { get; set; }
-        
-        [FromQuery(Name = "exchange_id")]
-        [JsonProperty("exchange_id")]
-        public int? ExchangeId { get; set; }
-        
+
         [MaxLength(30)]
         [FromQuery(Name = "ticker")]
         [JsonProperty("ticker")]
         public string Ticker { get; set; }
+        
+        [FromQuery(Name = "exchange")]
+        [JsonProperty("exchange")]
+        public ExchangeFilterDto Exchange { get; set; }
     }
 }

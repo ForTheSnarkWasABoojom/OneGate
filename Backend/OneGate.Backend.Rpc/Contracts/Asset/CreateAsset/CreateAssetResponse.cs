@@ -6,6 +6,6 @@ namespace OneGate.Backend.Rpc.Contracts.Asset.CreateAsset
 {
     public class CreateAssetResponse: SuccessResponse
     {
-        public CreatedResourceDto CreatedResource { get; set; }
+        public ResourceDto Resource { get; set; }
     }
 }

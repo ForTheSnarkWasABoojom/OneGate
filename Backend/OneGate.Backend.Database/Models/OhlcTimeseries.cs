@@ -14,18 +14,18 @@ namespace OneGate.Backend.Database.Models
         
         [Required]
         [Column("low")]
-        public float Low { get; set; }
+        public double Low { get; set; }
 
         [Required] 
         [Column("high")]
-        public float High { get; set; }
+        public double High { get; set; }
 
         [Required]
         [Column("open")]
-        public float Open { get; set; }
+        public double Open { get; set; }
 
         [Required]
         [Column("close")]
-        public float Close { get; set; }
+        public double Close { get; set; }
     }
 }

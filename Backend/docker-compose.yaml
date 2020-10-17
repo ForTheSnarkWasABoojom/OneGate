@@ -4,7 +4,6 @@ services:
   # Nginx
   proxy:
     image: nginx:latest
-    container_name: onegate_proxy
     ports:
       - 80:80
     depends_on:
@@ -14,7 +13,6 @@ services:
   # RabbitMQ
   rabbitmq:
     image: rabbitmq:management
-    container_name: onegate_rabbitmq
     expose:
       - 15672
     networks:
@@ -22,7 +20,6 @@ services:
   # Postgres
   postgres:
     image: postgres:latest
-    container_name: onegate_postgres
     expose:
       - 5432
     networks:
@@ -34,7 +31,6 @@ services:
       dockerfile: Backend/Dockerfile
       args:
         PROJECT_NAME: OneGate.Backend.Gateway
-    container_name: onegate_gateway
     expose:
       - 80
     networks:
@@ -48,7 +44,6 @@ services:
       args:
         PROJECT_PATH: Services
         PROJECT_NAME: OneGate.Backend.Services.AccountService
-    container_name: onegate_account_service
     depends_on:
       - rabbitmq
     networks:
@@ -61,7 +56,6 @@ services:
       args:
         PROJECT_PATH: Services
         PROJECT_NAME: OneGate.Backend.Services.AssetService
-    container_name: onegate_asset_service
     depends_on:
       - rabbitmq
     networks:
@@ -74,7 +68,6 @@ services:
       args:
         PROJECT_PATH: Services
         PROJECT_NAME: OneGate.Backend.Services.TimeseriesService
-    container_name: onegate_timeseries_service
     depends_on:
       - rabbitmq
     networks:
@@ -87,7 +80,6 @@ services:
       args:
         PROJECT_PATH: Engines
         PROJECT_NAME: OneGate.Backend.Engines.FakeEngine
-    container_name: onegate_fake_engine
     depends_on:
       - rabbitmq
     networks:
@@ -99,7 +91,6 @@ services:
       args:
         PROJECT_PATH: Engines
         PROJECT_NAME: OneGate.Backend.Engines.FakeStaticEngine
-    container_name: onegate_fake_static_engine
     depends_on:
       - rabbitmq
     networks:

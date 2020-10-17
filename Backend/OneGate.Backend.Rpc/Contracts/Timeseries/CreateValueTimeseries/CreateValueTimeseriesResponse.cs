@@ -6,6 +6,6 @@ namespace OneGate.Backend.Rpc.Contracts.Timeseries.CreateValueTimeseries
 {
     public class CreateValueTimeseriesResponse:SuccessResponse
     {
-        public CreatedResourceDto CreatedResource { get; set; }
+        public ResourceDto Resource { get; set; }
     }
 }

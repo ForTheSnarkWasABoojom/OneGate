@@ -15,7 +15,6 @@ namespace OneGate.Backend.Rpc.Services
         public Task<HealthCheckResponse> HealthCheckAsync(HealthCheckRequest request);
         
         public Task<CreateOhlcTimeseriesResponse> CreateOhlcTimeseriesAsync(CreateOhlcTimeseriesRequest request);
-
         public Task<GetOhlcTimeseriesByFilterResponse>
             GetOhlcTimeseriesByFilterAsync(GetOhlcTimeseriesByFilterRequest request);
         public Task<DeleteOhlcTimeseriesResponse> DeleteOhlcTimeseriesAsync(DeleteOhlcTimeseriesRequest request);

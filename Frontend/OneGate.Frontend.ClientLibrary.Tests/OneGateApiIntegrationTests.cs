@@ -33,13 +33,13 @@ namespace OneGate.Frontend.ClientLibrary.Tests
                 Description = "testStockAsset"
             });
             
-            await _fixture.AdminApi.CreateOhlcTimeseriesAsync(new CreateOhlcTimeseriesRangeDto
+            await _fixture.AdminApi.CreateOhlcTimeseriesAsync(new OhlcTimeseriesRangeDto
             {
                 AssetId = createdStockAsset.Id,
                 Interval = OhlcIntervalDto.m1,
-                Range = new List<CreateOhlcTimeseriesDto>
+                Range = new List<OhlcTimeseriesDto>
                 {
-                    new CreateOhlcTimeseriesDto
+                    new OhlcTimeseriesDto
                     {
                         High = 100,
                         Low = 0,
@@ -47,7 +47,7 @@ namespace OneGate.Frontend.ClientLibrary.Tests
                         Close = 75,
                         Timestamp = _fixture.GetRandomDay()
                     },
-                    new CreateOhlcTimeseriesDto
+                    new OhlcTimeseriesDto
                     {
                         High = 100,
                         Low = 0,

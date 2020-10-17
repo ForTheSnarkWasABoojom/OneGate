@@ -77,9 +77,9 @@ namespace OneGate.Backend.Gateway.Controllers
         }
 
         [HttpPost, AllowAnonymous]
-        [ProducesResponseType(typeof(CreatedResourceDto), Status200OK)]
+        [ProducesResponseType(typeof(ResourceDto), Status200OK)]
         [SwaggerOperation("Register new account")]
-        public async Task<CreatedResourceDto> CreateAccountAsync([FromBody] CreateAccountDto request,
+        public async Task<ResourceDto> CreateAccountAsync([FromBody] CreateAccountDto request,
             [FromQuery] ClientKeyDto clientKey)
         {
             if (clientKey.ClientKey != AuthPolicy.ClientKey)
@@ -91,7 +91,7 @@ namespace OneGate.Backend.Gateway.Controllers
                 ClientKey = clientKey.ClientKey
             });
 
-            return payload.CreatedResource;
+            return payload.Resource;
         }
 
         [HttpGet]

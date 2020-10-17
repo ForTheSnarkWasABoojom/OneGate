@@ -63,14 +63,6 @@ namespace OneGate.Backend.Services.AssetService
         {
             await using var db = new DatabaseContext();
 
-            if (await db.Assets.AnyAsync(x => x.Type == request.Asset.Type.ToString() &&
-                                              x.ExchangeId == request.Asset.ExchangeId &&
-                                              x.Ticker == request.Asset.Ticker))
-                throw new ApiException("Asset must have unique type-exchange-ticker triplet", Status400BadRequest);
-
-            if (!await db.Exchanges.AnyAsync(x => x.Id == request.Asset.ExchangeId))
-                throw new ApiException("Exchange with specified id does not exist", Status400BadRequest);
-
             AssetBase asset = request.Asset switch
             {
                 CreateStockAssetDto stockDto => (await db.StocksAssets.AddAsync(new StockAsset
@@ -93,7 +85,7 @@ namespace OneGate.Backend.Services.AssetService
             await db.SaveChangesAsync();
             return new CreateAssetResponse()
             {
-                CreatedResource = new CreatedResourceDto
+                Resource = new ResourceDto
                 {
                     Id = asset.Id
                 }
@@ -104,9 +96,6 @@ namespace OneGate.Backend.Services.AssetService
         {
             await using var db = new DatabaseContext();
             var asset = await db.Assets.FindAsync(request.Id);
-
-            if (asset is null)
-                throw new ApiException("Asset with specified id does not exist", Status404NotFound);
 
             return new GetAssetResponse
             {
@@ -119,9 +108,6 @@ namespace OneGate.Backend.Services.AssetService
             await using var db = new DatabaseContext();
             var asset = await db.Assets.FirstOrDefaultAsync(x => x.Id == request.Id);
 
-            if (asset == null)
-                throw new ApiException("Account with specified id does not exist", Status404NotFound);
-
             db.Assets.Remove(asset);
             await db.SaveChangesAsync();
 
@@ -132,15 +118,24 @@ namespace OneGate.Backend.Services.AssetService
         {
             await using var db = new DatabaseContext();
             var assetsQuery = db.Assets.AsQueryable();
-            
+
             if (request.Filter.Type != null)
                 assetsQuery = assetsQuery.Where(x => x.Type == request.Filter.Type.ToString());
 
             if (!string.IsNullOrWhiteSpace(request.Filter.Ticker))
                 assetsQuery = assetsQuery.Where(x => x.Ticker.ToLower().Contains(request.Filter.Ticker.ToLower()));
 
-            if (request.Filter.ExchangeId != null)
-                assetsQuery = assetsQuery.Where(x => x.ExchangeId == request.Filter.ExchangeId);
+            if (request.Filter.Exchange != null)
+            {
+                if(request.Filter.Exchange.Id != null)
+                    assetsQuery = assetsQuery.Where(x => x.Exchange.Id == request.Filter.Exchange.Id);
+                
+                if(request.Filter.Exchange.Title != null)
+                    assetsQuery = assetsQuery.Where(x => x.Exchange.Title.ToLower().Contains(request.Filter.Exchange.Title.ToLower()));
+                
+                if(request.Filter.Exchange.EngineType != null)
+                    assetsQuery = assetsQuery.Where(x => x.Exchange.EngineType == request.Filter.Exchange.EngineType.ToString());
+            }
 
             var assets = await assetsQuery.Skip(request.Filter.Shift).Take(request.Filter.Count).ToListAsync();
             return new GetAssetsByFilterResponse
@@ -152,22 +147,21 @@ namespace OneGate.Backend.Services.AssetService
         public async Task<CreateExchangeResponse> CreateExchangeAsync(CreateExchangeRequest request)
         {
             await using var db = new DatabaseContext();
-            if (await db.Exchanges.AnyAsync(x => x.Title == request.Exchange.Title))
-                throw new ApiException("Exchange must have unique title", Status400BadRequest);
 
             var exchange = await db.Exchanges.AddAsync(new Exchange
             {
                 Title = request.Exchange.Title,
                 Description = request.Exchange.Description,
-                Website = request.Exchange.Website
+                Website = request.Exchange.Website,
+                EngineType = request.Exchange.EngineType.ToString()
             });
             await db.SaveChangesAsync();
 
             return new CreateExchangeResponse
             {
-                CreatedResource = new CreatedResourceDto
+                Resource = new ResourceDto
                 {
-                    Id=exchange.Entity.Id
+                    Id = exchange.Entity.Id
                 }
             };
         }
@@ -176,9 +170,6 @@ namespace OneGate.Backend.Services.AssetService
         {
             await using var db = new DatabaseContext();
             var exchange = await db.Exchanges.FindAsync(request.Id);
-
-            if (exchange is null)
-                throw new ApiException("Exchange with specified id does not exist", Status404NotFound);
 
             return new GetExchangeResponse
             {
@@ -190,9 +181,6 @@ namespace OneGate.Backend.Services.AssetService
         {
             await using var db = new DatabaseContext();
             var exchange = await db.Exchanges.FirstOrDefaultAsync(x => x.Id == request.Id);
-
-            if (exchange == null)
-                throw new ApiException("Exchange with specified id does not exist", Status404NotFound);
 
             db.Exchanges.Remove(exchange);
             await db.SaveChangesAsync();
@@ -207,6 +195,9 @@ namespace OneGate.Backend.Services.AssetService
 
             if (!string.IsNullOrWhiteSpace(request.Filter.Title))
                 exchangesQuery = exchangesQuery.Where(x => x.Title.ToLower().Contains(request.Filter.Title.ToLower()));
+            
+            if (request.Filter.EngineType != null)
+                exchangesQuery = exchangesQuery.Where(x => x.EngineType == request.Filter.EngineType.ToString());
 
             var exchanges = await exchangesQuery.Skip(request.Filter.Shift).Take(request.Filter.Count).ToListAsync();
             return new GetExchangesByFilterResponse
@@ -232,7 +223,8 @@ namespace OneGate.Backend.Services.AssetService
                 Id = exchange.Id,
                 Title = exchange.Title,
                 Description = exchange.Description,
-                Website = exchange.Website
+                Website = exchange.Website,
+                EngineType = Enum.Parse<EngineTypeDto>(exchange.EngineType)
             };
         }
 
