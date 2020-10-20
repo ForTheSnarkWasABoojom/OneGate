@@ -82,6 +82,8 @@ services:
     image: prom/node-exporter:latest
     expose:
       - 9100
+    networks:
+      - http_api
   # Cadvisor
   cadvisor:
     image: google/cadvisor:latest
@@ -92,6 +94,8 @@ services:
         - /var/lib/docker/:/var/lib/docker:ro
     expose:
       - 8080
+    networks:
+      - http_api
 volumes:
   postgres_qa:
   prometheus_qa:
