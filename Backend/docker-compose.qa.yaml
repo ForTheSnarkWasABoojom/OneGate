@@ -77,6 +77,21 @@ services:
       - qa.env
     networks:
       - http_api
+  # Node exporter
+  node-exporter:
+    image: prom/node-exporter:latest
+    expose:
+      - 9100
+  # Cadvisor
+  cadvisor:
+    image: google/cadvisor:latest
+    volumes:
+        - /:/rootfs:ro
+        - /var/run:/var/run:rw
+        - /sys:/sys:ro
+        - /var/lib/docker/:/var/lib/docker:ro
+    expose:
+      - 8080
 volumes:
   postgres_qa:
   prometheus_qa:
