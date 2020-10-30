@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading;
+using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
@@ -13,13 +14,10 @@ using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Converters;
 using OneGate.Backend.Database;
 using OneGate.Backend.Database.Models;
+using OneGate.Backend.Gateway.Consumers;
 using OneGate.Backend.Gateway.EventHubs;
 using OneGate.Backend.Gateway.Extensions;
-using OneGate.Backend.Gateway.HealthChecks;
-using OneGate.Backend.Gateway.HealthChecks.Engine;
 using OneGate.Backend.Gateway.Middleware;
-using OneGate.Backend.Rpc;
-using OneGate.Backend.Rpc.Services;
 using OneGate.Shared.Models.Exchange;
 using Prometheus;
 
@@ -36,8 +34,7 @@ namespace OneGate.Backend.Gateway
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers().AddNewtonsoftJson(opts =>
-                opts.SerializerSettings.Converters.Add(new StringEnumConverter()));
+            services.AddControllers().AddNewtonsoftJson();
 
             // Custom validation and authorization by default.
             services.AddMvc(options => { options.Filters.Add(typeof(ValidateModelAttribute)); });
@@ -117,27 +114,25 @@ namespace OneGate.Backend.Gateway
             });
             services.AddSwaggerGenNewtonsoftSupport();
 
-            // Health checks.
-            services.AddHealthChecks()
-                .AddCheck<AccountServiceHealthCheck>("account_service")
-                .AddCheck<AssetServiceHealthCheck>("asset_service")
-                .AddCheck<TimeseriesServiceHealthCheck>("timeseries_service")
-                .AddCheck<FakeEngineHealthCheck>("fake_engine")
-                .AddCheck<FakeStaticEngineHealthCheck>("fake_static_engine")
-                .ForwardToPrometheus();
-
             // Migration.
             services.AddDbContext<DatabaseContext>();
             
-            // Remote call bus.
-            services.AddSingleton(provider => BusFactory.GetInstance());
+            // Mass Transit.
+            services.AddMassTransit(x =>
+            {
+                x.UsingRabbitMq((context, cfg) =>
+                {
+                    cfg.Host("rabbitmq", "/", h =>
+                    {
+                        h.Username(Environment.GetEnvironmentVariable("RABBITMQ_DEFAULT_USER"));
+                        h.Password(Environment.GetEnvironmentVariable("RABBITMQ_DEFAULT_PASS"));
+                    });
+                });
+                x.AddConsumer<AccountConsumer>(typeof(AccountConsumerSettings));
+                x.AddConsumer<TimeseriesConsumer>(typeof(TimeseriesConsumerSettings));
+            });
+            services.AddMassTransitHostedService();
 
-            // Remote services.
-            services.AddTransient<IAccountService, AccountService>();
-            services.AddTransient<IAssetService, AssetService>();
-            services.AddTransient<ITimeseriesService, OhlcService>();
-            services.AddTransient<IEngineService, EngineService>();
-            
             // Event hub.
             services.AddSignalR();
         }
@@ -194,9 +189,6 @@ namespace OneGate.Backend.Gateway
         {
             // Database migration.
             MigrateDatabase(app);
-
-            // HTTPS support.
-            app.UseHttpsRedirection();
 
             // Custom exception handler.
             app.UseExceptionHandler("/error");

@@ -23,7 +23,8 @@ namespace OneGate.Frontend.ClientLibrary.Tests
             var createdExchange = await _fixture.AdminApi.CreateExchangeAsync(new CreateExchangeDto
             {
                 Title = Guid.NewGuid().ToString(),
-                Description = "testExchangeForStockAsset"
+                Description = "testExchangeForStockAsset",
+                EngineType = EngineTypeDto.FAKE
             });
             
             var createdStockAsset = await _fixture.AdminApi.CreateAssetAsync(new CreateStockAssetDto
@@ -66,23 +67,23 @@ namespace OneGate.Frontend.ClientLibrary.Tests
             });
 
             var valueTimeseriesName = Guid.NewGuid().ToString();
-            await _fixture.AdminApi.CreateValueTimeseriesAsync(new CreateValueTimeseriesRangeDto
+            await _fixture.AdminApi.CreateValueTimeseriesAsync(new ValueTimeseriesRangeDto
             {
                 AssetId = createdStockAsset.Id,
                 Name = valueTimeseriesName,
-                Range = new List<CreateValueTimeseriesDto>
+                Range = new List<ValueTimeseriesDto>
                 {
-                    new CreateValueTimeseriesDto
+                    new ValueTimeseriesDto
                     {
                         Value = 10,
                         Timestamp = _fixture.GetRandomDay()
                     },
-                    new CreateValueTimeseriesDto
+                    new ValueTimeseriesDto
                     {
                         Value = 20,
                         Timestamp = _fixture.GetRandomDay()
                     },
-                    new CreateValueTimeseriesDto
+                    new ValueTimeseriesDto
                     {
                         Value = 30,
                         Timestamp = _fixture.GetRandomDay()

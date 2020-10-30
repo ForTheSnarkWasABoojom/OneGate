@@ -1,8 +1,11 @@
-using EasyNetQ;
+using System;
+using MassTransit;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using OneGate.Backend.Database;
 using OneGate.Backend.Rpc;
+using OneGate.Backend.Rpc.Services;
+using OneGate.Backend.Services.AssetService.Repository;
 
 namespace OneGate.Backend.Services.AssetService
 {
@@ -17,11 +20,26 @@ namespace OneGate.Backend.Services.AssetService
             Host.CreateDefaultBuilder(args)
                 .ConfigureServices((hostContext, services) =>
                 {
-                    services.AddHostedService<Services.AssetService.ExecutorService>();
-
-                    services.AddSingleton<IBus>(provider => BusFactory.GetInstance());
-
                     services.AddEntityFrameworkNpgsql().AddDbContext<DatabaseContext>();
+                    
+                    services.AddTransient<IAssetService, Service>();
+                    services.AddTransient<IExchangeRepository, ExchangeRepository>();
+                    services.AddTransient<IAssetRepository, AssetRepository>();
+                    
+                    services.AddMassTransit(x =>
+                    {
+                        x.UsingRabbitMq((context, cfg) =>
+                        {
+                            cfg.Host("rabbitmq", "/", h =>
+                            {
+                                h.Username(Environment.GetEnvironmentVariable("RABBITMQ_DEFAULT_USER"));
+                                h.Password(Environment.GetEnvironmentVariable("RABBITMQ_DEFAULT_PASS"));
+                            });
+                            cfg.ConfigureEndpoints(context);
+                        });
+                        x.AddConsumer<Consumer>(typeof(ConsumerSettings));
+                    });
+                    services.AddMassTransitHostedService();
                 });
     }
 }

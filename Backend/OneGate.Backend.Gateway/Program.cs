@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using OneGate.Backend.Gateway.EventListeners;
 using Serilog;
 using Serilog.Sinks.Loki;
 
@@ -27,11 +26,6 @@ namespace OneGate.Backend.Gateway
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                })
-                .ConfigureServices(services =>
-                {
-                    services.AddHostedService<AccountEventListener>();
-                    services.AddHostedService<TimeseriesEventListener>();
                 });
     }
 }

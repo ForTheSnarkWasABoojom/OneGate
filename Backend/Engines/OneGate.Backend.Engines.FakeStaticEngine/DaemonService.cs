@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using EasyNetQ;
+using MassTransit;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using OneGate.Backend.Engines.Base.OhlcProvider;
-using OneGate.Backend.Rpc.Contracts.Asset.GetAssetsByFilter;
-using OneGate.Backend.Rpc.Contracts.Timeseries;
-using OneGate.Backend.Rpc.Services;
+using OneGate.Backend.Contracts.Asset;
+using OneGate.Backend.Contracts.Timeseries;
+using OneGate.Backend.Rpc;
 using OneGate.Shared.Models.Asset;
 using OneGate.Shared.Models.Exchange;
 
@@ -17,23 +17,24 @@ namespace OneGate.Backend.Engines.FakeStaticEngine
     public class DaemonService : IHostedService
     {
         private readonly ILogger<DaemonService> _logger;
-        private readonly IAssetService _assetService;
+
         private readonly IBus _bus;
+        private readonly IPublishEndpoint _endpoint;
 
-        private List<IOhlcProvider> _ohlcProviders = new List<IOhlcProvider>();
+        private readonly List<IOhlcProvider> _ohlcProviders = new List<IOhlcProvider>();
 
-        public DaemonService(ILogger<DaemonService> logger, IBus bus, IAssetService assetService)
+        public DaemonService(ILogger<DaemonService> logger, IBus bus, IPublishEndpoint endpoint)
         {
             _logger = logger;
             _bus = bus;
-            _assetService = assetService;
+            _endpoint = endpoint;
         }
 
         public async Task StartAsync(CancellationToken cancellationToken)
         {
             _logger.LogInformation("Fake static engine daemon service started");
 
-            var assets = (await _assetService.GetAssetsByFilterAsync(new GetAssetsByFilterRequest
+            var assets = (await _bus.Call<GetAssetsRange, AssetsRangeResponse>(new GetAssetsRange
             {
                 Filter = new AssetBaseFilterDto
                 {
@@ -43,13 +44,13 @@ namespace OneGate.Backend.Engines.FakeStaticEngine
                     },
                     Count = 1000
                 }
-            })).Assets;
+            }, RequestTimeout.After(m: 5))).Assets;
 
             foreach (var asset in assets)
             {
                 var provider = new GaussianRandomOhlcProvider(asset.Id, 5000);
                 provider.OnPriceChanged += RaiseOhlcTimeseriesChangedAsync;
-                
+
                 _ohlcProviders.Add(provider);
             }
         }
@@ -59,14 +60,14 @@ namespace OneGate.Backend.Engines.FakeStaticEngine
             _logger.LogInformation("Fake static engine daemon service stopped");
         }
 
-        public async Task RaiseOhlcTimeseriesChangedAsync(IOhlcProvider sender, OhlcProviderEventArgs args)
+        private async Task RaiseOhlcTimeseriesChangedAsync(IOhlcProvider sender, OhlcProviderEventArgs args)
         {
-            await _bus.PublishAsync<OnOhlcTimeseriesChanged>(new OnOhlcTimeseriesChanged
+            await _endpoint.Publish(new OnOhlcTimeseriesUpdated
             {
                 AssetId = sender.AssetId,
-                OhlcByInterval = args.OhlcByInterval,
+                Ohlcs = args.OhlcByInterval,
                 LastUpdate = DateTime.Now
-            }, sender.AssetId.ToString());
+            });
         }
     }
 }

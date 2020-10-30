@@ -1,14 +1,15 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using MassTransit;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using OneGate.Backend.Gateway.Middleware;
-using OneGate.Backend.Rpc.Contracts.Asset.CreateAsset;
-using OneGate.Backend.Rpc.Contracts.Asset.DeleteAsset;
-using OneGate.Backend.Rpc.Contracts.Asset.GetAsset;
-using OneGate.Backend.Rpc.Contracts.Asset.GetAssetsByFilter;
-using OneGate.Backend.Rpc.Services;
+using OneGate.Backend.Contracts.Asset;
+using OneGate.Backend.Contracts.Common;
+using OneGate.Backend.Rpc;
 using OneGate.Shared.Models.Asset;
 using OneGate.Shared.Models.Common;
 using Swashbuckle.AspNetCore.Annotations;
@@ -24,12 +25,12 @@ namespace OneGate.Backend.Gateway.Controllers
     public class AssetController : ControllerBase
     {
         private readonly ILogger<AssetController> _logger;
-        private readonly IAssetService _assetService;
+        private readonly IBus _bus;
 
-        public AssetController(ILogger<AssetController> logger, IAssetService assetService)
+        public AssetController(ILogger<AssetController> logger, IBus bus)
         {
             _logger = logger;
-            _assetService = assetService;
+            _bus = bus;
         }
 
         [HttpPost, Authorize(AuthPolicy.Admin)]
@@ -37,7 +38,7 @@ namespace OneGate.Backend.Gateway.Controllers
         [SwaggerOperation("[ADMIN] Create asset")]
         public async Task<ResourceDto> CreateAssetAsync([FromBody] CreateAssetBaseDto request)
         {
-            var payload = await _assetService.CreateAssetAsync(new CreateAssetRequest
+            var payload = await _bus.Call<CreateAsset,CreatedResourceResponse>(new CreateAsset
             {
                 Asset = request
             });
@@ -46,11 +47,11 @@ namespace OneGate.Backend.Gateway.Controllers
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(List<AssetBaseDto>), Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<AssetBaseDto>), Status200OK)]
         [SwaggerOperation("Search assets")]
-        public async Task<List<AssetBaseDto>> GetAssetsByFilterAsync([FromQuery] AssetBaseFilterDto request)
+        public async Task<IEnumerable<AssetBaseDto>> GetAssetsRangeAsync([FromQuery] AssetBaseFilterDto request)
         {
-            var payload = await _assetService.GetAssetsByFilterAsync(new GetAssetsByFilterRequest
+            var payload = await _bus.Call<GetAssetsRange,AssetsRangeResponse>(new GetAssetsRange
             {
                 Filter = request
             });
@@ -64,7 +65,7 @@ namespace OneGate.Backend.Gateway.Controllers
         [Route("{id}")]
         public async Task<AssetBaseDto> GetAssetAsync([FromRoute] int id)
         {
-            var payload = await _assetService.GetAssetAsync(new GetAssetRequest
+            var payload = await _bus.Call<GetAsset,AssetResponse>(new GetAsset
             {
                 Id = id
             });
@@ -73,12 +74,11 @@ namespace OneGate.Backend.Gateway.Controllers
         }
 
         [HttpDelete, Authorize(AuthPolicy.Admin)]
-        [ProducesResponseType(typeof(AssetBaseDto), Status200OK)]
         [SwaggerOperation("[ADMIN] Delete asset")]
         [Route("{id}")]
         public async Task DeleteAssetAsync([FromRoute] int id)
         {
-            var payload = await _assetService.DeleteAssetAsync(new DeleteAssetRequest
+            await _bus.Call<DeleteAsset,SuccessResponse>(new DeleteAsset
             {
                 Id = id
             });

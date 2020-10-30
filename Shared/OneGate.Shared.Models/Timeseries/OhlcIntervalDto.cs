@@ -1,5 +1,9 @@
-﻿namespace OneGate.Shared.Models.Timeseries
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+
+namespace OneGate.Shared.Models.Timeseries
 {
+    [JsonConverter(typeof(StringEnumConverter))]
     public enum OhlcIntervalDto
     {
         m1,

@@ -1,15 +1,12 @@
 ﻿using System.Threading.Tasks;
+using MassTransit;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using OneGate.Backend.Contracts.Common;
+using OneGate.Backend.Contracts.Timeseries;
 using OneGate.Backend.Gateway.Middleware;
-using OneGate.Backend.Rpc.Contracts.Timeseries.CreateOhlcTimeseries;
-using OneGate.Backend.Rpc.Contracts.Timeseries.CreateValueTimeseries;
-using OneGate.Backend.Rpc.Contracts.Timeseries.DeleteOhlcTimeseries;
-using OneGate.Backend.Rpc.Contracts.Timeseries.DeleteValueTimeseries;
-using OneGate.Backend.Rpc.Contracts.Timeseries.GetOhlcTimeseriesByFilter;
-using OneGate.Backend.Rpc.Contracts.Timeseries.GetValueTimeseriesByFilter;
-using OneGate.Backend.Rpc.Services;
+using OneGate.Backend.Rpc;
 using OneGate.Shared.Models.Common;
 using OneGate.Shared.Models.Timeseries;
 using Swashbuckle.AspNetCore.Annotations;
@@ -25,88 +22,87 @@ namespace OneGate.Backend.Gateway.Controllers
     public class TimeseriesController : ControllerBase
     {
         private readonly ILogger<TimeseriesController> _logger;
-        private readonly ITimeseriesService _timeseriesService;
+        private readonly IBus _bus;
 
-        public TimeseriesController(ILogger<TimeseriesController> logger, ITimeseriesService timeseriesService)
+        public TimeseriesController(ILogger<TimeseriesController> logger, IBus bus)
         {
             _logger = logger;
-            _timeseriesService = timeseriesService;
+            _bus = bus;
         }
 
         [HttpPost, Authorize(AuthPolicy.Admin)]
-        [ProducesResponseType(typeof(ResourceDto), Status200OK)]
         [SwaggerOperation("[ADMIN] Create OHLC timeseries range")]
         [Route("ohlc")]
-        public async Task<ResourceDto> CreateOhlcTimeseriesAsync([FromBody] OhlcTimeseriesRangeDto request)
+        public async Task CreateOhlcTimeseriesRangeAsync([FromBody] OhlcTimeseriesRangeDto request)
         {
-            var payload = await _timeseriesService.CreateOhlcTimeseriesAsync(new CreateOhlcTimeseriesRequest
-            {
-                OhlcRange = request
-            });
-
-            return payload.Resource;
+            await _bus.Call<CreateOhlcTimeseriesRange, SuccessResponse>(
+                new CreateOhlcTimeseriesRange
+                {
+                    Ohlcs = request
+                });
         }
 
         [HttpGet]
         [ProducesResponseType(typeof(OhlcTimeseriesRangeDto), Status200OK)]
         [SwaggerOperation("Search OHLC timeseries range")]
         [Route("ohlc")]
-        public async Task<OhlcTimeseriesRangeDto> GetOhlcTimeseriesByFilterAsync([FromQuery] OhlcTimeseriesFilterDto request)
+        public async Task<OhlcTimeseriesRangeDto> GetOhlcTimeseriesRangeAsync(
+            [FromQuery] OhlcTimeseriesFilterDto request)
         {
-            var payload = await _timeseriesService.GetOhlcTimeseriesByFilterAsync(new GetOhlcTimeseriesByFilterRequest
-            {
-                Filter = request
-            });
+            var payload = await _bus.Call<GetOhlcTimeseriesRange, OhlcTimeseriesRangeResponse>(
+                new GetOhlcTimeseriesRange
+                {
+                    Filter = request
+                });
 
-            return payload.OhlcRange;
+            return payload.Ohlcs;
         }
 
         [HttpDelete, Authorize(AuthPolicy.Admin)]
         [SwaggerOperation("[ADMIN] Delete OHLC timeseries range")]
         [Route("ohlc")]
-        public async Task DeleteOhlcTimeseriesAsync([FromQuery] OhlcTimeseriesFilterDto request)
+        public async Task DeleteOhlcTimeseriesRangeAsync([FromQuery] OhlcTimeseriesFilterDto request)
         {
-            await _timeseriesService.DeleteOhlcTimeseriesAsync(new DeleteOhlcTimeseriesRequest
+            await _bus.Call<DeleteOhlcTimeseriesRange, SuccessResponse>(new DeleteOhlcTimeseriesRange
             {
                 Filter = request
             });
         }
-        
+
         [HttpPost, Authorize(AuthPolicy.Admin)]
-        [ProducesResponseType(typeof(ResourceDto), Status200OK)]
         [SwaggerOperation("[ADMIN] Create value timeseries range")]
         [Route("value")]
-        public async Task<ResourceDto> CreateOhlcTimeseriesAsync([FromBody] CreateValueTimeseriesRangeDto request)
+        public async Task CreateValueTimeseriesRangeAsync([FromBody] ValueTimeseriesRangeDto request)
         {
-            var payload = await _timeseriesService.CreateValueTimeseriesAsync(new CreateValueTimeseriesRequest
-            {
-                ValueRange = request
-            });
-
-            return payload.Resource;
+            await _bus.Call<CreateValueTimeseriesRange, SuccessResponse>(
+                new CreateValueTimeseriesRange
+                {
+                    Values = request
+                });
         }
 
         [HttpGet]
         [ProducesResponseType(typeof(ValueTimeseriesRangeDto), Status200OK)]
         [SwaggerOperation("Search value timeseries range")]
         [Route("value")]
-        public async Task<ValueTimeseriesRangeDto> GetValueTimeseriesByFilterAsync(
+        public async Task<ValueTimeseriesRangeDto> GetValueTimeseriesRangeAsync(
             [FromQuery] ValueTimeseriesFilterDto request)
         {
-            var payload = await _timeseriesService.GetValueTimeseriesByFilterAsync(new GetValueTimeseriesByFilterRequest
-            {
-                Filter = request
-            });
+            var payload = await _bus.Call<GetValueTimeseriesRange, ValueTimeseriesRangeResponse>(
+                new GetValueTimeseriesRange
+                {
+                    Filter = request
+                });
 
-            return payload.ValueTimeseriesRange;
+            return payload.Values;
         }
 
         [HttpDelete, Authorize(AuthPolicy.Admin)]
         [SwaggerOperation("[ADMIN] Delete value timeseries range")]
         [Route("value")]
-        public async Task DeleteValueTimeseriesAsync([FromQuery] ValueTimeseriesFilterDto request)
+        public async Task DeleteValueTimeseriesRangeAsync([FromQuery] ValueTimeseriesFilterDto request)
         {
-            await _timeseriesService.DeleteValueTimeseriesAsync(new DeleteValueTimeseriesRequest
+            await _bus.Call<DeleteValueTimeseriesRange, SuccessResponse>(new DeleteValueTimeseriesRange
             {
                 Filter = request
             });

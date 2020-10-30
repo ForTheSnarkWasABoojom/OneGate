@@ -20,15 +20,14 @@ namespace OneGate.Backend.Database.Models
         [Required]
         public int AssetId { get; set; }
         
-        [Column("account_id")]
+        [Column("owner_id")]
         [Required]
-        public int AccountId { get; set; }
+        public int OwnerId { get; set; }
         
         [Column("state")]
         [Required]
         public string State { get; set; }
         
-        [MaxLength(10)]
         [Column("side")]
         [Required]
         public string Side { get; set; }
@@ -37,11 +36,11 @@ namespace OneGate.Backend.Database.Models
         [Required]
         public float Quantity { get; set; }
         
-        [ForeignKey("AssetId")]
+        [ForeignKey(nameof(AssetId))]
         [Required]
         public AssetBase Asset { get; set; }
 
-        [ForeignKey("AccountId")]
+        [ForeignKey(nameof(OwnerId))]
         [Required]
         public Account Account { get; set; }
     }

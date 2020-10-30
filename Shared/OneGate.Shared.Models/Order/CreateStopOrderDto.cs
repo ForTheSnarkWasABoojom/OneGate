@@ -5,7 +5,7 @@ namespace OneGate.Shared.Models.Order
 {
     public class CreateStopOrderDto:CreateOrderBaseDto
     {
-         public override OrderTypeDto Type { get; } = OrderTypeDto.STOP;
+         public override OrderTypeDto? Type => OrderTypeDto.STOP;
          
          [JsonProperty("price")] 
          [Required] 

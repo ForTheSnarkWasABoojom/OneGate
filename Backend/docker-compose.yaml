@@ -3,16 +3,22 @@
 services:
   # Nginx
   proxy:
-    image: nginx:latest
+    image: bunkerity/bunkerized-nginx:latest
+    container_name: onegate_proxy
     ports:
-      - 80:80
+      - 80:8080
     depends_on:
       - gateway
+    environment:
+      - SERVER_NAME=localhost
+      - ALLOWED_METHODS=GET|POST|PUT|DELETE
+      - USE_MODSECURITY_CRS=no
     networks:
       - http_api
   # RabbitMQ
   rabbitmq:
     image: rabbitmq:management
+    container_name: onegate_rabbitmq
     expose:
       - 15672
     networks:
@@ -20,6 +26,7 @@ services:
   # Postgres
   postgres:
     image: postgres:latest
+    container_name: onegate_postgres
     expose:
       - 5432
     networks:
@@ -85,6 +92,7 @@ services:
     networks:
       - services
   fake_static_engine:
+    container_name: onegate_fake_static_engine
     build:
       context: ../
       dockerfile: Backend/Dockerfile

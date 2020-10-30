@@ -1,14 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using MassTransit;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using OneGate.Backend.Contracts.Common;
 using OneGate.Backend.Gateway.Middleware;
-using OneGate.Backend.Rpc.Contracts.Exchange.CreateExchange;
-using OneGate.Backend.Rpc.Contracts.Exchange.DeleteExchange;
-using OneGate.Backend.Rpc.Contracts.Exchange.GetExchange;
-using OneGate.Backend.Rpc.Contracts.Exchange.GetExchangesByFilter;
-using OneGate.Backend.Rpc.Services;
+using OneGate.Backend.Contracts.Exchange;
+using OneGate.Backend.Rpc;
 using OneGate.Shared.Models.Common;
 using OneGate.Shared.Models.Exchange;
 using Swashbuckle.AspNetCore.Annotations;
@@ -24,12 +23,12 @@ namespace OneGate.Backend.Gateway.Controllers
     public class ExchangeController : ControllerBase
     {
         private readonly ILogger<ExchangeController> _logger;
-        private readonly IAssetService _assetService;
+        private readonly IBus _bus;
 
-        public ExchangeController(ILogger<ExchangeController> logger, IAssetService assetService)
+        public ExchangeController(ILogger<ExchangeController> logger, IBus bus)
         {
             _logger = logger;
-            _assetService = assetService;
+            _bus = bus;
         }
 
         [HttpPost, Authorize(AuthPolicy.Admin)]
@@ -37,7 +36,7 @@ namespace OneGate.Backend.Gateway.Controllers
         [SwaggerOperation("[ADMIN] Create exchange")]
         public async Task<ResourceDto> CreateExchangeAsync([FromBody] CreateExchangeDto request)
         {
-            var payload = await _assetService.CreateExchangeAsync(new CreateExchangeRequest
+            var payload = await _bus.Call<CreateExchange,CreatedResourceResponse>(new CreateExchange
             {
                 Exchange = request
             });
@@ -46,11 +45,11 @@ namespace OneGate.Backend.Gateway.Controllers
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(List<ExchangeDto>), Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<ExchangeDto>), Status200OK)]
         [SwaggerOperation("Search exchanges")]
-        public async Task<List<ExchangeDto>> GetExchangesByFilterAsync([FromQuery] ExchangeFilterDto request)
+        public async Task<IEnumerable<ExchangeDto>> GetExchangesRangeAsync([FromQuery] ExchangeFilterDto request)
         {
-            var payload = await _assetService.GetExchangesByFilterAsync(new GetExchangesByFilterRequest
+            var payload = await _bus.Call<GetExchangesRange,ExchangesRangeResponse>(new GetExchangesRange
             {
                 Filter = request
             });
@@ -64,7 +63,7 @@ namespace OneGate.Backend.Gateway.Controllers
         [Route("{id}")]
         public async Task<ExchangeDto> GetExchangeAsync([FromRoute] int id)
         {
-            var payload = await _assetService.GetExchangeAsync(new GetExchangeRequest
+            var payload = await _bus.Call<GetExchange,ExchangeResponse>(new GetExchange
             {
                 Id = id
             });
@@ -73,12 +72,11 @@ namespace OneGate.Backend.Gateway.Controllers
         }
 
         [HttpDelete, Authorize(AuthPolicy.Admin)]
-        [ProducesResponseType(typeof(ExchangeDto), Status200OK)]
         [SwaggerOperation("[ADMIN] Delete exchange")]
         [Route("{id}")]
         public async Task DeleteExchangeAsync([FromRoute] int id)
         {
-            var payload = await _assetService.DeleteExchangeAsync(new DeleteExchangeRequest
+            await _bus.Call<DeleteExchange,SuccessResponse>(new DeleteExchange
             {
                 Id = id
             });

@@ -24,7 +24,7 @@ namespace OneGate.Backend.Database.Models
         [Column("description")]
         public string Description { get; set; }
         
-        [ForeignKey("ExchangeId")]
+        [ForeignKey(nameof(ExchangeId))]
         public Exchange Exchange { get; set; }
     }
 }

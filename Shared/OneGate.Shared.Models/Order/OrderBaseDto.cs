@@ -22,7 +22,7 @@ namespace OneGate.Shared.Models.Order
 
         [JsonProperty("type")]
         [Required] 
-        public abstract OrderTypeDto Type { get; }
+        public abstract OrderTypeDto? Type { get; }
 
         [JsonProperty("asset_id")]
         [Required] 

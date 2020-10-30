@@ -1,13 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using OneGate.Backend.Contracts.Common;
 using OneGate.Backend.Gateway.Extensions;
-using OneGate.Backend.Rpc.Contracts.Order.CreateOrder;
-using OneGate.Backend.Rpc.Contracts.Order.DeleteOrder;
-using OneGate.Backend.Rpc.Contracts.Order.GetOrder;
-using OneGate.Backend.Rpc.Contracts.Order.GetOrdersByFilter;
-using OneGate.Backend.Rpc.Services;
+using OneGate.Backend.Contracts.Order;
+using OneGate.Backend.Rpc;
 using OneGate.Shared.Models.Common;
 using OneGate.Shared.Models.Order;
 using Swashbuckle.AspNetCore.Annotations;
@@ -23,23 +22,23 @@ namespace OneGate.Backend.Gateway.Controllers
     public class OrderController : ControllerBase
     {
         private readonly ILogger<OrderController> _logger;
-        private readonly IAccountService _accountService;
+        private readonly IBus _bus;
 
-        public OrderController(ILogger<OrderController> logger, IAccountService accountService)
+        public OrderController(ILogger<OrderController> logger, IBus bus)
         {
             _logger = logger;
-            _accountService = accountService;
+            _bus = bus;
         }
 
         [HttpPost]
-        [ProducesResponseType(typeof(OrderBaseDto), Status200OK)]
+        [ProducesResponseType(typeof(ResourceDto), Status200OK)]
         [SwaggerOperation("Create order")]
-        public async Task<ResourceDto> CreateAssetAsync([FromBody] CreateOrderBaseDto request)
+        public async Task<ResourceDto> CreateOrderAsync([FromBody] CreateOrderBaseDto request)
         {
-            var payload = await _accountService.CreateOrderAsync(new CreateOrderRequest
+            var payload = await _bus.Call<CreateOrder, CreatedResourceResponse>(new CreateOrder
             {
                 Order = request,
-                AccountId = User.GetAccountId()
+                OwnerId = User.GetAccountId()
             });
 
             return payload.Resource;
@@ -51,39 +50,38 @@ namespace OneGate.Backend.Gateway.Controllers
         [Route("{id}")]
         public async Task<OrderBaseDto> GetOrderAsync([FromRoute] int id)
         {
-            var payload = await _accountService.GetOrderAsync(new GetOrderRequest
+            var payload = await  _bus.Call<GetOrder, OrderResponse>(new GetOrder
             {
                 Id = id,
-                AccountId = User.GetAccountId()
+                OwnerId = User.GetAccountId()
             });
 
             return payload.Order;
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(List<OrderBaseDto>), Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<OrderBaseDto>), Status200OK)]
         [SwaggerOperation("Search orders")]
-        public async Task<List<OrderBaseDto>> GetOrdersByFilterAsync([FromQuery] OrderBaseFilterDto request)
+        public async Task<IEnumerable<OrderBaseDto>> GetOrdersRangeAsync([FromQuery] OrderBaseFilterDto request)
         {
-            var payload = await _accountService.GetOrdersByFiltersAsync(new GetOrdersByFilterRequest
+            var payload = await _bus.Call<GetOrdersRange, OrdersRangeResponse>(new GetOrdersRange
             {
                 Filter = request,
-                AccountId = User.GetAccountId()
+                OwnerId = User.GetAccountId()
             });
 
             return payload.Orders;
         }
 
         [HttpDelete]
-        [ProducesResponseType(typeof(OrderBaseDto), Status200OK)]
         [SwaggerOperation("Delete order")]
         [Route("{id}")]
-        public async Task DeleteAssetAsync([FromRoute] int id)
+        public async Task DeleteOrderAsync([FromRoute] int id)
         {
-            var payload = await _accountService.DeleteOrderAsync(new DeleteOrderRequest
+            var payload = await _bus.Call<DeleteOrder, SuccessResponse>(new DeleteOrder
             {
                 Id = id,
-                AccountId = User.GetAccountId()
+                OwnerId = User.GetAccountId()
             });
         }
     }

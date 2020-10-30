@@ -2,6 +2,6 @@
 {
     public class MarketOrderDto : OrderBaseDto
     {
-        public override OrderTypeDto Type { get; } = OrderTypeDto.MARKET;
+        public override OrderTypeDto? Type => OrderTypeDto.MARKET;
     }
 }

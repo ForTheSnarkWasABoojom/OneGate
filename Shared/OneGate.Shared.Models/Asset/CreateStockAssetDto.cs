@@ -5,7 +5,7 @@ namespace OneGate.Shared.Models.Asset
 {
     public class CreateStockAssetDto : CreateAssetBaseDto
     {
-        public override AssetTypeDto Type { get; } = AssetTypeDto.STOCK;
+        public override AssetTypeDto? Type { get; } = AssetTypeDto.STOCK;
         
         [MaxLength(30)]
         [JsonProperty("company")]

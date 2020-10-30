@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using OneGate.Backend.Rpc.Contracts.Asset.GetAsset;
 using OneGate.Frontend.ClientLibrary.Utils;
 using OneGate.Shared.Models.Account;
 using OneGate.Shared.Models.Asset;
@@ -167,9 +166,9 @@ namespace OneGate.Frontend.ClientLibrary
             await DeleteAsync("timeseries/ohlc", model);
         }
 
-        public async Task CreateValueTimeseriesAsync(CreateValueTimeseriesRangeDto model)
+        public async Task CreateValueTimeseriesAsync(ValueTimeseriesRangeDto model)
         {
-            await PostAsync<CreateValueTimeseriesRangeDto, ResourceDto>("timeseries/value", model);
+            await PostAsync<ValueTimeseriesRangeDto, ResourceDto>("timeseries/value", model);
         }
 
         public async Task<ValueTimeseriesRangeDto> GetValueTimeseriesByFilterAsync(ValueTimeseriesFilterDto model)

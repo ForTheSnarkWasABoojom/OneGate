@@ -5,13 +5,17 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="EasyNetQ" Version="5.5.0" />
       <PackageReference Include="EntityFrameworkCore.Exceptions.Common" Version="3.1.1" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.8" />
+      <PackageReference Include="MassTransit" Version="7.0.6" />
+      <PackageReference Include="MassTransit.AspNetCore" Version="7.0.6" />
+      <PackageReference Include="MassTransit.Extensions.DependencyInjection" Version="7.0.6" />
+      <PackageReference Include="MassTransit.RabbitMQ" Version="7.0.6" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.9" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\..\Shared\OneGate.Shared.Models\OneGate.Shared.Models.csproj" />
+      <ProjectReference Include="..\OneGate.Backend.Contracts\OneGate.Backend.Contracts.csproj" />
     </ItemGroup>
 
 </Project>

@@ -5,7 +5,8 @@ namespace OneGate.Shared.Models.Order
 {
     public class LimitOrderDto : OrderBaseDto
     {
-        public override OrderTypeDto Type { get; } = OrderTypeDto.LIMIT;
+        public override OrderTypeDto? Type => OrderTypeDto.LIMIT;
+        
         [JsonProperty("price")] 
         [Required] 
         public float Price { get; set; }

@@ -22,7 +22,7 @@ namespace OneGate.Backend.Database.Models
         [Column("last_update")]
         public DateTime LastUpdate { get; set; }
 
-        [ForeignKey("AssetId")]
+        [ForeignKey(nameof(AssetId))]
         [Required] 
         public AssetBase Asset { get; set; }
     }

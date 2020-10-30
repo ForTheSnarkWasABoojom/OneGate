@@ -5,7 +5,7 @@ namespace OneGate.Shared.Models.Asset
 {
     public class IndexAssetDto : AssetBaseDto
     {
-        public override AssetTypeDto Type { get; } = AssetTypeDto.INDEX;
+        public override AssetTypeDto? Type => AssetTypeDto.INDEX;
 
         [MaxLength(30)]
         [JsonProperty("country")]

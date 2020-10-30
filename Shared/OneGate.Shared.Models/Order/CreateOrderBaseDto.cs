@@ -17,7 +17,7 @@ namespace OneGate.Shared.Models.Order
     {
         [JsonProperty("type")]
         [Required] 
-        public abstract OrderTypeDto Type { get; }
+        public abstract OrderTypeDto? Type { get; }
 
         [JsonProperty("asset_id")]
         [Required] 
@@ -25,7 +25,7 @@ namespace OneGate.Shared.Models.Order
 
         [JsonProperty("side")]
         [Required]
-        public OrderSideDto Side { get; set; }
+        public OrderSideDto? Side { get; set; }
 
         [JsonProperty("quantity")] 
         [Required] 

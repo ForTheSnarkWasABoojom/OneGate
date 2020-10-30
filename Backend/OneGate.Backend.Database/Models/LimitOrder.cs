@@ -1,12 +1,12 @@
-﻿﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OneGate.Backend.Database.Models
 {
     [Table("order")]
-    public class LimitOrder:OrderBase
+    public class LimitOrder : OrderBase
     {
-        [Required]
+        [Required] 
         [Column("price")]
         public float Price { get; set; }
     }

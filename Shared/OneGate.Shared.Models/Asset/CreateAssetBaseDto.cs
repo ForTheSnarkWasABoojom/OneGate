@@ -16,7 +16,7 @@ namespace OneGate.Shared.Models.Asset
     {
         [Required]
         [JsonProperty("type")]
-        public abstract AssetTypeDto Type { get; }
+        public abstract AssetTypeDto? Type { get; }
 
         [Required]
         [JsonProperty("exchange_id")]

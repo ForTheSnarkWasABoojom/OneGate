@@ -1,6 +1,5 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using EasyNetQ;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
@@ -9,12 +8,10 @@ namespace OneGate.Backend.Engines.FakeEngine
     public class DaemonService : IHostedService
     {
         private readonly ILogger<DaemonService> _logger;
-        private readonly IBus _bus;
 
-        public DaemonService(ILogger<DaemonService> logger, IBus bus)
+        public DaemonService(ILogger<DaemonService> logger)
         {
             _logger = logger;
-            _bus = bus;
         }
 
         public async Task StartAsync(CancellationToken cancellationToken)

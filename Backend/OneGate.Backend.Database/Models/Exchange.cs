@@ -15,14 +15,12 @@ namespace OneGate.Backend.Database.Models
         [Column("title")]
         [Required]
         public string Title { get; set; }
-        
 
         [MaxLength(500)]
         [Column("description")]
         [Required]
         public string Description { get; set; }
         
-
         [MaxLength(150)]
         [Column("website")]
         public string Website { get; set; }

@@ -19,5 +19,8 @@ namespace OneGate.Shared.Models.Account
         [MaxLength(30)]
         [JsonProperty("last_name")]
         public string LastName { get; set; }
+        
+        [JsonProperty("is_admin")]
+        public bool IsAdmin { get; set; }
     }
 }
