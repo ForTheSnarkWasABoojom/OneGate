@@ -67,7 +67,9 @@ services:
     volumes:
       - grafana_qa:/var/lib/grafana
     environment:
-      - GF_SERVER_ROOT_URL=%(protocol)s://%(domain)s:/grafana
+      - GF_SERVER_ROOT_URL=%(protocol)s://%(domain)s:%(http_port)s/grafana/
+      - GF_SERVER_SERVE_FROM_SUB_PATH=true
+      - GF_USERS_ALLOW_SIGN_UP=false
     env_file:
       - ./environment/qa/qa.env
     networks:
