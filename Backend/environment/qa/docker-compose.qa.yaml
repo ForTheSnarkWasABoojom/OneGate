@@ -6,7 +6,7 @@ services:
     volumes:
       - ./environment/qa/nginx:/server-confs
     ports:
-      - 443:443
+      - 443:8443
     environment:
       - GENERATE_SELF_SIGNED_SSL=yes
       - REDIRECT_HTTP_TO_HTTPS=yes
