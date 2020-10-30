@@ -12,7 +12,12 @@ services:
     environment:
       - SERVER_NAME=localhost
       - ALLOWED_METHODS=GET|POST|PUT|DELETE
-      - USE_MODSECURITY_CRS=no
+      - USE_MODSECURITY=no
+      - USE_DNSBL=no
+      - USE_LIMIT_REQ=no
+      - USE_FAIL2BAN=no
+      - USE_CLAMAV_UPLOAD=no
+      - USE_CLAMAV_SCAN=no
     networks:
       - http_api
   # RabbitMQ
