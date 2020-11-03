@@ -2,8 +2,6 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using OneGate.Backend.Contracts.Common;
-using OneGate.Backend.Contracts.Timeseries;
 using OneGate.Backend.Database;
 using OneGate.Backend.Database.Models;
 using OneGate.Shared.Models.Timeseries;

@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using OneGate.Backend.Contracts.Account;
 using OneGate.Backend.Contracts.Asset;
 using OneGate.Backend.Contracts.Common;
 using OneGate.Backend.Contracts.Exchange;

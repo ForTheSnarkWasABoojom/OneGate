@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using JsonSubTypes;
 using Newtonsoft.Json;
 using Swashbuckle.AspNetCore.Annotations;

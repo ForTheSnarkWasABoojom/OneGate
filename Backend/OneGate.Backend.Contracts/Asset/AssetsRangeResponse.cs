@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Newtonsoft.Json;
 using OneGate.Backend.Contracts.Common;
 using OneGate.Shared.Models.Asset;
 

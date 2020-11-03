@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using OneGate.Backend.Contracts.Exchange;
 using OneGate.Shared.Models.Exchange;
 
 namespace OneGate.Backend.Services.AssetService.Repository

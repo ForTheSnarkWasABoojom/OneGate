@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Threading;
-using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
@@ -11,13 +10,13 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using Newtonsoft.Json.Converters;
 using OneGate.Backend.Database;
 using OneGate.Backend.Database.Models;
 using OneGate.Backend.Gateway.Consumers;
 using OneGate.Backend.Gateway.EventHubs;
 using OneGate.Backend.Gateway.Extensions;
 using OneGate.Backend.Gateway.Middleware;
+using OneGate.Backend.Rpc;
 using OneGate.Shared.Models.Exchange;
 using Prometheus;
 
@@ -118,20 +117,11 @@ namespace OneGate.Backend.Gateway
             services.AddDbContext<DatabaseContext>();
             
             // Mass Transit.
-            services.AddMassTransit(x =>
+            services.UseMassTransit(new []
             {
-                x.UsingRabbitMq((context, cfg) =>
-                {
-                    cfg.Host("rabbitmq", "/", h =>
-                    {
-                        h.Username(Environment.GetEnvironmentVariable("RABBITMQ_DEFAULT_USER"));
-                        h.Password(Environment.GetEnvironmentVariable("RABBITMQ_DEFAULT_PASS"));
-                    });
-                });
-                x.AddConsumer<AccountConsumer>(typeof(AccountConsumerSettings));
-                x.AddConsumer<TimeseriesConsumer>(typeof(TimeseriesConsumerSettings));
+                new KeyValuePair<Type, Type>(typeof(AccountConsumer), typeof(AccountConsumerSettings)),
+                new KeyValuePair<Type, Type>(typeof(TimeseriesConsumer), typeof(TimeseriesConsumerSettings)),
             });
-            services.AddMassTransitHostedService();
 
             // Event hub.
             services.AddSignalR();

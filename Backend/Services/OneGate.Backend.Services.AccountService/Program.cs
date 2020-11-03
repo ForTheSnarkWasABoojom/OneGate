@@ -1,8 +1,7 @@
 using System;
-using MassTransit;
+using System.Collections.Generic;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using OneGate.Backend.Database;
 using OneGate.Backend.Rpc;
 using OneGate.Backend.Rpc.Services;
@@ -22,25 +21,16 @@ namespace OneGate.Backend.Services.AccountService
                 .ConfigureServices((hostContext, services) =>
                 {
                     services.AddEntityFrameworkNpgsql().AddDbContext<DatabaseContext>();
-                    
+
                     services.AddTransient<IAccountService, Service>();
                     services.AddTransient<IAccountRepository, AccountRepository>();
                     services.AddTransient<IOrderRepository, OrderRepository>();
-                    
-                    services.AddMassTransit(x =>
+
+                    // Mass Transit.
+                    services.UseMassTransit(new []
                     {
-                        x.UsingRabbitMq((context, cfg) =>
-                        {
-                            cfg.Host("rabbitmq", "/", h =>
-                            {
-                                h.Username(Environment.GetEnvironmentVariable("RABBITMQ_DEFAULT_USER"));
-                                h.Password(Environment.GetEnvironmentVariable("RABBITMQ_DEFAULT_PASS"));
-                            });
-                            cfg.ConfigureEndpoints(context);
-                        });
-                        x.AddConsumer<Consumer>(typeof(ConsumerSettings));
+                        new KeyValuePair<Type, Type>(typeof(Consumer), typeof(ConsumerSettings)),
                     });
-                    services.AddMassTransitHostedService();
                 });
     }
 }

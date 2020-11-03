@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using JsonSubTypes;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace OneGate.Shared.Models.Asset

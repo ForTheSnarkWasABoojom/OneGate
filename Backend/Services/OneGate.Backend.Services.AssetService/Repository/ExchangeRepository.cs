@@ -5,8 +5,6 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using OneGate.Backend.Database;
 using OneGate.Backend.Database.Models;
-using OneGate.Backend.Contracts.Exchange;
-using OneGate.Shared.Models.Common;
 using OneGate.Shared.Models.Exchange;
 
 namespace OneGate.Backend.Services.AssetService.Repository

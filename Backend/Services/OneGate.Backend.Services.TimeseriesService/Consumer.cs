@@ -1,16 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using MassTransit;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
-using OneGate.Backend.Database;
-using OneGate.Backend.Database.Models;
 using OneGate.Backend.Contracts.Timeseries;
 using OneGate.Backend.Rpc;
 using OneGate.Backend.Rpc.Services;
-using OneGate.Backend.Services.TimeseriesService.Repository;
-using OneGate.Shared.Models.Timeseries;
 
 namespace OneGate.Backend.Services.TimeseriesService
 {

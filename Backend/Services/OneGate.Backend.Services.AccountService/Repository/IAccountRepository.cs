@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using OneGate.Backend.Contracts.Common;
 using OneGate.Shared.Models.Account;
 
 namespace OneGate.Backend.Services.AccountService.Repository

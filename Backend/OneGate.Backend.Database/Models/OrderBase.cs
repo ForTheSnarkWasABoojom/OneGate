@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using OneGate.Shared.Models.Order;
 
 namespace OneGate.Backend.Database.Models
 {

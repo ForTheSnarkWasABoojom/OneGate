@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using OneGate.Backend.Contracts.Account;
 using OneGate.Backend.Contracts.Common;
 using OneGate.Backend.Contracts.Timeseries;
 using OneGate.Backend.Rpc.Services;

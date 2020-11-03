@@ -1,12 +1,9 @@
 using System.Threading.Tasks;
 using MassTransit;
-using Microsoft.Extensions.Logging;
 using OneGate.Backend.Contracts.Asset;
 using OneGate.Backend.Contracts.Exchange;
-using OneGate.Backend.Database;
 using OneGate.Backend.Rpc;
 using OneGate.Backend.Rpc.Services;
-using OneGate.Backend.Services.AssetService.Repository;
 
 namespace OneGate.Backend.Services.AssetService
 {

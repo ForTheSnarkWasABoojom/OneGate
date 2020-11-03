@@ -1,9 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Serialization;
 using System.Threading.Tasks;
 using EntityFramework.Exceptions.Common;
 using MassTransit;
+using MassTransit.Topology;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
 using OneGate.Backend.Contracts.Common;
+using OneGate.Backend.Rpc.OgFormatter;
+using System.Reflection;
 
 namespace OneGate.Backend.Rpc
 {
@@ -68,6 +75,40 @@ namespace OneGate.Backend.Rpc
             var errorResponse = (await error).Message;
             throw new ApiException(errorResponse.Message, errorResponse.StatusCode,
                 errorResponse.InnerExceptionMessage);
+        }
+
+        public static IServiceCollection UseMassTransit(this IServiceCollection services, IEnumerable<KeyValuePair<Type, Type>> consumers = null)
+        {
+            services.AddMassTransit(x =>
+            {
+                x.UsingRabbitMq((context, cfg) =>
+                {
+                    cfg.Host("rabbitmq", "/", h =>
+                    {
+                        h.Username(Environment.GetEnvironmentVariable("RABBITMQ_DEFAULT_USER"));
+                        h.Password(Environment.GetEnvironmentVariable("RABBITMQ_DEFAULT_PASS"));
+                    });
+                    cfg.SetMessageSerializer(() => new OgMessageSerializer());
+                    cfg.AddMessageDeserializer(OgMessageDeserializer.ContentTypeValue,
+                        () => new OgMessageDeserializer(OgMessageSerializer.DeserializerInstance));
+                    cfg.ConfigureEndpoints(context);
+                });
+
+                if (consumers == null) return;
+                foreach (var (consumerType, consumerDefinition) in consumers)
+                {
+                    x.AddConsumer(consumerType, consumerDefinition);
+                }
+            });
+            services.AddMassTransitHostedService();
+            
+            return services;
+        }
+        
+        public static string GetEntityName(Type type)
+        {
+            var attribute = type.GetCustomAttributes(typeof(EntityNameAttribute)).ToArray();
+            return !attribute.Any() ? type.FullName : ((EntityNameAttribute) attribute.First()).EntityName;
         }
     }
 }

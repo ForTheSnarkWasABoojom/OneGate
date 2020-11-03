@@ -1,11 +1,9 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using MassTransit;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 using OneGate.Backend.Gateway.Middleware;
 using OneGate.Backend.Contracts.Asset;
 using OneGate.Backend.Contracts.Common;

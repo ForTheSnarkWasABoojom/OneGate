@@ -1,16 +1,10 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-using OneGate.Backend.Contracts.Common;
-using OneGate.Backend.Contracts.Order;
 using OneGate.Backend.Database;
 using OneGate.Backend.Database.Models;
-using OneGate.Backend.Rpc;
-using OneGate.Shared.Models.Common;
 using OneGate.Shared.Models.Order;
 
 namespace OneGate.Backend.Services.AccountService.Repository

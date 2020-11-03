@@ -1,7 +1,5 @@
 ﻿using System;
-using Microsoft.AspNetCore.Http;
 using OneGate.Shared.Models.Account;
-using Xunit;
 
 namespace OneGate.Frontend.ClientLibrary.Tests
 {

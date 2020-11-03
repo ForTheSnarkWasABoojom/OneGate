@@ -2,15 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using OneGate.Backend.Database;
 using OneGate.Backend.Database.Models;
-using OneGate.Backend.Rpc;
-using OneGate.Backend.Contracts.Asset;
-using OneGate.Backend.Contracts.Common;
 using OneGate.Shared.Models.Asset;
-using OneGate.Shared.Models.Common;
 
 namespace OneGate.Backend.Services.AssetService.Repository
 {

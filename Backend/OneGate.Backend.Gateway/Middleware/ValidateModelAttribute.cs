@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using OneGate.Shared.Models;
 using OneGate.Shared.Models.Common;
 
 namespace OneGate.Backend.Gateway.Middleware

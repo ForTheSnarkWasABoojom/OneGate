@@ -1,5 +1,5 @@
 using System;
-using MassTransit;
+using System.Collections.Generic;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using OneGate.Backend.Database;
@@ -21,25 +21,16 @@ namespace OneGate.Backend.Services.TimeseriesService
                 .ConfigureServices((hostContext, services) =>
                 {
                     services.AddEntityFrameworkNpgsql().AddDbContext<DatabaseContext>();
-                    
+
                     services.AddTransient<ITimeseriesService, Service>();
                     services.AddTransient<IOhlcTimeseriesRepository, OhlcTimeseriesRepository>();
                     services.AddTransient<IValueTimeseriesRepository, ValueTimeseriesRepository>();
-                    
-                    services.AddMassTransit(x =>
+
+                    // Mass Transit.
+                    services.UseMassTransit(new []
                     {
-                        x.UsingRabbitMq((context, cfg) =>
-                        {
-                            cfg.Host("rabbitmq", "/", h =>
-                            {
-                                h.Username(Environment.GetEnvironmentVariable("RABBITMQ_DEFAULT_USER"));
-                                h.Password(Environment.GetEnvironmentVariable("RABBITMQ_DEFAULT_PASS"));
-                            });
-                            cfg.ConfigureEndpoints(context);
-                        });
-                        x.AddConsumer<Consumer>(typeof(ConsumerSettings));
+                        new KeyValuePair<Type, Type>(typeof(Consumer), typeof(ConsumerSettings)),
                     });
-                    services.AddMassTransitHostedService();
                 });
     }
 }
