@@ -2,7 +2,7 @@
 
 namespace OneGate.Backend.Contracts.Order
 {
-    [EntityName("order.delete")]
+    [EntityName("request.order.delete")]
     public class DeleteOrder
     {
         public int Id { get; set; }

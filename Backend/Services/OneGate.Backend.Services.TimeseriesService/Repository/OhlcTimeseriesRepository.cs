@@ -62,23 +62,26 @@ namespace OneGate.Backend.Services.TimeseriesService.Repository
             }
         }
 
-        public async Task<OhlcTimeseriesRangeDto> FilterAsync(OhlcTimeseriesFilterDto request)
+        public async Task<OhlcTimeseriesRangeDto> FilterAsync(OhlcTimeseriesFilterDto filter)
         {
             var query = _db.OhlcTimeseries
-                .Where(x => x.Interval == request.Interval.ToString())
-                .Where(x => x.AssetId == request.AssetId);
+                .Where(x => x.Interval == filter.Interval.ToString())
+                .Where(x => x.AssetId == filter.AssetId);
 
-            if (request.StartTimestamp != null)
-                query = query.Where(x => x.Timestamp >= request.StartTimestamp);
+            if (filter.Id != null)
+                query = query.Where(x => x.Id == filter.Id);
+            
+            if (filter.StartTimestamp != null)
+                query = query.Where(x => x.Timestamp >= filter.StartTimestamp);
 
-            if (request.EndTimestamp != null)
-                query = query.Where(x => x.Timestamp <= request.EndTimestamp);
+            if (filter.EndTimestamp != null)
+                query = query.Where(x => x.Timestamp <= filter.EndTimestamp);
 
-            var queryResult = await query.Skip(request.Shift).Take(request.Count).ToListAsync();
+            var queryResult = await query.Skip(filter.Shift).Take(filter.Count).ToListAsync();
             return new OhlcTimeseriesRangeDto
             {
-                Interval = request.Interval,
-                AssetId = request.AssetId,
+                Interval = filter.Interval,
+                AssetId = filter.AssetId,
                 Range = queryResult.Select(ConvertOhlcToDto).ToList()
             };
         }

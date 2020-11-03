@@ -3,8 +3,8 @@ using OneGate.Shared.Models.Exchange;
 
 namespace OneGate.Backend.Contracts.Exchange
 {
-    [EntityName("exchange.get_range")]
-    public class GetExchangesRange
+    [EntityName("request.exchange.get")]
+    public class GetExchanges
     {
         public ExchangeFilterDto Filter { get; set; }
     }

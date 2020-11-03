@@ -6,6 +6,10 @@ namespace OneGate.Shared.Models.Timeseries
 {
     public class OhlcTimeseriesFilterDto : TimeseriesFilterBaseDto
     {
+        [FromQuery(Name = "id")]
+        [JsonProperty("id")]
+        public int? Id { get; set; }
+        
         [FromQuery(Name = "interval")]
         [Required]
         [JsonProperty("interval")]

@@ -3,8 +3,8 @@ using OneGate.Shared.Models.Timeseries;
 
 namespace OneGate.Backend.Contracts.Timeseries
 {
-    [EntityName("value_timeseries.delete_range")]
-    public class DeleteValueTimeseriesRange
+    [EntityName("request.value_timeseries.delete")]
+    public class DeleteValueTimeseries
     {
         public ValueTimeseriesFilterDto Filter { get; set; }
     }

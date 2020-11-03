@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using MassTransit;
@@ -46,20 +47,24 @@ namespace OneGate.Backend.Gateway.Controllers
             if (clientKey.ClientKey != AuthPolicy.ClientKey)
                 throw new ApiException("Invalid client key", Status403Forbidden);
 
-            var payload = await _bus.Call<GetAccount, AccountResponse>(new GetAccount
+            var payload = await _bus.Call<GetAccounts, AccountsResponse>(new GetAccounts
             {
-                Email = request.Username,
-                Password = request.Password
+                Filter = new AccountFilterDto
+                {
+                    Email = request.Username,
+                    Password = request.Password
+                }
             });
-
-            if (payload.Account is null)
+            
+            if (!payload.Accounts.Any())
                 throw new ApiException("Invalid username or password", Status403Forbidden);
-
+            
+            var account = payload.Accounts.First();
             var token = new JwtSecurityToken(
                 claims: new[]
                 {
-                    new Claim(ClaimTypes.NameIdentifier, payload.Account.Id.ToString()),
-                    new Claim(ClaimTypes.Role, payload.Account.IsAdmin ? AuthPolicy.Admin : AuthPolicy.User)
+                    new Claim(ClaimTypes.NameIdentifier, account.Id.ToString()),
+                    new Claim(ClaimTypes.Role, account.IsAdmin ? AuthPolicy.Admin : AuthPolicy.User)
                 },
                 expires: DateTime.Now + AuthPolicy.ExpirationSpan,
                 signingCredentials: new SigningCredentials(AuthPolicy.SecurityKey, SecurityAlgorithms.HmacSha256)
@@ -94,12 +99,15 @@ namespace OneGate.Backend.Gateway.Controllers
         [Route("me")]
         public async Task<AccountDto> GetMyAccountAsync()
         {
-            var payload = await _bus.Call<GetAccount, AccountResponse>(new GetAccount
+            var payload = await _bus.Call<GetAccounts, AccountsResponse>(new GetAccounts
             {
-                Id = User.GetAccountId()
+                Filter = new AccountFilterDto
+                {
+                    Id = User.GetAccountId()
+                }
             });
 
-            return payload.Account;
+            return payload.Accounts.First();
         }
 
         [HttpGet, Authorize(AuthPolicy.Admin)]
@@ -107,7 +115,7 @@ namespace OneGate.Backend.Gateway.Controllers
         [SwaggerOperation("[ADMIN] Search accounts")]
         public async Task<IEnumerable<AccountDto>> GetAccountsRangeAsync([FromQuery] AccountFilterDto request)
         {
-            var payload = await _bus.Call<GetAccountsRange, AccountsRangeResponse>(new GetAccountsRange
+            var payload = await _bus.Call<GetAccounts, AccountsResponse>(new GetAccounts
             {
                 Filter = request
             });
@@ -121,12 +129,15 @@ namespace OneGate.Backend.Gateway.Controllers
         [Route("{id}")]
         public async Task<AccountDto> GetAccountAsync([FromRoute] int id)
         {
-            var payload = await _bus.Call<GetAccount, AccountResponse>(new GetAccount
+            var payload = await _bus.Call<GetAccounts, AccountsResponse>(new GetAccounts
             {
-                Id = id
+                Filter = new AccountFilterDto
+                {
+                    Id = id
+                }
             });
 
-            return payload.Account;
+            return payload.Accounts.First();
         }
 
         [HttpDelete, Authorize(AuthPolicy.Admin)]

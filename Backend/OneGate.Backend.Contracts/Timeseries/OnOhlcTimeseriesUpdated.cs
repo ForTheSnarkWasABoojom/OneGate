@@ -6,7 +6,7 @@ using OneGate.Shared.Models.Timeseries;
 
 namespace OneGate.Backend.Contracts.Timeseries
 {
-    [EntityName("ohlc_timeseries.event.update")]
+    [EntityName("event.ohlc_timeseries.update")]
     public class OnOhlcTimeseriesUpdated
     {
         public DateTime LastUpdate { get; set; }

@@ -2,7 +2,7 @@
 
 namespace OneGate.Backend.Contracts.Exchange
 {
-    [EntityName("exchange.delete")]
+    [EntityName("request.exchange.delete")]
     public class DeleteExchange
     {
         public int Id { get; set; }

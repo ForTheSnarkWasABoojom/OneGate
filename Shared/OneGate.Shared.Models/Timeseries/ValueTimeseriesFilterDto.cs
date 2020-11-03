@@ -6,6 +6,10 @@ namespace OneGate.Shared.Models.Timeseries
 {
     public class ValueTimeseriesFilterDto : TimeseriesFilterBaseDto
     {
+        [FromQuery(Name = "id")]
+        [JsonProperty("id")]
+        public int? Id { get; set; }
+        
         [FromQuery(Name = "name")]
         [Required]
         [JsonProperty("name")]

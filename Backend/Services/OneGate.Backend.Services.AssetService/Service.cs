@@ -30,17 +30,9 @@ namespace OneGate.Backend.Services.AssetService
             };
         }
 
-        public async Task<AssetResponse> GetAsset(GetAsset request)
+        public async Task<AssetsResponse> GetAssetsRange(GetAssets request)
         {
-            return new AssetResponse
-            {
-                Asset = await _assets.FindAsync(request.Id)
-            };
-        }
-
-        public async Task<AssetsRangeResponse> GetAssetsRange(GetAssetsRange request)
-        {
-            return new AssetsRangeResponse
+            return new AssetsResponse
             {
                 Assets = await _assets.FilterAsync(request.Filter)
             };
@@ -63,17 +55,9 @@ namespace OneGate.Backend.Services.AssetService
             };
         }
 
-        public async Task<ExchangeResponse> GetExchange(GetExchange request)
+        public async Task<ExchangesResponse> GetExchangesRange(GetExchanges request)
         {
-            return new ExchangeResponse
-            {
-                Exchange = await _exchanges.FindAsync(request.Id)
-            };
-        }
-
-        public async Task<ExchangesRangeResponse> GetExchangesRange(GetExchangesRange request)
-        {
-            return new ExchangesRangeResponse
+            return new ExchangesResponse
             {
                 Exchanges = await _exchanges.FilterAsync(request.Filter)
             };

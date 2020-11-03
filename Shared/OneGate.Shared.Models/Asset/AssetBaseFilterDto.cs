@@ -8,6 +8,10 @@ namespace OneGate.Shared.Models.Asset
 {
     public class AssetBaseFilterDto : FilterBaseDto
     {
+        [FromQuery(Name = "id")]
+        [JsonProperty("id")]
+        public int? Id { get; set; }
+        
         [FromQuery(Name = "type")]
         [JsonProperty("type")]
         public AssetTypeDto? Type { get; set; }

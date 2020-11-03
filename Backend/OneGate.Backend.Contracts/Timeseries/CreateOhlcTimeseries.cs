@@ -3,8 +3,8 @@ using OneGate.Shared.Models.Timeseries;
 
 namespace OneGate.Backend.Contracts.Timeseries
 {
-    [EntityName("ohlc_timeseries.create_range")]
-    public class CreateOhlcTimeseriesRange
+    [EntityName("request.ohlc_timeseries.create")]
+    public class CreateOhlcTimeseries
     {
         public OhlcTimeseriesRangeDto Ohlcs { get; set; }
     }

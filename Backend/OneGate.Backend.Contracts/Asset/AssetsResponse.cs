@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
-using OneGate.Backend.Contracts.Common;
+using MassTransit.Topology;
 using OneGate.Shared.Models.Asset;
 
 namespace OneGate.Backend.Contracts.Asset
 {
-    public class AssetsRangeResponse : SuccessResponse
+    [EntityName("response.assets")]
+    public class AssetsResponse
     {
         public IEnumerable<AssetBaseDto> Assets { get; set; }
     }

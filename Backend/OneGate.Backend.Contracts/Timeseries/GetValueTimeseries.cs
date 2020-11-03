@@ -3,8 +3,8 @@ using OneGate.Shared.Models.Timeseries;
 
 namespace OneGate.Backend.Contracts.Timeseries
 {
-    [EntityName("value_timeseries.get_range")]
-    public class GetValueTimeseriesRange
+    [EntityName("request.value_timeseries.get")]
+    public class GetValueTimeseries
     {
         public ValueTimeseriesFilterDto Filter { get; set; }
     }

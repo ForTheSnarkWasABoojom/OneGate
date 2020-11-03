@@ -72,6 +72,9 @@ namespace OneGate.Backend.Services.AccountService.Repository
         {
             var orderQuery = _db.Orders.Where(x => x.OwnerId == ownerId);
 
+            if (filter.Id != null)
+                orderQuery = orderQuery.Where(x => x.Id == filter.Id);
+            
             if (filter.AssetId != null)
                 orderQuery = orderQuery.Where(x => x.AssetId == filter.AssetId);
 

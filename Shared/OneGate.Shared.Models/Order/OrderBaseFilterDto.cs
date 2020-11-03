@@ -6,6 +6,10 @@ namespace OneGate.Shared.Models.Order
 {
     public class OrderBaseFilterDto : FilterBaseDto
     {
+        [FromQuery(Name = "id")]
+        [JsonProperty("id")]
+        public int? Id { get; set; }
+        
         [FromQuery(Name = "type")]
         [JsonProperty("type")]
         public OrderTypeDto? Type { get; set; }

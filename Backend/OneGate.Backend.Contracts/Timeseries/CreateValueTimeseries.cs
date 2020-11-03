@@ -1,9 +1,10 @@
-﻿using OneGate.Backend.Contracts.Common;
+﻿using MassTransit.Topology;
 using OneGate.Shared.Models.Timeseries;
 
 namespace OneGate.Backend.Contracts.Timeseries
-{
-    public class ValueTimeseriesRangeResponse : SuccessResponse
+{  
+    [EntityName("request.value_timeseries.create")]
+    public class CreateValueTimeseries
     {
         public ValueTimeseriesRangeDto Values { get; set; }
     }

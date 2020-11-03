@@ -33,22 +33,13 @@ namespace OneGate.Backend.Services.AccountService.Repository
             return account.Entity.Id;
         }
 
-        public async Task<AccountDto> FindAsync(int id)
-        {
-            var account = await _db.Accounts.FirstOrDefaultAsync(x => x.Id == id);
-            return ConvertAccountToDto(account);
-        }
-
-        public async Task<AccountDto> FindAsync(string email, string password)
-        {
-            var account = await _db.Accounts.FirstOrDefaultAsync(x => x.Password == GetHash(password) && x.Email == email);
-            return ConvertAccountToDto(account);
-        }
-
         public async Task<IEnumerable<AccountDto>> FilterAsync(AccountFilterDto filter)
         {
             var accountsQuery = _db.Accounts.AsQueryable();
 
+            if (filter.Id != null)
+                accountsQuery = accountsQuery.Where(x => x.Id == filter.Id);
+            
             if (!string.IsNullOrWhiteSpace(filter.FirstName))
                 accountsQuery = accountsQuery.Where(x =>
                     x.FirstName.ToLower().Contains(filter.FirstName.ToLower()));

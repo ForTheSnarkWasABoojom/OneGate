@@ -1,9 +1,10 @@
-﻿using OneGate.Backend.Contracts.Common;
+﻿using MassTransit.Topology;
 using OneGate.Shared.Models.Timeseries;
 
 namespace OneGate.Backend.Contracts.Timeseries
 {
-    public class OhlcTimeseriesRangeResponse : SuccessResponse
+    [EntityName("response.ohlc_timeseries")]
+    public class OhlcTimeseriesResponse
     {
         public OhlcTimeseriesRangeDto Ohlcs { get; set; }
     }

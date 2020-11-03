@@ -2,7 +2,7 @@
 
 namespace OneGate.Backend.Contracts.Account
 {
-    [EntityName("account.delete")]
+    [EntityName("request.account.delete")]
     public class DeleteAccount
     {
         public int Id { get; set; }

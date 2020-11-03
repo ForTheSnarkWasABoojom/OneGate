@@ -9,12 +9,10 @@ namespace OneGate.Backend.Services.AssetService
 {
     public class Consumer :
         IConsumer<CreateExchange>,
-        IConsumer<GetExchange>,
-        IConsumer<GetExchangesRange>,
+        IConsumer<GetExchanges>,
         IConsumer<DeleteExchange>,
         IConsumer<CreateAsset>,
-        IConsumer<GetAsset>,
-        IConsumer<GetAssetsRange>,
+        IConsumer<GetAssets>,
         IConsumer<DeleteAsset>
     {
         private readonly IAssetService _service;
@@ -29,17 +27,12 @@ namespace OneGate.Backend.Services.AssetService
             await context.MarshallWith(_service.CreateAsset);
         }
 
-        public async Task Consume(ConsumeContext<GetAsset> context)
-        {
-            await context.MarshallWith(_service.GetAsset);
-        }
-
         public async Task Consume(ConsumeContext<DeleteAsset> context)
         {
             await context.MarshallWith(_service.DeleteAsset);
         }
 
-        public async Task Consume(ConsumeContext<GetAssetsRange> context)
+        public async Task Consume(ConsumeContext<GetAssets> context)
         {
             await context.MarshallWith(_service.GetAssetsRange);
         }
@@ -49,17 +42,12 @@ namespace OneGate.Backend.Services.AssetService
             await context.MarshallWith(_service.CreateExchange);
         }
 
-        public async Task Consume(ConsumeContext<GetExchange> context)
-        {
-            await context.MarshallWith(_service.GetExchange);
-        }
-
         public async Task Consume(ConsumeContext<DeleteExchange> context)
         {
             await context.MarshallWith(_service.DeleteExchange);
         }
 
-        public async Task Consume(ConsumeContext<GetExchangesRange> context)
+        public async Task Consume(ConsumeContext<GetExchanges> context)
         {
             await context.MarshallWith(_service.GetExchangesRange);
         }

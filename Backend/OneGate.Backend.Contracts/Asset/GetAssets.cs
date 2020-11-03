@@ -3,8 +3,8 @@ using OneGate.Shared.Models.Asset;
 
 namespace OneGate.Backend.Contracts.Asset
 {
-    [EntityName("asset.get_range")]
-    public class GetAssetsRange
+    [EntityName("request.asset.get")]
+    public class GetAssets
     {
         public AssetBaseFilterDto Filter { get; set; }
     }

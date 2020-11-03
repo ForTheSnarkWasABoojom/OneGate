@@ -8,13 +8,11 @@ namespace OneGate.Backend.Rpc.Services
     public interface IAccountService
     {
         public Task<CreatedResourceResponse> CreateAccount(CreateAccount request);
-        public Task<AccountResponse> GetAccount(GetAccount request);
-        public Task<AccountsRangeResponse> GetAccountsRange(GetAccountsRange request);
+        public Task<AccountsResponse> GetAccountsRange(GetAccounts request);
         public Task<SuccessResponse> DeleteAccount(DeleteAccount request);
         
         public Task<CreatedResourceResponse> CreateOrder(CreateOrder request);
-        public Task<OrderResponse> GetOrder(GetOrder request);
-        public Task<OrdersRangeResponse> GetOrdersRange(GetOrdersRange request);
+        public Task<OrdersResponse> GetOrdersRange(GetOrders request);
         public Task<SuccessResponse> DeleteOrder(DeleteOrder request);
     }
 }

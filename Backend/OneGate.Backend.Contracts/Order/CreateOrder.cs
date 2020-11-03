@@ -3,7 +3,7 @@ using OneGate.Shared.Models.Order;
 
 namespace OneGate.Backend.Contracts.Order
 {
-    [EntityName("order.create")]
+    [EntityName("request.order.create")]
     public class CreateOrder
     {
         public CreateOrderBaseDto Order { get; set; }

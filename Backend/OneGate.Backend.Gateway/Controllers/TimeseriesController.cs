@@ -35,8 +35,8 @@ namespace OneGate.Backend.Gateway.Controllers
         [Route("ohlc")]
         public async Task CreateOhlcTimeseriesRangeAsync([FromBody] OhlcTimeseriesRangeDto request)
         {
-            await _bus.Call<CreateOhlcTimeseriesRange, SuccessResponse>(
-                new CreateOhlcTimeseriesRange
+            await _bus.Call<CreateOhlcTimeseries, SuccessResponse>(
+                new CreateOhlcTimeseries
                 {
                     Ohlcs = request
                 });
@@ -49,8 +49,8 @@ namespace OneGate.Backend.Gateway.Controllers
         public async Task<OhlcTimeseriesRangeDto> GetOhlcTimeseriesRangeAsync(
             [FromQuery] OhlcTimeseriesFilterDto request)
         {
-            var payload = await _bus.Call<GetOhlcTimeseriesRange, OhlcTimeseriesRangeResponse>(
-                new GetOhlcTimeseriesRange
+            var payload = await _bus.Call<GetOhlcTimeseries, OhlcTimeseriesResponse>(
+                new GetOhlcTimeseries
                 {
                     Filter = request
                 });
@@ -63,7 +63,7 @@ namespace OneGate.Backend.Gateway.Controllers
         [Route("ohlc")]
         public async Task DeleteOhlcTimeseriesRangeAsync([FromQuery] OhlcTimeseriesFilterDto request)
         {
-            await _bus.Call<DeleteOhlcTimeseriesRange, SuccessResponse>(new DeleteOhlcTimeseriesRange
+            await _bus.Call<DeleteOhlcTimeseries, SuccessResponse>(new DeleteOhlcTimeseries
             {
                 Filter = request
             });
@@ -74,8 +74,8 @@ namespace OneGate.Backend.Gateway.Controllers
         [Route("value")]
         public async Task CreateValueTimeseriesRangeAsync([FromBody] ValueTimeseriesRangeDto request)
         {
-            await _bus.Call<CreateValueTimeseriesRange, SuccessResponse>(
-                new CreateValueTimeseriesRange
+            await _bus.Call<CreateValueTimeseries, SuccessResponse>(
+                new CreateValueTimeseries
                 {
                     Values = request
                 });
@@ -88,8 +88,8 @@ namespace OneGate.Backend.Gateway.Controllers
         public async Task<ValueTimeseriesRangeDto> GetValueTimeseriesRangeAsync(
             [FromQuery] ValueTimeseriesFilterDto request)
         {
-            var payload = await _bus.Call<GetValueTimeseriesRange, ValueTimeseriesRangeResponse>(
-                new GetValueTimeseriesRange
+            var payload = await _bus.Call<GetValueTimeseries, ValueTimeseriesResponse>(
+                new GetValueTimeseries
                 {
                     Filter = request
                 });
@@ -102,7 +102,7 @@ namespace OneGate.Backend.Gateway.Controllers
         [Route("value")]
         public async Task DeleteValueTimeseriesRangeAsync([FromQuery] ValueTimeseriesFilterDto request)
         {
-            await _bus.Call<DeleteValueTimeseriesRange, SuccessResponse>(new DeleteValueTimeseriesRange
+            await _bus.Call<DeleteValueTimeseries, SuccessResponse>(new DeleteValueTimeseries
             {
                 Filter = request
             });

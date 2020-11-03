@@ -1,9 +1,9 @@
-﻿namespace OneGate.Backend.Contracts.Common
+﻿using MassTransit.Topology;
+
+namespace OneGate.Backend.Contracts.Common
 {
-    public class SuccessResponse : ResponseBase
+    [EntityName("response.success")]
+    public class SuccessResponse
     {
-        public SuccessResponse() : base(ResponseStatus.Success)
-        {
-        }
     }
 }

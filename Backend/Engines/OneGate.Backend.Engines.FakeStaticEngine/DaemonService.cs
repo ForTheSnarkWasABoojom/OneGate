@@ -34,7 +34,7 @@ namespace OneGate.Backend.Engines.FakeStaticEngine
         {
             _logger.LogInformation("Fake static engine daemon service started");
 
-            var assets = (await _bus.Call<GetAssetsRange, AssetsRangeResponse>(new GetAssetsRange
+            var assets = (await _bus.Call<GetAssets, AssetsResponse>(new GetAssets
             {
                 Filter = new AssetBaseFilterDto
                 {

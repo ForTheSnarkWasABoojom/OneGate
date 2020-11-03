@@ -3,7 +3,7 @@ using OneGate.Shared.Models.Order;
 
 namespace OneGate.Backend.Contracts.Order
 {
-    [EntityName("order.update")]
+    [EntityName("request.order.update")]
     public class UpdateOrder
     {
         public int Id { get; set; }

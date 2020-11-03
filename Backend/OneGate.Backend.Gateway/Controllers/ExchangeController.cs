@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using MassTransit;
 using Microsoft.AspNetCore.Authorization;
@@ -36,7 +37,7 @@ namespace OneGate.Backend.Gateway.Controllers
         [SwaggerOperation("[ADMIN] Create exchange")]
         public async Task<ResourceDto> CreateExchangeAsync([FromBody] CreateExchangeDto request)
         {
-            var payload = await _bus.Call<CreateExchange,CreatedResourceResponse>(new CreateExchange
+            var payload = await _bus.Call<CreateExchange, CreatedResourceResponse>(new CreateExchange
             {
                 Exchange = request
             });
@@ -49,7 +50,7 @@ namespace OneGate.Backend.Gateway.Controllers
         [SwaggerOperation("Search exchanges")]
         public async Task<IEnumerable<ExchangeDto>> GetExchangesRangeAsync([FromQuery] ExchangeFilterDto request)
         {
-            var payload = await _bus.Call<GetExchangesRange,ExchangesRangeResponse>(new GetExchangesRange
+            var payload = await _bus.Call<GetExchanges, ExchangesResponse>(new GetExchanges
             {
                 Filter = request
             });
@@ -63,12 +64,15 @@ namespace OneGate.Backend.Gateway.Controllers
         [Route("{id}")]
         public async Task<ExchangeDto> GetExchangeAsync([FromRoute] int id)
         {
-            var payload = await _bus.Call<GetExchange,ExchangeResponse>(new GetExchange
+            var payload = await _bus.Call<GetExchanges, ExchangesResponse>(new GetExchanges
             {
-                Id = id
+                Filter = new ExchangeFilterDto
+                {
+                    Id = id
+                }
             });
 
-            return payload.Exchange;
+            return payload.Exchanges.First();
         }
 
         [HttpDelete, Authorize(AuthPolicy.Admin)]
@@ -76,7 +80,7 @@ namespace OneGate.Backend.Gateway.Controllers
         [Route("{id}")]
         public async Task DeleteExchangeAsync([FromRoute] int id)
         {
-            await _bus.Call<DeleteExchange,SuccessResponse>(new DeleteExchange
+            await _bus.Call<DeleteExchange, SuccessResponse>(new DeleteExchange
             {
                 Id = id
             });

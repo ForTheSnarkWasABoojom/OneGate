@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using MassTransit;
 using Microsoft.AspNetCore.Mvc;
@@ -50,13 +51,16 @@ namespace OneGate.Backend.Gateway.Controllers
         [Route("{id}")]
         public async Task<OrderBaseDto> GetOrderAsync([FromRoute] int id)
         {
-            var payload = await  _bus.Call<GetOrder, OrderResponse>(new GetOrder
+            var payload = await _bus.Call<GetOrders, OrdersResponse>(new GetOrders
             {
-                Id = id,
+                Filter = new OrderBaseFilterDto
+                {
+                    Id = id
+                },
                 OwnerId = User.GetAccountId()
             });
 
-            return payload.Order;
+            return payload.Orders.First();
         }
 
         [HttpGet]
@@ -64,7 +68,7 @@ namespace OneGate.Backend.Gateway.Controllers
         [SwaggerOperation("Search orders")]
         public async Task<IEnumerable<OrderBaseDto>> GetOrdersRangeAsync([FromQuery] OrderBaseFilterDto request)
         {
-            var payload = await _bus.Call<GetOrdersRange, OrdersRangeResponse>(new GetOrdersRange
+            var payload = await _bus.Call<GetOrders, OrdersResponse>(new GetOrders
             {
                 Filter = request,
                 OwnerId = User.GetAccountId()

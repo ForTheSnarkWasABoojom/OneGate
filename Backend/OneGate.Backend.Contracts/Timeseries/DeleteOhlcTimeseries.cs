@@ -3,8 +3,8 @@ using OneGate.Shared.Models.Timeseries;
 
 namespace OneGate.Backend.Contracts.Timeseries
 {
-    [EntityName("ohlc_timeseries.get_range")]
-    public class GetOhlcTimeseriesRange
+    [EntityName("request.ohlc_timeseries.delete")]
+    public class DeleteOhlcTimeseries
     {
         public OhlcTimeseriesFilterDto Filter { get; set; }
     }

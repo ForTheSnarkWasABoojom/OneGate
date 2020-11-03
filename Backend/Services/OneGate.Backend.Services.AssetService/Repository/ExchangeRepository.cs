@@ -42,6 +42,9 @@ namespace OneGate.Backend.Services.AssetService.Repository
         {
             var exchangesQuery = _db.Exchanges.AsQueryable();
 
+            if (filter.Id != null)
+                exchangesQuery = exchangesQuery.Where(x => x.Id == filter.Id);
+            
             if (!string.IsNullOrWhiteSpace(filter.Title))
                 exchangesQuery = exchangesQuery.Where(x => x.Title.ToLower().Contains(filter.Title.ToLower()));
 

@@ -30,23 +30,26 @@ namespace OneGate.Backend.Services.TimeseriesService.Repository
         }
 
         public async Task<ValueTimeseriesRangeDto> FilterAsync(
-            ValueTimeseriesFilterDto request)
+            ValueTimeseriesFilterDto filter)
         {
             var query = _db.ValueTimeseries
-                .Where(x => x.AssetId == request.AssetId)
-                .Where(x => x.Name == request.Name);
+                .Where(x => x.AssetId == filter.AssetId)
+                .Where(x => x.Name == filter.Name);
 
-            if (request.StartTimestamp != null)
-                query = query.Where(x => x.Timestamp >= request.StartTimestamp);
+            if (filter.Id != null)
+                query = query.Where(x => x.Id == filter.Id);
+            
+            if (filter.StartTimestamp != null)
+                query = query.Where(x => x.Timestamp >= filter.StartTimestamp);
 
-            if (request.EndTimestamp != null)
-                query = query.Where(x => x.Timestamp <= request.EndTimestamp);
+            if (filter.EndTimestamp != null)
+                query = query.Where(x => x.Timestamp <= filter.EndTimestamp);
 
-            var valueTimeseries = await query.Skip(request.Shift).Take(request.Count).ToListAsync();
+            var valueTimeseries = await query.Skip(filter.Shift).Take(filter.Count).ToListAsync();
             return new ValueTimeseriesRangeDto
             {
-                Name = request.Name,
-                AssetId = request.AssetId,
+                Name = filter.Name,
+                AssetId = filter.AssetId,
                 Range = valueTimeseries.Select(ConvertValueTimeseriesToDto).ToList()
             };
         }

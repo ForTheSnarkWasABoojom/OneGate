@@ -3,8 +3,8 @@ using OneGate.Shared.Models.Account;
 
 namespace OneGate.Backend.Contracts.Account
 {
-    [EntityName("account.get_range")]
-    public class GetAccountsRange
+    [EntityName("request.account.get")]
+    public class GetAccounts
     {
         public AccountFilterDto Filter { get; set; }
     }

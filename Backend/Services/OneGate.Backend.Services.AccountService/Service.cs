@@ -28,27 +28,11 @@ namespace OneGate.Backend.Services.AccountService
                     Id = await _accounts.AddAsync(request.Account)
                 }
             };
-        }
+        }                    
 
-        public async Task<AccountResponse> GetAccount(GetAccount request)
+        public async Task<AccountsResponse> GetAccountsRange(GetAccounts request)
         {
-            if (request.Id.HasValue)
-            {
-                return new AccountResponse
-                {
-                    Account = await _accounts.FindAsync(request.Id.Value)
-                };
-            }
-            
-            return new AccountResponse
-            {
-                Account = await _accounts.FindAsync(request.Email, request.Password)
-            };
-        }
-
-        public async Task<AccountsRangeResponse> GetAccountsRange(GetAccountsRange request)
-        {
-            return new AccountsRangeResponse
+            return new AccountsResponse
             {
                 Accounts = await _accounts.FilterAsync(request.Filter)
             };
@@ -71,17 +55,9 @@ namespace OneGate.Backend.Services.AccountService
             };
         }
 
-        public async Task<OrderResponse> GetOrder(GetOrder request)
+        public async Task<OrdersResponse> GetOrdersRange(GetOrders request)
         {
-            return new OrderResponse
-            {
-                Order = await _orders.FindAsync(request.Id, request.OwnerId)
-            };
-        }
-
-        public async Task<OrdersRangeResponse> GetOrdersRange(GetOrdersRange request)
-        {
-            return new OrdersRangeResponse
+            return new OrdersResponse
             {
                 Orders = await _orders.FilterAsync(request.Filter, request.OwnerId)
             };

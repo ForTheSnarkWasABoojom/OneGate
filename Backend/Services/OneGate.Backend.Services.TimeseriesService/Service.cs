@@ -35,41 +35,41 @@ namespace OneGate.Backend.Services.TimeseriesService
             }
         }
 
-        public async Task<SuccessResponse> CreateOhlcTimeseriesRange(CreateOhlcTimeseriesRange request)
+        public async Task<SuccessResponse> CreateOhlcTimeseriesRange(CreateOhlcTimeseries request)
         {
             await _ohlcTimeseries.AddRangeAsync(request.Ohlcs);
             return new SuccessResponse();
         }
 
-        public async Task<OhlcTimeseriesRangeResponse> GetOhlcTimeseriessRange(GetOhlcTimeseriesRange request)
+        public async Task<OhlcTimeseriesResponse> GetOhlcTimeseriessRange(GetOhlcTimeseries request)
         {
-            return new OhlcTimeseriesRangeResponse
+            return new OhlcTimeseriesResponse
             {
                 Ohlcs = await _ohlcTimeseries.FilterAsync(request.Filter)
             };
         }
 
-        public async Task<SuccessResponse> DeleteOhlcTimeseriesRange(DeleteOhlcTimeseriesRange request)
+        public async Task<SuccessResponse> DeleteOhlcTimeseriesRange(DeleteOhlcTimeseries request)
         {
             await _ohlcTimeseries.RemoveRangeAsync(request.Filter);
             return new SuccessResponse();
         }
 
-        public async Task<SuccessResponse> CreateValueTimeseriesRange(CreateValueTimeseriesRange request)
+        public async Task<SuccessResponse> CreateValueTimeseriesRange(CreateValueTimeseries request)
         {
             await _valueTimeseries.AddRangeAsync(request.Values);
             return new SuccessResponse();
         }
 
-        public async Task<ValueTimeseriesRangeResponse> GetValueTimeseriessRange(GetValueTimeseriesRange request)
+        public async Task<ValueTimeseriesResponse> GetValueTimeseriessRange(GetValueTimeseries request)
         {
-            return new ValueTimeseriesRangeResponse
+            return new ValueTimeseriesResponse
             {
                 Values = await _valueTimeseries.FilterAsync(request.Filter)
             };
         }
 
-        public async Task<SuccessResponse> DeleteValueTimeseriesRange(DeleteValueTimeseriesRange request)
+        public async Task<SuccessResponse> DeleteValueTimeseriesRange(DeleteValueTimeseries request)
         {
             await _valueTimeseries.RemoveRangeAsync(request.Filter);
             return new SuccessResponse();

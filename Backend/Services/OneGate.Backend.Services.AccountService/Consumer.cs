@@ -9,12 +9,10 @@ namespace OneGate.Backend.Services.AccountService
 {
     public class Consumer : 
         IConsumer<CreateAccount>,
-        IConsumer<GetAccount>,
-        IConsumer<GetAccountsRange>,
+        IConsumer<GetAccounts>,
         IConsumer<DeleteAccount>,
         IConsumer<CreateOrder>,
-        IConsumer<GetOrder>,
-        IConsumer<GetOrdersRange>,
+        IConsumer<GetOrders>,
         IConsumer<DeleteOrder>
     {
         private readonly IAccountService _service;
@@ -29,12 +27,7 @@ namespace OneGate.Backend.Services.AccountService
             await context.MarshallWith(_service.CreateAccount);
         }
 
-        public async Task Consume(ConsumeContext<GetAccount> context)
-        {
-            await context.MarshallWith(_service.GetAccount);
-        }
-
-        public async Task Consume(ConsumeContext<GetAccountsRange> context)
+        public async Task Consume(ConsumeContext<GetAccounts> context)
         {
             await context.MarshallWith(_service.GetAccountsRange);
         }
@@ -49,12 +42,7 @@ namespace OneGate.Backend.Services.AccountService
             await context.MarshallWith(_service.CreateOrder);
         }
 
-        public async Task Consume(ConsumeContext<GetOrder> context)
-        {
-            await context.MarshallWith(_service.GetOrder);
-        }
-
-        public async Task Consume(ConsumeContext<GetOrdersRange> context)
+        public async Task Consume(ConsumeContext<GetOrders> context)
         {
             await context.MarshallWith(_service.GetOrdersRange);
         }

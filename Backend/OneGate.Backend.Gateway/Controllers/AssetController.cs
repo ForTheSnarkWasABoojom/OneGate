@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using MassTransit;
 using Microsoft.AspNetCore.Authorization;
@@ -36,7 +37,7 @@ namespace OneGate.Backend.Gateway.Controllers
         [SwaggerOperation("[ADMIN] Create asset")]
         public async Task<ResourceDto> CreateAssetAsync([FromBody] CreateAssetBaseDto request)
         {
-            var payload = await _bus.Call<CreateAsset,CreatedResourceResponse>(new CreateAsset
+            var payload = await _bus.Call<CreateAsset, CreatedResourceResponse>(new CreateAsset
             {
                 Asset = request
             });
@@ -49,7 +50,7 @@ namespace OneGate.Backend.Gateway.Controllers
         [SwaggerOperation("Search assets")]
         public async Task<IEnumerable<AssetBaseDto>> GetAssetsRangeAsync([FromQuery] AssetBaseFilterDto request)
         {
-            var payload = await _bus.Call<GetAssetsRange,AssetsRangeResponse>(new GetAssetsRange
+            var payload = await _bus.Call<GetAssets, AssetsResponse>(new GetAssets
             {
                 Filter = request
             });
@@ -63,12 +64,15 @@ namespace OneGate.Backend.Gateway.Controllers
         [Route("{id}")]
         public async Task<AssetBaseDto> GetAssetAsync([FromRoute] int id)
         {
-            var payload = await _bus.Call<GetAsset,AssetResponse>(new GetAsset
+            var payload = await _bus.Call<GetAssets, AssetsResponse>(new GetAssets
             {
-                Id = id
+                Filter = new AssetBaseFilterDto
+                {
+                    Id = id
+                }
             });
 
-            return payload.Asset;
+            return payload.Assets.First();
         }
 
         [HttpDelete, Authorize(AuthPolicy.Admin)]
@@ -76,7 +80,7 @@ namespace OneGate.Backend.Gateway.Controllers
         [Route("{id}")]
         public async Task DeleteAssetAsync([FromRoute] int id)
         {
-            await _bus.Call<DeleteAsset,SuccessResponse>(new DeleteAsset
+            await _bus.Call<DeleteAsset, SuccessResponse>(new DeleteAsset
             {
                 Id = id
             });

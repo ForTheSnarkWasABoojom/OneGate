@@ -51,31 +51,34 @@ namespace OneGate.Backend.Services.AssetService.Repository
             return ConvertAssetToDto(asset);
         }
 
-        public async Task<IEnumerable<AssetBaseDto>> FilterAsync(AssetBaseFilterDto model)
+        public async Task<IEnumerable<AssetBaseDto>> FilterAsync(AssetBaseFilterDto filter)
         {
             var assetsQuery = _db.Assets.AsQueryable();
 
-            if (model.Type != null)
-                assetsQuery = assetsQuery.Where(x => x.Type == model.Type.ToString());
+            if (filter.Id != null)
+                assetsQuery = assetsQuery.Where(x => x.Id == filter.Id);
+            
+            if (filter.Type != null)
+                assetsQuery = assetsQuery.Where(x => x.Type == filter.Type.ToString());
 
-            if (!string.IsNullOrWhiteSpace(model.Ticker))
-                assetsQuery = assetsQuery.Where(x => x.Ticker.ToLower().Contains(model.Ticker.ToLower()));
+            if (!string.IsNullOrWhiteSpace(filter.Ticker))
+                assetsQuery = assetsQuery.Where(x => x.Ticker.ToLower().Contains(filter.Ticker.ToLower()));
 
-            if (model.Exchange != null)
+            if (filter.Exchange != null)
             {
-                if (model.Exchange.Id != null)
-                    assetsQuery = assetsQuery.Where(x => x.Exchange.Id == model.Exchange.Id);
+                if (filter.Exchange.Id != null)
+                    assetsQuery = assetsQuery.Where(x => x.Exchange.Id == filter.Exchange.Id);
 
-                if (model.Exchange.Title != null)
+                if (filter.Exchange.Title != null)
                     assetsQuery = assetsQuery.Where(x =>
-                        x.Exchange.Title.ToLower().Contains(model.Exchange.Title.ToLower()));
+                        x.Exchange.Title.ToLower().Contains(filter.Exchange.Title.ToLower()));
 
-                if (model.Exchange.EngineType != null)
+                if (filter.Exchange.EngineType != null)
                     assetsQuery = assetsQuery.Where(x =>
-                        x.Exchange.EngineType == model.Exchange.EngineType.ToString());
+                        x.Exchange.EngineType == filter.Exchange.EngineType.ToString());
             }
 
-            var assets = await assetsQuery.Skip(model.Shift).Take(model.Count).ToListAsync();
+            var assets = await assetsQuery.Skip(filter.Shift).Take(filter.Count).ToListAsync();
             return assets.Select(ConvertAssetToDto);
         }
 
