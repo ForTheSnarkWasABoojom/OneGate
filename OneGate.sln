@@ -1,17 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backend", "Backend", "{FFA0ED56-F947-48AF-ABCA-069867C688C7}"
-ProjectSection(SolutionItems) = preProject
-	Backend\docker-compose.yaml = Backend\docker-compose.yaml
-	Backend\Dockerfile = Backend\Dockerfile
-	Backend\environment\dev\dev.env = Backend\environment\dev\dev.env
-	Backend\environment\dev\docker-compose.dev.yaml = Backend\environment\dev\docker-compose.dev.yaml
-	Backend\environment\dev\nginx\nginx.dev.conf = Backend\environment\dev\nginx\nginx.dev.conf
-	Backend\environment\qa\docker-compose.qa.yaml = Backend\environment\qa\docker-compose.qa.yaml
-	Backend\environment\qa\nginx\nginx.qa.conf = Backend\environment\qa\nginx\nginx.qa.conf
-	Backend\environment\qa\qa.env = Backend\environment\qa\qa.env
-	Backend\environment\qa\prometheus.qa.yml = Backend\environment\qa\prometheus.qa.yml
-EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Gateway", "Backend\OneGate.Backend.Gateway\OneGate.Backend.Gateway.csproj", "{C5E1268E-DBBD-43CF-A4DE-F65DF1E40E02}"
 EndProject
