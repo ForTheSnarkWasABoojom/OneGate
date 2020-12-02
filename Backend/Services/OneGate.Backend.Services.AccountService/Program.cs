@@ -4,7 +4,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using OneGate.Backend.Database;
 using OneGate.Backend.Rpc;
-using OneGate.Backend.Rpc.Services;
 using OneGate.Backend.Services.AccountService.Repository;
 
 namespace OneGate.Backend.Services.AccountService
@@ -22,9 +21,12 @@ namespace OneGate.Backend.Services.AccountService
                 {
                     services.AddEntityFrameworkNpgsql().AddDbContext<DatabaseContext>();
 
-                    services.AddTransient<IAccountService, Service>();
+                    services.AddTransient<IService, Service>();
+                    
                     services.AddTransient<IAccountRepository, AccountRepository>();
                     services.AddTransient<IOrderRepository, OrderRepository>();
+                    services.AddTransient<IPortfolioRepository, PortfolioRepository>();
+                    services.AddTransient<IPorfolioAssetLinkRepository, PorfolioAssetLinkRepository>();
 
                     // Mass Transit.
                     services.UseMassTransit(new []

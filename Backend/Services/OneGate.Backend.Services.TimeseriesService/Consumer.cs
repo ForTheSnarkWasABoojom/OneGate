@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
 using MassTransit;
-using OneGate.Backend.Contracts.Timeseries;
+using OneGate.Backend.Contracts.OhlcTimeseries;
+using OneGate.Backend.Contracts.ValueTimeseries;
 using OneGate.Backend.Rpc;
-using OneGate.Backend.Rpc.Services;
 
 namespace OneGate.Backend.Services.TimeseriesService
 {
@@ -29,32 +29,32 @@ namespace OneGate.Backend.Services.TimeseriesService
 
         public async Task Consume(ConsumeContext<CreateOhlcTimeseries> context)
         {
-            await context.MarshallWith(_service.CreateOhlcTimeseriesRange);
+            await context.MarshallWith(_service.CreateOhlcTimeseries);
         }
 
         public async Task Consume(ConsumeContext<GetOhlcTimeseries> context)
         {
-            await context.MarshallWith(_service.GetOhlcTimeseriessRange);
+            await context.MarshallWith(_service.GetOhlcTimeseriess);
         }
 
         public async Task Consume(ConsumeContext<DeleteOhlcTimeseries> context)
         {
-            await context.MarshallWith(_service.DeleteOhlcTimeseriesRange);
+            await context.MarshallWith(_service.DeleteOhlcTimeseries);
         }
 
         public async Task Consume(ConsumeContext<CreateValueTimeseries> context)
         {
-            await context.MarshallWith(_service.CreateValueTimeseriesRange);
+            await context.MarshallWith(_service.CreateValueTimeseries);
         }
 
         public async Task Consume(ConsumeContext<GetValueTimeseries> context)
         {
-            await context.MarshallWith(_service.GetValueTimeseriessRange);
+            await context.MarshallWith(_service.GetValueTimeseries);
         }
 
         public async Task Consume(ConsumeContext<DeleteValueTimeseries> context)
         {
-            await context.MarshallWith(_service.DeleteValueTimeseriesRange);
+            await context.MarshallWith(_service.DeleteValueTimeseries);
         }
     }
 }

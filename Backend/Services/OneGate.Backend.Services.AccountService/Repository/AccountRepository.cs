@@ -21,16 +21,23 @@ namespace OneGate.Backend.Services.AccountService.Repository
 
         public async Task<int> AddAsync(CreateAccountDto model)
         {
-            var account = await _db.Accounts.AddAsync(new Account
+            var account = new Account
             {
                 FirstName = model.FirstName,
                 LastName = model.LastName,
                 Email = model.Email,
                 Password = GetHash(model.Password)
-            });
-            await _db.SaveChangesAsync();
+            };
+            await _db.Accounts.AddAsync(account);
 
-            return account.Entity.Id;
+            await _db.Portfolios.AddAsync(new Portfolio
+            {
+                Name = "Default",
+                Owner = account
+            });
+
+            await _db.SaveChangesAsync();
+            return account.Id;
         }
 
         public async Task<IEnumerable<AccountDto>> FilterAsync(AccountFilterDto filter)
@@ -39,7 +46,7 @@ namespace OneGate.Backend.Services.AccountService.Repository
 
             if (filter.Id != null)
                 accountsQuery = accountsQuery.Where(x => x.Id == filter.Id);
-            
+
             if (!string.IsNullOrWhiteSpace(filter.FirstName))
                 accountsQuery = accountsQuery.Where(x =>
                     x.FirstName.ToLower().Contains(filter.FirstName.ToLower()));

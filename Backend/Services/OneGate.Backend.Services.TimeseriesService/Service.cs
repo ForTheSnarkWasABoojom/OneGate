@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using OneGate.Backend.Contracts.Common;
-using OneGate.Backend.Contracts.Timeseries;
-using OneGate.Backend.Rpc.Services;
+using OneGate.Backend.Contracts.OhlcTimeseries;
+using OneGate.Backend.Contracts.ValueTimeseries;
 using OneGate.Backend.Services.TimeseriesService.Repository;
 using OneGate.Shared.Models.Timeseries;
 
@@ -35,13 +35,13 @@ namespace OneGate.Backend.Services.TimeseriesService
             }
         }
 
-        public async Task<SuccessResponse> CreateOhlcTimeseriesRange(CreateOhlcTimeseries request)
+        public async Task<SuccessResponse> CreateOhlcTimeseries(CreateOhlcTimeseries request)
         {
             await _ohlcTimeseries.AddRangeAsync(request.Ohlcs);
             return new SuccessResponse();
         }
 
-        public async Task<OhlcTimeseriesResponse> GetOhlcTimeseriessRange(GetOhlcTimeseries request)
+        public async Task<OhlcTimeseriesResponse> GetOhlcTimeseriess(GetOhlcTimeseries request)
         {
             return new OhlcTimeseriesResponse
             {
@@ -49,19 +49,19 @@ namespace OneGate.Backend.Services.TimeseriesService
             };
         }
 
-        public async Task<SuccessResponse> DeleteOhlcTimeseriesRange(DeleteOhlcTimeseries request)
+        public async Task<SuccessResponse> DeleteOhlcTimeseries(DeleteOhlcTimeseries request)
         {
             await _ohlcTimeseries.RemoveRangeAsync(request.Filter);
             return new SuccessResponse();
         }
 
-        public async Task<SuccessResponse> CreateValueTimeseriesRange(CreateValueTimeseries request)
+        public async Task<SuccessResponse> CreateValueTimeseries(CreateValueTimeseries request)
         {
             await _valueTimeseries.AddRangeAsync(request.Values);
             return new SuccessResponse();
         }
 
-        public async Task<ValueTimeseriesResponse> GetValueTimeseriessRange(GetValueTimeseries request)
+        public async Task<ValueTimeseriesResponse> GetValueTimeseries(GetValueTimeseries request)
         {
             return new ValueTimeseriesResponse
             {
@@ -69,7 +69,7 @@ namespace OneGate.Backend.Services.TimeseriesService
             };
         }
 
-        public async Task<SuccessResponse> DeleteValueTimeseriesRange(DeleteValueTimeseries request)
+        public async Task<SuccessResponse> DeleteValueTimeseries(DeleteValueTimeseries request)
         {
             await _valueTimeseries.RemoveRangeAsync(request.Filter);
             return new SuccessResponse();

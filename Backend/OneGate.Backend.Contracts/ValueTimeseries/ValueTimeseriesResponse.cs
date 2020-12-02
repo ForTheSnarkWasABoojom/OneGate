@@ -1,8 +1,7 @@
 ﻿using MassTransit.Topology;
-using OneGate.Backend.Contracts.Common;
 using OneGate.Shared.Models.Timeseries;
 
-namespace OneGate.Backend.Contracts.Timeseries
+namespace OneGate.Backend.Contracts.ValueTimeseries
 {
     [EntityName("response.value_timeseries")]
     public class ValueTimeseriesResponse

@@ -2,8 +2,9 @@ using System.Threading.Tasks;
 using MassTransit;
 using OneGate.Backend.Contracts.Account;
 using OneGate.Backend.Contracts.Order;
+using OneGate.Backend.Contracts.Portfolio;
+using OneGate.Backend.Contracts.PortfolioAssetLink;
 using OneGate.Backend.Rpc;
-using OneGate.Backend.Rpc.Services;
 
 namespace OneGate.Backend.Services.AccountService
 {
@@ -13,11 +14,17 @@ namespace OneGate.Backend.Services.AccountService
         IConsumer<DeleteAccount>,
         IConsumer<CreateOrder>,
         IConsumer<GetOrders>,
-        IConsumer<DeleteOrder>
+        IConsumer<DeleteOrder>,
+        IConsumer<CreatePortfolio>,
+        IConsumer<GetPortfolios>,
+        IConsumer<DeletePortfolio>,
+        IConsumer<CreatePortfolioAssetLink>,
+        IConsumer<GetPortfolioAssetLinks>,
+        IConsumer<DeletePortfolioAssetLink>
     {
-        private readonly IAccountService _service;
+        private readonly IService _service;
 
-        public Consumer(IAccountService service)
+        public Consumer(IService service)
         {
             _service = service;
         }
@@ -29,7 +36,7 @@ namespace OneGate.Backend.Services.AccountService
 
         public async Task Consume(ConsumeContext<GetAccounts> context)
         {
-            await context.MarshallWith(_service.GetAccountsRange);
+            await context.MarshallWith(_service.GetAccounts);
         }
 
         public async Task Consume(ConsumeContext<DeleteAccount> context)
@@ -44,12 +51,42 @@ namespace OneGate.Backend.Services.AccountService
 
         public async Task Consume(ConsumeContext<GetOrders> context)
         {
-            await context.MarshallWith(_service.GetOrdersRange);
+            await context.MarshallWith(_service.GetOrders);
         }
 
         public async Task Consume(ConsumeContext<DeleteOrder> context)
         {
             await context.MarshallWith(_service.DeleteOrder);
+        }
+
+        public async Task Consume(ConsumeContext<CreatePortfolio> context)
+        {
+            await context.MarshallWith(_service.CreatePortfolio);
+        }
+
+        public async Task Consume(ConsumeContext<GetPortfolios> context)
+        {
+            await context.MarshallWith(_service.GetPortfolios);
+        }
+
+        public async Task Consume(ConsumeContext<DeletePortfolio> context)
+        {
+            await context.MarshallWith(_service.DeletePortfolio);
+        }
+
+        public async Task Consume(ConsumeContext<CreatePortfolioAssetLink> context)
+        {
+            await context.MarshallWith(_service.CreatePortfolioAssetLink);
+        }
+
+        public async Task Consume(ConsumeContext<GetPortfolioAssetLinks> context)
+        {
+            await context.MarshallWith(_service.GetPortfolioAssetLinks);
+        }
+
+        public async Task Consume(ConsumeContext<DeletePortfolioAssetLink> context)
+        {
+            await context.MarshallWith(_service.DeletePortfolioAssetLink);
         }
     }
 }

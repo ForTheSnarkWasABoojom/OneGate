@@ -8,8 +8,8 @@ namespace OneGate.Backend.Database.Models
     {
         [Required] 
         [MaxLength(100)]
-        [Column("name")]
-        public string Name { get; set; }
+        [Column("layout_id")]
+        public int LayoutId { get; set; }
         
         [Required] 
         [Column("value")]

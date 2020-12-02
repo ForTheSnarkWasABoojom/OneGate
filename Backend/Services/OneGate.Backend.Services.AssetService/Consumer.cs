@@ -2,8 +2,8 @@ using System.Threading.Tasks;
 using MassTransit;
 using OneGate.Backend.Contracts.Asset;
 using OneGate.Backend.Contracts.Exchange;
+using OneGate.Backend.Contracts.Layout;
 using OneGate.Backend.Rpc;
-using OneGate.Backend.Rpc.Services;
 
 namespace OneGate.Backend.Services.AssetService
 {
@@ -13,11 +13,14 @@ namespace OneGate.Backend.Services.AssetService
         IConsumer<DeleteExchange>,
         IConsumer<CreateAsset>,
         IConsumer<GetAssets>,
-        IConsumer<DeleteAsset>
+        IConsumer<DeleteAsset>,
+        IConsumer<CreateLayout>,
+        IConsumer<GetLayouts>,
+        IConsumer<DeleteLayout>
     {
-        private readonly IAssetService _service;
+        private readonly IService _service;
 
-        public Consumer(IAssetService service)
+        public Consumer(IService service)
         {
             _service = service;
         }
@@ -34,7 +37,7 @@ namespace OneGate.Backend.Services.AssetService
 
         public async Task Consume(ConsumeContext<GetAssets> context)
         {
-            await context.MarshallWith(_service.GetAssetsRange);
+            await context.MarshallWith(_service.GetAssets);
         }
 
         public async Task Consume(ConsumeContext<CreateExchange> context)
@@ -49,7 +52,22 @@ namespace OneGate.Backend.Services.AssetService
 
         public async Task Consume(ConsumeContext<GetExchanges> context)
         {
-            await context.MarshallWith(_service.GetExchangesRange);
+            await context.MarshallWith(_service.GetExchanges);
+        }
+        
+        public async Task Consume(ConsumeContext<CreateLayout> context)
+        {
+            await context.MarshallWith(_service.CreateLayout);
+        }
+
+        public async Task Consume(ConsumeContext<DeleteLayout> context)
+        {
+            await context.MarshallWith(_service.DeleteLayout);
+        }
+
+        public async Task Consume(ConsumeContext<GetLayouts> context)
+        {
+            await context.MarshallWith(_service.GetLayouts);
         }
     }
 }

@@ -7,7 +7,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using OneGate.Backend.Engines.Base.OhlcProvider;
 using OneGate.Backend.Contracts.Asset;
-using OneGate.Backend.Contracts.Timeseries;
+using OneGate.Backend.Contracts.OhlcTimeseries;
 using OneGate.Backend.Rpc;
 using OneGate.Shared.Models.Asset;
 using OneGate.Shared.Models.Exchange;

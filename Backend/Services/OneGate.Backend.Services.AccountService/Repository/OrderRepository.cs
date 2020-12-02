@@ -114,7 +114,7 @@ namespace OneGate.Backend.Services.AccountService.Repository
 
         private static MarketOrderDto ConvertMarketOrderToDto(MarketOrder order)
         {
-            return new MarketOrderDto()
+            return new MarketOrderDto
             {
                 Id = order.Id,
                 AssetId = order.AssetId,
@@ -126,7 +126,7 @@ namespace OneGate.Backend.Services.AccountService.Repository
 
         private static StopOrderDto ConvertStopOrderToDto(StopOrder order)
         {
-            return new StopOrderDto()
+            return new StopOrderDto
             {
                 Id = order.Id,
                 AssetId = order.AssetId,
@@ -139,7 +139,7 @@ namespace OneGate.Backend.Services.AccountService.Repository
 
         private static LimitOrderDto ConvertLimitOrderToDto(LimitOrder order)
         {
-            return new LimitOrderDto()
+            return new LimitOrderDto
             {
                 Id = order.Id,
                 AssetId = order.AssetId,

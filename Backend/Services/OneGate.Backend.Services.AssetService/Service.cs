@@ -2,21 +2,23 @@
 using OneGate.Backend.Contracts.Asset;
 using OneGate.Backend.Contracts.Common;
 using OneGate.Backend.Contracts.Exchange;
-using OneGate.Backend.Rpc.Services;
+using OneGate.Backend.Contracts.Layout;
 using OneGate.Backend.Services.AssetService.Repository;
 using OneGate.Shared.Models.Common;
 
 namespace OneGate.Backend.Services.AssetService
 {
-    public class Service : IAssetService
+    public class Service : IService
     {
         private readonly IAssetRepository _assets;
         private readonly IExchangeRepository _exchanges;
+        private readonly ILayoutRepository _layouts;
 
-        public Service(IAssetRepository assets, IExchangeRepository exchanges)
+        public Service(IAssetRepository assets, IExchangeRepository exchanges, ILayoutRepository layouts)
         {
             _assets = assets;
             _exchanges = exchanges;
+            _layouts = layouts;
         }
 
         public async Task<CreatedResourceResponse> CreateAsset(CreateAsset request)
@@ -30,7 +32,7 @@ namespace OneGate.Backend.Services.AssetService
             };
         }
 
-        public async Task<AssetsResponse> GetAssetsRange(GetAssets request)
+        public async Task<AssetsResponse> GetAssets(GetAssets request)
         {
             return new AssetsResponse
             {
@@ -55,7 +57,7 @@ namespace OneGate.Backend.Services.AssetService
             };
         }
 
-        public async Task<ExchangesResponse> GetExchangesRange(GetExchanges request)
+        public async Task<ExchangesResponse> GetExchanges(GetExchanges request)
         {
             return new ExchangesResponse
             {
@@ -66,6 +68,31 @@ namespace OneGate.Backend.Services.AssetService
         public async Task<SuccessResponse> DeleteExchange(DeleteExchange request)
         {
             await _exchanges.RemoveAsync(request.Id);
+            return new SuccessResponse();
+        }
+
+        public async Task<CreatedResourceResponse> CreateLayout(CreateLayout request)
+        {
+            return new CreatedResourceResponse
+            {
+                Resource = new ResourceDto
+                {
+                    Id = await _layouts.AddAsync(request.Layout)
+                }
+            };
+        }
+
+        public async Task<LayoutsResponse> GetLayouts(GetLayouts request)
+        {
+            return new LayoutsResponse
+            {
+                Layouts = await _layouts.FilterAsync(request.Filter)
+            };
+        }
+
+        public async Task<SuccessResponse> DeleteLayout(DeleteLayout request)
+        {
+            await _layouts.RemoveAsync(request.Id);
             return new SuccessResponse();
         }
     }

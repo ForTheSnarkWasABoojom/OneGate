@@ -4,7 +4,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using OneGate.Backend.Database;
 using OneGate.Backend.Rpc;
-using OneGate.Backend.Rpc.Services;
 using OneGate.Backend.Services.TimeseriesService.Repository;
 
 namespace OneGate.Backend.Services.TimeseriesService
@@ -23,6 +22,7 @@ namespace OneGate.Backend.Services.TimeseriesService
                     services.AddEntityFrameworkNpgsql().AddDbContext<DatabaseContext>();
 
                     services.AddTransient<ITimeseriesService, Service>();
+                    
                     services.AddTransient<IOhlcTimeseriesRepository, OhlcTimeseriesRepository>();
                     services.AddTransient<IValueTimeseriesRepository, ValueTimeseriesRepository>();
 

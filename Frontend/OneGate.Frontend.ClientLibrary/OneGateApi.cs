@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using OneGate.Backend.Contracts.Layout;
 using OneGate.Frontend.ClientLibrary.Utils;
 using OneGate.Shared.Models.Account;
 using OneGate.Shared.Models.Asset;
 using OneGate.Shared.Models.Common;
 using OneGate.Shared.Models.Exchange;
+using OneGate.Shared.Models.Layout;
 using OneGate.Shared.Models.Order;
 using OneGate.Shared.Models.Timeseries;
 
@@ -153,34 +155,58 @@ namespace OneGate.Frontend.ClientLibrary
 
         public async Task CreateOhlcTimeseriesAsync(OhlcTimeseriesRangeDto model)
         {
-            await PostAsync<OhlcTimeseriesRangeDto, ResourceDto>("timeseries/ohlc", model);
+            await PostAsync<OhlcTimeseriesRangeDto, ResourceDto>("ohlctimeseries", model);
         }
 
         public async Task<OhlcTimeseriesRangeDto> GetOhlcTimeseriesByFilterAsync(OhlcTimeseriesFilterDto model)
         {
-            return await GetAsync<OhlcTimeseriesRangeDto>("timeseries/ohlc", model);
+            return await GetAsync<OhlcTimeseriesRangeDto>("ohlctimeseries", model);
         }
 
         public async Task DeleteOhlcTimeseriesAsync(OhlcTimeseriesFilterDto model)
         {
-            await DeleteAsync("timeseries/ohlc", model);
+            await DeleteAsync("ohlctimeseries", model);
         }
 
         public async Task CreateValueTimeseriesAsync(ValueTimeseriesRangeDto model)
         {
-            await PostAsync<ValueTimeseriesRangeDto, ResourceDto>("timeseries/value", model);
+            await PostAsync<ValueTimeseriesRangeDto, ResourceDto>("valuetimeseries", model);
         }
 
         public async Task<ValueTimeseriesRangeDto> GetValueTimeseriesByFilterAsync(ValueTimeseriesFilterDto model)
         {
-            return await GetAsync<ValueTimeseriesRangeDto>("timeseries/value", model);
+            return await GetAsync<ValueTimeseriesRangeDto>("valuetimeseries", model);
         }
 
         public async Task DeleteValueTimeseriesAsync(ValueTimeseriesFilterDto model)
         {
-            await DeleteAsync("timeseries/value", model);
+            await DeleteAsync("valuetimeseries", model);
         }
 
+        #endregion
+        
+        #region Layout controller
+        
+        public async Task<ResourceDto> CreateLayoutAsync(CreateLayoutDto model)
+        {
+            return await PostAsync<CreateLayoutDto, ResourceDto>("layout", model);
+        }
+        
+        public async Task<LayoutDto> GetLayoutAsync(int id)
+        {
+            return await GetAsync<LayoutDto>($"layout/{id}");
+        }
+
+        public async Task<List<LayoutDto>> GetLayoutByFilterAsync(LayoutFilterDto model)
+        {
+            return await GetAsync<List<LayoutDto>>("layout", model);
+        }
+
+        public async Task DeleteLayoutAsync(int id)
+        {
+            await DeleteAsync($"layout/{id}");
+        }
+        
         #endregion
     }
 }

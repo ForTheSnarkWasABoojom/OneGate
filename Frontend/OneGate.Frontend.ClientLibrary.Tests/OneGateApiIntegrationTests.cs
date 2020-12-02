@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using OneGate.Shared.Models.Asset;
 using OneGate.Shared.Models.Exchange;
+using OneGate.Shared.Models.Layout;
 using OneGate.Shared.Models.Timeseries;
 using Xunit;
 
@@ -66,11 +67,17 @@ namespace OneGate.Frontend.ClientLibrary.Tests
                 Count = 1000
             });
 
+            var createdLayout = await _fixture.AdminApi.CreateLayoutAsync(new CreateLayoutDto
+            {
+                Name = "testLayout",
+                Description = "layoutDescription"
+            });
+
             var valueTimeseriesName = Guid.NewGuid().ToString();
             await _fixture.AdminApi.CreateValueTimeseriesAsync(new ValueTimeseriesRangeDto
             {
                 AssetId = createdStockAsset.Id,
-                Name = valueTimeseriesName,
+                LayoutId = createdLayout.Id,
                 Range = new List<ValueTimeseriesDto>
                 {
                     new ValueTimeseriesDto

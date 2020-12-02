@@ -1,10 +1,10 @@
 ﻿using MassTransit.Topology;
 using OneGate.Shared.Models.Timeseries;
 
-namespace OneGate.Backend.Contracts.Timeseries
+namespace OneGate.Backend.Contracts.ValueTimeseries
 {
-    [EntityName("request.value_timeseries.delete")]
-    public class DeleteValueTimeseries
+    [EntityName("request.value_timeseries.get")]
+    public class GetValueTimeseries
     {
         public ValueTimeseriesFilterDto Filter { get; set; }
     }

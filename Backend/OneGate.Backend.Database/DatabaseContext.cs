@@ -23,11 +23,11 @@ namespace OneGate.Backend.Database
             modelBuilder.Entity<Account>()
                 .HasIndex(x => new {x.Email})
                 .IsUnique();
-            
+
             modelBuilder.Entity<AssetBase>()
                 .HasIndex(x => new {x.Type, x.ExchangeId, x.Ticker})
                 .IsUnique();
-            
+
             modelBuilder.Entity<Exchange>()
                 .HasIndex(x => new {x.Title})
                 .IsUnique();
@@ -37,7 +37,7 @@ namespace OneGate.Backend.Database
                 .IsUnique();
 
             modelBuilder.Entity<ValueTimeseries>()
-                .HasIndex(x => new {x.AssetId, x.Name, x.Timestamp})
+                .HasIndex(x => new {x.AssetId, x.LayoutId, x.Timestamp})
                 .IsUnique();
 
             modelBuilder.Entity<AssetBase>()
@@ -58,7 +58,7 @@ namespace OneGate.Backend.Database
 
         public DbSet<OhlcTimeseries> OhlcTimeseries { get; set; }
         public DbSet<ValueTimeseries> ValueTimeseries { get; set; }
-
+        public DbSet<Layout> Layouts { get; set; }
         public DbSet<AssetBase> Assets { get; set; }
         public DbSet<StockAsset> StocksAssets { get; set; }
         public DbSet<IndexAsset> IndexAssets { get; set; }
@@ -67,5 +67,8 @@ namespace OneGate.Backend.Database
         public DbSet<MarketOrder> MarketOrders { get; set; }
         public DbSet<StopOrder> StopOrders { get; set; }
         public DbSet<LimitOrder> LimitOrders { get; set; }
+
+        public DbSet<Portfolio> Portfolios { get; set; }
+        public DbSet<PortfolioAssetLink> PortfolioAssetLinks { get; set; }
     }
 }

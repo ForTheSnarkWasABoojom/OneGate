@@ -21,7 +21,7 @@ namespace OneGate.Backend.Services.TimeseriesService.Repository
             await _db.ValueTimeseries.AddRangeAsync(request.Range.Select(value =>
                 new ValueTimeseries
                 {
-                    Name = request.Name,
+                    LayoutId = request.LayoutId,
                     AssetId = request.AssetId,
                     Timestamp = value.Timestamp,
                     Value = value.Value
@@ -34,7 +34,7 @@ namespace OneGate.Backend.Services.TimeseriesService.Repository
         {
             var query = _db.ValueTimeseries
                 .Where(x => x.AssetId == filter.AssetId)
-                .Where(x => x.Name == filter.Name);
+                .Where(x => x.LayoutId == filter.LayoutId);
 
             if (filter.Id != null)
                 query = query.Where(x => x.Id == filter.Id);
@@ -48,7 +48,7 @@ namespace OneGate.Backend.Services.TimeseriesService.Repository
             var valueTimeseries = await query.Skip(filter.Shift).Take(filter.Count).ToListAsync();
             return new ValueTimeseriesRangeDto
             {
-                Name = filter.Name,
+                LayoutId = filter.LayoutId,
                 AssetId = filter.AssetId,
                 Range = valueTimeseries.Select(ConvertValueTimeseriesToDto).ToList()
             };
@@ -58,7 +58,7 @@ namespace OneGate.Backend.Services.TimeseriesService.Repository
         {
             var query = _db.ValueTimeseries
                 .Where(x => x.AssetId == request.AssetId)
-                .Where(x => x.Name == request.Name);
+                .Where(x => x.LayoutId == request.LayoutId);
 
             if (request.StartTimestamp != null)
                 query = query.Where(x => x.Timestamp >= request.StartTimestamp);

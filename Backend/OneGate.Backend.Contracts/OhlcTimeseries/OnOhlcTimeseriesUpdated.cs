@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using MassTransit.Topology;
-using OneGate.Backend.Contracts.Common;
 using OneGate.Shared.Models.Timeseries;
 
-namespace OneGate.Backend.Contracts.Timeseries
+namespace OneGate.Backend.Contracts.OhlcTimeseries
 {
     [EntityName("event.ohlc_timeseries.update")]
     public class OnOhlcTimeseriesUpdated
