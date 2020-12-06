@@ -52,7 +52,7 @@ namespace OneGate.Backend.Services.AccountService.Repository
             await _db.SaveChangesAsync();
         }
 
-        private PortfolioDto ConvertPortfolioToDto(Portfolio portfolio)
+        private static PortfolioDto ConvertPortfolioToDto(Portfolio portfolio)
         {
             return new PortfolioDto
             {

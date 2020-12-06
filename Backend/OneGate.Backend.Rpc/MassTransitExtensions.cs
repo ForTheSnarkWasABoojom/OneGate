@@ -61,21 +61,6 @@ namespace OneGate.Backend.Rpc
             };
         }
 
-        public static async Task<TResponse> Call<TRequest, TResponse>(this IBus bus, TRequest request, RequestTimeout requestTimeout = default)
-            where TRequest : class
-            where TResponse : class
-        {
-            var client = bus.CreateRequestClient<TRequest>();
-            var (message, error) = await client.GetResponse<TResponse, ErrorResponse>(request, timeout: requestTimeout);
-
-            if (!error.IsCompletedSuccessfully)
-                return (await message).Message;
-
-            var errorResponse = (await error).Message;
-            throw new ApiException(errorResponse.Message, errorResponse.StatusCode,
-                errorResponse.InnerExceptionMessage);
-        }
-
         public static IServiceCollection UseMassTransit(this IServiceCollection services, IEnumerable<KeyValuePair<Type, Type>> consumers = null)
         {
             services.AddMassTransit(x =>
@@ -100,6 +85,7 @@ namespace OneGate.Backend.Rpc
                 }
             });
             services.AddMassTransitHostedService();
+            services.AddTransient<IOgBus, OgBus>();
             
             return services;
         }

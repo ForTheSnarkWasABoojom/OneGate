@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using OneGate.Backend.Contracts.Common;
@@ -23,9 +22,9 @@ namespace OneGate.Backend.Gateway.Controllers
     public class OrderController : ControllerBase
     {
         private readonly ILogger<OrderController> _logger;
-        private readonly IBus _bus;
+        private readonly IOgBus _bus;
 
-        public OrderController(ILogger<OrderController> logger, IBus bus)
+        public OrderController(ILogger<OrderController> logger, IOgBus bus)
         {
             _logger = logger;
             _bus = bus;
@@ -34,7 +33,7 @@ namespace OneGate.Backend.Gateway.Controllers
         [HttpPost]
         [ProducesResponseType(typeof(ResourceDto), Status200OK)]
         [SwaggerOperation("Create order")]
-        public async Task<ResourceDto> CreateOrderAsync([FromBody] CreateOrderBaseDto request)
+        public async Task<ResourceDto> CreateOrderAsync([FromBody] CreateOrderDto request)
         {
             var payload = await _bus.Call<CreateOrder, CreatedResourceResponse>(new CreateOrder
             {
@@ -46,14 +45,14 @@ namespace OneGate.Backend.Gateway.Controllers
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(OrderBaseDto), Status200OK)]
+        [ProducesResponseType(typeof(OrderDto), Status200OK)]
         [SwaggerOperation("Order details")]
         [Route("{id}")]
-        public async Task<OrderBaseDto> GetOrderAsync([FromRoute] int id)
+        public async Task<OrderDto> GetOrderAsync([FromRoute] int id)
         {
             var payload = await _bus.Call<GetOrders, OrdersResponse>(new GetOrders
             {
-                Filter = new OrderBaseFilterDto
+                Filter = new OrderFilterDto
                 {
                     Id = id
                 },
@@ -64,9 +63,9 @@ namespace OneGate.Backend.Gateway.Controllers
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(IEnumerable<OrderBaseDto>), Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<OrderDto>), Status200OK)]
         [SwaggerOperation("Search orders")]
-        public async Task<IEnumerable<OrderBaseDto>> GetOrdersRangeAsync([FromQuery] OrderBaseFilterDto request)
+        public async Task<IEnumerable<OrderDto>> GetOrdersRangeAsync([FromQuery] OrderFilterDto request)
         {
             var payload = await _bus.Call<GetOrders, OrdersResponse>(new GetOrders
             {

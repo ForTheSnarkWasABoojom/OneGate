@@ -32,11 +32,11 @@ namespace OneGate.Backend.Database
                 .HasIndex(x => new {x.Title})
                 .IsUnique();
 
-            modelBuilder.Entity<OhlcTimeseries>()
+            modelBuilder.Entity<OhlcSeries>()
                 .HasIndex(x => new {x.AssetId, x.Interval, x.Timestamp})
                 .IsUnique();
 
-            modelBuilder.Entity<ValueTimeseries>()
+            modelBuilder.Entity<PointSeries>()
                 .HasIndex(x => new {x.AssetId, x.LayoutId, x.Timestamp})
                 .IsUnique();
 
@@ -56,8 +56,8 @@ namespace OneGate.Backend.Database
 
         public DbSet<Exchange> Exchanges { get; set; }
 
-        public DbSet<OhlcTimeseries> OhlcTimeseries { get; set; }
-        public DbSet<ValueTimeseries> ValueTimeseries { get; set; }
+        public DbSet<OhlcSeries> OhlcSeries { get; set; }
+        public DbSet<PointSeries> PointSeries { get; set; }
         public DbSet<Layout> Layouts { get; set; }
         public DbSet<AssetBase> Assets { get; set; }
         public DbSet<StockAsset> StocksAssets { get; set; }

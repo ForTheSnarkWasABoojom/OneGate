@@ -18,7 +18,7 @@ namespace OneGate.Backend.Services.AccountService.Repository
             _db = db;
         }
 
-        public async Task<int> AddAsync(CreateOrderBaseDto model, int ownerId)
+        public async Task<int> AddAsync(CreateOrderDto model, int ownerId)
         {
             OrderBase orderBase = model switch
             {
@@ -60,7 +60,7 @@ namespace OneGate.Backend.Services.AccountService.Repository
             return order.Entity.Id;
         }
 
-        public async Task<OrderBaseDto> FindAsync(int id, int ownerId)
+        public async Task<OrderDto> FindAsync(int id, int ownerId)
         {
             var order = await _db.Orders.FirstOrDefaultAsync(x =>
                 x.Id == id && x.OwnerId == ownerId);
@@ -68,7 +68,7 @@ namespace OneGate.Backend.Services.AccountService.Repository
             return ConvertOrderToDto(order);
         }
 
-        public async Task<IEnumerable<OrderBaseDto>> FilterAsync(OrderBaseFilterDto filter, int ownerId)
+        public async Task<IEnumerable<OrderDto>> FilterAsync(OrderFilterDto filter, int ownerId)
         {
             var orderQuery = _db.Orders.Where(x => x.OwnerId == ownerId);
 
@@ -98,7 +98,7 @@ namespace OneGate.Backend.Services.AccountService.Repository
             await _db.SaveChangesAsync();
         }
 
-        private static OrderBaseDto ConvertOrderToDto(OrderBase order)
+        private static OrderDto ConvertOrderToDto(OrderBase order)
         {
             if (order is null)
                 return null;

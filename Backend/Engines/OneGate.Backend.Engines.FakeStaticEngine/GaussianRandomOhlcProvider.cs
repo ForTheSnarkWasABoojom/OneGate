@@ -5,7 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using OneGate.Backend.Engines.Base.Extensions;
 using OneGate.Backend.Engines.Base.OhlcProvider;
-using OneGate.Shared.Models.Timeseries;
+using OneGate.Shared.Models.Series.Ohlc;
 
 namespace OneGate.Backend.Engines.FakeStaticEngine
 {
@@ -15,8 +15,8 @@ namespace OneGate.Backend.Engines.FakeStaticEngine
 
         private double _lastPrice;
 
-        private readonly Dictionary<OhlcIntervalDto, OhlcTimeseriesDto> _lastCandles =
-            new Dictionary<OhlcIntervalDto, OhlcTimeseriesDto>();
+        private readonly Dictionary<IntervalDto, OhlcDto> _lastCandles =
+            new Dictionary<IntervalDto, OhlcDto>();
 
         private readonly double _gaussianSpread;
         private Timer _timer;
@@ -49,12 +49,12 @@ namespace OneGate.Backend.Engines.FakeStaticEngine
         {
             var currentDateTime = DateTime.Now;
 
-            foreach (OhlcIntervalDto interval in Enum.GetValues(typeof(OhlcIntervalDto)))
+            foreach (IntervalDto interval in Enum.GetValues(typeof(IntervalDto)))
             {
                 if (!_lastCandles.ContainsKey(interval) ||
                     _lastCandles[interval].Timestamp.AddInterval(interval) < currentDateTime)
                 {
-                    _lastCandles[interval] = new OhlcTimeseriesDto
+                    _lastCandles[interval] = new OhlcDto
                     {
                         Open = _lastPrice,
                         Close = _lastPrice,

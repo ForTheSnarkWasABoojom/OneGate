@@ -7,6 +7,6 @@ namespace OneGate.Backend.Contracts.Asset
     [EntityName("response.assets")]
     public class AssetsResponse
     {
-        public IEnumerable<AssetBaseDto> Assets { get; set; }
+        public IEnumerable<AssetDto> Assets { get; set; }
     }
 }

@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using OneGate.Shared.Models.Timeseries;
+using OneGate.Shared.Models.Series.Ohlc;
 
 namespace OneGate.Backend.Engines.Base.OhlcProvider
 {
     public class OhlcProviderEventArgs : EventArgs
     {
-        public readonly Dictionary<OhlcIntervalDto, OhlcTimeseriesDto> OhlcByInterval;
+        public readonly Dictionary<IntervalDto, OhlcDto> OhlcByInterval;
 
-        public OhlcProviderEventArgs(Dictionary<OhlcIntervalDto, OhlcTimeseriesDto> ohlcByInterval)
+        public OhlcProviderEventArgs(Dictionary<IntervalDto, OhlcDto> ohlcByInterval)
         {
             OhlcByInterval = ohlcByInterval;
         }

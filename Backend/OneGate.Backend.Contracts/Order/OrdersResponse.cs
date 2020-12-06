@@ -7,6 +7,6 @@ namespace OneGate.Backend.Contracts.Order
     [EntityName("response.orders")]
     public class OrdersResponse
     {
-        public IEnumerable<OrderBaseDto> Orders { get; set; }
+        public IEnumerable<OrderDto> Orders { get; set; }
     }
 }

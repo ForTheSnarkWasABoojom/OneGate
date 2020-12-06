@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using OneGate.Backend.Contracts.Layout;
 using OneGate.Frontend.ClientLibrary.Utils;
 using OneGate.Shared.Models.Account;
 using OneGate.Shared.Models.Asset;
@@ -9,7 +8,8 @@ using OneGate.Shared.Models.Common;
 using OneGate.Shared.Models.Exchange;
 using OneGate.Shared.Models.Layout;
 using OneGate.Shared.Models.Order;
-using OneGate.Shared.Models.Timeseries;
+using OneGate.Shared.Models.Series.Ohlc;
+using OneGate.Shared.Models.Series.Point;
 
 namespace OneGate.Frontend.ClientLibrary
 {
@@ -81,19 +81,19 @@ namespace OneGate.Frontend.ClientLibrary
 
         #region Asset controller
 
-        public async Task<ResourceDto> CreateAssetAsync(CreateAssetBaseDto model)
+        public async Task<ResourceDto> CreateAssetAsync(CreateAssetDto model)
         {
-            return await PostAsync<CreateAssetBaseDto, ResourceDto>("asset", model);
+            return await PostAsync<CreateAssetDto, ResourceDto>("asset", model);
         }
 
-        public async Task<AssetBaseDto> GetAssetAsync(int id)
+        public async Task<AssetDto> GetAssetAsync(int id)
         {
-            return await GetAsync<AssetBaseDto>($"asset/{id}");
+            return await GetAsync<AssetDto>($"asset/{id}");
         }
 
-        public async Task<List<AssetBaseDto>> GetAssetsByFilterAsync(AssetBaseFilterDto model)
+        public async Task<List<AssetDto>> GetAssetsByFilterAsync(AssetFilterDto model)
         {
-            return await GetAsync<List<AssetBaseDto>>("asset", model);
+            return await GetAsync<List<AssetDto>>("asset", model);
         }
 
         public async Task DeleteAssetAsync(int id)
@@ -129,19 +129,19 @@ namespace OneGate.Frontend.ClientLibrary
         
         #region Order controller
         
-        public async Task<ResourceDto> CreateOrderAsync(CreateOrderBaseDto model)
+        public async Task<ResourceDto> CreateOrderAsync(CreateOrderDto model)
         {
-            return await PostAsync<CreateOrderBaseDto, ResourceDto>("order", model);
+            return await PostAsync<CreateOrderDto, ResourceDto>("order", model);
         }
 
-        public async Task<OrderBaseDto> GetOrderAsync(int id)
+        public async Task<OrderDto> GetOrderAsync(int id)
         {
-            return await GetAsync<OrderBaseDto>($"order/{id}");
+            return await GetAsync<OrderDto>($"order/{id}");
         }
 
-        public async Task<List<OrderBaseDto>> GetOrdersByFilterAsync(OrderBaseFilterDto model)
+        public async Task<List<OrderDto>> GetOrdersByFilterAsync(OrderFilterDto model)
         {
-            return await GetAsync<List<OrderBaseDto>>("order", model);
+            return await GetAsync<List<OrderDto>>("order", model);
         }
 
         public async Task DeleteOrderAsync(int id)
@@ -151,36 +151,40 @@ namespace OneGate.Frontend.ClientLibrary
         
         #endregion
 
-        #region Timeseries controller
+        #region Ohlc series controller
 
-        public async Task CreateOhlcTimeseriesAsync(OhlcTimeseriesRangeDto model)
+        public async Task CreateOhlcSeriesAsync(OhlcSeriesDto model)
         {
-            await PostAsync<OhlcTimeseriesRangeDto, ResourceDto>("ohlctimeseries", model);
+            await PostAsync<OhlcSeriesDto, ResourceDto>("ohlcseries", model);
         }
 
-        public async Task<OhlcTimeseriesRangeDto> GetOhlcTimeseriesByFilterAsync(OhlcTimeseriesFilterDto model)
+        public async Task<OhlcSeriesDto> GetOhlcSeriesByFilterAsync(OhlcSeriesFilterDto model)
         {
-            return await GetAsync<OhlcTimeseriesRangeDto>("ohlctimeseries", model);
+            return await GetAsync<OhlcSeriesDto>("ohlcseries", model);
         }
 
-        public async Task DeleteOhlcTimeseriesAsync(OhlcTimeseriesFilterDto model)
+        public async Task DeleteOhlcSeriesAsync(OhlcSeriesFilterDto model)
         {
-            await DeleteAsync("ohlctimeseries", model);
+            await DeleteAsync("ohlcseries", model);
         }
 
-        public async Task CreateValueTimeseriesAsync(ValueTimeseriesRangeDto model)
+        #endregion
+
+        #region Point series controller
+
+        public async Task CreatePointSeriesAsync(PointSeriesDto model)
         {
-            await PostAsync<ValueTimeseriesRangeDto, ResourceDto>("valuetimeseries", model);
+            await PostAsync<PointSeriesDto, ResourceDto>("pointseries", model);
         }
 
-        public async Task<ValueTimeseriesRangeDto> GetValueTimeseriesByFilterAsync(ValueTimeseriesFilterDto model)
+        public async Task<PointSeriesDto> GetPointSeriesByFilterAsync(PointSeriesFilterDto model)
         {
-            return await GetAsync<ValueTimeseriesRangeDto>("valuetimeseries", model);
+            return await GetAsync<PointSeriesDto>("pointseries", model);
         }
 
-        public async Task DeleteValueTimeseriesAsync(ValueTimeseriesFilterDto model)
+        public async Task DeletePointSeriesAsync(PointSeriesFilterDto model)
         {
-            await DeleteAsync("valuetimeseries", model);
+            await DeleteAsync("pointseries", model);
         }
 
         #endregion

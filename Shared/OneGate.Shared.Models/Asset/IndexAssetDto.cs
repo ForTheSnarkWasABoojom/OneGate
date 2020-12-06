@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace OneGate.Shared.Models.Asset
 {
-    public class IndexAssetDto : AssetBaseDto
+    public class IndexAssetDto : AssetDto
     {
         public override AssetTypeDto? Type => AssetTypeDto.INDEX;
 

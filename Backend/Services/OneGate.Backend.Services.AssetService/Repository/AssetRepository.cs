@@ -18,7 +18,7 @@ namespace OneGate.Backend.Services.AssetService.Repository
             _db = db;
         }
 
-        public async Task<int> AddAsync(CreateAssetBaseDto model)
+        public async Task<int> AddAsync(CreateAssetDto model)
         {
             AssetBase assetBase = model switch
             {
@@ -45,13 +45,13 @@ namespace OneGate.Backend.Services.AssetService.Repository
             return asset.Entity.Id;
         }
 
-        public async Task<AssetBaseDto> FindAsync(int id)
+        public async Task<AssetDto> FindAsync(int id)
         {
             var asset = await _db.Assets.FirstOrDefaultAsync(x => x.Id == id);
             return ConvertAssetToDto(asset);
         }
 
-        public async Task<IEnumerable<AssetBaseDto>> FilterAsync(AssetBaseFilterDto filter)
+        public async Task<IEnumerable<AssetDto>> FilterAsync(AssetFilterDto filter)
         {
             var assetsQuery = _db.Assets.AsQueryable();
 
@@ -88,7 +88,7 @@ namespace OneGate.Backend.Services.AssetService.Repository
             await _db.SaveChangesAsync();
         }
 
-        private static AssetBaseDto ConvertAssetToDto(AssetBase asset)
+        private static AssetDto ConvertAssetToDto(AssetBase asset)
         {
             if (asset is null)
                 return null;

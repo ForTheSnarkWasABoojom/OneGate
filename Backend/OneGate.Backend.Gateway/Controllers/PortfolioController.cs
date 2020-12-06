@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using OneGate.Backend.Contracts.Common;
@@ -23,9 +22,9 @@ namespace OneGate.Backend.Gateway.Controllers
     public class PortfolioController : ControllerBase
     {
         private readonly ILogger<PortfolioController> _logger;
-        private readonly IBus _bus;
+        private readonly IOgBus _bus;
 
-        public PortfolioController(ILogger<PortfolioController> logger, IBus bus)
+        public PortfolioController(ILogger<PortfolioController> logger, IOgBus bus)
         {
             _logger = logger;
             _bus = bus;

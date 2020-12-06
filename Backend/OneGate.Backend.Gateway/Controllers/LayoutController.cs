@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using MassTransit;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -24,15 +23,15 @@ namespace OneGate.Backend.Gateway.Controllers
     public class LayoutController: ControllerBase
     {
         private readonly ILogger<LayoutController> _logger;
-        private readonly IBus _bus;
+        private readonly IOgBus _bus;
 
-        public LayoutController(ILogger<LayoutController> logger, IBus bus)
+        public LayoutController(ILogger<LayoutController> logger, IOgBus bus)
         {
             _logger = logger;
             _bus = bus;
         }
         
-        [HttpPost, Authorize(AuthPolicy.Admin)]
+        [HttpPost, Authorize(GroupPolicies.Admin)]
         [ProducesResponseType(typeof(ResourceDto), Status200OK)]
         [SwaggerOperation("[ADMIN] Create Layout")]
         public async Task<ResourceDto> CreateLayoutAsync([FromBody] CreateLayoutDto request)
@@ -45,7 +44,7 @@ namespace OneGate.Backend.Gateway.Controllers
             return payload.Resource;
         }
 
-        [HttpGet, Authorize(AuthPolicy.Admin)]
+        [HttpGet, Authorize(GroupPolicies.Admin)]
         [ProducesResponseType(typeof(IEnumerable<LayoutDto>), Status200OK)]
         [SwaggerOperation("[ADMIN] Search layouts")]
         public async Task<IEnumerable<LayoutDto>> GetLayoutsRangeAsync([FromQuery] LayoutFilterDto request)
@@ -58,7 +57,7 @@ namespace OneGate.Backend.Gateway.Controllers
             return payload.Layouts;
         }
 
-        [HttpGet, Authorize(AuthPolicy.Admin)]
+        [HttpGet, Authorize(GroupPolicies.Admin)]
         [ProducesResponseType(typeof(LayoutDto), Status200OK)]
         [SwaggerOperation("[ADMIN] Layout details")]
         [Route("{id}")]
@@ -75,7 +74,7 @@ namespace OneGate.Backend.Gateway.Controllers
             return payload.Layouts.First();
         }
 
-        [HttpDelete, Authorize(AuthPolicy.Admin)]
+        [HttpDelete, Authorize(GroupPolicies.Admin)]
         [SwaggerOperation("[ADMIN] Delete layout")]
         [Route("{id}")]
         public async Task DeleteLayoutAsync([FromRoute] int id)

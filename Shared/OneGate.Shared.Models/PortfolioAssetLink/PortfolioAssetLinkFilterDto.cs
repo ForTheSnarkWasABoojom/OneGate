@@ -4,7 +4,7 @@ using OneGate.Shared.Models.Common;
 
 namespace OneGate.Shared.Models.PortfolioAssetLink
 {
-    public class PortfolioAssetLinkFilterDto:FilterBaseDto
+    public class PortfolioAssetLinkFilterDto:FilterDto
     {
         [FromQuery(Name = "id")]
         [JsonProperty("id")]

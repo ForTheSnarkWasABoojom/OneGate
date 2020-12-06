@@ -6,6 +6,6 @@ namespace OneGate.Backend.Contracts.Asset
     [EntityName("request.asset.create")]
     public class CreateAsset
     {
-        public CreateAssetBaseDto Asset { get; set; }
+        public CreateAssetDto Asset { get; set; }
     }
 }

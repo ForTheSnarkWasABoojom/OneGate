@@ -4,7 +4,8 @@ using System.Threading.Tasks;
 using OneGate.Shared.Models.Asset;
 using OneGate.Shared.Models.Exchange;
 using OneGate.Shared.Models.Layout;
-using OneGate.Shared.Models.Timeseries;
+using OneGate.Shared.Models.Series.Ohlc;
+using OneGate.Shared.Models.Series.Point;
 using Xunit;
 
 namespace OneGate.Frontend.ClientLibrary.Tests
@@ -35,13 +36,13 @@ namespace OneGate.Frontend.ClientLibrary.Tests
                 Description = "testStockAsset"
             });
             
-            await _fixture.AdminApi.CreateOhlcTimeseriesAsync(new OhlcTimeseriesRangeDto
+            await _fixture.AdminApi.CreateOhlcSeriesAsync(new OhlcSeriesDto
             {
                 AssetId = createdStockAsset.Id,
-                Interval = OhlcIntervalDto.m1,
-                Range = new List<OhlcTimeseriesDto>
+                Interval = IntervalDto.m1,
+                Range = new List<OhlcDto>
                 {
-                    new OhlcTimeseriesDto
+                    new OhlcDto
                     {
                         High = 100,
                         Low = 0,
@@ -49,7 +50,7 @@ namespace OneGate.Frontend.ClientLibrary.Tests
                         Close = 75,
                         Timestamp = _fixture.GetRandomDay()
                     },
-                    new OhlcTimeseriesDto
+                    new OhlcDto
                     {
                         High = 100,
                         Low = 0,
@@ -60,10 +61,10 @@ namespace OneGate.Frontend.ClientLibrary.Tests
                 }
             });
 
-            await _fixture.AdminApi.DeleteOhlcTimeseriesAsync(new OhlcTimeseriesFilterDto
+            await _fixture.AdminApi.DeleteOhlcSeriesAsync(new OhlcSeriesFilterDto
             {
                 AssetId = createdStockAsset.Id,
-                Interval = OhlcIntervalDto.m1,
+                Interval = IntervalDto.m1,
                 Count = 1000
             });
 
@@ -73,24 +74,24 @@ namespace OneGate.Frontend.ClientLibrary.Tests
                 Description = "layoutDescription"
             });
 
-            var valueTimeseriesName = Guid.NewGuid().ToString();
-            await _fixture.AdminApi.CreateValueTimeseriesAsync(new ValueTimeseriesRangeDto
+            var pointSeriesName = Guid.NewGuid().ToString();
+            await _fixture.AdminApi.CreatePointSeriesAsync(new PointSeriesDto
             {
                 AssetId = createdStockAsset.Id,
                 LayoutId = createdLayout.Id,
-                Range = new List<ValueTimeseriesDto>
+                Range = new List<PointDto>
                 {
-                    new ValueTimeseriesDto
+                    new PointDto
                     {
                         Value = 10,
                         Timestamp = _fixture.GetRandomDay()
                     },
-                    new ValueTimeseriesDto
+                    new PointDto
                     {
                         Value = 20,
                         Timestamp = _fixture.GetRandomDay()
                     },
-                    new ValueTimeseriesDto
+                    new PointDto
                     {
                         Value = 30,
                         Timestamp = _fixture.GetRandomDay()
@@ -98,10 +99,10 @@ namespace OneGate.Frontend.ClientLibrary.Tests
                 }
             });
 
-            await _fixture.AdminApi.DeleteValueTimeseriesAsync(new ValueTimeseriesFilterDto
+            await _fixture.AdminApi.DeletePointSeriesAsync(new PointSeriesFilterDto
             {
                 AssetId = createdStockAsset.Id,
-                Name = valueTimeseriesName,
+                Name = pointSeriesName,
                 Count = 1000
             });
 

@@ -6,9 +6,9 @@ namespace OneGate.Backend.Services.AccountService.Repository
 {
     public interface IOrderRepository
     {
-        public Task<int> AddAsync(CreateOrderBaseDto model, int ownerId);
-        public Task<OrderBaseDto> FindAsync(int id, int ownerId);
-        public Task<IEnumerable<OrderBaseDto>> FilterAsync(OrderBaseFilterDto filter, int ownerId);
+        public Task<int> AddAsync(CreateOrderDto model, int ownerId);
+        public Task<OrderDto> FindAsync(int id, int ownerId);
+        public Task<IEnumerable<OrderDto>> FilterAsync(OrderFilterDto filter, int ownerId);
         public Task RemoveAsync(int id, int ownerId);
     }
 }

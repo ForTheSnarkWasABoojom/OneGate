@@ -4,12 +4,11 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using OneGate.Backend.Database;
 using OneGate.Backend.Database.Models;
-using OneGate.Shared.Models.Portfolio;
 using OneGate.Shared.Models.PortfolioAssetLink;
 
 namespace OneGate.Backend.Services.AccountService.Repository
 {
-    public class PorfolioAssetLinkRepository:IPorfolioAssetLinkRepository
+    public class PorfolioAssetLinkRepository : IPorfolioAssetLinkRepository
     {
         private readonly DatabaseContext _db;
 
@@ -26,7 +25,7 @@ namespace OneGate.Backend.Services.AccountService.Repository
                 PortfolioId = model.PortfolioId,
                 AssetId = model.AssetId
             });
-            
+
             await _db.SaveChangesAsync();
 
             return link.Entity.Id;
@@ -34,14 +33,15 @@ namespace OneGate.Backend.Services.AccountService.Repository
 
         public async Task<IEnumerable<PortfolioAssetLinkDto>> FilterAsync(PortfolioAssetLinkFilterDto filter)
         {
-            var linkQuery = _db.PortfolioAssetLinks.AsQueryable();;
+            var linkQuery = _db.PortfolioAssetLinks.AsQueryable();
+            ;
 
             if (filter.Id != null)
                 linkQuery = linkQuery.Where(x => x.Id == filter.Id);
-            
+
             if (filter.AssetId != null)
                 linkQuery = linkQuery.Where(x => x.AssetId == filter.AssetId);
-            
+
             if (filter.PortfolioId != null)
                 linkQuery = linkQuery.Where(x => x.PortfolioId == filter.PortfolioId);
 
@@ -52,14 +52,15 @@ namespace OneGate.Backend.Services.AccountService.Repository
         public async Task RemoveAsync(int id)
         {
             _db.PortfolioAssetLinks.RemoveRange(_db.PortfolioAssetLinks.Where(x =>
-                x.Id == id ));
+                x.Id == id));
             await _db.SaveChangesAsync();
         }
-        private PortfolioAssetLinkDto ConvertLinkToDto(PortfolioAssetLink link)
+
+        private static PortfolioAssetLinkDto ConvertLinkToDto(PortfolioAssetLink link)
         {
             return new PortfolioAssetLinkDto
             {
-                Id=link.Id,
+                Id = link.Id,
                 AssetId = link.AssetId,
                 PortfolioId = link.PortfolioId,
                 Count = link.Count

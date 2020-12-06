@@ -6,6 +6,6 @@ namespace OneGate.Backend.Contracts.Asset
     [EntityName("request.asset.get")]
     public class GetAssets
     {
-        public AssetBaseFilterDto Filter { get; set; }
+        public AssetFilterDto Filter { get; set; }
     }
 }

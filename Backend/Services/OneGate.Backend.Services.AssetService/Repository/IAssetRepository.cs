@@ -6,9 +6,9 @@ namespace OneGate.Backend.Services.AssetService.Repository
 {
     public interface IAssetRepository
     {
-        public Task<int> AddAsync(CreateAssetBaseDto model);
-        public Task<AssetBaseDto> FindAsync(int id);
-        public Task<IEnumerable<AssetBaseDto>> FilterAsync(AssetBaseFilterDto filter);
+        public Task<int> AddAsync(CreateAssetDto model);
+        public Task<AssetDto> FindAsync(int id);
+        public Task<IEnumerable<AssetDto>> FilterAsync(AssetFilterDto filter);
         public Task RemoveAsync(int id);
     }
 }

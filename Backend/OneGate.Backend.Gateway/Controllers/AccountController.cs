@@ -4,7 +4,6 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using MassTransit;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -29,12 +28,14 @@ namespace OneGate.Backend.Gateway.Controllers
     public class AccountController : ControllerBase
     {
         private readonly ILogger<AccountController> _logger;
-        private readonly IBus _bus;
+        private readonly IOgBus _bus;
+        private readonly IAuthCredentials _credentials;
 
-        public AccountController(ILogger<AccountController> logger, IBus bus)
+        public AccountController(ILogger<AccountController> logger, IOgBus bus, IAuthCredentials credentials)
         {
             _logger = logger;
             _bus = bus;
+            _credentials = credentials;
         }
 
         [HttpPost, AllowAnonymous]
@@ -44,7 +45,7 @@ namespace OneGate.Backend.Gateway.Controllers
         public async Task<AccessTokenDto> CreateTokenAsync([FromBody] OAuthDto request,
             [FromQuery] ClientKeyDto clientKey)
         {
-            if (clientKey.ClientKey != AuthPolicy.ClientKey)
+            if (clientKey.ClientKey != _credentials.ClientKey)
                 throw new ApiException("Invalid client key", Status403Forbidden);
 
             var payload = await _bus.Call<GetAccounts, AccountsResponse>(new GetAccounts
@@ -64,10 +65,10 @@ namespace OneGate.Backend.Gateway.Controllers
                 claims: new[]
                 {
                     new Claim(ClaimTypes.NameIdentifier, account.Id.ToString()),
-                    new Claim(ClaimTypes.Role, account.IsAdmin ? AuthPolicy.Admin : AuthPolicy.User)
+                    new Claim(ClaimTypes.Role, account.IsAdmin ? GroupPolicies.Admin : GroupPolicies.User)
                 },
-                expires: DateTime.Now + AuthPolicy.ExpirationSpan,
-                signingCredentials: new SigningCredentials(AuthPolicy.SecurityKey, SecurityAlgorithms.HmacSha256)
+                expires: DateTime.Now + GroupPolicies.ExpirationSpan,
+                signingCredentials: new SigningCredentials(GroupPolicies.SecurityKey, SecurityAlgorithms.HmacSha256)
             );
 
             return new AccessTokenDto
@@ -82,7 +83,7 @@ namespace OneGate.Backend.Gateway.Controllers
         public async Task<ResourceDto> CreateAccountAsync([FromBody] CreateAccountDto request,
             [FromQuery] ClientKeyDto clientKey)
         {
-            if (clientKey.ClientKey != AuthPolicy.ClientKey)
+            if (clientKey.ClientKey != _credentials.ClientKey)
                 throw new ApiException("Invalid client key", Status403Forbidden);
 
             var payload = await _bus.Call<CreateAccount, CreatedResourceResponse>(new CreateAccount
@@ -110,7 +111,7 @@ namespace OneGate.Backend.Gateway.Controllers
             return payload.Accounts.First();
         }
 
-        [HttpGet, Authorize(AuthPolicy.Admin)]
+        [HttpGet, Authorize(GroupPolicies.Admin)]
         [ProducesResponseType(typeof(IEnumerable<AccountDto>), Status200OK)]
         [SwaggerOperation("[ADMIN] Search accounts")]
         public async Task<IEnumerable<AccountDto>> GetAccountsRangeAsync([FromQuery] AccountFilterDto request)
@@ -123,7 +124,7 @@ namespace OneGate.Backend.Gateway.Controllers
             return payload.Accounts;
         }
 
-        [HttpGet, Authorize(AuthPolicy.Admin)]
+        [HttpGet, Authorize(GroupPolicies.Admin)]
         [ProducesResponseType(typeof(AccountDto), Status200OK)]
         [SwaggerOperation("[ADMIN] Account details")]
         [Route("{id}")]
@@ -140,7 +141,7 @@ namespace OneGate.Backend.Gateway.Controllers
             return payload.Accounts.First();
         }
 
-        [HttpDelete, Authorize(AuthPolicy.Admin)]
+        [HttpDelete, Authorize(GroupPolicies.Admin)]
         [SwaggerOperation("[ADMIN] Delete account")]
         [Route("{id}")]
         public async Task DeleteAccountAsync([FromRoute] int id)

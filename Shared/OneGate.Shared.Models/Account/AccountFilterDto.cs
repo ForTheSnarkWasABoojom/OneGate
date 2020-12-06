@@ -5,7 +5,7 @@ using OneGate.Shared.Models.Common;
 
 namespace OneGate.Shared.Models.Account
 {
-    public class AccountFilterDto : FilterBaseDto
+    public class AccountFilterDto : FilterDto
     {
         [FromQuery(Name = "id")]
         [JsonProperty("id")]

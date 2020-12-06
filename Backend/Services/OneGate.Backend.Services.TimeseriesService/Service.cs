@@ -1,33 +1,33 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using OneGate.Backend.Contracts.Common;
-using OneGate.Backend.Contracts.OhlcTimeseries;
-using OneGate.Backend.Contracts.ValueTimeseries;
+using OneGate.Backend.Contracts.Series.Ohlc;
+using OneGate.Backend.Contracts.Series.Point;
 using OneGate.Backend.Services.TimeseriesService.Repository;
-using OneGate.Shared.Models.Timeseries;
+using OneGate.Shared.Models.Series.Ohlc;
 
 namespace OneGate.Backend.Services.TimeseriesService
 {
-    public class Service : ITimeseriesService
+    public class Service : IService
     {
-        private readonly IOhlcTimeseriesRepository _ohlcTimeseries;
-        private readonly IValueTimeseriesRepository _valueTimeseries;
+        private readonly IOhlcSeriesRepository _ohlcSeries;
+        private readonly IPointSeriesRepository _pointSeries;
 
-        public Service(IOhlcTimeseriesRepository ohlcTimeseries, IValueTimeseriesRepository valueTimeseries)
+        public Service(IOhlcSeriesRepository ohlcSeries, IPointSeriesRepository pointSeries)
         {
-            _ohlcTimeseries = ohlcTimeseries;
-            _valueTimeseries = valueTimeseries;
+            _ohlcSeries = ohlcSeries;
+            _pointSeries = pointSeries;
         }
 
-        public async Task OnOhlcTimeseriesUpdated(OnOhlcTimeseriesUpdated request)
+        public async Task OnOhlcSeriesUpdated(OnOhlcSeriesUpdated request)
         {
-            foreach (var (intervalDto, ohlcDto) in request.Ohlcs)
+            foreach (var (intervalDto, ohlcDto) in request.Data)
             {
-                await _ohlcTimeseries.UpsertRangeAsync(new OhlcTimeseriesRangeDto
+                await _ohlcSeries.UpsertAsync(new OhlcSeriesDto
                 {
                     AssetId = request.AssetId,
                     Interval = intervalDto,
-                    Range = new List<OhlcTimeseriesDto>
+                    Range = new List<OhlcDto>
                     {
                         ohlcDto
                     }
@@ -35,43 +35,43 @@ namespace OneGate.Backend.Services.TimeseriesService
             }
         }
 
-        public async Task<SuccessResponse> CreateOhlcTimeseries(CreateOhlcTimeseries request)
+        public async Task<SuccessResponse> CreateOhlcSeries(CreateOhlcSeries request)
         {
-            await _ohlcTimeseries.AddRangeAsync(request.Ohlcs);
+            await _ohlcSeries.AddAsync(request.Series);
             return new SuccessResponse();
         }
 
-        public async Task<OhlcTimeseriesResponse> GetOhlcTimeseriess(GetOhlcTimeseries request)
+        public async Task<OhlcSeriesResponse> GetOhlcSeries(GetOhlcSeries request)
         {
-            return new OhlcTimeseriesResponse
+            return new OhlcSeriesResponse
             {
-                Ohlcs = await _ohlcTimeseries.FilterAsync(request.Filter)
+                Series = await _ohlcSeries.FilterAsync(request.Filter)
             };
         }
 
-        public async Task<SuccessResponse> DeleteOhlcTimeseries(DeleteOhlcTimeseries request)
+        public async Task<SuccessResponse> DeleteOhlcSeries(DeleteOhlcSeries request)
         {
-            await _ohlcTimeseries.RemoveRangeAsync(request.Filter);
+            await _ohlcSeries.RemoveAsync(request.Filter);
             return new SuccessResponse();
         }
 
-        public async Task<SuccessResponse> CreateValueTimeseries(CreateValueTimeseries request)
+        public async Task<SuccessResponse> CreatePointSeries(CreatePointSeries request)
         {
-            await _valueTimeseries.AddRangeAsync(request.Values);
+            await _pointSeries.AddAsync(request.Series);
             return new SuccessResponse();
         }
 
-        public async Task<ValueTimeseriesResponse> GetValueTimeseries(GetValueTimeseries request)
+        public async Task<PointSeriesResponse> GetPointSeries(GetPointSeries request)
         {
-            return new ValueTimeseriesResponse
+            return new PointSeriesResponse
             {
-                Values = await _valueTimeseries.FilterAsync(request.Filter)
+                Series = await _pointSeries.FilterAsync(request.Filter)
             };
         }
 
-        public async Task<SuccessResponse> DeleteValueTimeseries(DeleteValueTimeseries request)
+        public async Task<SuccessResponse> DeletePointSeries(DeletePointSeries request)
         {
-            await _valueTimeseries.RemoveRangeAsync(request.Filter);
+            await _pointSeries.RemoveAsync(request.Filter);
             return new SuccessResponse();
         }
     }

@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace OneGate.Shared.Models.Order
 {
-    public class CreateLimitOrderDto : CreateOrderBaseDto
+    public class CreateLimitOrderDto : CreateOrderDto
     {
         public override OrderTypeDto? Type => OrderTypeDto.LIMIT;
         

@@ -21,10 +21,10 @@ namespace OneGate.Backend.Services.TimeseriesService
                 {
                     services.AddEntityFrameworkNpgsql().AddDbContext<DatabaseContext>();
 
-                    services.AddTransient<ITimeseriesService, Service>();
+                    services.AddTransient<IService, Service>();
                     
-                    services.AddTransient<IOhlcTimeseriesRepository, OhlcTimeseriesRepository>();
-                    services.AddTransient<IValueTimeseriesRepository, ValueTimeseriesRepository>();
+                    services.AddTransient<IOhlcSeriesRepository, OhlcSeriesRepository>();
+                    services.AddTransient<IPointSeriesRepository, PointSeriesRepository>();
 
                     // Mass Transit.
                     services.UseMassTransit(new []

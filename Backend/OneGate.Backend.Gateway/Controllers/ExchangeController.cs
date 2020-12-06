@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using MassTransit;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -24,15 +23,15 @@ namespace OneGate.Backend.Gateway.Controllers
     public class ExchangeController : ControllerBase
     {
         private readonly ILogger<ExchangeController> _logger;
-        private readonly IBus _bus;
+        private readonly IOgBus _bus;
 
-        public ExchangeController(ILogger<ExchangeController> logger, IBus bus)
+        public ExchangeController(ILogger<ExchangeController> logger, IOgBus bus)
         {
             _logger = logger;
             _bus = bus;
         }
 
-        [HttpPost, Authorize(AuthPolicy.Admin)]
+        [HttpPost, Authorize(GroupPolicies.Admin)]
         [ProducesResponseType(typeof(ResourceDto), Status200OK)]
         [SwaggerOperation("[ADMIN] Create exchange")]
         public async Task<ResourceDto> CreateExchangeAsync([FromBody] CreateExchangeDto request)
@@ -75,7 +74,7 @@ namespace OneGate.Backend.Gateway.Controllers
             return payload.Exchanges.First();
         }
 
-        [HttpDelete, Authorize(AuthPolicy.Admin)]
+        [HttpDelete, Authorize(GroupPolicies.Admin)]
         [SwaggerOperation("[ADMIN] Delete exchange")]
         [Route("{id}")]
         public async Task DeleteExchangeAsync([FromRoute] int id)

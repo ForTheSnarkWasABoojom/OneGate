@@ -3,8 +3,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OneGate.Backend.Database.Models
 {
-    [Table("ohlc_timeseries")]
-    public class OhlcTimeseries : TimeseriesBase
+    [Table("ohlc_series")]
+    public class OhlcSeries : TimeseriesBase
     {
         [Required]
         [MaxLength(4)]

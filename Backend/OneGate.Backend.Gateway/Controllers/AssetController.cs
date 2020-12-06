@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using MassTransit;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -24,18 +23,18 @@ namespace OneGate.Backend.Gateway.Controllers
     public class AssetController : ControllerBase
     {
         private readonly ILogger<AssetController> _logger;
-        private readonly IBus _bus;
+        private readonly IOgBus _bus;
 
-        public AssetController(ILogger<AssetController> logger, IBus bus)
+        public AssetController(ILogger<AssetController> logger, IOgBus bus)
         {
             _logger = logger;
             _bus = bus;
         }
 
-        [HttpPost, Authorize(AuthPolicy.Admin)]
+        [HttpPost, Authorize(GroupPolicies.Admin)]
         [ProducesResponseType(typeof(ResourceDto), Status200OK)]
         [SwaggerOperation("[ADMIN] Create asset")]
-        public async Task<ResourceDto> CreateAssetAsync([FromBody] CreateAssetBaseDto request)
+        public async Task<ResourceDto> CreateAssetAsync([FromBody] CreateAssetDto request)
         {
             var payload = await _bus.Call<CreateAsset, CreatedResourceResponse>(new CreateAsset
             {
@@ -46,9 +45,9 @@ namespace OneGate.Backend.Gateway.Controllers
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(IEnumerable<AssetBaseDto>), Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<AssetDto>), Status200OK)]
         [SwaggerOperation("Search assets")]
-        public async Task<IEnumerable<AssetBaseDto>> GetAssetsRangeAsync([FromQuery] AssetBaseFilterDto request)
+        public async Task<IEnumerable<AssetDto>> GetAssetsRangeAsync([FromQuery] AssetFilterDto request)
         {
             var payload = await _bus.Call<GetAssets, AssetsResponse>(new GetAssets
             {
@@ -59,14 +58,14 @@ namespace OneGate.Backend.Gateway.Controllers
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(AssetBaseDto), Status200OK)]
+        [ProducesResponseType(typeof(AssetDto), Status200OK)]
         [SwaggerOperation("Asset details")]
         [Route("{id}")]
-        public async Task<AssetBaseDto> GetAssetAsync([FromRoute] int id)
+        public async Task<AssetDto> GetAssetAsync([FromRoute] int id)
         {
             var payload = await _bus.Call<GetAssets, AssetsResponse>(new GetAssets
             {
-                Filter = new AssetBaseFilterDto
+                Filter = new AssetFilterDto
                 {
                     Id = id
                 }
@@ -75,7 +74,7 @@ namespace OneGate.Backend.Gateway.Controllers
             return payload.Assets.First();
         }
 
-        [HttpDelete, Authorize(AuthPolicy.Admin)]
+        [HttpDelete, Authorize(GroupPolicies.Admin)]
         [SwaggerOperation("[ADMIN] Delete asset")]
         [Route("{id}")]
         public async Task DeleteAssetAsync([FromRoute] int id)

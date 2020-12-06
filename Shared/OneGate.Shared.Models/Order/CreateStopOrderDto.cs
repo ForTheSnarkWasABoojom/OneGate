@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace OneGate.Shared.Models.Order
 {
-    public class CreateStopOrderDto:CreateOrderBaseDto
+    public class CreateStopOrderDto:CreateOrderDto
     {
          public override OrderTypeDto? Type => OrderTypeDto.STOP;
          

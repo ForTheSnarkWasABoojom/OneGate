@@ -62,15 +62,16 @@ namespace OneGate.Backend.Gateway
                         ValidateIssuer = false,
                         ValidateLifetime = true,
                         ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = AuthPolicy.SecurityKey
+                        IssuerSigningKey = GroupPolicies.SecurityKey
                     };
                 });
 
             services.AddAuthorization(config =>
             {
-                config.AddPolicy(AuthPolicy.Admin, AuthPolicy.AdminPolicy());
-                config.AddPolicy(AuthPolicy.User, AuthPolicy.UserPolicy());
+                config.AddPolicy(GroupPolicies.Admin, GroupPolicies.AdminPolicy());
+                config.AddPolicy(GroupPolicies.User, GroupPolicies.UserPolicy());
             });
+            services.AddTransient<IAuthCredentials, AuthCredentials>();
 
             // Suppress default filter.
             services.Configure<ApiBehaviorOptions>(options => { options.SuppressModelStateInvalidFilter = true; });

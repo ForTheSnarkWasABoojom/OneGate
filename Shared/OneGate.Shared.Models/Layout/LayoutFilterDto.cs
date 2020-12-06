@@ -5,7 +5,7 @@ using OneGate.Shared.Models.Common;
 
 namespace OneGate.Shared.Models.Layout
 {
-    public class LayoutFilterDto : FilterBaseDto
+    public class LayoutFilterDto : FilterDto
     {
         [FromQuery(Name = "id")]
         [JsonProperty("id")]
