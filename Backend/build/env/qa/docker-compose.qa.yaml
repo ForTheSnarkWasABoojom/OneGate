@@ -1,0 +1,110 @@
+﻿version: '3.8'
+
+services:
+  # Nginx
+  proxy:
+    volumes:
+      - ./env/qa/nginx:/server-confs
+    ports:
+      - 443:8443
+    environment:
+      - GENERATE_SELF_SIGNED_SSL=yes
+      - REDIRECT_HTTP_TO_HTTPS=yes
+  # RabbitMQ
+  rabbitmq:
+    env_file:
+      - ./env/qa/qa.env
+  # Postgres
+  postgres:
+    volumes:
+      - postgres_qa:/var/lib/postgresql/data
+    env_file:
+      - ./env/qa/qa.env
+  # Gateway
+  gateway:
+    env_file:
+      - ./env/qa/qa.env
+  # Account service
+  account_service:
+    env_file:
+      - ./env/qa/qa.env
+  # Asset service
+  asset_service:
+    env_file:
+      - ./env/qa/qa.env
+  # Timeseries service
+  timeseries_service:
+    env_file:
+      - ./env/qa/qa.env
+  # Fake engine service
+  fake_engine:
+    env_file:
+      - ./env/qa/qa.env
+  fake_static_engine:
+    env_file:
+      - ./env/qa/qa.env
+  # Prometheus
+  prometheus:
+    image: prom/prometheus:latest
+    expose:
+      - 9090
+    volumes:
+      - prometheus_qa:/prometheus
+      - ./env/qa/prometheus.qa.yml:/etc/prometheus/prometheus.yml
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--storage.tsdb.retention.time=3d'
+    env_file:
+      - ./env/qa/qa.env
+    networks:
+      - http_api
+  # Grafana
+  grafana:
+    image: grafana/grafana:latest
+    expose:
+      - 3000
+    volumes:
+      - grafana_qa:/var/lib/grafana
+    environment:
+      - GF_SERVER_ROOT_URL=%(protocol)s://%(domain)s:%(http_port)s/grafana/
+      - GF_SERVER_SERVE_FROM_SUB_PATH=true
+      - GF_USERS_ALLOW_SIGN_UP=false
+    env_file:
+      - ./env/qa/qa.env
+    networks:
+      - http_api
+  # Loki
+  loki:
+    image: grafana/loki:latest
+    expose:
+      - 3100
+    command: -config.file=/etc/loki/local-config.yaml
+    env_file:
+      - ./env/qa/qa.env
+    networks:
+      - http_api
+  # Node exporter
+  node-exporter:
+    image: prom/node-exporter:latest
+    expose:
+      - 9100
+    networks:
+      - http_api
+  # Cadvisor
+  cadvisor:
+    image: google/cadvisor:latest
+    volumes:
+        - /:/rootfs:ro
+        - /var/run:/var/run:rw
+        - /sys:/sys:ro
+        - /var/lib/docker/:/var/lib/docker:ro
+    expose:
+      - 8080
+    networks:
+      - http_api
+volumes:
+  postgres_qa:
+  prometheus_qa:
+  grafana_qa:
+  

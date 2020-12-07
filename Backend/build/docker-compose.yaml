@@ -1,0 +1,115 @@
+﻿version: '3.8'
+
+services:
+  # Nginx
+  proxy:
+    image: bunkerity/bunkerized-nginx:latest
+    container_name: onegate_proxy
+    ports:
+      - 80:8080
+    depends_on:
+      - gateway
+    environment:
+      - SERVER_NAME=localhost
+      - ALLOWED_METHODS=GET|POST|PUT|DELETE
+      - USE_MODSECURITY=no
+      - USE_DNSBL=no
+      - USE_LIMIT_REQ=no
+      - USE_FAIL2BAN=no
+      - USE_CLAMAV_UPLOAD=no
+      - USE_CLAMAV_SCAN=no
+    networks:
+      - http_api
+  # RabbitMQ
+  rabbitmq:
+    image: rabbitmq:management
+    container_name: onegate_rabbitmq
+    expose:
+      - 15672
+    networks:
+      - services
+  # Postgres
+  postgres:
+    image: postgres:latest
+    container_name: onegate_postgres
+    expose:
+      - 5432
+    networks:
+      - services
+  # Api
+  gateway:
+    build:
+      context: ../../
+      dockerfile: Backend/build/Dockerfile
+      args:
+        PROJECT_PATH: Backend/projects/Gateway/src
+        PROJECT_NAME: OneGate.Backend.Gateway
+    expose:
+      - 80
+    networks:
+      - http_api
+      - services
+  # Account service
+  account_service:
+    build:
+      context: ../../
+      dockerfile: Backend/build/Dockerfile
+      args:
+        PROJECT_PATH: Backend/projects/Core/src
+        PROJECT_NAME: OneGate.Backend.Core.AccountService
+    depends_on:
+      - rabbitmq
+    networks:
+      - services
+  # Asset service
+  asset_service:
+    build:
+      context: ../../
+      dockerfile: Backend/build/Dockerfile
+      args:
+        PROJECT_PATH: Backend/projects/Core/src
+        PROJECT_NAME: OneGate.Backend.Core.AssetService
+    depends_on:
+      - rabbitmq
+    networks:
+      - services
+  # Timeseries service
+  timeseries_service:
+    build:
+      context: ../../
+      dockerfile: Backend/build/Dockerfile
+      args:
+        PROJECT_PATH: Backend/projects/Core/src
+        PROJECT_NAME: OneGate.Backend.Core.SeriesService
+    depends_on:
+      - rabbitmq
+    networks:
+      - services
+  # Fake engine service
+  fake_engine:
+    build:
+      context: ../../
+      dockerfile: Backend/build/Dockerfile
+      args:
+        PROJECT_PATH: Backend/projects/Engines/src
+        PROJECT_NAME: OneGate.Backend.Engines.FakeEngine
+    depends_on:
+      - rabbitmq
+    networks:
+      - services
+  fake_static_engine:
+    container_name: onegate_fake_static_engine
+    build:
+      context: ../../
+      dockerfile: Backend/build/Dockerfile
+      args:
+        PROJECT_PATH: Backend/projects/Engines/src
+        PROJECT_NAME: OneGate.Backend.Engines.FakeStaticEngine
+    depends_on:
+      - rabbitmq
+    networks:
+      - services
+networks:
+  http_api:
+  services:
+      

@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\Database\src\OneGate.Backend.Database\OneGate.Backend.Database.csproj" />
+      <ProjectReference Include="..\..\..\Transport\src\OneGate.Backend.Transport.Bus\OneGate.Backend.Transport.Bus.csproj" />
+      <ProjectReference Include="..\..\..\Transport\src\OneGate.Backend.Transport.Contracts\OneGate.Backend.Transport.Contracts.csproj" />
+    </ItemGroup>
+
+</Project>
