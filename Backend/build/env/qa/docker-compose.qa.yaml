@@ -33,7 +33,7 @@ services:
     env_file:
       - ./env/qa/qa.env
   # Timeseries service
-  timeseries_service:
+  series_service:
     env_file:
       - ./env/qa/qa.env
   # Fake engine service

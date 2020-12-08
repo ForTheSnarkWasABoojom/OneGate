@@ -32,7 +32,7 @@ services:
     env_file:
       - ./env/dev/dev.env
   # Timeseries service
-  timeseries_service:
+  series_service:
     env_file:
       - ./env/dev/dev.env
   # Fake engine service
