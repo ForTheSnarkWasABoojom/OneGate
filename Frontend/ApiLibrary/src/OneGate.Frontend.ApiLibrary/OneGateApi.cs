@@ -7,6 +7,7 @@ using OneGate.Common.Models.Common;
 using OneGate.Common.Models.Exchange;
 using OneGate.Common.Models.Layout;
 using OneGate.Common.Models.Order;
+using OneGate.Common.Models.Portfolio;
 using OneGate.Common.Models.Series.Ohlc;
 using OneGate.Common.Models.Series.Point;
 using OneGate.Frontend.ApiLibrary.Utils;
@@ -127,6 +128,30 @@ namespace OneGate.Frontend.ApiLibrary
         
         #endregion
         
+        #region Layout controller
+        
+        public async Task<ResourceDto> CreateLayoutAsync(CreateLayoutDto model)
+        {
+            return await PostAsync<CreateLayoutDto, ResourceDto>("layout", model);
+        }
+        
+        public async Task<LayoutDto> GetLayoutAsync(int id)
+        {
+            return await GetAsync<LayoutDto>($"layout/{id}");
+        }
+
+        public async Task<List<LayoutDto>> GetLayoutByFilterAsync(LayoutFilterDto model)
+        {
+            return await GetAsync<List<LayoutDto>>("layout", model);
+        }
+
+        public async Task DeleteLayoutAsync(int id)
+        {
+            await DeleteAsync($"layout/{id}");
+        }
+        
+        #endregion
+        
         #region Order controller
         
         public async Task<ResourceDto> CreateOrderAsync(CreateOrderDto model)
@@ -189,26 +214,26 @@ namespace OneGate.Frontend.ApiLibrary
 
         #endregion
         
-        #region Layout controller
+        #region Portfolio controller
         
-        public async Task<ResourceDto> CreateLayoutAsync(CreateLayoutDto model)
+        public async Task<ResourceDto> CreatePortfolioAsync(CreatePortfolioDto model)
         {
-            return await PostAsync<CreateLayoutDto, ResourceDto>("layout", model);
-        }
-        
-        public async Task<LayoutDto> GetLayoutAsync(int id)
-        {
-            return await GetAsync<LayoutDto>($"layout/{id}");
+            return await PostAsync<CreatePortfolioDto, ResourceDto>("portfolio", model);
         }
 
-        public async Task<List<LayoutDto>> GetLayoutByFilterAsync(LayoutFilterDto model)
+        public async Task<PortfolioDto> GetPortfolioAsync(int id)
         {
-            return await GetAsync<List<LayoutDto>>("layout", model);
+            return await GetAsync<PortfolioDto>($"portfolio/{id}");
         }
 
-        public async Task DeleteLayoutAsync(int id)
+        public async Task<List<PortfolioDto>> GetPortfoliosByFilterAsync(PortfolioDto model)
         {
-            await DeleteAsync($"layout/{id}");
+            return await GetAsync<List<PortfolioDto>>("portfolio", model);
+        }
+
+        public async Task DeletePortfolioAsync(int id)
+        {
+            await DeleteAsync($"portfolio/{id}");
         }
         
         #endregion
