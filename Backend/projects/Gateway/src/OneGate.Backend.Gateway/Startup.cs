@@ -1,23 +1,18 @@
 using System;
 using System.Collections.Generic;
-using System.Threading;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using OneGate.Backend.Database;
-using OneGate.Backend.Database.Models;
 using OneGate.Backend.Gateway.Consumers;
 using OneGate.Backend.Gateway.EventHubs;
 using OneGate.Backend.Gateway.Extensions;
 using OneGate.Backend.Gateway.Middleware;
 using OneGate.Backend.Transport.Bus;
-using OneGate.Common.Models.Exchange;
 using Prometheus;
 
 namespace OneGate.Backend.Gateway
@@ -114,9 +109,6 @@ namespace OneGate.Backend.Gateway
             });
             services.AddSwaggerGenNewtonsoftSupport();
 
-            // Migration.
-            services.AddDbContext<DatabaseContext>();
-            
             // Mass Transit.
             services.UseMassTransit(new []
             {
@@ -128,59 +120,8 @@ namespace OneGate.Backend.Gateway
             services.AddSignalR();
         }
 
-        private static void MigrateDatabase(IApplicationBuilder app)
-        {
-            using var serviceScope = app.ApplicationServices
-                .GetRequiredService<IServiceScopeFactory>()
-                .CreateScope();
-            using var db = serviceScope.ServiceProvider.GetService<DatabaseContext>();
-
-            Thread.Sleep(3000);
-            db.Database.EnsureDeleted();
-            db.Database.EnsureCreated();
-
-            var account = new Account
-            {
-                FirstName = "ONEGATE",
-                LastName = "ADMINISTRATOR",
-                Email = Environment.GetEnvironmentVariable("API_ADMIN_EMAIL"),
-                Password = Convert.ToBase64String(KeyDerivation.Pbkdf2(
-                    password: Environment.GetEnvironmentVariable("API_ADMIN_PASSWORD"),
-                    salt: new byte[128 / 8],
-                    prf: KeyDerivationPrf.HMACSHA1,
-                    iterationCount: 10000,
-                    numBytesRequested: 256 / 8)),
-                IsAdmin = true
-            };
-            
-            db.Accounts.Add(account);
-            
-            var fakeExchange = new Exchange
-            {
-                Title = "FAKE",
-                Description = "Fake exchange",
-                EngineType = EngineTypeDto.FAKE.ToString()
-            };
-            
-            var fakeIndex = new IndexAsset
-            {
-                Ticker = "OG",
-                Country = "Russia",
-                Exchange = fakeExchange,
-                Description = "Fake index"
-            };
-
-            db.Exchanges.Add(fakeExchange);
-            db.Assets.Add(fakeIndex);
-            
-            db.SaveChanges();
-        }
-
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            // Database migration.
-            MigrateDatabase(app);
-
             // Custom exception handler.
             app.UseExceptionHandler("/error");
 

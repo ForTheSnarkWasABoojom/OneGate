@@ -14,18 +14,30 @@ services:
   rabbitmq:
     env_file:
       - ./env/qa/qa.env
-  # Postgres
-  postgres:
+  # User DB
+  user_db:
     volumes:
-      - postgres_qa:/var/lib/postgresql/data
+      - user_db_qa:/var/lib/postgresql/data
+    env_file:
+      - ./env/qa/qa.env
+  # Asset DB
+  asset_db:
+    volumes:
+      - asset_db_qa:/var/lib/postgresql/data
+    env_file:
+      - ./env/qa/qa.env
+  # Series DB
+  series_db:
+    volumes:
+      - series_db_qa:/var/lib/postgresql/data
     env_file:
       - ./env/qa/qa.env
   # Gateway
   gateway:
     env_file:
       - ./env/qa/qa.env
-  # Account service
-  account_service:
+  # User service
+  user_service:
     env_file:
       - ./env/qa/qa.env
   # Asset service
@@ -104,7 +116,9 @@ services:
     networks:
       - http_api
 volumes:
-  postgres_qa:
+  user_db_qa:
+  asset_db_qa:
+  series_db_qa:
   prometheus_qa:
   grafana_qa:
   

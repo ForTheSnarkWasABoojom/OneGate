@@ -1,6 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using OneGate.Backend.Database;
 using OneGate.Backend.Transport.Bus;
 
 namespace OneGate.Backend.Engines.FakeStaticEngine
@@ -16,8 +15,6 @@ namespace OneGate.Backend.Engines.FakeStaticEngine
             Host.CreateDefaultBuilder(args)
                 .ConfigureServices((hostContext, services) =>
                 {
-                    services.AddEntityFrameworkNpgsql().AddDbContext<DatabaseContext>();
-                    
                     services.UseMassTransit();
                     services.AddHostedService<DaemonService>();
                 });

@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <UserSecretsId>dotnet-OneGate.Backend.Services.AccountService-F73F0705-40BF-4FFB-95E3-7C38DFBCD8C3</UserSecretsId>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.9" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\..\Transport\src\OneGate.Backend.Transport.Bus\OneGate.Backend.Transport.Bus.csproj" />
+      <ProjectReference Include="..\..\..\..\Transport\src\OneGate.Backend.Transport.Contracts\OneGate.Backend.Transport.Contracts.csproj" />
+      <ProjectReference Include="..\OneGate.Backend.Core.User.Database\OneGate.Backend.Core.User.Database.csproj" />
+    </ItemGroup>
+</Project>

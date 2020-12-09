@@ -11,20 +11,36 @@ services:
       - 15672:15672
     env_file:
       - ./env/dev/dev.env
-  # Postgres
-  postgres:
+  # User DB
+  user_db:
     ports:
-      - 5432:5432
+      - 8001:5432
     volumes:
-      - postgres_dev:/var/lib/postgresql/data
+      - user_db_dev:/var/lib/postgresql/data
     env_file:
-      - ./env/dev/dev.env  
+      - ./env/dev/dev.env
+  # Asset DB
+  asset_db:
+    ports:
+      - 8002:5432
+    volumes:
+      - asset_db_dev:/var/lib/postgresql/data
+    env_file:
+      - ./env/dev/dev.env
+  # Series DB
+  series_db:
+    ports:
+      - 8003:5432
+    volumes:
+      - series_db_dev:/var/lib/postgresql/data
+    env_file:
+      - ./env/dev/dev.env
   # Gateway
   gateway:
     env_file:
       - ./env/dev/dev.env
-  # Account service
-  account_service:
+  # User service
+  user_service:
     env_file:
       - ./env/dev/dev.env
   # Asset service
@@ -43,5 +59,7 @@ services:
     env_file:
       - ./env/dev/dev.env
 volumes:
-  postgres_dev:
+  user_db_dev:
+  asset_db_dev:
+  series_db_dev:
   

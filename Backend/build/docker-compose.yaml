@@ -26,8 +26,22 @@ services:
       - 15672
     networks:
       - services
-  # Postgres
-  postgres:
+  # User DB
+  user_db:
+    image: postgres:latest
+    expose:
+      - 5432
+    networks:
+      - services
+  # Asset DB
+  asset_db:
+    image: postgres:latest
+    expose:
+      - 5432
+    networks:
+      - services
+  # Series DB
+  series_db:
     image: postgres:latest
     expose:
       - 5432
@@ -41,9 +55,9 @@ services:
     networks:
       - http_api
       - services
-  # Account service
-  account_service:
-    image: onegate/account_service:latest
+  # User service
+  user_service:
+    image: onegate/user_service:latest
     depends_on:
       - rabbitmq
     networks:
