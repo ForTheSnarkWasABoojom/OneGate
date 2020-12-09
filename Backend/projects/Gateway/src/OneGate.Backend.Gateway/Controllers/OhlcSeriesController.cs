@@ -34,7 +34,7 @@ namespace OneGate.Backend.Gateway.Controllers
         public async Task CreateOhlcSeriesAsync([FromBody] OhlcSeriesDto request)
         {
             await _bus.Call<CreateOhlcSeries, SuccessResponse>(
-                new CreateOhlcSeries()
+                new CreateOhlcSeries
                 {
                     Series = request
                 });
