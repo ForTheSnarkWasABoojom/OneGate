@@ -48,19 +48,20 @@ namespace OneGate.Backend.Gateway.Controllers
             if (clientKey.ClientKey != _credentials.ClientKey)
                 throw new ApiException("Invalid client key", Status403Forbidden);
 
-            var payload = await _bus.Call<GetAccounts, AccountsResponse>(new GetAccounts
-            {
-                Filter = new AccountFilterDto
+            var payload = await _bus.Call<CreateAuthorizationContext, AuthorizationResponse>(
+                new CreateAuthorizationContext
                 {
-                    Email = request.Username,
-                    Password = request.Password
-                }
-            });
-            
-            if (!payload.Accounts.Any())
+                    AuthDto = new OAuthDto
+                    {
+                        Username = request.Username,
+                        Password = request.Password
+                    }
+                });
+
+            if (payload.Account == null)
                 throw new ApiException("Invalid username or password", Status403Forbidden);
-            
-            var account = payload.Accounts.First();
+
+            var account = payload.Account;
             var token = new JwtSecurityToken(
                 claims: new[]
                 {

@@ -12,7 +12,7 @@ namespace OneGate.Backend.Core.User.Service
         public Task<CreatedResourceResponse> CreateAccount(CreateAccount request);
         public Task<AccountsResponse> GetAccounts(GetAccounts request);
         public Task<SuccessResponse> DeleteAccount(DeleteAccount request);
-        
+        public Task<AuthorizationResponse> CreateAuthorizationContext(CreateAuthorizationContext request);
         public Task<CreatedResourceResponse> CreateOrder(CreateOrder request);
         public Task<OrdersResponse> GetOrders(GetOrders request);
         public Task<SuccessResponse> DeleteOrder(DeleteOrder request);

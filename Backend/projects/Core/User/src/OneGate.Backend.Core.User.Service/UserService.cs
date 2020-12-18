@@ -54,6 +54,14 @@ namespace OneGate.Backend.Core.User.Service
             return new SuccessResponse();
         }
 
+        public async Task<AuthorizationResponse> CreateAuthorizationContext(CreateAuthorizationContext request)
+        {
+            return new AuthorizationResponse
+            {
+                Account = await _accounts.AnyMatch(request)
+            };
+        }
+
         public async Task<CreatedResourceResponse> CreateOrder(CreateOrder request)
         {
             return new CreatedResourceResponse

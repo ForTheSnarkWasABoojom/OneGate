@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.EntityFrameworkCore;
 using OneGate.Backend.Core.User.Database;
 using OneGate.Backend.Core.User.Database.Models;
+using OneGate.Backend.Transport.Contracts.Account;
 using OneGate.Common.Models.Account;
 
 namespace OneGate.Backend.Core.User.Service.Repository
@@ -17,6 +18,13 @@ namespace OneGate.Backend.Core.User.Service.Repository
         public AccountRepository(DatabaseContext db)
         {
             _db = db;
+        }
+
+        public async Task<AccountDto> AnyMatch(CreateAuthorizationContext context)
+        {
+            var account = _db.Accounts.First(x =>
+                x.Email == context.AuthDto.Username && x.Password == GetHash(context.AuthDto.Password));
+            return ConvertAccountToDto(account);
         }
 
         public async Task<int> AddAsync(CreateAccountDto model)

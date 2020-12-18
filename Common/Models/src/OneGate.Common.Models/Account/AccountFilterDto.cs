@@ -10,12 +10,7 @@ namespace OneGate.Common.Models.Account
         [FromQuery(Name = "id")]
         [JsonProperty("id")]
         public int? Id { get; set; }
-        
-        [MaxLength(30)]
-        [FromQuery(Name = "password")]
-        [JsonProperty("password")]
-        public string Password { get; set; }
-        
+
         [MaxLength(30)]
         [FromQuery(Name = "email")]
         [JsonProperty("email")]

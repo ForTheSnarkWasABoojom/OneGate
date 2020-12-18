@@ -20,7 +20,8 @@ namespace OneGate.Backend.Core.User.Service
         IConsumer<DeletePortfolio>,
         IConsumer<CreatePortfolioAssetLink>,
         IConsumer<GetPortfolioAssetLinks>,
-        IConsumer<DeletePortfolioAssetLink>
+        IConsumer<DeletePortfolioAssetLink>,
+        IConsumer<CreateAuthorizationContext>
     {
         private readonly IUserService _service;
 
@@ -87,6 +88,11 @@ namespace OneGate.Backend.Core.User.Service
         public async Task Consume(ConsumeContext<DeletePortfolioAssetLink> context)
         {
             await context.MarshallWith(_service.DeletePortfolioAssetLink);
+        }
+
+        public async Task Consume(ConsumeContext<CreateAuthorizationContext> context)
+        {
+            await context.MarshallWith(_service.CreateAuthorizationContext);
         }
     }
 }
