@@ -21,7 +21,7 @@ namespace OneGate.Backend.Transport.Bus
         {
             StatusCode = statusCode;
         }
-        
+
         public ApiException(string message, int statusCode, string innerExceptionMessage) : base(message)
         {
             StatusCode = statusCode;
@@ -31,7 +31,7 @@ namespace OneGate.Backend.Transport.Bus
         public ApiException(string message, Exception inner) : base(message, inner)
         {
         }
-        
+
         protected ApiException(
             SerializationInfo info,
             StreamingContext context) : base(info, context)

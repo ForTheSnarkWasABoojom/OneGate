@@ -7,52 +7,38 @@ namespace OneGate.Backend.Transport.Bus.OgFormatter
 {
     public class OgEnvelope
     {
-        [JsonProperty("contract")]
-        public string Contract { get; set;}
-        
-        [JsonProperty("payload")]
-        public object Payload { get; set;}
-        
-        [JsonProperty("response_address")]
-        public string ResponseAddress { get; set;}
-        
-        [JsonProperty("message_id")]
-        public string MessageId { get; set; }
-        
-        [JsonProperty("request_id")]
-        public string RequestId { get; set;}
-        
-        [JsonProperty("correlation_id")]
-        public string CorrelationId { get; set;}
-        
-        [JsonProperty("conversation_id")]
-        public string ConversationId { get; set;}
-        
-        [JsonProperty("initiator_id")]
-        public string InitiatorId { get; set;}
-        
-        [JsonProperty("source_address")]
-        public string SourceAddress { get; set;}
-        
-        [JsonProperty("destination_address")]
-        public string DestinationAddress { get; set;}
+        [JsonProperty("contract")] public string Contract { get; set; }
 
-        [JsonProperty("fault_address")]
-        public string FaultAddress { get; set;}
+        [JsonProperty("payload")] public object Payload { get; set; }
 
-        [JsonProperty("expiration_time")]
-        public DateTime? ExpirationTime { get; set;}
-        
-        [JsonProperty("sent_time")]
-        public DateTime? SentTime { get; set;}
-        
-        [JsonProperty("headers")]
-        public IDictionary<string, object> Headers { get; set;}
+        [JsonProperty("response_address")] public string ResponseAddress { get; set; }
+
+        [JsonProperty("message_id")] public string MessageId { get; set; }
+
+        [JsonProperty("request_id")] public string RequestId { get; set; }
+
+        [JsonProperty("correlation_id")] public string CorrelationId { get; set; }
+
+        [JsonProperty("conversation_id")] public string ConversationId { get; set; }
+
+        [JsonProperty("initiator_id")] public string InitiatorId { get; set; }
+
+        [JsonProperty("source_address")] public string SourceAddress { get; set; }
+
+        [JsonProperty("destination_address")] public string DestinationAddress { get; set; }
+
+        [JsonProperty("fault_address")] public string FaultAddress { get; set; }
+
+        [JsonProperty("expiration_time")] public DateTime? ExpirationTime { get; set; }
+
+        [JsonProperty("sent_time")] public DateTime? SentTime { get; set; }
+
+        [JsonProperty("headers")] public IDictionary<string, object> Headers { get; set; }
 
         public static OgEnvelope FromSendContext(SendContext context, object payload)
         {
             var result = new OgEnvelope();
-            
+
             if (context.MessageId.HasValue)
                 result.MessageId = context.MessageId.Value.ToString();
 

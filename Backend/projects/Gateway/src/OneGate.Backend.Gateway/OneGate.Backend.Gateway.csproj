@@ -23,7 +23,6 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\..\..\..\Common\Models\src\OneGate.Common.Models\OneGate.Common.Models.csproj" />
-      <ProjectReference Include="..\..\..\Database\src\OneGate.Backend.Database\OneGate.Backend.Database.csproj" />
       <ProjectReference Include="..\..\..\Transport\src\OneGate.Backend.Transport.Bus\OneGate.Backend.Transport.Bus.csproj" />
     </ItemGroup>
 </Project>

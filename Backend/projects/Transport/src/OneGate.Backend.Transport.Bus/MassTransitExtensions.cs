@@ -15,7 +15,8 @@ namespace OneGate.Backend.Transport.Bus
 {
     public static class MassTransitExtensions
     {
-        public static async Task MarshallWith<TRequest, TResponse>(this ConsumeContext<TRequest> context, Func<TRequest, Task<TResponse>> action)
+        public static async Task MarshallWith<TRequest, TResponse>(this ConsumeContext<TRequest> context,
+            Func<TRequest, Task<TResponse>> action)
             where TRequest : class
             where TResponse : class
         {
@@ -29,7 +30,7 @@ namespace OneGate.Backend.Transport.Bus
                 await context.RespondAsync(FromException(ex));
             }
         }
-        
+
         private static ErrorResponse FromException(Exception exception)
         {
             return exception switch
@@ -61,7 +62,8 @@ namespace OneGate.Backend.Transport.Bus
             };
         }
 
-        public static IServiceCollection UseMassTransit(this IServiceCollection services, IEnumerable<KeyValuePair<Type, Type>> consumers = null)
+        public static IServiceCollection UseMassTransit(this IServiceCollection services,
+            IEnumerable<KeyValuePair<Type, Type>> consumers = null)
         {
             services.AddMassTransit(x =>
             {
@@ -86,10 +88,10 @@ namespace OneGate.Backend.Transport.Bus
             });
             services.AddMassTransitHostedService();
             services.AddTransient<IOgBus, OgBus>();
-            
+
             return services;
         }
-        
+
         public static string GetEntityName(Type type)
         {
             var attribute = type.GetCustomAttributes(typeof(EntityNameAttribute)).ToArray();

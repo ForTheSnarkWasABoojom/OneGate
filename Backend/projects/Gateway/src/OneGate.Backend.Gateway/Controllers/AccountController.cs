@@ -60,7 +60,7 @@ namespace OneGate.Backend.Gateway.Controllers
 
             if (payload.Account == null)
                 throw new ApiException("Invalid username or password", Status403Forbidden);
-
+            
             var account = payload.Account;
             var token = new JwtSecurityToken(
                 claims: new[]

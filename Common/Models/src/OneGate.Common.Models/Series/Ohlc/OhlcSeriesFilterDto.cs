@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace OneGate.Common.Models.Series.Ohlc
 {
-    public class OhlcSeriesFilterDto : SeriesFilterDto
+    public class  OhlcSeriesFilterDto : SeriesFilterDto
     {
         [FromQuery(Name = "id")]
         [JsonProperty("id")]

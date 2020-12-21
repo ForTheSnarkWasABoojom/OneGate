@@ -13,14 +13,14 @@ namespace OneGate.Backend.Transport.Bus.OgFormatter
     {
         public static ContentType ContentTypeValue => OgMessageSerializer.ContentTypeValue;
         public ContentType ContentType => ContentTypeValue;
-        
+
         private readonly JsonSerializer _deserializer;
 
         public OgMessageDeserializer(JsonSerializer deserializer)
         {
             _deserializer = deserializer;
         }
-        
+
         public void Probe(ProbeContext context)
         {
             var scope = context.CreateScope("json");
@@ -42,7 +42,8 @@ namespace OneGate.Backend.Transport.Bus.OgFormatter
             }
             catch (JsonSerializationException ex)
             {
-                throw new SerializationException("A JSON serialization exception occurred while deserializing the message", ex);
+                throw new SerializationException(
+                    "A JSON serialization exception occurred while deserializing the message", ex);
             }
             catch (SerializationException)
             {

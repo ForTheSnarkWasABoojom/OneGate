@@ -19,7 +19,7 @@ namespace OneGate.Backend.Transport.Bus.OgFormatter
             : base(receiveContext)
         {
             _envelope = envelope ?? throw new ArgumentNullException(nameof(envelope));
-            
+
             _deserializer = deserializer;
             _messageToken = GetMessageToken(envelope.Payload);
         }
@@ -40,7 +40,7 @@ namespace OneGate.Backend.Transport.Bus.OgFormatter
             using var jsonReader = _messageToken.CreateReader();
             var obj = _deserializer.Deserialize(jsonReader, typeof(T));
 
-            consumeContext = new MessageConsumeContext<T>(this, (T)obj);
+            consumeContext = new MessageConsumeContext<T>(this, (T) obj);
             return true;
         }
 
@@ -55,10 +55,14 @@ namespace OneGate.Backend.Transport.Bus.OgFormatter
         public override Uri ResponseAddress => ConvertToUri(_envelope.ResponseAddress);
         public override Uri FaultAddress => ConvertToUri(_envelope.FaultAddress);
         public override DateTime? SentTime => _envelope.SentTime;
-        public override Headers Headers => _envelope.Headers != null ? (Headers)new JsonEnvelopeHeaders(_envelope.Headers) : NoMessageHeaders.Instance;
+
+        public override Headers Headers => _envelope.Headers != null
+            ? (Headers) new JsonEnvelopeHeaders(_envelope.Headers)
+            : NoMessageHeaders.Instance;
+
         public override HostInfo Host => default;
         public override IEnumerable<string> SupportedMessageTypes => Enumerable.Empty<string>();
-        
+
         private static JToken GetMessageToken(object message)
         {
             if (!(message is JToken messageToken) || messageToken.Type == JTokenType.Null)

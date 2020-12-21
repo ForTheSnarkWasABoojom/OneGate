@@ -19,7 +19,7 @@ namespace OneGate.Common.Models.Exchange
         [JsonProperty("website")]
         public string Website { get; set; }
         
-        [Required]
+        [Required] 
         [JsonProperty("engine")]
         public EngineTypeDto? EngineType { get; set; }
     }

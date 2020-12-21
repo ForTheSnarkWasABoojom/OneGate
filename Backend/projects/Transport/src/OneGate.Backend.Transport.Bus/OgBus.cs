@@ -19,7 +19,7 @@ namespace OneGate.Backend.Transport.Bus
         {
             return await Call<TRequest, TResponse>(request, default);
         }
-        
+
         public async Task<TResponse> Call<TRequest, TResponse>(TRequest request, RequestTimeout requestTimeout)
             where TRequest : class
             where TResponse : class
