@@ -21,9 +21,5 @@ namespace OneGate.Backend.Core.Users.Node
         public Task<CreatedResourceResponse> CreatePortfolioAsync(CreatePortfolio request); 
         public Task<PortfoliosResponse> GetPortfoliosAsync(GetPortfolios request); 
         public Task<SuccessResponse> DeletePortfolioAsync(DeletePortfolio request);
-        
-        public Task<CreatedResourceResponse> CreatePortfolioAssetLinkAsync(CreatePortfolioAssetLink request); 
-        public Task<PortfolioAssetLinksResponse> GetPortfolioAssetLinksAsync(GetPortfolioAssetLinks request); 
-        public Task<SuccessResponse> DeletePortfolioAssetLinkAsync(DeletePortfolioAssetLink request);
     }
 }

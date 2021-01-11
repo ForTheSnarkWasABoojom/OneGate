@@ -30,7 +30,6 @@ namespace OneGate.Backend.Core.Users.Node
                     services.AddTransient<IAccountRepository, AccountRepository>();
                     services.AddTransient<IOrderRepository, OrderRepository>();
                     services.AddTransient<IPortfolioRepository, PortfolioRepository>();
-                    services.AddTransient<IPorfolioAssetLinkRepository, PorfolioAssetLinkRepository>();
 
                     services.AddAutoMapper(typeof(MappingProfile));
                     

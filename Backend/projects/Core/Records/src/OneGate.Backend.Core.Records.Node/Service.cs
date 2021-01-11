@@ -34,12 +34,14 @@ namespace OneGate.Backend.Core.Records.Node
 
         public async Task<CreatedResourceResponse> CreateAssetAsync(CreateAsset request)
         {
-            var assetBase = _mapper.Map<Asset>(request.Asset);
+            var asset = _mapper.Map<Asset>(request.Asset);
+            var entity = await _assets.AddAsync(asset);
+            
             return new CreatedResourceResponse
             {
                 Resource = new ResourceDto
                 {
-                    Id = await _assets.AddAsync(assetBase)
+                    Id = entity.Id
                 }
             };
         }
@@ -65,11 +67,12 @@ namespace OneGate.Backend.Core.Records.Node
         public async Task<CreatedResourceResponse> CreateExchangeAsync(CreateExchange request)
         {
             var exchange = _mapper.Map<CreateExchangeDto, Exchange>(request.Exchange);
+            var entity = await _exchanges.AddAsync(exchange);
             return new CreatedResourceResponse
             {
                 Resource = new ResourceDto
                 {
-                    Id = await _exchanges.AddAsync(exchange)
+                    Id = entity.Id
                 }
             };
         }
@@ -93,16 +96,13 @@ namespace OneGate.Backend.Core.Records.Node
 
         public async Task<CreatedResourceResponse> CreateLayoutAsync(CreateLayout request)
         {
-            var layout = new Layout
-            {
-                Name = request.Layout.Name,
-                Description = request.Layout.Description,
-            };
+            var layout = _mapper.Map<Layout>(request.Layout);
+            var entity = await _layouts.AddAsync(layout);
             return new CreatedResourceResponse
             {
                 Resource = new ResourceDto
                 {
-                    Id = await _layouts.AddAsync(layout)
+                    Id = entity.Id
                 }
             };
         }

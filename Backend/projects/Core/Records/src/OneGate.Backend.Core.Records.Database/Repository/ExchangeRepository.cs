@@ -15,12 +15,11 @@ namespace OneGate.Backend.Core.Records.Database.Repository
             _db = db;
         }
 
-        public async Task<int> AddAsync(Exchange model)
+        public async Task<Exchange> AddAsync(Exchange model)
         {
             var exchange = await _db.Exchanges.AddAsync(model);
             await _db.SaveChangesAsync();
-
-            return exchange.Entity.Id;
+            return exchange.Entity;
         }
 
         public async Task<IEnumerable<Exchange>> FilterAsync(int? id, string title, string engineType, int shift,

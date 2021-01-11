@@ -6,7 +6,7 @@ namespace OneGate.Backend.Core.Records.Database.Repository
 {
     public interface ILayoutRepository
     {
-        public Task<int> AddAsync(Layout model);
+        public Task<Layout> AddAsync(Layout model);
         public Task<IEnumerable<Layout>> FilterAsync(int? id, string name, int shift, int count);
         public Task RemoveAsync(int id);
     }

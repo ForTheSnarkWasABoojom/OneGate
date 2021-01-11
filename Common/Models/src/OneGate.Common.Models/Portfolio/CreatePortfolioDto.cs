@@ -14,9 +14,5 @@ namespace OneGate.Common.Models.Portfolio
         [MaxLength(500)]
         [JsonProperty("description")]
         public string Description { get; set; }
-
-        [JsonProperty("owner_id")]
-        [Required]
-        public int OwnerId { get; set; }
     }
 }

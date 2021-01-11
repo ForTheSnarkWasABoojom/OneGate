@@ -15,12 +15,11 @@ namespace OneGate.Backend.Core.Users.Database.Repository
             _db = db;
         }
 
-        public async Task<int> AddAsync(Order orderBase)
+        public async Task<Order> AddAsync(Order model)
         {
-            var order = await _db.Orders.AddAsync(orderBase);
+            var order = await _db.Orders.AddAsync(model);
             await _db.SaveChangesAsync();
-
-            return order.Entity.Id;
+            return order.Entity;
         }
 
         public async Task<IEnumerable<Order>> FilterAsync(int? id, string type, int? assetId,

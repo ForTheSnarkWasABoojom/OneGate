@@ -16,11 +16,9 @@ namespace OneGate.Backend.Core.Users.Node
             CreateMap<Account, AccountDto>();
             CreateMap<AccountDto, Account>();
             
+            CreateMap<CreatePortfolioDto, Portfolio>();
             CreateMap<Portfolio, PortfolioDto>();
             CreateMap<PortfolioDto, Portfolio>();
-            
-            CreateMap<PortfolioAssetLink, PortfolioAssetLinkDto>();
-            CreateMap<PortfolioAssetLinkDto, PortfolioAssetLink>();
 
             CreateMap<CreateOrderDto, Order>().IncludeAllDerived();
             CreateMap<CreateLimitOrderDto, LimitOrder>();

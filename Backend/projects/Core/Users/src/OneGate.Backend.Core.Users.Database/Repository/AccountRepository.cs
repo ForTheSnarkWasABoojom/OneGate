@@ -17,26 +17,19 @@ namespace OneGate.Backend.Core.Users.Database.Repository
         {
             _db = db;
         }
-        
-        public async Task<Account> AnyMatch(CreateAuthorizationContext context)
+
+        public async Task<Account> AddAsync(Account model)
         {
-            var account = _db.Accounts.First(x =>
-                x.Email == context.AuthDto.Username && x.Password == GetHash(context.AuthDto.Password));
-            return account;
-        }
-        
-        public async Task<int> AddAsync(Account account)
-        {
-            await _db.Accounts.AddAsync(account);
+            var account = await _db.Accounts.AddAsync(model);
 
             await _db.Portfolios.AddAsync(new Portfolio
             {
                 Name = "Default",
-                Owner = account
+                Owner = account.Entity
             });
 
             await _db.SaveChangesAsync();
-            return account.Id;
+            return account.Entity;
         }
 
         public async Task<IEnumerable<Account>> FilterAsync(int? id, string email, string firstName,
@@ -71,6 +64,13 @@ namespace OneGate.Backend.Core.Users.Database.Repository
             await _db.SaveChangesAsync();
         }
         
+        public async Task<Account> FindAsync(string username, string password)
+        {
+            var account = _db.Accounts.First(x =>
+                x.Email == username && x.Password == GetHash(password));
+            return account;
+        }
+        
         private static string GetHash(string str)
         {
             return Convert.ToBase64String(KeyDerivation.Pbkdf2(
@@ -80,7 +80,5 @@ namespace OneGate.Backend.Core.Users.Database.Repository
                 iterationCount: 10000,
                 numBytesRequested: 256 / 8));
         }
-        
-        
     }
 }

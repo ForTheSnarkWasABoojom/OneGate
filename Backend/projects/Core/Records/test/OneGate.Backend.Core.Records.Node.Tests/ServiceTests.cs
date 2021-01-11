@@ -17,11 +17,11 @@ namespace OneGate.Backend.Records.Node.Tests
     public class ServiceTests
     {
         private readonly Mapper _mapper;
-
         private readonly Fixture _fixture;
-        private readonly IAssetRepository _assetsRepository;
-        private readonly IExchangeRepository _exchangesRepository;
-        private readonly ILayoutRepository _layoutRepository;
+
+        private readonly List<Asset> _assetRepository;
+        private readonly List<Exchange> _exchangeRepository;
+        private readonly List<Layout> _layoutRepository;
 
         private readonly IService _service;
 
@@ -32,13 +32,77 @@ namespace OneGate.Backend.Records.Node.Tests
                 x.AddProfile(typeof(MappingProfile)))
             );
 
-            _assetsRepository = A.Fake<IAssetRepository>();
-            _exchangesRepository = A.Fake<IExchangeRepository>();
-            _layoutRepository = A.Fake<ILayoutRepository>();
+            var assets = A.Fake<IAssetRepository>();
+            _assetRepository = ConfigureFakeRepository(assets);
 
-            _service = new Service(_assetsRepository, _exchangesRepository, _layoutRepository, _mapper);
+            var exchanges = A.Fake<IExchangeRepository>();
+            _exchangeRepository = ConfigureFakeRepository(exchanges);
+
+            var layouts = A.Fake<ILayoutRepository>();
+            _layoutRepository = ConfigureFakeRepository(layouts);
+
+            _service = new Service(assets, exchanges, layouts, _mapper);
         }
 
+        private static List<Asset> ConfigureFakeRepository(IAssetRepository assets)
+        {
+            var fakeRepository = new List<Asset>();
+
+            A.CallTo(() => assets.AddAsync(A<Asset>.Ignored))
+                .Invokes((Asset x) =>
+                {
+                    fakeRepository.Add(x);
+                })
+                .ReturnsLazily((Asset x) => x);
+
+            A.CallTo(() => assets.RemoveAsync(A<int>.Ignored))
+                .Invokes((int x) =>
+                {
+                    fakeRepository.RemoveAll(elem => elem.Id == x);
+                });
+
+            return fakeRepository;
+        }
+
+        private static List<Exchange> ConfigureFakeRepository(IExchangeRepository assets)
+        {
+            var fakeRepository = new List<Exchange>();
+
+            A.CallTo(() => assets.AddAsync(A<Exchange>.Ignored))
+                .Invokes((Exchange x) =>
+                {
+                    fakeRepository.Add(x);
+                })
+                .ReturnsLazily((Exchange x) => x);
+
+            A.CallTo(() => assets.RemoveAsync(A<int>.Ignored))
+                .Invokes((int x) =>
+                {
+                    fakeRepository.RemoveAll(elem => elem.Id == x);
+                });
+
+            return fakeRepository;
+        }
+
+        private static List<Layout> ConfigureFakeRepository(ILayoutRepository assets)
+        {
+            var fakeRepository = new List<Layout>();
+
+            A.CallTo(() => assets.AddAsync(A<Layout>.Ignored))
+                .Invokes((Layout x) =>
+                {
+                    fakeRepository.Add(x);
+                })
+                .ReturnsLazily((Layout x) => x);
+
+            A.CallTo(() => assets.RemoveAsync(A<int>.Ignored))
+                .Invokes((int x) =>
+                {
+                    fakeRepository.RemoveAll(elem => elem.Id == x);
+                });
+
+            return fakeRepository;
+        }
 
         [Fact]
         public async void CreateAsset_ShouldCreateEntityInRepository()
@@ -46,42 +110,31 @@ namespace OneGate.Backend.Records.Node.Tests
             // Arrange.
             _fixture.Customizations.Add(new TypeRelay(typeof(CreateAssetDto), typeof(CreateIndexAssetDto)));
             var request = _fixture.Create<CreateAsset>();
-            var fakeRepository = new List<Asset>();
-
-            A.CallTo(() => _assetsRepository.AddAsync(A<Asset>.Ignored))
-                .Invokes((Asset x) => { fakeRepository.Add(x); })
-                .Returns(0);
 
             // Act.
             await _service.CreateAssetAsync(request);
 
             // Assert.
-            fakeRepository.Should().ContainSingle().Which.Should().BeEquivalentTo
+            _assetRepository.Should().ContainSingle().Which.Should().BeEquivalentTo
                 (request.Asset, options => options.ComparingEnumsByName());
         }
-        
+
         [Fact]
         public async void DeleteAsset_ShouldRemoveEntityFromRepository()
         {
             // Arrange.
             var request = _fixture.Create<DeleteAsset>();
 
-            var fakeRepository = new List<Asset>
-            {
-                _fixture.Create<IndexAsset>(),
-                _fixture.Build<IndexAsset>()
-                    .With(x => x.Id, request.Id)
-                    .Create()
-            };
-
-            A.CallTo(() => _assetsRepository.RemoveAsync(A<int>.Ignored))
-                .Invokes((int x) => { fakeRepository.RemoveAll(asset => asset.Id == x); });
+            _assetRepository.Add(_fixture.Create<IndexAsset>());
+            _assetRepository.Add(_fixture.Build<IndexAsset>()
+                .With(x => x.Id, request.Id)
+                .Create());
 
             // Act.
             await _service.DeleteAssetAsync(request);
 
             // Assert.
-            fakeRepository.Should().NotContain(x => x.Id == request.Id);
+            _assetRepository.Should().NotContain(x => x.Id == request.Id);
         }
 
         [Fact]
@@ -89,41 +142,31 @@ namespace OneGate.Backend.Records.Node.Tests
         {
             // Arrange.
             var request = _fixture.Create<CreateExchange>();
-            var fakeRepository = new List<Exchange>();
-            A.CallTo(() => _exchangesRepository.AddAsync(A<Exchange>.Ignored))
-                .Invokes((Exchange x) => { fakeRepository.Add(x); })
-                .Returns(0);
 
             // Act.
             await _service.CreateExchangeAsync(request);
 
             // Assert.
-            fakeRepository.Should().ContainSingle().Which.Should().BeEquivalentTo(request.Exchange,
+            _exchangeRepository.Should().ContainSingle().Which.Should().BeEquivalentTo(request.Exchange,
                 options => options.ComparingEnumsByName());
         }
-        
+
         [Fact]
         public async void DeleteExchange_ShouldRemoveEntityFromRepository()
         {
             // Arrange.
             var request = _fixture.Create<DeleteExchange>();
 
-            var fakeRepository = new List<Exchange>
-            {
-                _fixture.Create<Exchange>(),
-                _fixture.Build<Exchange>()
+            _exchangeRepository.Add(_fixture.Create<Exchange>());
+            _exchangeRepository.Add(_fixture.Build<Exchange>()
                     .With(x => x.Id, request.Id)
-                    .Create()
-            };
-
-            A.CallTo(() => _exchangesRepository.RemoveAsync(A<int>.Ignored))
-                .Invokes((int x) => { fakeRepository.RemoveAll(exchange => exchange.Id == x); });
+                    .Create());
 
             // Act.
             await _service.DeleteExchangeAsync(request);
 
             // Assert.
-            fakeRepository.Should().NotContain(x => x.Id == request.Id);
+            _exchangeRepository.Should().NotContain(x => x.Id == request.Id);
         }
     }
 }

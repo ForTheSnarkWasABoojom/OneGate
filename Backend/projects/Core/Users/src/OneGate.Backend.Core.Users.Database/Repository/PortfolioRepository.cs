@@ -15,13 +15,11 @@ namespace OneGate.Backend.Core.Users.Database.Repository
             _db = db;
         }
 
-        public async Task<int> AddAsync(Portfolio model)
+        public async Task<Portfolio> AddAsync(Portfolio model)
         {
             var portfolio = await _db.Portfolios.AddAsync(model);
-
             await _db.SaveChangesAsync();
-
-            return portfolio.Entity.Id;
+            return portfolio.Entity;
         }
 
         public async Task<IEnumerable<Portfolio>> FilterAsync(int? id, int? ownerId, string name,

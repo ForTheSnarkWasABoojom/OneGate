@@ -26,27 +26,25 @@ namespace OneGate.Backend.Core.Users.Node
         private readonly IAccountRepository _accounts;
         private readonly IOrderRepository _orders;
         private readonly IPortfolioRepository _portfolios;
-        private readonly IPorfolioAssetLinkRepository _links;
 
         public Service(IMapper mapper, IAccountRepository accounts, IOrderRepository orders,
-            IPortfolioRepository portfolios,
-            IPorfolioAssetLinkRepository links)
+            IPortfolioRepository portfolios)
         {
             _mapper = mapper;
             _accounts = accounts;
             _orders = orders;
             _portfolios = portfolios;
-            _links = links;
         }
 
         public async Task<CreatedResourceResponse> CreateAccountAsync(CreateAccount request)
         {
             var account = _mapper.Map<Account>(request.Account);
+            var entity = await _accounts.AddAsync(account);
             return new CreatedResourceResponse
             {
                 Resource = new ResourceDto
                 {
-                    Id = await _accounts.AddAsync(account)
+                    Id = entity.Id
                 }
             };
         }
@@ -70,20 +68,25 @@ namespace OneGate.Backend.Core.Users.Node
 
         public async Task<AuthorizationResponse> CreateAuthorizationContext(CreateAuthorizationContext request)
         {
+            var entity = await _accounts.FindAsync(request.AuthDto.Username, request.AuthDto.Password);
+            var accountDto = _mapper.Map<AccountDto>(entity);
             return new AuthorizationResponse
             {
-                Account = _mapper.Map<AccountDto>(await _accounts.AnyMatch(request))
+                Account = accountDto
             };
         }
 
         public async Task<CreatedResourceResponse> CreateOrderAsync(CreateOrder request)
         {
-            var orderBase = _mapper.Map<CreateOrderDto, Order>(request.Order);
+            var order = _mapper.Map<CreateOrderDto, Order>(request.Order);
+            order.OwnerId = request.OwnerId;
+            
+            var entity = await _orders.AddAsync(order);
             return new CreatedResourceResponse
             {
                 Resource = new ResourceDto
                 {
-                    Id = await _orders.AddAsync(orderBase)
+                    Id = entity.Id
                 }
             };
         }
@@ -108,12 +111,15 @@ namespace OneGate.Backend.Core.Users.Node
 
         public async Task<CreatedResourceResponse> CreatePortfolioAsync(CreatePortfolio request)
         {
-            var portfolio = _mapper.Map<Portfolio>(request);
+            var portfolio = _mapper.Map<Portfolio>(request.Portfolio);
+            portfolio.OwnerId = request.OwnerId;
+            
+            var entity = await _portfolios.AddAsync(portfolio);
             return new CreatedResourceResponse
             {
                 Resource = new ResourceDto
                 {
-                    Id = await _portfolios.AddAsync(portfolio)
+                    Id = entity.Id
                 }
             };
         }
@@ -130,45 +136,7 @@ namespace OneGate.Backend.Core.Users.Node
 
         public async Task<SuccessResponse> DeletePortfolioAsync(DeletePortfolio request)
         {
-            var links = await _links.FilterAsync(null, request.Id, null, 1, 1);
-
-            if (links.Count() != 0)
-                throw new ApiException("Portfolio is not empty", StatusCodes.Status409Conflict);
-
             await _portfolios.RemoveAsync(request.Id, request.OwnerId);
-            return new SuccessResponse();
-        }
-
-        public async Task<CreatedResourceResponse> CreatePortfolioAssetLinkAsync(CreatePortfolioAssetLink request)
-        {
-            var link = new PortfolioAssetLink
-            {
-                Count = request.PortfolioAssetLink.Count,
-                PortfolioId = request.PortfolioAssetLink.PortfolioId,
-                AssetId = request.PortfolioAssetLink.AssetId
-            };
-            return new CreatedResourceResponse
-            {
-                Resource = new ResourceDto
-                {
-                    Id = await _links.AddAsync(link)
-                }
-            };
-        }
-
-        public async Task<PortfolioAssetLinksResponse> GetPortfolioAssetLinksAsync(GetPortfolioAssetLinks request)
-        {
-            var portfolioAssetLinks = await _links.FilterAsync(request.Filter.Id, request.Filter.PortfolioId,
-                request.Filter.AssetId, request.Filter.Shift, request.Filter.Count);
-            return new PortfolioAssetLinksResponse
-            {
-                PortfolioAssetLinks = _mapper.Map<IEnumerable<PortfolioAssetLinkDto>>(portfolioAssetLinks)
-            };
-        }
-
-        public async Task<SuccessResponse> DeletePortfolioAssetLinkAsync(DeletePortfolioAssetLink request)
-        {
-            await _links.RemoveAsync(request.Id);
             return new SuccessResponse();
         }
     }

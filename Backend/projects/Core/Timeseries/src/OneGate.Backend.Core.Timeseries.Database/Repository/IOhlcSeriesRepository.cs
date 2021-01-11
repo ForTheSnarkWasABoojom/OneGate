@@ -9,10 +9,8 @@ namespace OneGate.Backend.Core.Timeseries.Database.Repository
     {
         public Task AddAsync(IEnumerable<OhlcSeries> model);
         public Task UpsertAsync(OhlcSeries model);
-
         public Task<IEnumerable<OhlcSeries>> FilterAsync(int? id, string interval, int assetId,
             DateTime? endTimestamp, DateTime? startTimestamp, int shift, int count);
-
         public Task RemoveAsync(string interval, int assetId, DateTime? endTimestamp,
             DateTime? startTimestamp, int shift, int count);
     }

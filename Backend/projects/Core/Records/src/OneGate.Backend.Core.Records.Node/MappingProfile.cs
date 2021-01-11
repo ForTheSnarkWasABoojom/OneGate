@@ -11,11 +11,10 @@ namespace OneGate.Backend.Core.Records.Node
         public MappingProfile()
         {
             CreateMap<CreateExchangeDto, Exchange>();
-            CreateMap<Exchange, CreateExchangeDto>();
-
             CreateMap<Exchange, ExchangeDto>();
             CreateMap<ExchangeDto, Exchange>();
             
+            CreateMap<CreateLayoutDto, Layout>();
             CreateMap<LayoutDto, Layout>();
             CreateMap<Layout, LayoutDto>();
 
