@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using OneGate.Backend.Core.Users.Database.Models;
-using OneGate.Backend.Transport.Contracts.Account;
 
 namespace OneGate.Backend.Core.Users.Database.Repository
 {

@@ -6,8 +6,5 @@ namespace OneGate.Common.Models.Common
     {
         [JsonProperty("message")] 
         public string Message { get; set; }
-        
-        [JsonProperty("details")] 
-        public string Exception { get; set; }
     }
 }

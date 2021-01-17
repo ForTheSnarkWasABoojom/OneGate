@@ -19,9 +19,6 @@ namespace OneGate.Frontend.ApiLibrary.Tests
             {
                 Username = "test@example.com",
                 Password = "test"
-            }, new ClientKeyDto
-            {
-                ClientKey = "test"
             }).Result;
 
             AdminApi = new OneGateApi(EndpointUri, adminAccessTokenDto.AccessToken);
@@ -34,18 +31,12 @@ namespace OneGate.Frontend.ApiLibrary.Tests
                 LastName = "TestUserAccount",
                 Email = $"{accountGuid}@example.com",
                 Password = accountGuid.ToString()
-            }, new ClientKeyDto
-            {
-                ClientKey = "test"
             }).Result.Id;
 
             var userAccessTokenDto = OneGateApi.CreateTokenAsync(EndpointUri, new OAuthDto
             {
                 Username = $"{accountGuid}@example.com",
                 Password = accountGuid.ToString()
-            }, new ClientKeyDto
-            {
-                ClientKey = "test"
             }).Result;
 
             UserApi = new OneGateApi(EndpointUri, userAccessTokenDto.AccessToken);

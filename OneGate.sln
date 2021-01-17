@@ -34,9 +34,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Engines.Fak
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Engines.FakeStaticEngine", "Backend\projects\Engines\src\OneGate.Backend.Engines.FakeStaticEngine\OneGate.Backend.Engines.FakeStaticEngine.csproj", "{DA88342A-22B0-40C1-B08C-84B52A8F40BA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Gateway", "Backend\projects\Gateway\src\OneGate.Backend.Gateway\OneGate.Backend.Gateway.csproj", "{61055951-AA85-4F2C-A934-E108801C7A7E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Gateway.UserApi", "Backend\projects\Gateway\src\OneGate.Backend.Gateway.UserApi\OneGate.Backend.Gateway.UserApi.csproj", "{61055951-AA85-4F2C-A934-E108801C7A7E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Gateway.Tests", "Backend\projects\Gateway\test\OneGate.Backend.Gateway.Tests\OneGate.Backend.Gateway.Tests.csproj", "{D75F6DA3-2A2D-494A-961B-E81A8C4006C3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Gateway.UserApi.Tests", "Backend\projects\Gateway\test\OneGate.Backend.Gateway.UserApi.Tests\OneGate.Backend.Gateway.UserApi.Tests.csproj", "{D75F6DA3-2A2D-494A-961B-E81A8C4006C3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Users", "Users", "{C149E0EC-4A5C-40A9-8007-F55CFA229253}"
 EndProject
@@ -61,6 +61,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Core.Users.Node", "Backend\projects\Core\Users\src\OneGate.Backend.Core.Users.Node\OneGate.Backend.Core.Users.Node.csproj", "{C01FD71B-EC13-460A-AB6A-0AC27EF0FD58}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Core.Users.Node.Tests", "Backend\projects\Core\Users\test\OneGate.Backend.Core.Users.Node.Tests\OneGate.Backend.Core.Users.Node.Tests.csproj", "{6C37A6C9-D782-410A-AC90-18E337A92BEF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Gateway.AdminApi", "Backend\projects\Gateway\src\OneGate.Backend.Gateway.AdminApi\OneGate.Backend.Gateway.AdminApi.csproj", "{E7732B77-06D1-4686-BBDA-94620EE0D7F7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Gateway.AdminApi.Tests", "Backend\projects\Gateway\test\OneGate.Backend.Gateway.AdminApi.Tests\OneGate.Backend.Gateway.AdminApi.Tests.csproj", "{773FBBEE-43C5-4A5A-A8ED-BCD4ECE22939}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Gateway.Base", "Backend\projects\Gateway\src\OneGate.Backend.Gateway.Base\OneGate.Backend.Gateway.Base.csproj", "{149E5604-2DEF-4551-94C0-830460D7F63F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -96,6 +102,9 @@ Global
 		{F9499820-AFAD-4943-A9D8-72F26C0B0D0A} = {C149E0EC-4A5C-40A9-8007-F55CFA229253}
 		{C01FD71B-EC13-460A-AB6A-0AC27EF0FD58} = {C149E0EC-4A5C-40A9-8007-F55CFA229253}
 		{6C37A6C9-D782-410A-AC90-18E337A92BEF} = {C149E0EC-4A5C-40A9-8007-F55CFA229253}
+		{E7732B77-06D1-4686-BBDA-94620EE0D7F7} = {1FDB1DFE-F129-423C-BC5B-8C4963D11ED4}
+		{773FBBEE-43C5-4A5A-A8ED-BCD4ECE22939} = {1FDB1DFE-F129-423C-BC5B-8C4963D11ED4}
+		{149E5604-2DEF-4551-94C0-830460D7F63F} = {1FDB1DFE-F129-423C-BC5B-8C4963D11ED4}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{00D00304-8FE3-4D2A-92EE-E1DCA7A10767}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -174,5 +183,17 @@ Global
 		{6C37A6C9-D782-410A-AC90-18E337A92BEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6C37A6C9-D782-410A-AC90-18E337A92BEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6C37A6C9-D782-410A-AC90-18E337A92BEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7732B77-06D1-4686-BBDA-94620EE0D7F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7732B77-06D1-4686-BBDA-94620EE0D7F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7732B77-06D1-4686-BBDA-94620EE0D7F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7732B77-06D1-4686-BBDA-94620EE0D7F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{773FBBEE-43C5-4A5A-A8ED-BCD4ECE22939}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{773FBBEE-43C5-4A5A-A8ED-BCD4ECE22939}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{773FBBEE-43C5-4A5A-A8ED-BCD4ECE22939}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{773FBBEE-43C5-4A5A-A8ED-BCD4ECE22939}.Release|Any CPU.Build.0 = Release|Any CPU
+		{149E5604-2DEF-4551-94C0-830460D7F63F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{149E5604-2DEF-4551-94C0-830460D7F63F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{149E5604-2DEF-4551-94C0-830460D7F63F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{149E5604-2DEF-4551-94C0-830460D7F63F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

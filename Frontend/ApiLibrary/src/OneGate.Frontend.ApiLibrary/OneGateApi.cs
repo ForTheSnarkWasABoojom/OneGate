@@ -44,18 +44,14 @@ namespace OneGate.Frontend.ApiLibrary
 
         #region Account controller
 
-        public static async Task<AccessTokenDto> CreateTokenAsync(Uri baseEndpoint, OAuthDto model,
-            ClientKeyDto clientKey)
+        public static async Task<AccessTokenDto> CreateTokenAsync(Uri baseEndpoint, OAuthDto model)
         {
-            return await HttpUtils.PostAsync<OAuthDto, AccessTokenDto>(baseEndpoint, null, "account/auth", model,
-                clientKey);
+            return await HttpUtils.PostAsync<OAuthDto, AccessTokenDto>(baseEndpoint, null, "account/auth", model);
         }
 
-        public static async Task<ResourceDto> CreateAccountAsync(Uri baseEndpoint, CreateAccountDto model,
-            ClientKeyDto clientKey)
+        public static async Task<ResourceDto> CreateAccountAsync(Uri baseEndpoint, CreateAccountDto model)
         {
-            return await HttpUtils.PostAsync<CreateAccountDto, ResourceDto>(baseEndpoint, null, "account", model,
-                clientKey);
+            return await HttpUtils.PostAsync<CreateAccountDto, ResourceDto>(baseEndpoint, null, "account", model);
         }
 
         public async Task<AccountDto> GetMyAccountAsync()

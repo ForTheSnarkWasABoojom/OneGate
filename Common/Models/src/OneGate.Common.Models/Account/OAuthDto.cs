@@ -14,5 +14,10 @@ namespace OneGate.Common.Models.Account
         [MaxLength(100)]
         [JsonProperty("password")]
         public string Password { get; set; }
+        
+        [Required]
+        [MaxLength(100)]
+        [JsonProperty("client_fingerprint")]
+        public string ClientFingerprint { get; set; }
     }
 }

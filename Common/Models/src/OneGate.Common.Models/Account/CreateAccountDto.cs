@@ -25,5 +25,10 @@ namespace OneGate.Common.Models.Account
         [MaxLength(30)]
         [JsonProperty("last_name")]
         public string LastName { get; set; }
+        
+        [Required]
+        [MaxLength(100)]
+        [JsonProperty("client_fingerprint")]
+        public string ClientFingerprint { get; set; }
     }
 }

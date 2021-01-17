@@ -4,7 +4,6 @@ using OneGate.Backend.Transport.Bus;
 using OneGate.Backend.Transport.Contracts.Account;
 using OneGate.Backend.Transport.Contracts.Order;
 using OneGate.Backend.Transport.Contracts.Portfolio;
-using OneGate.Backend.Transport.Contracts.PortfolioAssetLink;
 
 namespace OneGate.Backend.Core.Users.Node
 {

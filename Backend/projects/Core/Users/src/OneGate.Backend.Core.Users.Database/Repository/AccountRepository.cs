@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.EntityFrameworkCore;
 using OneGate.Backend.Core.Users.Database.Models;
-using OneGate.Backend.Transport.Contracts.Account;
 
 namespace OneGate.Backend.Core.Users.Database.Repository
 {

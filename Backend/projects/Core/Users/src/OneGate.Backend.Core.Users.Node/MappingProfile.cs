@@ -3,7 +3,6 @@ using OneGate.Backend.Core.Users.Database.Models;
 using OneGate.Common.Models.Account;
 using OneGate.Common.Models.Order;
 using OneGate.Common.Models.Portfolio;
-using OneGate.Common.Models.PortfolioAssetLink;
 
 namespace OneGate.Backend.Core.Users.Node
 {
