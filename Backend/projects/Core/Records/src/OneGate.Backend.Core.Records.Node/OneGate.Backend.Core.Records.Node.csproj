@@ -12,7 +12,6 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\..\..\Transport\src\OneGate.Backend.Transport.Bus\OneGate.Backend.Transport.Bus.csproj" />
-      <ProjectReference Include="..\..\..\..\Transport\src\OneGate.Backend.Transport.Contracts\OneGate.Backend.Transport.Contracts.csproj" />
       <ProjectReference Include="..\OneGate.Backend.Core.Records.Database\OneGate.Backend.Core.Records.Database.csproj" />
     </ItemGroup>
 </Project>

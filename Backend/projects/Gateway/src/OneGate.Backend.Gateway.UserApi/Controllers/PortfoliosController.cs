@@ -9,8 +9,8 @@ using OneGate.Backend.Gateway.Base.Extensions.Claims;
 using OneGate.Backend.Transport.Bus;
 using OneGate.Backend.Transport.Contracts.Common;
 using OneGate.Backend.Transport.Contracts.Portfolio;
-using OneGate.Common.Models.Common;
-using OneGate.Common.Models.Portfolio;
+using OneGate.Shared.ApiContracts.Common;
+using OneGate.Shared.ApiContracts.Portfolio;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace OneGate.Backend.Gateway.UserApi.Controllers

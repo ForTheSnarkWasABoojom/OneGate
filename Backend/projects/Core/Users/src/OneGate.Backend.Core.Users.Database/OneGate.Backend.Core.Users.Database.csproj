@@ -10,8 +10,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\..\..\..\..\Common\Models\src\OneGate.Common.Models\OneGate.Common.Models.csproj" />
-      <ProjectReference Include="..\..\..\..\Transport\src\OneGate.Backend.Transport.Contracts\OneGate.Backend.Transport.Contracts.csproj" />
+      <ProjectReference Include="..\..\..\..\..\..\Shared\ApiContracts\src\OneGate.Shared.ApiContracts\OneGate.Shared.ApiContracts.csproj" />
     </ItemGroup>
 
 </Project>

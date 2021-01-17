@@ -7,7 +7,7 @@ using OneGate.Backend.Core.Records.Database;
 using OneGate.Backend.Core.Records.Database.Models;
 using OneGate.Backend.Core.Records.Database.Repository;
 using OneGate.Backend.Transport.Bus;
-using OneGate.Common.Models.Exchange;
+using OneGate.Shared.ApiContracts.Exchange;
 
 namespace OneGate.Backend.Core.Records.Node
 {

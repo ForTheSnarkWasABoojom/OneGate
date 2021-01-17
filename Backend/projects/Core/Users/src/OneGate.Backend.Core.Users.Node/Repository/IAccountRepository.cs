@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using OneGate.Backend.Transport.Contracts.Account;
-using OneGate.Common.Models.Account;
+using OneGate.Shared.ApiContracts.Account;
 
 namespace OneGate.Backend.Core.Users.Node.Repository
 {

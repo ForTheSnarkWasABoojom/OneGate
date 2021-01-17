@@ -1,5 +1,5 @@
 ﻿using MassTransit.Topology;
-using OneGate.Common.Models.Account;
+using OneGate.Shared.ApiContracts.Account;
 
 namespace OneGate.Backend.Transport.Contracts.Account
 {

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using OneGate.Common.Models.Series.Ohlc;
+using OneGate.Shared.ApiContracts.Series.Ohlc;
 
 namespace OneGate.Backend.Engines.Base.OhlcProvider
 {

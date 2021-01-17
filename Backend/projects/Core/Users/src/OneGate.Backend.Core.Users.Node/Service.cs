@@ -8,10 +8,10 @@ using OneGate.Backend.Transport.Contracts.Account;
 using OneGate.Backend.Transport.Contracts.Common;
 using OneGate.Backend.Transport.Contracts.Order;
 using OneGate.Backend.Transport.Contracts.Portfolio;
-using OneGate.Common.Models.Account;
-using OneGate.Common.Models.Common;
-using OneGate.Common.Models.Order;
-using OneGate.Common.Models.Portfolio;
+using OneGate.Shared.ApiContracts.Account;
+using OneGate.Shared.ApiContracts.Common;
+using OneGate.Shared.ApiContracts.Order;
+using OneGate.Shared.ApiContracts.Portfolio;
 
 namespace OneGate.Backend.Core.Users.Node
 {

@@ -1,8 +1,8 @@
 using AutoMapper;
 using OneGate.Backend.Core.Records.Database.Models;
-using OneGate.Common.Models.Asset;
-using OneGate.Common.Models.Exchange;
-using OneGate.Common.Models.Layout;
+using OneGate.Shared.ApiContracts.Asset;
+using OneGate.Shared.ApiContracts.Exchange;
+using OneGate.Shared.ApiContracts.Layout;
 
 namespace OneGate.Backend.Core.Records.Node
 {

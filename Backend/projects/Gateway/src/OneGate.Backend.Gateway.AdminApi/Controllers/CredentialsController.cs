@@ -10,7 +10,7 @@ using OneGate.Backend.Gateway.Base.Authentication;
 using OneGate.Backend.Gateway.Base.Options;
 using OneGate.Backend.Transport.Bus;
 using OneGate.Backend.Transport.Contracts.Account;
-using OneGate.Common.Models.Account;
+using OneGate.Shared.ApiContracts.Account;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace OneGate.Backend.Gateway.AdminApi.Controllers

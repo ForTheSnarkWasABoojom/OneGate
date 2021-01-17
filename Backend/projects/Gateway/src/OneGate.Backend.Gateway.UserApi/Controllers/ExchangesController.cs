@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 using OneGate.Backend.Gateway.Base;
 using OneGate.Backend.Transport.Bus;
 using OneGate.Backend.Transport.Contracts.Exchange;
-using OneGate.Common.Models.Exchange;
+using OneGate.Shared.ApiContracts.Exchange;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace OneGate.Backend.Gateway.UserApi.Controllers

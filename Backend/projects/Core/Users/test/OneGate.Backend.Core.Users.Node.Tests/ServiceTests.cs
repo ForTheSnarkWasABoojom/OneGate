@@ -8,7 +8,7 @@ using OneGate.Backend.Core.Users.Database.Repository;
 using OneGate.Backend.Transport.Contracts.Account;
 using OneGate.Backend.Transport.Contracts.Order;
 using OneGate.Backend.Transport.Contracts.Portfolio;
-using OneGate.Common.Models.Order;
+using OneGate.Shared.ApiContracts.Order;
 using Ploeh.AutoFixture;
 using Ploeh.AutoFixture.Kernel;
 

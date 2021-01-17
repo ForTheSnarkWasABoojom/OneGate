@@ -9,8 +9,8 @@ using OneGate.Backend.Engines.Base.OhlcProvider;
 using OneGate.Backend.Transport.Bus;
 using OneGate.Backend.Transport.Contracts.Asset;
 using OneGate.Backend.Transport.Contracts.Series.Ohlc;
-using OneGate.Common.Models.Asset;
-using OneGate.Common.Models.Exchange;
+using OneGate.Shared.ApiContracts.Asset;
+using OneGate.Shared.ApiContracts.Exchange;
 
 namespace OneGate.Backend.Engines.FakeStaticEngine
 {

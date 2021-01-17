@@ -1,5 +1,5 @@
 ﻿using MassTransit.Topology;
-using OneGate.Common.Models.Series.Point;
+using OneGate.Shared.ApiContracts.Series.Point;
 
 namespace OneGate.Backend.Transport.Contracts.Series.Point
 {

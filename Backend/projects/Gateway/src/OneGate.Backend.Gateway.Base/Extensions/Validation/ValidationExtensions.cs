@@ -1,7 +1,7 @@
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
-using OneGate.Common.Models.Common;
+using OneGate.Shared.ApiContracts.Common;
 
 namespace OneGate.Backend.Gateway.Base.Extensions.Validation
 {

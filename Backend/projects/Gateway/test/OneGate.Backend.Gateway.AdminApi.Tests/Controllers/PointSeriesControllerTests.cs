@@ -4,7 +4,7 @@ using OneGate.Backend.Gateway.AdminApi.Controllers;
 using OneGate.Backend.Transport.Bus;
 using OneGate.Backend.Transport.Contracts.Common;
 using OneGate.Backend.Transport.Contracts.Series.Point;
-using OneGate.Common.Models.Series.Point;
+using OneGate.Shared.ApiContracts.Series.Point;
 using Ploeh.AutoFixture;
 using Xunit;
 

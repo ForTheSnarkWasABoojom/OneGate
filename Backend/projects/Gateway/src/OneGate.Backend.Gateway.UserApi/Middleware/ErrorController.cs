@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OneGate.Backend.Transport.Bus;
-using OneGate.Common.Models.Common;
+using OneGate.Shared.ApiContracts.Common;
 
 namespace OneGate.Backend.Gateway.UserApi.Middleware
 {

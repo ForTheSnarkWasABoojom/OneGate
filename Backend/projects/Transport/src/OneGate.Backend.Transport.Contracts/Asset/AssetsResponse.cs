@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using MassTransit.Topology;
-using OneGate.Common.Models.Asset;
+using OneGate.Shared.ApiContracts.Asset;
 
 namespace OneGate.Backend.Transport.Contracts.Asset
 {

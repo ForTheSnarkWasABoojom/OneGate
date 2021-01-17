@@ -7,7 +7,7 @@ using OneGate.Backend.Core.Records.Database.Repository;
 using OneGate.Backend.Core.Records.Node;
 using OneGate.Backend.Transport.Contracts.Asset;
 using OneGate.Backend.Transport.Contracts.Exchange;
-using OneGate.Common.Models.Asset;
+using OneGate.Shared.ApiContracts.Asset;
 using Ploeh.AutoFixture;
 using Ploeh.AutoFixture.Kernel;
 using Xunit;

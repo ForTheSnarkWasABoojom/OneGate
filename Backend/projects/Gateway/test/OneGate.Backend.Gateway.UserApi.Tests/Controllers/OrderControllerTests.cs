@@ -8,7 +8,7 @@ using OneGate.Backend.Gateway.UserApi.Controllers;
 using OneGate.Backend.Transport.Bus;
 using OneGate.Backend.Transport.Contracts.Common;
 using OneGate.Backend.Transport.Contracts.Order;
-using OneGate.Common.Models.Order;
+using OneGate.Shared.ApiContracts.Order;
 using Ploeh.AutoFixture;
 using Ploeh.AutoFixture.Kernel;
 using Xunit;

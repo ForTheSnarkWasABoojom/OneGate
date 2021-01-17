@@ -5,4 +5,4 @@
 | :------------ |:---------------:|
 | Backend      | Microservices, Gateway |
 | Frontend      | Client dev tools, UI   |
-| Common | Common contracts |
+| Shared | Common artifacts |

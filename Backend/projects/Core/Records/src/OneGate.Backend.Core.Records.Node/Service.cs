@@ -8,10 +8,10 @@ using OneGate.Backend.Transport.Contracts.Asset;
 using OneGate.Backend.Transport.Contracts.Common;
 using OneGate.Backend.Transport.Contracts.Exchange;
 using OneGate.Backend.Transport.Contracts.Layout;
-using OneGate.Common.Models.Asset;
-using OneGate.Common.Models.Common;
-using OneGate.Common.Models.Exchange;
-using OneGate.Common.Models.Layout;
+using OneGate.Shared.ApiContracts.Asset;
+using OneGate.Shared.ApiContracts.Common;
+using OneGate.Shared.ApiContracts.Exchange;
+using OneGate.Shared.ApiContracts.Layout;
 
 namespace OneGate.Backend.Core.Records.Node
 {

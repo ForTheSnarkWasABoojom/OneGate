@@ -11,8 +11,8 @@ using OneGate.Backend.Gateway.Base.Options;
 using OneGate.Backend.Transport.Bus;
 using OneGate.Backend.Transport.Contracts.Account;
 using OneGate.Backend.Transport.Contracts.Common;
-using OneGate.Common.Models.Account;
-using OneGate.Common.Models.Common;
+using OneGate.Shared.ApiContracts.Account;
+using OneGate.Shared.ApiContracts.Common;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace OneGate.Backend.Gateway.UserApi.Controllers

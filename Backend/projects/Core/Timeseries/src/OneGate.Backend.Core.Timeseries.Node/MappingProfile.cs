@@ -3,8 +3,8 @@ using System.Drawing;
 using AutoMapper;
 using OneGate.Backend.Core.Timeseries.Database.Models;
 using OneGate.Backend.Transport.Contracts.Series.Ohlc;
-using OneGate.Common.Models.Series.Ohlc;
-using OneGate.Common.Models.Series.Point;
+using OneGate.Shared.ApiContracts.Series.Ohlc;
+using OneGate.Shared.ApiContracts.Series.Point;
 
 namespace OneGate.Backend.Core.Timeseries.Node
 {

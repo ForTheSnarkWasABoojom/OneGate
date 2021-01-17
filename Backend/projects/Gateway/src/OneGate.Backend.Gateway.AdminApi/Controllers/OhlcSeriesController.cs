@@ -5,7 +5,7 @@ using OneGate.Backend.Gateway.Base;
 using OneGate.Backend.Transport.Bus;
 using OneGate.Backend.Transport.Contracts.Common;
 using OneGate.Backend.Transport.Contracts.Series.Ohlc;
-using OneGate.Common.Models.Series.Ohlc;
+using OneGate.Shared.ApiContracts.Series.Ohlc;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace OneGate.Backend.Gateway.AdminApi.Controllers

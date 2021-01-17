@@ -8,8 +8,8 @@ using OneGate.Backend.Core.Timeseries.Database.Repository;
 using OneGate.Backend.Transport.Contracts.Common;
 using OneGate.Backend.Transport.Contracts.Series.Ohlc;
 using OneGate.Backend.Transport.Contracts.Series.Point;
-using OneGate.Common.Models.Series.Ohlc;
-using OneGate.Common.Models.Series.Point;
+using OneGate.Shared.ApiContracts.Series.Ohlc;
+using OneGate.Shared.ApiContracts.Series.Point;
 
 namespace OneGate.Backend.Core.Timeseries.Node
 {

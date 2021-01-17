@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using MassTransit.Topology;
-using OneGate.Common.Models.PortfolioAssetLink;
+using OneGate.Shared.ApiContracts.PortfolioAssetLink;
 
 namespace OneGate.Backend.Transport.Contracts.PortfolioAssetLink
 {

@@ -1,5 +1,5 @@
 ﻿using System;
-using OneGate.Common.Models.Series.Ohlc;
+using OneGate.Shared.ApiContracts.Series.Ohlc;
 
 namespace OneGate.Backend.Engines.Base.Extensions
 {

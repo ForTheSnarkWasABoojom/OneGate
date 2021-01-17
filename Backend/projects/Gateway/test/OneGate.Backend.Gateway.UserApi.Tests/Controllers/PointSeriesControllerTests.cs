@@ -3,7 +3,7 @@ using Microsoft.Extensions.Logging;
 using OneGate.Backend.Gateway.UserApi.Controllers;
 using OneGate.Backend.Transport.Bus;
 using OneGate.Backend.Transport.Contracts.Series.Point;
-using OneGate.Common.Models.Series.Point;
+using OneGate.Shared.ApiContracts.Series.Point;
 using Ploeh.AutoFixture;
 using Xunit;
 

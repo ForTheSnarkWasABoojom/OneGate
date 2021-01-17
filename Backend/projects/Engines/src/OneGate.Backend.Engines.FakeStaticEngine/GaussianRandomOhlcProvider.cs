@@ -5,7 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using OneGate.Backend.Engines.Base.Extensions;
 using OneGate.Backend.Engines.Base.OhlcProvider;
-using OneGate.Common.Models.Series.Ohlc;
+using OneGate.Shared.ApiContracts.Series.Ohlc;
 
 namespace OneGate.Backend.Engines.FakeStaticEngine
 {
