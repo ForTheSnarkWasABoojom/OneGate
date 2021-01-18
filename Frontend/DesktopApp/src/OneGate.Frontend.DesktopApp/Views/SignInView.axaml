@@ -1,0 +1,237 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:vm="clr-namespace:OneGate.Frontend.DesktopApp.ViewModels;assembly=OneGate.Frontend.DesktopApp"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             MinWidth="540"
+             MinHeight="625"
+             Background="{StaticResource Background}"
+             x:Class="OneGate.Frontend.DesktopApp.Views.SignInView">
+    
+    <Design.DataContext>
+        <vm:SignInViewModel />
+    </Design.DataContext>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="25*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="25*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Circles -->
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Path Stroke="{StaticResource GradientCircle}"
+                  StrokeThickness="15"
+                  HorizontalAlignment="Right">
+                <Path.Data>
+                    <PathGeometry>
+                        <PathFigure IsClosed="False" StartPoint="0,0">
+                            <ArcSegment IsLargeArc="False"
+                                        Size="30, 30"
+                                        Point="30, 30"
+                                        SweepDirection="CounterClockwise" />
+                        </PathFigure>
+                    </PathGeometry>
+                </Path.Data>
+            </Path>
+
+            <Path Stroke="{StaticResource GradientCircle}"
+                  StrokeThickness="15"
+                  HorizontalAlignment="Right">
+                <Path.Data>
+                    <PathGeometry>
+                        <PathFigure IsClosed="False" StartPoint="0,0">
+                            <ArcSegment IsLargeArc="False"
+                                        Size="60, 60"
+                                        Point="60, 60"
+                                        SweepDirection="CounterClockwise" />
+                        </PathFigure>
+                    </PathGeometry>
+                </Path.Data>
+            </Path>
+
+            <Path Stroke="{StaticResource GradientCircle}"
+                  StrokeThickness="15"
+                  HorizontalAlignment="Right">
+                <Path.Data>
+                    <PathGeometry>
+                        <PathFigure IsClosed="False" StartPoint="0,0">
+                            <ArcSegment IsLargeArc="False"
+                                        Size="90, 90"
+                                        Point="90, 90"
+                                        SweepDirection="CounterClockwise" />
+                        </PathFigure>
+                    </PathGeometry>
+                </Path.Data>
+            </Path>
+
+            <Path Stroke="{StaticResource GradientCircle}"
+                  StrokeThickness="15"
+                  HorizontalAlignment="Right">
+                <Path.Data>
+                    <PathGeometry>
+                        <PathFigure IsClosed="False" StartPoint="0,0">
+                            <ArcSegment IsLargeArc="False"
+                                        Size="120, 120"
+                                        Point="120, 120"
+                                        SweepDirection="CounterClockwise" />
+                        </PathFigure>
+                    </PathGeometry>
+                </Path.Data>
+            </Path>
+
+            <Path Stroke="{StaticResource GradientCircle}"
+                  StrokeThickness="15"
+                  HorizontalAlignment="Right">
+                <Path.Data>
+                    <PathGeometry>
+                        <PathFigure IsClosed="False" StartPoint="0,0">
+                            <ArcSegment IsLargeArc="False"
+                                        Size="200, 200"
+                                        Point="200, 200"
+                                        SweepDirection="CounterClockwise" />
+                        </PathFigure>
+                    </PathGeometry>
+                </Path.Data>
+            </Path>
+
+            <Path Stroke="{StaticResource GradientCircle}"
+                  StrokeThickness="15"
+                  HorizontalAlignment="Right">
+                <Path.Data>
+                    <PathGeometry>
+                        <PathFigure IsClosed="False" StartPoint="0,0">
+                            <ArcSegment IsLargeArc="False"
+                                        Size="230, 230"
+                                        Point="230, 230"
+                                        SweepDirection="CounterClockwise" />
+                        </PathFigure>
+                    </PathGeometry>
+                </Path.Data>
+            </Path>
+
+            <Path Stroke="{StaticResource GradientCircle}"
+                  StrokeThickness="15"
+                  HorizontalAlignment="Right">
+                <Path.Data>
+                    <PathGeometry>
+                        <PathFigure IsClosed="False" StartPoint="0,0">
+                            <ArcSegment IsLargeArc="False"
+                                        Size="260, 260"
+                                        Point="260, 260"
+                                        SweepDirection="CounterClockwise" />
+                        </PathFigure>
+                    </PathGeometry>
+                </Path.Data>
+            </Path>
+
+            <Path Stroke="{StaticResource GradientCircle}"
+                  StrokeThickness="15"
+                  HorizontalAlignment="Right">
+                <Path.Data>
+                    <PathGeometry>
+                        <PathFigure IsClosed="False" StartPoint="0,0">
+                            <ArcSegment IsLargeArc="False"
+                                        Size="290, 290"
+                                        Point="290, 290"
+                                        SweepDirection="CounterClockwise" />
+                        </PathFigure>
+                    </PathGeometry>
+                </Path.Data>
+            </Path>
+        </Grid>
+
+        <!-- Border line -->
+        <Border Grid.Row="1" Grid.Column="1"
+                CornerRadius="10"
+                BorderThickness="3"
+                BorderBrush="{StaticResource GradientBorder}" />
+
+        <Grid Grid.Row="1" Grid.Column="1" IsEnabled="{Binding IsFormEnabled}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <!-- Header -->
+            <StackPanel Grid.Row="0"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center">
+                <TextBlock Classes="h1" FontWeight="Normal" Text="Sign in " />
+                <TextBlock Classes="h1" FontWeight="Light" Text="to continue" />
+            </StackPanel>
+
+            <!-- Fields -->
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="4*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <!-- Email -->
+                <StackPanel Grid.Row="0"
+                            Grid.Column="1">
+                    <TextBlock Classes="label" Text="email" />
+                    <TextBox Text="{Binding Email}" />
+                </StackPanel>
+
+                <!-- Password -->
+                <StackPanel Grid.Row="2"
+                            Grid.Column="1">
+                    <TextBlock Classes="label" Text="password" />
+                    <TextBox Text="{Binding Password}" PasswordChar="*" />
+                </StackPanel>
+            </Grid>
+
+            <!-- Buttons -->
+            <Grid Grid.Row="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <!-- Error message -->
+                <TextBlock Grid.Row="0"
+                           Grid.Column="1"
+                           Classes="error" Text="{Binding Error}" />
+
+
+                <!-- Sign in -->
+                <Button Grid.Row="2" Grid.Column="1"
+                        Command="{Binding SignInCommand}"
+                        Classes="stretch green default" Content="Sign in"
+                        IsEnabled="{Binding SignInEnable}" />
+
+                <!-- Registration -->
+                <Button Grid.Row="3" Grid.Column="1"
+                        VerticalAlignment="Bottom" Margin="0 0 0 -15"
+                        Command="{Binding RegistrationCommand}"
+                        Classes="stretch red default" Content="Sign up" />
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>

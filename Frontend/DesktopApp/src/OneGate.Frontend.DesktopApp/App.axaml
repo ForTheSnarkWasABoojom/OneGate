@@ -1,0 +1,12 @@
+﻿<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:OneGate.Frontend.DesktopApp"
+             x:Class="OneGate.Frontend.DesktopApp.App">
+    <Application.DataTemplates>
+        <local:ViewLocator/>
+    </Application.DataTemplates>
+
+	<Application.Styles>
+		<StyleInclude Source="avares://OneGate.Frontend.DesktopApp/Styles/BaseTheme.axaml"/>
+	</Application.Styles>
+</Application>

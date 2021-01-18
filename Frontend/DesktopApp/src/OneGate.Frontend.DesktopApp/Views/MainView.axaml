@@ -1,0 +1,108 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:vm="clr-namespace:OneGate.Frontend.DesktopApp.ViewModels;assembly=OneGate.Frontend.DesktopApp"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             MinWidth="1250"
+             MinHeight="700"
+             x:Class="OneGate.Frontend.DesktopApp.Views.MainView">
+
+    <Design.DataContext>
+        <vm:MainViewModel />
+    </Design.DataContext>
+
+    <Grid Background="{StaticResource MainBackground}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="25*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="30*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Row="1" Grid.Column="1" ShowGridLines="True">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="15*" />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" Background="{StaticResource MainBackground}"
+                  Margin="10 34 10 0" />
+
+            <!-- Border -->
+            <Border Grid.Row="0"
+                    Grid.RowSpan="2"
+                    CornerRadius="10"
+                    BorderThickness="3"
+                    BorderBrush="{StaticResource MainBorderColor}"
+                    Margin="0 30 0 0" />
+
+            <!-- Buttons -->
+            <Grid Grid.Row="0"
+                  Background="Transparent">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="5*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="5*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="5*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="5*" />
+                    <ColumnDefinition Width="10*" />
+                </Grid.ColumnDefinitions>
+
+                <!-- Trading button -->
+                <Button Content="Trading"
+                        Grid.Column="1"
+                        Command="{Binding GoTrading}"
+                        Classes="outline stretch" />
+
+                <!-- Bots button -->
+                <Button Content="Bots"
+                        Grid.Column="3"
+                        Command="{Binding GoBots}"
+                        Classes="outline stretch" />
+
+                <!-- Cash button -->
+                <Button Content="Cash"
+                        Grid.Column="5"
+                        Command="{Binding GoCash}"
+                        Classes="outline stretch" />
+
+                <!-- Setting button-->
+                <Button Content="Setting"
+                        Grid.Column="7"
+                        Command="{Binding GoSettings}"
+                        Classes="outline stretch" />
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="100*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="100*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <ContentControl Grid.Column="1"
+                                Grid.Row="1"
+                                MinWidth="1150"
+                                MinHeight="500"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                Content="{Binding Content}" />
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>

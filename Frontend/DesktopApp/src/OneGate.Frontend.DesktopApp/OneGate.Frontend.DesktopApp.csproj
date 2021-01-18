@@ -1,0 +1,51 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>netcoreapp3.1</TargetFramework>
+	</PropertyGroup>
+	<ItemGroup>
+		<Folder Include="Models\" />
+		<AvaloniaResource Include="Assets\**" />
+		<AvaloniaResource Include="Styles\**" />
+	</ItemGroup>
+	<ItemGroup>
+		<None Remove="Assets\onegate-logo.ico" />
+	</ItemGroup>
+    <ItemGroup>
+      <PackageReference Include="Avalonia" Version="0.10.0-rc1" />
+      <PackageReference Include="Avalonia.Desktop" Version="0.10.0-rc1" />
+      <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.0-rc1" />
+    </ItemGroup>
+    <ItemGroup>
+	  <Compile Update="Views\BaseSignInUpView.axaml.cs">
+	    <DependentUpon>BaseSignInUpView.axaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\SignInView.axaml.cs">
+	    <DependentUpon>SignInView.axaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Frames\BotsView.axaml.cs">
+	    <DependentUpon>BotsView.axaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Frames\CashView.axaml.cs">
+	    <DependentUpon>CashView.axaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Frames\GraphView.axaml.cs">
+	    <DependentUpon>GraphView.axaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Frames\SettingView.axaml.cs">
+	    <DependentUpon>SettingView.axaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Frames\TradingView.axaml.cs">
+	    <DependentUpon>TradingView.axaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\MainView.axaml.cs">
+	    <DependentUpon>MainView.axaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\MainWindowView.axaml.cs">
+	    <DependentUpon>MainWindowView.axaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\SignUpView.axaml.cs">
+	    <DependentUpon>SignUpView.axaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+</Project>

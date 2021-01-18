@@ -1,0 +1,109 @@
+﻿<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <StackPanel Spacing="20">
+            <Button Content="Click Me!" Classes="outline" />
+            <Button Classes="stetch red default" Content="Red" />
+            <Button Classes="stetch green" Content="Green" />
+        </StackPanel>
+    </Design.PreviewWith>
+
+    <Style Selector="Button.default">
+        <Setter Property="Foreground" Value="{DynamicResource Foreground}" />
+        <Setter Property="Padding" Value="10 4 10 6" />
+        <Setter Property="FontWeight" Value="Light" />
+        <Setter Property="FontSize" Value="20" />
+
+        <Setter Property="Template">
+            <ControlTemplate>
+                <ContentPresenter x:Name="PART_ContentPresenter"
+                                  Background="{TemplateBinding Background}"
+                                  BorderBrush="{TemplateBinding BorderBrush}"
+                                  BorderThickness="{TemplateBinding BorderThickness}"
+                                  Content="{TemplateBinding Content}"
+                                  ContentTemplate="{TemplateBinding ContentTemplate}"
+                                  CornerRadius="10"
+                                  Padding="{TemplateBinding Padding}"
+                                  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+            </ControlTemplate>
+        </Setter>
+    </Style>
+
+
+    <Style Selector="Button.outline">
+        <Setter Property="Foreground" Value="#00A9FF" />
+        <Setter Property="Padding" Value="10 4 10 6" />
+        <Setter Property="FontWeight" Value="Light" />
+        <Setter Property="FontSize" Value="20" />
+
+        <Setter Property="Template">
+            <ControlTemplate>
+                <ContentPresenter x:Name="PART_ContentPresenter"
+                                  Background="#030216"
+                                  BorderBrush="#00A9FF"
+                                  BorderThickness="3"
+                                  Content="{TemplateBinding Content}"
+                                  ContentTemplate="{TemplateBinding ContentTemplate}"
+                                  CornerRadius="10"
+                                  Padding="{TemplateBinding Padding}"
+                                  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+            </ControlTemplate>
+        </Setter>
+    </Style>
+    <!-- Stretch button -->
+    <Style Selector="Button.stretch">
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="VerticalAlignment" Value="Stretch" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+    </Style>
+
+    <!-- Center button- -->
+    <Style Selector="Button.center">
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+    </Style>
+
+    <!-- Green button -->
+    <Style Selector="Button.green /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource GreenButtonBackground}" />
+        <Setter Property="TextBlock.Foreground" Value="#FF000000" />
+    </Style>
+
+    <Style Selector="Button.green:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource GreenButtonBackgroundPointOver}" />
+        <Setter Property="TextBlock.Foreground" Value="#FF000000" />
+    </Style>
+
+    <Style Selector="Button.green:pressed  /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource GreenButtonBackgroundPressed}" />
+        <Setter Property="TextBlock.Foreground" Value="#FF000000" />
+    </Style>
+
+    <Style Selector="Button.green:disabled /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource GreenButtonBackgroundDisabled}" />
+        <Setter Property="TextBlock.Foreground" Value="#FF000000" />
+    </Style>
+
+    <!-- Red button -->
+    <Style Selector="Button.red /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource RedButtonBackground}" />
+        <Setter Property="TextBlock.Foreground" Value="{DynamicResource Foreground}" />
+    </Style>
+
+    <Style Selector="Button.red:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource RedButtonBackgroundPointOver}" />
+        <Setter Property="TextBlock.Foreground" Value="{DynamicResource Foreground}" />
+    </Style>
+
+    <Style Selector="Button.red:pressed  /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource RedButtonBackgroundPressed}" />
+        <Setter Property="TextBlock.Foreground" Value="{DynamicResource Foreground}" />
+    </Style>
+
+    <Style Selector="Button.red:disabled /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource RedButtonBackgroundDisabled}" />
+        <Setter Property="TextBlock.Foreground" Value="{DynamicResource Foreground}" />
+    </Style>
+</Styles>

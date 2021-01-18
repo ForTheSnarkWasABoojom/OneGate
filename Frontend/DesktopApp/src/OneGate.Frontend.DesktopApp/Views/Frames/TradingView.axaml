@@ -1,0 +1,293 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             MinWidth="925"
+             MinHeight="500"
+             x:Class="OneGate.Frontend.DesktopApp.Views.Frames.TradingView">
+    <Grid Background="#030216" ShowGridLines="True">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="45*" />
+        </Grid.RowDefinitions>
+
+        <!-- Upper combo box -->
+        <Grid Grid.Row="0" Background="{StaticResource Background}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="6*" />
+                <ColumnDefinition Width="6*" />
+                <ColumnDefinition Width="6*" />
+                <ColumnDefinition Width="14*" />
+            </Grid.ColumnDefinitions>
+
+            <!-- Excahnge combo box -->
+            <Grid Grid.Column="1"
+                  HorizontalAlignment="Stretch">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="5*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="3*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <ComboBox Grid.Column="1"
+                          Grid.Row="1"
+                          Classes="default"
+                          HorizontalAlignment="Stretch"
+                          PlaceholderText="Exchange"
+                          Items="{Binding Exchanges}"
+                          SelectedItem="{Binding CurExchange}" />
+            </Grid>
+
+            <!-- Type combo box-->
+            <Grid Grid.Column="2"
+                  HorizontalAlignment="Stretch">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="5*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="3*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <ComboBox Grid.Column="1"
+                          Grid.Row="1"
+                          Classes="default"
+                          HorizontalAlignment="Stretch"
+                          Items="{Binding AssetTypes}"
+                          SelectedItem="{Binding CurAssetType}"
+                          PlaceholderText="Type" />
+            </Grid>
+
+            <!-- Ticker combo box -->
+            <Grid Grid.Column="3"
+                  HorizontalAlignment="Stretch">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="5*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="3*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <ComboBox Grid.Column="1"
+                          Grid.Row="1"
+                          Classes="default"
+                          HorizontalAlignment="Stretch"
+                          Items="{Binding Tickers}"
+                          SelectedItem="{Binding CurTicker}"
+                          PlaceholderText="Ticker" />
+            </Grid>
+
+            <!-- Lines -->
+            <Grid Column="4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <!-- Line 1 -->
+                <Line Grid.Column="0"
+                      Stroke="{StaticResource MainBackground}"
+                      StartPoint="85 0"
+                      EndPoint="0 85"
+                      Margin="0 -10 0 -10"
+                      StrokeThickness="14" />
+
+                <!-- Line 2 -->
+                <Line Grid.Column="1"
+                      Stroke="{StaticResource MainBackground}"
+                      StartPoint="85 0"
+                      EndPoint="0 85"
+                      Margin="0 -10 0 -10"
+                      StrokeThickness="14" />
+
+                <!-- Line 3 -->
+                <Line Grid.Column="2"
+                      Stroke="{StaticResource MainBackground}"
+                      StartPoint="85 0"
+                      EndPoint="0 85"
+                      Margin="0 -10 0 -10"
+                      StrokeThickness="14" />
+
+                <!-- Line 4 -->
+                <Line Grid.Column="3"
+                      Stroke="{StaticResource MainBackground}"
+                      StartPoint="85 0"
+                      EndPoint="0 85"
+                      Margin="0 -10 0 -10"
+                      StrokeThickness="14" />
+
+
+                <!-- Line 5 -->
+                <Line Grid.Column="4"
+                      Stroke="{StaticResource MainBackground}"
+                      StartPoint="85 0"
+                      EndPoint="0 85"
+                      Margin="0 -10 0 -10"
+                      StrokeThickness="14" />
+
+                <!-- Line 6 -->
+                <Line Grid.Column="5"
+                      Stroke="{StaticResource MainBackground}"
+                      StartPoint="85 0"
+                      EndPoint="0 85"
+                      Margin="0 -10 0 -10"
+                      StrokeThickness="14" />
+
+                <!-- Line 7 -->
+                <Line Grid.Column="6"
+                      Stroke="{StaticResource MainBackground}"
+                      StartPoint="85 0"
+                      EndPoint="0 85"
+                      Margin="0 -10 0 -10"
+                      StrokeThickness="14" />
+            </Grid>
+        </Grid>
+
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="57*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="13*" />
+            </Grid.ColumnDefinitions>
+
+            <!-- Graph -->
+            <ContentPresenter Grid.Column="0"
+                              Content="{Binding Content}" />
+
+            <Grid Grid.Column="2" ShowGridLines="True">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="18*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="10*" />
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0"
+                      Background="{StaticResource Background}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="2*" />
+                    </Grid.RowDefinitions>
+
+                    <!-- Type combo box -->
+                    <Grid Grid.Row="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="2*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="10*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <ComboBox Grid.Column="1"
+                                  Grid.Row="1"
+                                  Classes="default"
+                                  PlaceholderText="Type"
+                                  HorizontalAlignment="Stretch" />
+
+                    </Grid>
+
+                    <!-- Price text box -->
+                    <Grid Grid.Row="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="2*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="10*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Row="1"
+                                    Grid.Column="1">
+                            <TextBlock Classes="labelMain"
+                                       Text="price" />
+                            <TextBox Text="123" Classes="default" />
+                        </StackPanel>
+
+                    </Grid>
+                </Grid>
+
+                <Grid Grid.Row="2" Background="{StaticResource Background}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <!-- Buy button -->
+                    <Grid Grid.Row="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="5*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="10*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Button Classes="green stretch default"
+                                Grid.Row="1"
+                                Content="Buy"
+                                FontSize="30"
+                                Grid.Column="1" />
+                    </Grid>
+
+                    <!-- Sell button -->
+                    <Grid Grid.Row="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="5*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="10*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Button Classes="red stretch default"
+                                Content="Sell"
+                                FontSize="30"
+                                Grid.Row="1"
+                                Grid.Column="1" />
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>

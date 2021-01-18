@@ -1,0 +1,61 @@
+﻿<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <StyleInclude Source="avares://Avalonia.Themes.Fluent/FluentDark.xaml" />
+
+    <!-- Base colors -->
+    <Styles.Resources>
+        <!-- Window -->
+        <SolidColorBrush x:Key="Background" Color="#FF13152E" />
+        <SolidColorBrush x:Key="Foreground" Color="#FFFFFFFF" />
+        <SolidColorBrush x:Key="ForegroundDisabled" Color="#55FFFFFF" />
+
+        <!-- Labeled text box -->
+        <SolidColorBrush x:Key="FieldBorder" Color="#FF00A8FF" />
+        <SolidColorBrush x:Key="FieldBorderDisabled" Color="#FF0D5A82" />
+        <SolidColorBrush x:Key="FieldBorderFocused" Color="#FF3BB7F7" />
+        <SolidColorBrush x:Key="FieldBorderPointOver" Color="#FF8FD9FF" />
+        <SolidColorBrush x:Key="LabelForeground" Color="#FF00A8FF" />
+
+        <!-- Main elements -->
+        <SolidColorBrush x:Key="MainBackground" Color="#030216" />
+        <SolidColorBrush x:Key="MainBorderColor" Color="#00A9FF" />
+
+
+        <!-- Error box -->
+        <SolidColorBrush x:Key="ErrorForeground" Color="#FFC30942" />
+        <SolidColorBrush x:Key="ErrorBorder" Color="#FFC30942" />
+
+        <LinearGradientBrush x:Key="GradientBorder">
+            <GradientStop Color="#FF0030FF" Offset="0" />
+            <GradientStop Color="#FFFF0000" Offset="1" />
+        </LinearGradientBrush>
+        <LinearGradientBrush x:Key="GradientCircle">
+            <GradientStop Color="#FF3725C7" Offset="0" />
+            <GradientStop Color="#FFB70D47" Offset="1" />
+        </LinearGradientBrush>
+
+        <!-- Buttons -->
+        <SolidColorBrush x:Key="RedButtonBackground" Color="#FFC30942" />
+        <SolidColorBrush x:Key="RedButtonBackgroundDisabled" Color="#FF8C2645" />
+        <SolidColorBrush x:Key="RedButtonBackgroundPointOver" Color="#FFFF145C" />
+        <SolidColorBrush x:Key="RedButtonBackgroundPressed" Color="#FF9C0B37" />
+
+        <SolidColorBrush x:Key="GreenButtonBackground" Color="#FF00E4C6" />
+        <SolidColorBrush x:Key="GreenButtonBackgroundDisabled" Color="#FF2D7D72" />
+        <SolidColorBrush x:Key="GreenButtonBackgroundPointOver" Color="#FF29FFE3" />
+        <SolidColorBrush x:Key="GreenButtonBackgroundPressed" Color="#FF0BB09A" />
+    </Styles.Resources>
+
+    <!-- Setup fonts -->
+    <Style Selector="Window">
+        <Setter Property="FontFamily" Value="Montserrat" />
+        <Setter Property="FontSize" Value="18" />
+        <Setter Property="FontWeight" Value="Light" />
+        <Setter Property="Foreground" Value="{StaticResource Foreground}" />
+    </Style>
+
+    <!-- Custom elements -->
+    <StyleInclude Source="/Styles/TextBlock.axaml" />
+    <StyleInclude Source="/Styles/TextBox.axaml" />
+    <StyleInclude Source="/Styles/Button.axaml" />
+    <StyleInclude Source="/Styles/ComboBox.axaml" />
+</Styles>
