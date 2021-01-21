@@ -1,0 +1,10 @@
+﻿{
+  "profiles": {
+    "OneGate.Backend.Core.Users": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}

@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="AutoMapper" Version="10.1.1" />
+      <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.9" />
+      <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="4.2.0" />
+      <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="5.5.0" />
+      <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+      <PackageReference Include="prometheus-net.AspNetCore" Version="4.1.1" />
+      <PackageReference Include="prometheus-net.AspNetCore.HealthChecks" Version="4.1.1" />
+      <PackageReference Include="Serilog.AspNetCore" Version="3.4.0" />
+      <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+      <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="5.6.3" />
+      <PackageReference Include="Swashbuckle.AspNetCore.Newtonsoft" Version="5.6.3" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\..\..\..\Shared\ApiModels\src\OneGate.Shared.ApiModels\OneGate.Shared.ApiModels.csproj" />
+      <ProjectReference Include="..\..\..\..\Transport\src\OneGate.Backend.Transport.Bus\OneGate.Backend.Transport.Bus.csproj" />
+      <ProjectReference Include="..\..\..\..\Transport\src\OneGate.Backend.Transport.Contracts\OneGate.Backend.Transport.Contracts.csproj" />
+    </ItemGroup>
+
+</Project>

@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <UserSecretsId>dotnet-OneGate.Backend.Services.AccountService-F73F0705-40BF-4FFB-95E3-7C38DFBCD8C3</UserSecretsId>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="AutoMapper" Version="10.1.1" />
+        <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.0" />
+        <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.9" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\Base\src\OneGate.Backend.Core.Base\OneGate.Backend.Core.Base.csproj" />
+      <ProjectReference Include="..\OneGate.Backend.Core.Users.Database\OneGate.Backend.Core.Users.Database.csproj" />
+    </ItemGroup>
+</Project>

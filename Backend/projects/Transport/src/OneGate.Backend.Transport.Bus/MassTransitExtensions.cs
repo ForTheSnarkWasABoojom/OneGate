@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using EntityFramework.Exceptions.Common;
 using MassTransit;
 using MassTransit.Topology;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using OneGate.Backend.Transport.Bus.OgFormatter;
+using OneGate.Backend.Transport.Bus.Options;
 using OneGate.Backend.Transport.Contracts.Common;
 
 namespace OneGate.Backend.Transport.Bus
@@ -43,36 +43,36 @@ namespace OneGate.Backend.Transport.Bus
                 },
                 UniqueConstraintException ex => new ErrorResponse
                 {
-                    StatusCode = StatusCodes.Status409Conflict,
+                    StatusCode = 409,
                     Message = "Entity must be unique",
                     InnerExceptionMessage = ex.Message
                 },
                 ReferenceConstraintException ex => new ErrorResponse
                 {
-                    StatusCode = StatusCodes.Status424FailedDependency,
+                    StatusCode = 424,
                     Message = "Entity has wrong dependencies",
                     InnerExceptionMessage = ex.Message
                 },
                 { } ex => new ErrorResponse
                 {
-                    StatusCode = StatusCodes.Status500InternalServerError,
+                    StatusCode = 500,
                     Message = ex.Message,
                     InnerExceptionMessage = ex.ToString()
                 }
             };
         }
 
-        public static IServiceCollection UseMassTransit(this IServiceCollection services,
+        public static IServiceCollection UseMassTransit(this IServiceCollection services, RabbitMqOptions options,
             IEnumerable<KeyValuePair<Type, Type>> consumers = null)
         {
             services.AddMassTransit(x =>
             {
                 x.UsingRabbitMq((context, cfg) =>
                 {
-                    cfg.Host("rabbitmq", "/", h =>
+                    cfg.Host(options.Host, "/", h =>
                     {
-                        h.Username(Environment.GetEnvironmentVariable("RABBITMQ_DEFAULT_USER"));
-                        h.Password(Environment.GetEnvironmentVariable("RABBITMQ_DEFAULT_PASS"));
+                        h.Username(options.Username);
+                        h.Password(options.Password);
                     });
                     cfg.SetMessageSerializer(() => new OgMessageSerializer());
                     cfg.AddMessageDeserializer(OgMessageDeserializer.ContentTypeValue,

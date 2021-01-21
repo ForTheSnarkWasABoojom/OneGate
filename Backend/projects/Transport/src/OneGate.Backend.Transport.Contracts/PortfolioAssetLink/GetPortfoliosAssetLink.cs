@@ -1,5 +1,5 @@
 ﻿using MassTransit.Topology;
-using OneGate.Shared.ApiContracts.PortfolioAssetLink;
+using OneGate.Backend.Transport.Dto.PortfolioAssetLink;
 
 namespace OneGate.Backend.Transport.Contracts.PortfolioAssetLink
 {

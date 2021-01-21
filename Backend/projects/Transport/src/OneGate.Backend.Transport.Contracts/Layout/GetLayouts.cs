@@ -1,5 +1,5 @@
 ﻿using MassTransit.Topology;
-using OneGate.Shared.ApiContracts.Layout;
+using OneGate.Backend.Transport.Dto.Layout;
 
 namespace OneGate.Backend.Transport.Contracts.Layout
 {

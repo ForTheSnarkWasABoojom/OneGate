@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Flurl;
-using OneGate.Shared.ApiContracts.Account;
+using OneGate.Shared.ApiModels.Account;
 using OneGate.Shared.ApiLibrary.Base;
 
 namespace OneGate.Shared.ApiLibrary.User
@@ -18,7 +18,7 @@ namespace OneGate.Shared.ApiLibrary.User
 
         public async Task<string> GetAccessTokenAsync(string username, string password)
         {
-            var model = new OAuthDto
+            var model = new AuthModel
             {
                 Username = username,
                 Password = password,
@@ -26,8 +26,8 @@ namespace OneGate.Shared.ApiLibrary.User
             };
             var result = await _baseUrl
                 .AppendPathSegment("credentials/auth")
-                .PostRequestAsync<OAuthDto, AccessTokenDto>(model);
-            return result.AccessToken;
+                .PostRequestAsync<AuthModel, AccessTokenModel>(model);
+            return result.Token;
         }
     }
 }

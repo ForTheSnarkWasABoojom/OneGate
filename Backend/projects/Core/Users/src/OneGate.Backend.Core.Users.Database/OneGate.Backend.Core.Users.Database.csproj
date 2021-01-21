@@ -6,11 +6,8 @@
 
     <ItemGroup>
       <PackageReference Include="EntityFrameworkCore.Exceptions.PostgreSQL" Version="3.1.1" />
+      <PackageReference Include="Microsoft.AspNetCore.Cryptography.KeyDerivation" Version="1.1.0" />
       <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.0" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <ProjectReference Include="..\..\..\..\..\..\Shared\ApiContracts\src\OneGate.Shared.ApiContracts\OneGate.Shared.ApiContracts.csproj" />
     </ItemGroup>
 
 </Project>

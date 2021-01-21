@@ -1,5 +1,5 @@
 ﻿using MassTransit.Topology;
-using OneGate.Shared.ApiContracts.Order;
+using OneGate.Backend.Transport.Dto.Order;
 
 namespace OneGate.Backend.Transport.Contracts.Order
 {

@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Flurl;
 using Flurl.Http;
-using OneGate.Shared.ApiContracts.Common;
+using OneGate.Shared.ApiModels.Common;
 using OneGate.Shared.ApiLibrary.Base.Exceptions;
 
 namespace OneGate.Shared.ApiLibrary.Base
@@ -24,7 +24,7 @@ namespace OneGate.Shared.ApiLibrary.Base
             }
             catch (FlurlHttpException ex)
             {
-                var error = await ex.GetResponseJsonAsync<ErrorDto>();
+                var error = await ex.GetResponseJsonAsync<ErrorModel>();
                 throw new ClientApiException(error.Message);
             }
         }

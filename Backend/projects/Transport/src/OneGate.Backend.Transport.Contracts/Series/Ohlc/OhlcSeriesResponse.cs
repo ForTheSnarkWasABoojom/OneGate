@@ -1,5 +1,5 @@
 ﻿using MassTransit.Topology;
-using OneGate.Shared.ApiContracts.Series.Ohlc;
+using OneGate.Backend.Transport.Dto.Series.Ohlc;
 
 namespace OneGate.Backend.Transport.Contracts.Series.Ohlc
 {

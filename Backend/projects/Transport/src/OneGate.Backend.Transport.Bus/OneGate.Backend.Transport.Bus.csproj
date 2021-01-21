@@ -12,9 +12,5 @@
       <PackageReference Include="MassTransit.RabbitMQ" Version="7.0.6" />
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.9" />
     </ItemGroup>
-
-    <ItemGroup>
-      <ProjectReference Include="..\OneGate.Backend.Transport.Contracts\OneGate.Backend.Transport.Contracts.csproj" />
-    </ItemGroup>
 	
 </Project>

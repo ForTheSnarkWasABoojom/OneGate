@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <UserSecretsId>dotnet-OneGate.Backend.Services.TimeseriesService-A3212E45-1C33-4B98-B511-DCC82359B94B</UserSecretsId>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="AutoMapper" Version="10.1.1" />
+        <PackageReference Include="FlexLabs.EntityFrameworkCore.Upsert" Version="3.1.0" />
+        <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.9" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\Base\src\OneGate.Backend.Core.Base\OneGate.Backend.Core.Base.csproj" />
+      <ProjectReference Include="..\OneGate.Backend.Core.Timeseries.Database\OneGate.Backend.Core.Timeseries.Database.csproj" />
+    </ItemGroup>
+</Project>
