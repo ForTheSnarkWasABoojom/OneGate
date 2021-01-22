@@ -1,0 +1,14 @@
+﻿replicaCount: 1
+
+image:
+  repository: jetbrains/teamcity-agent
+  tag: 2020.2.1-linux-sudo
+  pullSecrets: []
+  
+teamcity:
+  serverUrl: "http://teamcity-server/"
+  
+caRootCertificate:
+  secret:
+    name: "cluster-ca"
+    path: "tls.crt"

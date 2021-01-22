@@ -1,0 +1,11 @@
+﻿image:
+  repository: jetbrains/teamcity-server
+  tag: 2020.2.1-linux
+  pullSecrets: []
+
+service:
+  type: ClusterIP
+  port: 80
+
+persistence:
+  size: 5Gi

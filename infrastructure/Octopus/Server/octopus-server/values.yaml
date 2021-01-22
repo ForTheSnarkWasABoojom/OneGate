@@ -1,0 +1,21 @@
+﻿image:
+  repository: octopusdeploy/octopusdeploy
+  tag: 2020.5
+  pullSecrets: []
+
+service:
+  type: ClusterIP
+  port: 80
+  
+octopus:
+  admin:
+    username: "test"
+    password: "Passw0rd123"
+  db:
+    host: "mssql"
+    port: "1433"
+    name: "octopus"
+    masterKey: "4E645267556B58703272357538782F41"
+  dbUser:
+    login: "octopus"
+    password: "N0tS3cr3t!"  

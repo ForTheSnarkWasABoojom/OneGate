@@ -1,0 +1,4 @@
+image.tag: v0.12.0
+persistence.enabled: true
+persistence:
+  size: 10Gi

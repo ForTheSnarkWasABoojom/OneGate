@@ -1,0 +1,5 @@
+image.tag: 2.7.1
+persistence.enabled: true
+persistence:
+  size: 10Gi
+tlsSecretName: "docker-new-cert"

@@ -1,0 +1,14 @@
+﻿image:
+  repository: mcr.microsoft.com/mssql/server
+  tag: 2019-latest
+  pullSecrets: []
+  
+service:
+  type: ClusterIP
+  port: 1433
+  
+persistence:
+  size: 5Gi
+    
+mssql:
+  saPassword: "N0tS3cr3t!"
