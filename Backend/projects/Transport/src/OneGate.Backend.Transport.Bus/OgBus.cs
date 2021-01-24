@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using MassTransit;
-using OneGate.Backend.Transport.Contracts.Common;
 
 namespace OneGate.Backend.Transport.Bus
 {

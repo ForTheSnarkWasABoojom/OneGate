@@ -1,5 +1,4 @@
-﻿using System;
-using EntityFramework.Exceptions.PostgreSQL;
+﻿using EntityFramework.Exceptions.PostgreSQL;
 using Microsoft.EntityFrameworkCore;
 using OneGate.Backend.Core.Records.Database.Models;
 
@@ -10,12 +9,6 @@ namespace OneGate.Backend.Core.Records.Database
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseExceptionProcessor();
-
-            optionsBuilder.UseNpgsql(
-                $"Host=asset_db;Port=5432;" +
-                $"Database={Environment.GetEnvironmentVariable("POSTGRES_DB")};" +
-                $"Username={Environment.GetEnvironmentVariable("POSTGRES_USER")};" +
-                $"Password={Environment.GetEnvironmentVariable("POSTGRES_PASSWORD")}");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

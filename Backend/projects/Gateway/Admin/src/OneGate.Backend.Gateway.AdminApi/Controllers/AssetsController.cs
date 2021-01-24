@@ -1,9 +1,8 @@
 using System.Threading.Tasks;
-using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using OneGate.Backend.Transport.Dto.Asset;
+using OneGate.Backend.Gateway.AdminApi.Converters;
 using OneGate.Backend.Gateway.Base;
 using OneGate.Backend.Transport.Bus;
 using OneGate.Backend.Transport.Contracts.Asset;
@@ -19,22 +18,22 @@ namespace OneGate.Backend.Gateway.AdminApi.Controllers
     public class AssetsController : BaseController
     {
         private readonly ILogger<AssetsController> _logger;
-        private readonly IMapper _mapper;
+        private readonly IConverter _converter;
         private readonly IOgBus _bus;
 
-        public AssetsController(ILogger<AssetsController> logger, IOgBus bus, IMapper mapper)
+        public AssetsController(ILogger<AssetsController> logger, IOgBus bus, IConverter converter)
         {
             _logger = logger;
             _bus = bus;
-            _mapper = mapper;
+            _converter = converter;
         }
-        
+
         [HttpPost]
         [ProducesResponseType(typeof(ResourceModel), StatusCodes.Status200OK)]
         [SwaggerOperation("Create asset")]
         public async Task<IActionResult> CreateAssetAsync([FromBody] CreateAssetModel request)
         {
-            var createdAccountDto = _mapper.Map<CreateAssetModel,CreateAssetDto>(request);
+            var createdAccountDto = _converter.ToDto(request);
             var payload = await _bus.Call<CreateAsset, CreatedResourceResponse>(new CreateAsset
             {
                 Asset = createdAccountDto
@@ -42,7 +41,7 @@ namespace OneGate.Backend.Gateway.AdminApi.Controllers
 
             return Ok();
         }
-        
+
         [HttpDelete]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [SwaggerOperation("Delete asset")]

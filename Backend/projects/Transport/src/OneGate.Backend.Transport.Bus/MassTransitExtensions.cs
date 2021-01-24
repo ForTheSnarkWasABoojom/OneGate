@@ -9,7 +9,6 @@ using MassTransit.Topology;
 using Microsoft.Extensions.DependencyInjection;
 using OneGate.Backend.Transport.Bus.OgFormatter;
 using OneGate.Backend.Transport.Bus.Options;
-using OneGate.Backend.Transport.Contracts.Common;
 
 namespace OneGate.Backend.Transport.Bus
 {

@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using OneGate.Backend.Gateway.AdminApi.Converters;
 using OneGate.Backend.Transport.Dto.Account;
 using OneGate.Backend.Gateway.Base;
 using OneGate.Backend.Transport.Bus;
@@ -20,15 +20,15 @@ namespace OneGate.Backend.Gateway.AdminApi.Controllers
     public class AccountsController : BaseController
     {
         private readonly ILogger<AccountsController> _logger;
-        
-        private readonly IMapper _mapper;
+
+        private readonly IConverter _converter;
         private readonly IOgBus _bus;
 
-        public AccountsController(ILogger<AccountsController> logger, IOgBus bus, IMapper mapper)
+        public AccountsController(ILogger<AccountsController> logger, IOgBus bus, IConverter converter)
         {
             _logger = logger;
             _bus = bus;
-            _mapper = mapper;
+            _converter = converter;
         }
 
         [HttpGet]
@@ -37,14 +37,13 @@ namespace OneGate.Backend.Gateway.AdminApi.Controllers
         [SwaggerOperation("Search accounts")]
         public async Task<IActionResult> GetAccountsRangeAsync([FromQuery] AccountFilterModel request)
         {
-            var accountFilterDto = _mapper.Map<AccountFilterModel,AccountFilterDto>(request);
+            var accountFilterDto = _converter.ToDto(request);
             var payload = await _bus.Call<GetAccounts, AccountsResponse>(new GetAccounts
             {
                 Filter = accountFilterDto
             });
 
-            var response = _mapper.Map<IEnumerable<AccountDto>,IEnumerable<AccountModel>>
-                (payload.Accounts);
+            var response = payload.Accounts.Select(_converter.FromDto);
             return Ok(response);
         }
         
@@ -63,7 +62,7 @@ namespace OneGate.Backend.Gateway.AdminApi.Controllers
                 }
             });
 
-            var response = _mapper.Map<AccountDto,AccountModel>(payload.Accounts.FirstOrDefault());
+            var response = _converter.FromDto(payload.Accounts.FirstOrDefault());
             return StrictOk(response);
         }
 

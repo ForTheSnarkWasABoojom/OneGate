@@ -1,40 +1,34 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper;
-using OneGate.Backend.Core.Users.Database.Models;
+using OneGate.Backend.Core.Users.Converters;
 using OneGate.Backend.Core.Users.Database.Repository;
 using OneGate.Backend.Transport.Contracts.Account;
 using OneGate.Backend.Transport.Contracts.Common;
 using OneGate.Backend.Transport.Contracts.Order;
 using OneGate.Backend.Transport.Contracts.Portfolio;
-using OneGate.Backend.Transport.Dto.Account;
 using OneGate.Backend.Transport.Dto.Common;
-using OneGate.Backend.Transport.Dto.Order;
-using OneGate.Backend.Transport.Dto.Portfolio;
 
 namespace OneGate.Backend.Core.Users
 {
     public class Service : IService
     {
-        private readonly IMapper _mapper;
-
+        private readonly IConverter _converter;
         private readonly IAccountRepository _accounts;
         private readonly IOrderRepository _orders;
         private readonly IPortfolioRepository _portfolios;
 
-        public Service(IMapper mapper, IAccountRepository accounts, IOrderRepository orders,
-            IPortfolioRepository portfolios)
+        public Service(IAccountRepository accounts, IOrderRepository orders,
+            IPortfolioRepository portfolios, IConverter converter)
         {
-            _mapper = mapper;
             _accounts = accounts;
             _orders = orders;
             _portfolios = portfolios;
+            _converter = converter;
         }
 
         public async Task<CreatedResourceResponse> CreateAccountAsync(CreateAccount request)
         {
-            var account = _mapper.Map<Account>(request.Account);
+            var account = _converter.FromDto(request.Account);
             var entity = await _accounts.AddAsync(account);
             return new CreatedResourceResponse
             {
@@ -52,7 +46,7 @@ namespace OneGate.Backend.Core.Users
                 request.Filter.Count);
             return new AccountsResponse
             {
-                Accounts = _mapper.Map<IEnumerable<AccountDto>>(accounts)
+                Accounts = accounts.Select(_converter.ToDto)
             };
         }
 
@@ -65,7 +59,7 @@ namespace OneGate.Backend.Core.Users
         public async Task<AuthorizationResponse> CreateAuthorizationContext(CreateAuthorizationContext request)
         {
             var entity = await _accounts.FindAsync(request.AuthDto.Username, request.AuthDto.Password);
-            var accountDto = _mapper.Map<AccountDto>(entity);
+            var accountDto = _converter.ToDto(entity);
             return new AuthorizationResponse
             {
                 Account = accountDto
@@ -74,9 +68,9 @@ namespace OneGate.Backend.Core.Users
 
         public async Task<CreatedResourceResponse> CreateOrderAsync(CreateOrder request)
         {
-            var order = _mapper.Map<CreateOrderDto, Order>(request.Order);
+            var order = _converter.FromDto(request.Order);
             order.OwnerId = request.OwnerId;
-            
+
             var entity = await _orders.AddAsync(order);
             return new CreatedResourceResponse
             {
@@ -95,7 +89,7 @@ namespace OneGate.Backend.Core.Users
                 request.Filter.Count);
             return new OrdersResponse
             {
-                Orders = orders.Select(x => _mapper.Map<OrderDto>(x))
+                Orders = orders.Select(_converter.ToDto)
             };
         }
 
@@ -107,9 +101,8 @@ namespace OneGate.Backend.Core.Users
 
         public async Task<CreatedResourceResponse> CreatePortfolioAsync(CreatePortfolio request)
         {
-            var portfolio = _mapper.Map<Portfolio>(request.Portfolio);
-            portfolio.OwnerId = request.OwnerId;
-            
+            var portfolio = _converter.FromDto(request);
+
             var entity = await _portfolios.AddAsync(portfolio);
             return new CreatedResourceResponse
             {
@@ -126,7 +119,7 @@ namespace OneGate.Backend.Core.Users
                 request.Filter.Shift, request.Filter.Count);
             return new PortfoliosResponse
             {
-                Portfolios = _mapper.Map<IEnumerable<PortfolioDto>>(portfolios)
+                Portfolios = portfolios.Select(_converter.ToDto)
             };
         }
 

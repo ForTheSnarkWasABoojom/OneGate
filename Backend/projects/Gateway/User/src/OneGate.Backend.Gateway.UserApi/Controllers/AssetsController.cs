@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using OneGate.Backend.Transport.Dto.Asset;
 using OneGate.Backend.Gateway.Base;
+using OneGate.Backend.Gateway.UserApi.Converters;
 using OneGate.Backend.Transport.Bus;
 using OneGate.Backend.Transport.Contracts.Asset;
 using OneGate.Shared.ApiModels.Asset;
@@ -19,15 +19,14 @@ namespace OneGate.Backend.Gateway.UserApi.Controllers
     public class AssetsController : BaseController
     {
         private readonly ILogger<AssetsController> _logger;
-        
-        private readonly IMapper _mapper;
+        private readonly IConverter _converter;
         private readonly IOgBus _bus;
 
-        public AssetsController(ILogger<AssetsController> logger, IOgBus bus, IMapper mapper)
+        public AssetsController(ILogger<AssetsController> logger, IOgBus bus, IConverter converter)
         {
             _logger = logger;
             _bus = bus;
-            _mapper = mapper;
+            _converter = converter;
         }
 
         [HttpGet]
@@ -35,13 +34,13 @@ namespace OneGate.Backend.Gateway.UserApi.Controllers
         [SwaggerOperation("Get assets by specified filter")]
         public async Task<IActionResult> GetAssetsRangeAsync([FromQuery] AssetFilterModel request)
         {
-            var assetFilterDto = _mapper.Map<AssetFilterModel, AssetFilterDto>(request);
+            var assetFilterDto = _converter.ToDto(request);
             var payload = await _bus.Call<GetAssets, AssetsResponse>(new GetAssets
             {
                 Filter = assetFilterDto
             });
 
-            var response = _mapper.Map<IEnumerable<AssetDto>, IEnumerable<AssetModel>>(payload.Assets);
+            var response = payload.Assets.Select(_converter.FromDto);
             return Ok(response);
         }
 
@@ -60,7 +59,7 @@ namespace OneGate.Backend.Gateway.UserApi.Controllers
                 }
             });
 
-            var response = _mapper.Map<AssetDto, AssetModel>(payload.Assets.FirstOrDefault());
+            var response = _converter.FromDto(payload.Assets.FirstOrDefault());
             return StrictOk(response);
         }
     }

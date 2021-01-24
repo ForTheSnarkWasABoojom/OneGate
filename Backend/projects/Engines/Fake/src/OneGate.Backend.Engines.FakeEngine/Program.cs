@@ -1,6 +1,4 @@
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using OneGate.Backend.Transport.Bus;
 
 namespace OneGate.Backend.Engines.FakeEngine
 {

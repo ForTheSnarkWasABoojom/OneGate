@@ -5,7 +5,7 @@ using OneGate.Backend.Transport.Contracts.Account;
 using OneGate.Backend.Transport.Contracts.Order;
 using OneGate.Backend.Transport.Contracts.Portfolio;
 
-namespace OneGate.Backend.Core.Users
+namespace OneGate.Backend.Core.Users.Consumers
 {
     public class Consumer : 
         IConsumer<CreateAccount>,

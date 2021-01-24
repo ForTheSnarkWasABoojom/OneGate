@@ -5,7 +5,7 @@ using OneGate.Backend.Transport.Contracts.Asset;
 using OneGate.Backend.Transport.Contracts.Exchange;
 using OneGate.Backend.Transport.Contracts.Layout;
 
-namespace OneGate.Backend.Core.Records
+namespace OneGate.Backend.Core.Records.Consumers
 {
     public class Consumer :
         IConsumer<CreateExchange>,

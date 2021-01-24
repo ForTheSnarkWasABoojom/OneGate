@@ -10,14 +10,15 @@ cd ../
 
 declare -A assemblies
 
-assemblies["OneGate.Backend.Gateway"]="Gateway/src"
+assemblies["OneGate.Backend.Gateway.UserApi"]="Gateway/User/src"
+assemblies["OneGate.Backend.Gateway.AdminApi"]="Gateway/Admin/src"
 
-assemblies["OneGate.Backend.Core.User.Service"]="Core/User/src"
-assemblies["OneGate.Backend.Core.Asset.Service"]="Core/Asset/src"
-assemblies["OneGate.Backend.Core.Series.Service"]="Core/Series/src"
+assemblies["OneGate.Backend.Core.Records"]="Core/Records/src"
+assemblies["OneGate.Backend.Core.Timeseries"]="Core/Timeseries/src"
+assemblies["OneGate.Backend.Core.Users"]="Core/Users/src"
 
-assemblies["OneGate.Backend.Engines.FakeEngine"]="Engines/src"
-assemblies["OneGate.Backend.Engines.FakeStaticEngine"]="Engines/src"
+assemblies["OneGate.Backend.Engines.FakeEngine"]="Engines/Fake/src"
+assemblies["OneGate.Backend.Engines.FakeStaticEngine"]="Engines/Fake/src"
 
 # Dll build
 for name in "${!assemblies[@]}"; do
@@ -31,14 +32,15 @@ done
 
 declare -A images
 
-images["OneGate.Backend.Gateway"]="onegate/gateway"
+assemblies["OneGate.Backend.Gateway.UserApi"]="onegate/gateway-user-api"
+assemblies["OneGate.Backend.Gateway.AdminApi"]="onegate/gateway-admin-api"
 
-images["OneGate.Backend.Core.User.Service"]="onegate/user_service"
-images["OneGate.Backend.Core.Asset.Service"]="onegate/asset_service"
-images["OneGate.Backend.Core.Series.Service"]="onegate/series_service"
+assemblies["OneGate.Backend.Core.Records"]="onegate/core-records"
+assemblies["OneGate.Backend.Core.Timeseries"]="onegate/core-timeseries"
+assemblies["OneGate.Backend.Core.Users"]="onegate/core-users"
 
-images["OneGate.Backend.Engines.FakeEngine"]="onegate/fake_engine"
-images["OneGate.Backend.Engines.FakeStaticEngine"]="onegate/fake_static_engine"
+assemblies["OneGate.Backend.Engines.FakeEngine"]="onegate/engine-fake"
+assemblies["OneGate.Backend.Engines.FakeStaticEngine"]="onegate/core-fake-static"
 
 # Images build
 for name in "${!images[@]}"; do

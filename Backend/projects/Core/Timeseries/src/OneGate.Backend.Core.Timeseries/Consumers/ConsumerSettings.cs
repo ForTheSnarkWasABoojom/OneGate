@@ -1,12 +1,12 @@
 ﻿using MassTransit.Definition;
 
-namespace OneGate.Backend.Core.Records
+namespace OneGate.Backend.Core.Timeseries.Consumers
 {
     public class ConsumerSettings : ConsumerDefinition<Consumer>
     {
         public ConsumerSettings()
         {
-            EndpointName = "asset-service";
+            EndpointName = "timeseries-service";
         }
     }
 }

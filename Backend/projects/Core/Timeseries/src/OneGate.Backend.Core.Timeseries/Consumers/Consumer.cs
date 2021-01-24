@@ -4,7 +4,7 @@ using OneGate.Backend.Transport.Bus;
 using OneGate.Backend.Transport.Contracts.Series.Ohlc;
 using OneGate.Backend.Transport.Contracts.Series.Point;
 
-namespace OneGate.Backend.Core.Timeseries
+namespace OneGate.Backend.Core.Timeseries.Consumers
 {
     public class Consumer :
         IConsumer<OnOhlcSeriesUpdated>,

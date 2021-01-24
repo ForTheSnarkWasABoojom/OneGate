@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using OneGate.Backend.Transport.Dto.Portfolio;
 using OneGate.Backend.Gateway.Base;
 using OneGate.Backend.Gateway.Base.Extensions.Claims;
+using OneGate.Backend.Gateway.UserApi.Converters;
 using OneGate.Backend.Transport.Bus;
 using OneGate.Backend.Transport.Contracts.Common;
 using OneGate.Backend.Transport.Contracts.Portfolio;
@@ -21,15 +21,15 @@ namespace OneGate.Backend.Gateway.UserApi.Controllers
     public class PortfoliosController : BaseController
     {
         private readonly ILogger<PortfoliosController> _logger;
-        
-        private readonly IMapper _mapper;
+
+        private readonly IConverter _converter;
         private readonly IOgBus _bus;
 
-        public PortfoliosController(ILogger<PortfoliosController> logger, IOgBus bus, IMapper mapper)
+        public PortfoliosController(ILogger<PortfoliosController> logger, IOgBus bus, IConverter converter)
         {
             _logger = logger;
             _bus = bus;
-            _mapper = mapper;
+            _converter = converter;
         }
 
         [HttpPost]
@@ -37,7 +37,7 @@ namespace OneGate.Backend.Gateway.UserApi.Controllers
         [SwaggerOperation("Create new portfolio")]
         public async Task<IActionResult> CreatePortfolioAsync([FromBody] CreatePortfolioModel request)
         {
-            var createPortfolioDto = _mapper.Map<CreatePortfolioModel, CreatePortfolioDto>(request);
+            var createPortfolioDto = _converter.ToDto(request);
             var payload = await _bus.Call<CreatePortfolio, CreatedResourceResponse>(new CreatePortfolio
             {
                 Portfolio = createPortfolioDto,
@@ -63,7 +63,7 @@ namespace OneGate.Backend.Gateway.UserApi.Controllers
                 }
             });
 
-            var response = _mapper.Map<PortfolioDto, PortfolioModel>(payload.Portfolios.FirstOrDefault());
+            var response = _converter.FromDto(payload.Portfolios.FirstOrDefault());
             return StrictOk(response);
         }
 
@@ -78,7 +78,7 @@ namespace OneGate.Backend.Gateway.UserApi.Controllers
                 OwnerId = User.GetAccountId()
             });
 
-            var response = _mapper.Map<IEnumerable<PortfolioDto>, IEnumerable<PortfolioModel>>(payload.Portfolios);
+            var response = payload.Portfolios.Select(_converter.FromDto);
             return Ok(response);
         }
 
@@ -93,7 +93,7 @@ namespace OneGate.Backend.Gateway.UserApi.Controllers
                 Id = id,
                 OwnerId = User.GetAccountId()
             });
-            
+
             return Ok();
         }
     }

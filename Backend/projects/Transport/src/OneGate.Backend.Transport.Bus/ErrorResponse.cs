@@ -1,6 +1,6 @@
 ﻿using MassTransit.Topology;
 
-namespace OneGate.Backend.Transport.Contracts.Common
+namespace OneGate.Backend.Transport.Bus
 {
     [EntityName("response.error")]
     public class ErrorResponse

@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper;
+using OneGate.Backend.Core.Timeseries.Converters;
 using OneGate.Backend.Core.Timeseries.Database.Models;
 using OneGate.Backend.Core.Timeseries.Database.Repository;
 using OneGate.Backend.Transport.Contracts.Common;
@@ -15,16 +13,15 @@ namespace OneGate.Backend.Core.Timeseries
 {
     public class Service : IService
     {
-        private readonly IMapper _mapper;
-
+        private readonly IConverter _converter;
         private readonly IOhlcSeriesRepository _ohlcSeries;
         private readonly IPointSeriesRepository _pointSeries;
 
-        public Service(IOhlcSeriesRepository ohlcSeries, IPointSeriesRepository pointSeries, IMapper mapper)
+        public Service(IOhlcSeriesRepository ohlcSeries, IPointSeriesRepository pointSeries, IConverter converter)
         {
             _ohlcSeries = ohlcSeries;
             _pointSeries = pointSeries;
-            _mapper = mapper;
+            _converter = converter;
         }
 
         public async Task OnOhlcSeriesUpdated(OnOhlcSeriesUpdated request)
@@ -45,17 +42,7 @@ namespace OneGate.Backend.Core.Timeseries
 
         public async Task<SuccessResponse> CreateOhlcSeriesAsync(CreateOhlcSeries request)
         {
-            var series = request.Series.Range.Select(ohlc => new OhlcSeries
-            {
-                Low = ohlc.Low,
-                High = ohlc.High,
-                Open = ohlc.Open,
-                Close = ohlc.Close,
-                Timestamp = ohlc.Timestamp,
-                Interval = request.Series.Interval.ToString(),
-                AssetId = request.Series.AssetId,
-                LastUpdate = DateTime.Now
-            });
+            var series = request.Series.Range.Select(_converter.FromDto);
             await _ohlcSeries.AddAsync(series);
             return new SuccessResponse();
         }
@@ -66,12 +53,13 @@ namespace OneGate.Backend.Core.Timeseries
                 request.Filter.AssetId,
                 request.Filter.EndTimestamp, request.Filter.StartTimestamp, request.Filter.Shift,
                 request.Filter.Count);
+            
             return new OhlcSeriesResponse
             {
                 Series = new OhlcSeriesDto
                 {
                     AssetId = request.Filter.AssetId,
-                    Range = _mapper.Map<List<OhlcDto>>(series),
+                    Range = series.Select(_converter.ToDto).ToList(),
                     Interval = request.Filter.Interval
                 }
             };
@@ -87,14 +75,7 @@ namespace OneGate.Backend.Core.Timeseries
 
         public async Task<SuccessResponse> CreatePointSeriesAsync(CreatePointSeries request)
         {
-            var series = request.Series.Range.Select(value =>
-                new PointSeries
-                {
-                    LayoutId = request.Series.LayoutId,
-                    AssetId = request.Series.AssetId,
-                    Timestamp = value.Timestamp,
-                    Value = value.Value
-                });
+            var series = request.Series.Range.Select(_converter.FromDto);
             await _pointSeries.AddAsync(series);
             return new SuccessResponse();
         }
@@ -111,7 +92,7 @@ namespace OneGate.Backend.Core.Timeseries
                 {
                     LayoutId = request.Filter.LayoutId,
                     AssetId = request.Filter.AssetId,
-                    Range = _mapper.Map<List<PointDto>>(series)
+                    Range = series.Select(_converter.ToDto).ToList()
                 }
             };
         }

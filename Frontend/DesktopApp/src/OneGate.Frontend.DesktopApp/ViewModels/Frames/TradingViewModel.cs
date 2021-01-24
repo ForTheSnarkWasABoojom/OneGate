@@ -1,6 +1,5 @@
 ﻿//using OneGate.Frontend.ApiLibrary;
 using ReactiveUI;
-using System.Collections.ObjectModel;
 
 namespace OneGate.Frontend.DesktopApp.ViewModels.Frames
 {

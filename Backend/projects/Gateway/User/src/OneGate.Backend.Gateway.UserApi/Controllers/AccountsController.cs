@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -10,6 +9,7 @@ using OneGate.Backend.Transport.Dto.Account;
 using OneGate.Backend.Gateway.Base;
 using OneGate.Backend.Gateway.Base.Extensions.Claims;
 using OneGate.Backend.Gateway.Base.Options;
+using OneGate.Backend.Gateway.UserApi.Converters;
 using OneGate.Backend.Transport.Bus;
 using OneGate.Backend.Transport.Contracts.Account;
 using OneGate.Backend.Transport.Contracts.Common;
@@ -24,22 +24,22 @@ namespace OneGate.Backend.Gateway.UserApi.Controllers
     public class AccountsController : BaseController
     {
         private readonly ILogger<AccountsController> _logger;
-        
-        private readonly IMapper _mapper;
+        private readonly IConverter _converter;
         private readonly IOgBus _bus;
 
         private readonly AuthenticationOptions _authenticationOptions;
-        
-        public AccountsController(ILogger<AccountsController> logger, IMapper mapper, IOgBus bus, IOptions<AuthenticationOptions> authenticationOptions)
+
+        public AccountsController(ILogger<AccountsController> logger, IOgBus bus,
+            IOptions<AuthenticationOptions> authenticationOptions, IConverter converter)
         {
             _logger = logger;
-            
-            _mapper = mapper;
+
             _bus = bus;
-            
+            _converter = converter;
+
             _authenticationOptions = authenticationOptions.Value;
         }
-        
+
         [HttpPost]
         [AllowAnonymous]
         [ProducesResponseType(typeof(ResourceModel), StatusCodes.Status200OK)]
@@ -49,7 +49,7 @@ namespace OneGate.Backend.Gateway.UserApi.Controllers
             if (request.ClientFingerprint != _authenticationOptions.ClientFingerprint)
                 throw new ApiException("Invalid client key", StatusCodes.Status403Forbidden);
 
-            var createAccountDto = _mapper.Map<CreateAccountModel, CreateAccountDto>(request);
+            var createAccountDto = _converter.ToDto(request);
             var payload = await _bus.Call<CreateAccount, CreatedResourceResponse>(new CreateAccount
             {
                 Account = createAccountDto
@@ -72,7 +72,7 @@ namespace OneGate.Backend.Gateway.UserApi.Controllers
                 }
             });
 
-            var response = _mapper.Map<AccountDto, AccountModel>(payload.Accounts.FirstOrDefault());
+            var response = _converter.FromDto(payload.Accounts.FirstOrDefault());
             return StrictOk(response);
         }
     }

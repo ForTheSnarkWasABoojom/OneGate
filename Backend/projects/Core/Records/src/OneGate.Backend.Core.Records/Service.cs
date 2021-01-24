@@ -1,40 +1,35 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper;
-using OneGate.Backend.Core.Records.Database.Models;
+using OneGate.Backend.Core.Records.Converters;
 using OneGate.Backend.Core.Records.Database.Repository;
 using OneGate.Backend.Transport.Contracts.Asset;
 using OneGate.Backend.Transport.Contracts.Common;
 using OneGate.Backend.Transport.Contracts.Exchange;
 using OneGate.Backend.Transport.Contracts.Layout;
-using OneGate.Backend.Transport.Dto.Asset;
 using OneGate.Backend.Transport.Dto.Common;
-using OneGate.Backend.Transport.Dto.Exchange;
-using OneGate.Backend.Transport.Dto.Layout;
 
 namespace OneGate.Backend.Core.Records
 {
     public class Service : IService
     {
-        private readonly IMapper _mapper;
+        private readonly IConverter _converter;
 
         private readonly IAssetRepository _assets;
         private readonly IExchangeRepository _exchanges;
         private readonly ILayoutRepository _layouts;
 
         public Service(IAssetRepository assets, IExchangeRepository exchanges, ILayoutRepository layouts,
-            IMapper mapper)
+            IConverter converter)
         {
             _assets = assets;
             _exchanges = exchanges;
             _layouts = layouts;
-            _mapper = mapper;
+            _converter = converter;
         }
 
         public async Task<CreatedResourceResponse> CreateAssetAsync(CreateAsset request)
         {
-            var asset = _mapper.Map<Asset>(request.Asset);
+            var asset = _converter.FromDto(request.Asset);
             var entity = await _assets.AddAsync(asset);
             
             return new CreatedResourceResponse
@@ -54,7 +49,7 @@ namespace OneGate.Backend.Core.Records
                 request.Filter.Count);
             return new AssetsResponse
             {
-                Assets = _mapper.Map<IEnumerable<AssetDto>>(assets)
+                Assets = assets.Select(_converter.ToDto)
             };
         }
 
@@ -66,7 +61,7 @@ namespace OneGate.Backend.Core.Records
 
         public async Task<CreatedResourceResponse> CreateExchangeAsync(CreateExchange request)
         {
-            var exchange = _mapper.Map<CreateExchangeDto, Exchange>(request.Exchange);
+            var exchange = _converter.FromDto(request.Exchange);
             var entity = await _exchanges.AddAsync(exchange);
             return new CreatedResourceResponse
             {
@@ -84,7 +79,7 @@ namespace OneGate.Backend.Core.Records
                 request.Filter.Count);
             return new ExchangesResponse
             {
-                Exchanges = _mapper.Map<IEnumerable<ExchangeDto>>(exchanges)
+                Exchanges = exchanges.Select(_converter.ToDto)
             };
         }
 
@@ -96,7 +91,7 @@ namespace OneGate.Backend.Core.Records
 
         public async Task<CreatedResourceResponse> CreateLayoutAsync(CreateLayout request)
         {
-            var layout = _mapper.Map<Layout>(request.Layout);
+            var layout = _converter.FromDto(request.Layout);
             var entity = await _layouts.AddAsync(layout);
             return new CreatedResourceResponse
             {
@@ -113,7 +108,7 @@ namespace OneGate.Backend.Core.Records
                 request.Filter.Count);
             return new LayoutsResponse
             {
-                Layouts = layouts.Select(x => _mapper.Map<LayoutDto>(x))
+                Layouts = layouts.Select(_converter.ToDto)
             };
         }
 

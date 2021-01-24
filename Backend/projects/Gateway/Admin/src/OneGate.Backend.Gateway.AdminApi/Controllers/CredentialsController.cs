@@ -1,6 +1,5 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Threading.Tasks;
-using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -23,18 +22,15 @@ namespace OneGate.Backend.Gateway.AdminApi.Controllers
     public class CredentialsController : BaseController
     {
         private readonly ILogger<CredentialsController> _logger;
-        
-        private readonly IMapper _mapper;
         private readonly IOgBus _bus;
 
         private readonly AuthenticationOptions _authenticationOptions;
 
         public CredentialsController(ILogger<CredentialsController> logger, IOgBus bus,
-            IOptions<AuthenticationOptions> authenticationOptions, IMapper mapper)
+            IOptions<AuthenticationOptions> authenticationOptions)
         {
             _logger = logger;
             _bus = bus;
-            _mapper = mapper;
             _authenticationOptions = authenticationOptions.Value;
         }
 

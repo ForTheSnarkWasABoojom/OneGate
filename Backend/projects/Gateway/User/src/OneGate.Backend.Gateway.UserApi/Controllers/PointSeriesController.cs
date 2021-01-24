@@ -1,10 +1,9 @@
 ﻿using System.Threading.Tasks;
-using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using OneGate.Backend.Transport.Dto.Series.Point;
 using OneGate.Backend.Gateway.Base;
+using OneGate.Backend.Gateway.UserApi.Converters;
 using OneGate.Backend.Transport.Bus;
 using OneGate.Backend.Transport.Contracts.Series.Point;
 using OneGate.Shared.ApiModels.Series.Point;
@@ -18,14 +17,14 @@ namespace OneGate.Backend.Gateway.UserApi.Controllers
     {
         private readonly ILogger<PointSeriesController> _logger;
         
-        private readonly IMapper _mapper;
+        private readonly IConverter _converter;
         private readonly IOgBus _bus;
 
-        public PointSeriesController(ILogger<PointSeriesController> logger, IOgBus bus, IMapper mapper)
+        public PointSeriesController(ILogger<PointSeriesController> logger, IOgBus bus,IConverter converter)
         {
             _logger = logger;
             _bus = bus;
-            _mapper = mapper;
+            _converter = converter;
         }
 
         [HttpGet]
@@ -33,14 +32,14 @@ namespace OneGate.Backend.Gateway.UserApi.Controllers
         [SwaggerOperation("Get point timeseries by specified filter")]
         public async Task<IActionResult> GetPointSeriesAsync([FromQuery] PointSeriesFilterModel request)
         {
-            var pointSeriesFilterDto = _mapper.Map<PointSeriesFilterModel, PointSeriesFilterDto>(request);
+            var pointSeriesFilterDto = _converter.ToDto(request);
             var payload = await _bus.Call<GetPointSeries, PointSeriesResponse>(
                 new GetPointSeries
                 {
                     Filter = pointSeriesFilterDto
                 });
 
-            var response = _mapper.Map<PointSeriesDto, PointSeriesModel>(payload.Series);
+            var response = _converter.ToDto(payload.Series);
             return Ok(response);
         }
     }

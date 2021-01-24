@@ -1,10 +1,8 @@
 using System.Threading.Tasks;
-using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using OneGate.Backend.Transport.Dto.Common;
-using OneGate.Backend.Transport.Dto.Exchange;
+using OneGate.Backend.Gateway.AdminApi.Converters;
 using OneGate.Backend.Gateway.Base;
 using OneGate.Backend.Transport.Bus;
 using OneGate.Backend.Transport.Contracts.Common;
@@ -20,15 +18,14 @@ namespace OneGate.Backend.Gateway.AdminApi.Controllers
     public class ExchangesController : BaseController
     {
         private readonly ILogger<ExchangesController> _logger;
-
-        private readonly IMapper _mapper;
+        private readonly IConverter _converter;
         private readonly IOgBus _bus;
 
-        public ExchangesController(ILogger<ExchangesController> logger, IOgBus bus, IMapper mapper)
+        public ExchangesController(ILogger<ExchangesController> logger, IOgBus bus, IConverter converter)
         {
             _logger = logger;
             _bus = bus;
-            _mapper = mapper;
+            _converter = converter;
         }
 
         [HttpPost]
@@ -36,7 +33,7 @@ namespace OneGate.Backend.Gateway.AdminApi.Controllers
         [SwaggerOperation("Create exchange")]
         public async Task<IActionResult> CreateExchangeAsync([FromBody] CreateExchangeModel request)
         {
-            var createExchangeDto = _mapper.Map<CreateExchangeModel, CreateExchangeDto>(request);
+            var createExchangeDto = _converter.ToDto(request);
             var payload = await _bus.Call<CreateExchange, CreatedResourceResponse>(new CreateExchange
             {
                 Exchange = createExchangeDto

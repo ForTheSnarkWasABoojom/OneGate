@@ -1,9 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Threading;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using OneGate.Backend.Core.Base.Database;
+using OneGate.Backend.Core.Base.Logging;
+using OneGate.Backend.Core.Records.Consumers;
 using OneGate.Backend.Core.Records.Database;
 using OneGate.Backend.Core.Records.Database.Models;
 using OneGate.Backend.Core.Records.Database.Repository;
@@ -16,7 +20,8 @@ namespace OneGate.Backend.Core.Records
     public class Program
     {
         private const string RabbitMqOptionsSection = "RabbitMq";
-        
+        private const string DatabaseConnectionOptionsSection = "DatabaseConnection";
+
         public static void Main(string[] args)
         {
             CreateHostBuilder(args).Build().Run();
@@ -26,53 +31,29 @@ namespace OneGate.Backend.Core.Records
             Host.CreateDefaultBuilder(args)
                 .ConfigureServices((hostContext, services) =>
                 {
-                    services.AddEntityFrameworkNpgsql().AddDbContext<DatabaseContext>();
+                    // Configuration.
+                    var configuration = hostContext.Configuration.GetSection("OneGate");
 
+                    // Database.
+                    var dbConfiguration = hostContext.Configuration.GetSection(DatabaseConnectionOptionsSection);
+                    var connectionString = ConnectionString.Build(dbConfiguration.Get<DatabaseConnectionOptions>());
+                    services.AddEntityFrameworkNpgsql()
+                        .AddDbContext<DatabaseContext>(p => p.UseNpgsql(connectionString));
+
+                    // Services.
                     services.AddTransient<IService, Service>();
-                    
+
+                    // Repositories.
                     services.AddTransient<IExchangeRepository, ExchangeRepository>();
                     services.AddTransient<IAssetRepository, AssetRepository>();
                     services.AddTransient<ILayoutRepository, LayoutRepository>();
-                    
-                    // Migration.
-                    Migrate(services);
 
                     // Mass Transit.
-                    var configuration = hostContext.Configuration.GetSection("OneGate");
                     var rabbitMqSection = configuration.GetSection(RabbitMqOptionsSection);
                     services.UseMassTransit(rabbitMqSection.Get<RabbitMqOptions>(), new[]
                     {
                         new KeyValuePair<Type, Type>(typeof(Consumer), typeof(ConsumerSettings)),
                     });
-                });
-        
-        private static void Migrate(IServiceCollection services)
-        {
-            using var db = services.BuildServiceProvider().GetService<DatabaseContext>();
-
-            Thread.Sleep(3000);
-            db.Database.EnsureDeleted();
-            db.Database.EnsureCreated();
-            
-            var fakeExchange = new Exchange
-            {
-                Title = "FAKE",
-                Description = "Fake exchange",
-                EngineType = EngineTypeDto.FAKE.ToString()
-            };
-            
-            var fakeIndex = new IndexAsset
-            {
-                Ticker = "OG",
-                Country = "Russia",
-                Exchange = fakeExchange,
-                Description = "Fake index"
-            };
-
-            db.Exchanges.Add(fakeExchange);
-            db.Assets.Add(fakeIndex);
-            
-            db.SaveChanges();
-        }
+                }).UseBaseLogging();
     }
 }
