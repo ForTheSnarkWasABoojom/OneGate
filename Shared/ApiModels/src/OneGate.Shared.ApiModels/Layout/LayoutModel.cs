@@ -12,11 +12,11 @@ namespace OneGate.Shared.ApiModels.Layout
         
         [Required] 
         [MaxLength(100)]
-        [Column("name")]
+        [JsonProperty("name")]
         public string Name { get; set; }
         
         [MaxLength(500)]
-        [Column("description")]
+        [JsonProperty("description")]
         [Required]
         public string Description { get; set; }
     }

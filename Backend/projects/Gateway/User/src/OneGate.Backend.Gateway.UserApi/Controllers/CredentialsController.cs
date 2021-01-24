@@ -41,7 +41,7 @@ namespace OneGate.Backend.Gateway.UserApi.Controllers
         public async Task<IActionResult> CreateTokenAsync([FromBody] AuthModel request)
         {
             if (request.ClientFingerprint != _authenticationOptions.ClientFingerprint)
-                throw new ApiException("Invalid client key", StatusCodes.Status403Forbidden);
+                return Challenge();
 
             var payload = await _bus.Call<CreateAuthorizationContext, AuthorizationResponse>(
                 new CreateAuthorizationContext

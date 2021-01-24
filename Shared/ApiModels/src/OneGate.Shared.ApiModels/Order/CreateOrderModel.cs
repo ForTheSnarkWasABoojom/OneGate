@@ -1,6 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using JsonSubTypes;
 using Newtonsoft.Json;
+using OneGate.Shared.ApiModels.Order.Limit;
+using OneGate.Shared.ApiModels.Order.Market;
+using OneGate.Shared.ApiModels.Order.Stop;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace OneGate.Shared.ApiModels.Order

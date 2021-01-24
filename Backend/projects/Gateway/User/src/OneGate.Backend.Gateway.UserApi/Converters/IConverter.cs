@@ -10,8 +10,8 @@ using OneGate.Shared.ApiModels.Asset;
 using OneGate.Shared.ApiModels.Exchange;
 using OneGate.Shared.ApiModels.Order;
 using OneGate.Shared.ApiModels.Portfolio;
-using OneGate.Shared.ApiModels.Series.Ohlc;
-using OneGate.Shared.ApiModels.Series.Point;
+using OneGate.Shared.ApiModels.Timeseries.Ohlc;
+using OneGate.Shared.ApiModels.Timeseries.Point;
 
 namespace OneGate.Backend.Gateway.UserApi.Converters
 {
@@ -27,14 +27,14 @@ namespace OneGate.Backend.Gateway.UserApi.Converters
         public ExchangeModel FromDto(ExchangeDto src);
         
         public OhlcSeriesFilterDto ToDto(OhlcSeriesFilterModel src);
-        public OhlcSeriesModel ToDto(OhlcSeriesDto src);
+        public OhlcSeriesModel FromDto(OhlcSeriesDto src);
         
         public CreateOrderDto ToDto(CreateOrderModel src);
         public OrderModel FromDto(OrderDto src);
-        public OrderFilterDto ToDto(OrderFilterRequest src);
+        public OrderFilterDto ToDto(OrderFilterModel src);
         
         public PointSeriesFilterDto ToDto(PointSeriesFilterModel src);
-        public PointSeriesModel ToDto(PointSeriesDto src);
+        public PointSeriesModel FromDto(PointSeriesDto src);
         
         public CreatePortfolioDto ToDto(CreatePortfolioModel src);
         public PortfolioModel FromDto(PortfolioDto src);

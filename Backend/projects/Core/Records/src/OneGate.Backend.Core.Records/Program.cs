@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Threading;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,10 +8,9 @@ using OneGate.Backend.Core.Base.Database;
 using OneGate.Backend.Core.Base.Logging;
 using OneGate.Backend.Core.Records.Consumers;
 using OneGate.Backend.Core.Records.Database;
-using OneGate.Backend.Core.Records.Database.Models;
 using OneGate.Backend.Core.Records.Database.Repository;
+using OneGate.Backend.Core.Records.Services;
 using OneGate.Backend.Transport.Bus;
-using OneGate.Backend.Transport.Dto.Exchange;
 using OneGate.Backend.Transport.Bus.Options;
 
 namespace OneGate.Backend.Core.Records
@@ -52,7 +50,7 @@ namespace OneGate.Backend.Core.Records
                     var rabbitMqSection = configuration.GetSection(RabbitMqOptionsSection);
                     services.UseMassTransit(rabbitMqSection.Get<RabbitMqOptions>(), new[]
                     {
-                        new KeyValuePair<Type, Type>(typeof(Consumer), typeof(ConsumerSettings)),
+                        new KeyValuePair<Type, Type>(typeof(Worker), typeof(WorkerSettings)),
                     });
                 }).UseBaseLogging();
     }

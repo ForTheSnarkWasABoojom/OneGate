@@ -69,8 +69,8 @@ namespace OneGate.Backend.Gateway.UserApi.Controllers
 
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<OrderModel>), StatusCodes.Status200OK)]
-        [SwaggerOperation("Search orders")]
-        public async Task<IActionResult> GetOrdersRangeAsync([FromQuery] OrderFilterRequest request)
+        [SwaggerOperation("Get orders by specified filter")]
+        public async Task<IActionResult> GetOrdersRangeAsync([FromQuery] OrderFilterModel request)
         {
             var orderFilterDto = _converter.ToDto(request);
             var payload = await _bus.Call<GetOrders, OrdersResponse>(new GetOrders

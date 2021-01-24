@@ -1,6 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using JsonSubTypes;
 using Newtonsoft.Json;
+using OneGate.Shared.ApiModels.Asset.Index;
+using OneGate.Shared.ApiModels.Asset.Stock;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace OneGate.Shared.ApiModels.Asset

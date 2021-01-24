@@ -9,11 +9,16 @@ using OneGate.Backend.Transport.Dto.Series.Ohlc;
 using OneGate.Backend.Transport.Dto.Series.Point;
 using OneGate.Shared.ApiModels.Account;
 using OneGate.Shared.ApiModels.Asset;
+using OneGate.Shared.ApiModels.Asset.Index;
+using OneGate.Shared.ApiModels.Asset.Stock;
 using OneGate.Shared.ApiModels.Exchange;
 using OneGate.Shared.ApiModels.Order;
+using OneGate.Shared.ApiModels.Order.Limit;
+using OneGate.Shared.ApiModels.Order.Market;
+using OneGate.Shared.ApiModels.Order.Stop;
 using OneGate.Shared.ApiModels.Portfolio;
-using OneGate.Shared.ApiModels.Series.Ohlc;
-using OneGate.Shared.ApiModels.Series.Point;
+using OneGate.Shared.ApiModels.Timeseries.Ohlc;
+using OneGate.Shared.ApiModels.Timeseries.Point;
 
 namespace OneGate.Backend.Gateway.UserApi.Converters
 {
@@ -116,7 +121,7 @@ namespace OneGate.Backend.Gateway.UserApi.Converters
             };
         }
 
-        public OhlcSeriesModel ToDto(OhlcSeriesDto src)
+        public OhlcSeriesModel FromDto(OhlcSeriesDto src)
         {
             Enum.TryParse(src.Interval.ToString(), out IntervalModel interval);
             return new OhlcSeriesModel
@@ -182,7 +187,7 @@ namespace OneGate.Backend.Gateway.UserApi.Converters
             };
         }
 
-        public OrderFilterDto ToDto(OrderFilterRequest src)
+        public OrderFilterDto ToDto(OrderFilterModel src)
         {
             Enum.TryParse(src.State.ToString(), out OrderStateDto state);
             Enum.TryParse(src.Side.ToString(), out OrderSideDto side);
@@ -214,7 +219,7 @@ namespace OneGate.Backend.Gateway.UserApi.Converters
             };
         }
 
-        public PointSeriesModel ToDto(PointSeriesDto src)
+        public PointSeriesModel FromDto(PointSeriesDto src)
         {
             return new PointSeriesModel
             {

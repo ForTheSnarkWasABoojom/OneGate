@@ -58,9 +58,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Fake", "Fake", "{CEC863FB-3
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Engines.Base", "Backend\projects\Engines\Base\src\OneGate.Backend.Engines.Base\OneGate.Backend.Engines.Base.csproj", "{6464C056-EA46-4CB4-8E1E-88C2BFF8428B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Engines.FakeEngine", "Backend\projects\Engines\Fake\src\OneGate.Backend.Engines.FakeEngine\OneGate.Backend.Engines.FakeEngine.csproj", "{90C2FB98-1D15-4790-B889-D8102C8105D1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Engines.Fake.Worker", "Backend\projects\Engines\Fake\src\OneGate.Backend.Engines.Fake.Worker\OneGate.Backend.Engines.Fake.Worker.csproj", "{90C2FB98-1D15-4790-B889-D8102C8105D1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Engines.FakeStaticEngine", "Backend\projects\Engines\Fake\src\OneGate.Backend.Engines.FakeStaticEngine\OneGate.Backend.Engines.FakeStaticEngine.csproj", "{4EA14BFB-1385-437B-A6E9-6CF0826494B1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Engines.Fake.Static", "Backend\projects\Engines\Fake\src\OneGate.Backend.Engines.Fake.Static\OneGate.Backend.Engines.Fake.Static.csproj", "{4EA14BFB-1385-437B-A6E9-6CF0826494B1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "User", "User", "{2CF5B7A0-5EA8-4F36-932C-1D562EA8C5A6}"
 EndProject

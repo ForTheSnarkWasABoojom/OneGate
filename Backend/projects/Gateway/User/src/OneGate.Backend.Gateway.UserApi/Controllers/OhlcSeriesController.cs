@@ -5,8 +5,8 @@ using Microsoft.Extensions.Logging;
 using OneGate.Backend.Gateway.Base;
 using OneGate.Backend.Gateway.UserApi.Converters;
 using OneGate.Backend.Transport.Bus;
-using OneGate.Backend.Transport.Contracts.Series.Ohlc;
-using OneGate.Shared.ApiModels.Series.Ohlc;
+using OneGate.Backend.Transport.Contracts.Timeseries.Ohlc;
+using OneGate.Shared.ApiModels.Timeseries.Ohlc;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace OneGate.Backend.Gateway.UserApi.Controllers
@@ -28,7 +28,7 @@ namespace OneGate.Backend.Gateway.UserApi.Controllers
 
         [HttpGet]
         [ProducesResponseType(typeof(OhlcSeriesModel), StatusCodes.Status200OK)]
-        [SwaggerOperation("Get OHLC timeseries by specified filter")]
+        [SwaggerOperation("Get OHLC series by specified filter")]
         public async Task<IActionResult> GetOhlcSeriesAsync([FromQuery] OhlcSeriesFilterModel request)
         {
             var ohlcSeriesFilterDto = _converter.ToDto(request);
@@ -38,7 +38,7 @@ namespace OneGate.Backend.Gateway.UserApi.Controllers
                     Filter = ohlcSeriesFilterDto
                 });
 
-            var response =_converter.ToDto(payload.Series);
+            var response = _converter.FromDto(payload.Series);
             return Ok(response);
         }
     }
