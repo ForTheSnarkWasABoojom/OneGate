@@ -9,7 +9,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\..\ApiModels\src\OneGate.Shared.ApiModels\OneGate.Shared.ApiModels.csproj" />
+      <ProjectReference Include="..\..\..\ApiModels\src\OneGate.Shared.ApiModels.Base\OneGate.Shared.ApiModels.Base.csproj" />
     </ItemGroup>
 
 </Project>

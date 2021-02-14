@@ -1,14 +1,17 @@
 using System;
 using System.Collections.Generic;
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using OneGate.Backend.Core.Base;
 using OneGate.Backend.Core.Base.Database;
 using OneGate.Backend.Core.Base.Logging;
 using OneGate.Backend.Core.Timeseries.Consumers;
 using OneGate.Backend.Core.Timeseries.Database;
 using OneGate.Backend.Core.Timeseries.Database.Repository;
+using OneGate.Backend.Core.Timeseries.Mapping;
 using OneGate.Backend.Core.Timeseries.Services;
 using OneGate.Backend.Transport.Bus;
 using OneGate.Backend.Transport.Bus.Options;
@@ -33,24 +36,31 @@ namespace OneGate.Backend.Core.Timeseries
                     var configuration = hostContext.Configuration.GetSection("OneGate");
                     
                     // Database.
-                    var dbConfiguration = hostContext.Configuration.GetSection(DatabaseConnectionOptionsSection);
-                    var connectionString = ConnectionString.Build(dbConfiguration.Get<DatabaseConnectionOptions>());
-                    services.AddEntityFrameworkNpgsql()
-                        .AddDbContext<DatabaseContext>(p => p.UseNpgsql(connectionString));
+                    var dbConfiguration = configuration.GetSection(DatabaseConnectionOptionsSection);
+                    var dbOptions = dbConfiguration.Get<DatabaseConnectionOptions>();
+                    
+                    var connectionString = ConnectionString.Build(dbOptions);
+                    services.AddDbContext<DatabaseContext>(p => p.UseNpgsql(connectionString));
 
                     // Services.
-                    services.AddTransient<IService, Service>();
+                    services.AddTransient<ISeriesService, SeriesService>();
                     
                     // Repositories.
-                    services.AddTransient<IOhlcSeriesRepository, OhlcSeriesRepository>();
-                    services.AddTransient<IPointSeriesRepository, PointSeriesRepository>();
+                    services.AddTransient<ISeriesRepository, SeriesRepository>();
+                    
+                    // Automapper.
+                    services.AddAutoMapper(p =>
+                        p.AddProfile<MappingProfile>()
+                    );
 
                     // Mass Transit.
                     var rabbitMqSection = configuration.GetSection(RabbitMqOptionsSection);
-                    services.UseMassTransit(rabbitMqSection.Get<RabbitMqOptions>(), new[]
+                    services.UseTransportBus(rabbitMqSection.Get<RabbitMqOptions>(), new[]
                     {
-                        new KeyValuePair<Type, Type>(typeof(Worker), typeof(WorkerSettings)),
+                        new KeyValuePair<Type, Type>(typeof(RpcWorker), typeof(RpcWorkerSettings)),
                     });
+                    
+                    services.AddSingleton<IResponseExceptionHandler, ResponseExceptionHandler>();
                 }).UseBaseLogging();
     }
 }

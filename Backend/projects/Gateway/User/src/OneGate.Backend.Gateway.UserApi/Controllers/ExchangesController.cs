@@ -1,15 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using OneGate.Backend.Transport.Dto.Exchange;
+using OneGate.Backend.Core.Assets.Contracts.Exchange;
 using OneGate.Backend.Gateway.Base;
-using OneGate.Backend.Gateway.UserApi.Converters;
 using OneGate.Backend.Transport.Bus;
-using OneGate.Backend.Transport.Contracts.Exchange;
-using OneGate.Shared.ApiModels.Exchange;
+using OneGate.Shared.ApiModels.User.Exchange;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace OneGate.Backend.Gateway.UserApi.Controllers
@@ -18,15 +17,15 @@ namespace OneGate.Backend.Gateway.UserApi.Controllers
     [Route(RouteBase + "exchanges")]
     public class ExchangesController : BaseController
     {
+        private readonly IMapper _mapper;
         private readonly ILogger<ExchangesController> _logger;
-        private readonly IConverter _converter;
-        private readonly IOgBus _bus;
+        private readonly ITransportBus _bus;
 
-        public ExchangesController(ILogger<ExchangesController> logger, IOgBus bus, IConverter converter)
+        public ExchangesController(ILogger<ExchangesController> logger, ITransportBus bus, IMapper mapper)
         {
             _logger = logger;
             _bus = bus;
-            _converter = converter;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -34,14 +33,16 @@ namespace OneGate.Backend.Gateway.UserApi.Controllers
         [SwaggerOperation("Get exchanges by specified filter")]
         public async Task<IActionResult> GetExchangesRangeAsync([FromQuery] ExchangeFilterModel request)
         {
-            var exchangeFilterDto = _converter.ToDto(request);
             var payload = await _bus.Call<GetExchanges, ExchangesResponse>(new GetExchanges
             {
-                Filter = exchangeFilterDto
+                Id = request.Id,
+                Shift = request.Shift,
+                Count = request.Count
             });
+            var exchangesDto = payload.Exchanges;
 
-            var response = payload.Exchanges.Select(_converter.FromDto);;
-            return Ok(response);
+            var exchanges = _mapper.Map<IEnumerable<ExchangeDto>, IEnumerable<ExchangeModel>>(exchangesDto);
+            return Ok(exchanges);
         }
 
         [HttpGet]
@@ -53,14 +54,12 @@ namespace OneGate.Backend.Gateway.UserApi.Controllers
         {
             var payload = await _bus.Call<GetExchanges, ExchangesResponse>(new GetExchanges
             {
-                Filter = new ExchangeFilterDto
-                {
-                    Id = id
-                }
+                Id = id
             });
-            
-            var response = _converter.FromDto(payload.Exchanges.FirstOrDefault());
-            return StrictOk(response);
+            var exchangeDto = payload.Exchanges.FirstOrDefault();
+
+            var exchange = _mapper.Map<ExchangeDto, ExchangeModel>(exchangeDto);
+            return StrictOk(exchange);
         }
     }
 }

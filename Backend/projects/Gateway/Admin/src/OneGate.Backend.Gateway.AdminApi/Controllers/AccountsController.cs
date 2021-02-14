@@ -1,16 +1,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using OneGate.Backend.Gateway.AdminApi.Converters;
-using OneGate.Backend.Transport.Dto.Account;
+using OneGate.Backend.Core.Users.Contracts.Account;
 using OneGate.Backend.Gateway.Base;
 using OneGate.Backend.Transport.Bus;
-using OneGate.Backend.Transport.Contracts.Account;
-using OneGate.Backend.Transport.Contracts.Common;
-using OneGate.Shared.ApiModels.Account;
+using OneGate.Backend.Transport.Bus.Contracts;
+using OneGate.Backend.Transport.Contracts;
+using OneGate.Shared.ApiModels.Admin.Account;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace OneGate.Backend.Gateway.AdminApi.Controllers
@@ -20,15 +20,15 @@ namespace OneGate.Backend.Gateway.AdminApi.Controllers
     public class AccountsController : BaseController
     {
         private readonly ILogger<AccountsController> _logger;
+        private readonly ITransportBus _bus;
 
-        private readonly IConverter _converter;
-        private readonly IOgBus _bus;
+        private readonly IMapper _mapper;
 
-        public AccountsController(ILogger<AccountsController> logger, IOgBus bus, IConverter converter)
+        public AccountsController(ILogger<AccountsController> logger, ITransportBus bus, IMapper mapper)
         {
             _logger = logger;
             _bus = bus;
-            _converter = converter;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -37,14 +37,15 @@ namespace OneGate.Backend.Gateway.AdminApi.Controllers
         [SwaggerOperation("Search accounts")]
         public async Task<IActionResult> GetAccountsRangeAsync([FromQuery] AccountFilterModel request)
         {
-            var accountFilterDto = _converter.ToDto(request);
             var payload = await _bus.Call<GetAccounts, AccountsResponse>(new GetAccounts
             {
-                Filter = accountFilterDto
+                Id = request.Id,
+                Email = request.Email
             });
+            var accounts = payload.Accounts;
 
-            var response = payload.Accounts.Select(_converter.FromDto);
-            return Ok(response);
+            var accountsModel = _mapper.Map<IEnumerable<AccountDto>, IEnumerable<AccountModel>>(accounts);
+            return Ok(accountsModel);
         }
         
         [HttpGet]
@@ -56,14 +57,12 @@ namespace OneGate.Backend.Gateway.AdminApi.Controllers
         {
             var payload = await _bus.Call<GetAccounts, AccountsResponse>(new GetAccounts
             {
-                Filter = new AccountFilterDto
-                {
-                    Id = id
-                }
+                Id = id
             });
+            var account = payload.Accounts.FirstOrDefault();
 
-            var response = _converter.FromDto(payload.Accounts.FirstOrDefault());
-            return StrictOk(response);
+            var accountModel = _mapper.Map<AccountDto, AccountModel>(account);
+            return StrictOk(accountModel);
         }
 
         [HttpDelete]

@@ -12,6 +12,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\..\Base\src\OneGate.Backend.Core.Base\OneGate.Backend.Core.Base.csproj" />
+      <ProjectReference Include="..\OneGate.Backend.Core.Users.Contracts\OneGate.Backend.Core.Users.Contracts.csproj" />
       <ProjectReference Include="..\OneGate.Backend.Core.Users.Database\OneGate.Backend.Core.Users.Database.csproj" />
     </ItemGroup>
 </Project>

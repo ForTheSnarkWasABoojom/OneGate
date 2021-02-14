@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
-using OneGate.Shared.ApiModels.Common;
+using OneGate.Shared.ApiModels.Base;
 
 namespace OneGate.Backend.Gateway.Base.Extensions.Validation
 {

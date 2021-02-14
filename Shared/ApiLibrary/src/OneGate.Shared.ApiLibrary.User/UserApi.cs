@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Flurl;
 using OneGate.Shared.ApiLibrary.Base;
-using OneGate.Shared.ApiModels.Account;
+using OneGate.Shared.ApiModels.User.Account;
 
 namespace OneGate.Shared.ApiLibrary.User
 {

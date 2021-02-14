@@ -3,14 +3,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OneGate.Backend.Core.Timeseries.Database.Models
 {
-    [Table("point_series")]
+    [Table("series")]
     public class PointSeries : Series
     {
-        [Required] 
-        [MaxLength(100)]
-        [Column("layout_id")]
-        public int LayoutId { get; set; }
-        
         [Required] 
         [Column("value")]
         public float Value { get; set; }

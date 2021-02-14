@@ -1,11 +1,8 @@
-﻿using System;
-using OneGate.Backend.Transport.Dto.Series.Ohlc;
-
-namespace OneGate.Backend.Engines.Base.Extensions
+﻿namespace OneGate.Backend.Engines.Base.Extensions
 {
     public static class DateTimeIntervalExtensions
     {
-        public static DateTime AddInterval(this DateTime dateTime, IntervalDto interval)
+        /*public static DateTime AddInterval(this DateTime dateTime, IntervalDto interval)
         {
             return interval switch
             {
@@ -40,6 +37,6 @@ namespace OneGate.Backend.Engines.Base.Extensions
                 IntervalDto.M1 => new DateTime(dateTime.Year, dateTime.Month, 1, 0, 0, 0, 0),
                 _ => new DateTime(dateTime.Year, dateTime.Month, dateTime.Day, dateTime.Hour, dateTime.Minute, 0, 0)
             };
-        }
+        }*/
     }
 }

@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
 using Flurl;
-using OneGate.Shared.ApiModels.Account;
+using OneGate.Shared.ApiModels.User.Account;
 using OneGate.Shared.ApiLibrary.Base;
-using OneGate.Shared.ApiModels.Common;
+using OneGate.Shared.ApiModels.User.Credentials;
 
 namespace OneGate.Shared.ApiLibrary.User
 {
@@ -27,16 +27,15 @@ namespace OneGate.Shared.ApiLibrary.User
             };
             var result = await _baseUrl
                 .AppendPathSegment("credentials/auth")
-                .PostRequestAsync<AuthModel, AccessTokenModel>(model);
+                .PostRequestAsync<AuthModel, TokenModel>(model);
             return result.Token;
         }
 
-        public async Task<int> CreateAccountAsync(CreateAccountModel model)
+        public async Task CreateAccountAsync(CreateAccountModel model)
         {
-            var result = await _baseUrl
+            await _baseUrl
                 .AppendPathSegment("accounts")
-                .PostRequestAsync<CreateAccountModel, ResourceModel>(model);
-            return result.Id;
+                .PostRequestAsync<CreateAccountModel>(model);
         }
     }
 }

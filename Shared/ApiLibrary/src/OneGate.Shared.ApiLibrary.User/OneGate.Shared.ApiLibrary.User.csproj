@@ -5,6 +5,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\..\ApiModels\src\OneGate.Shared.ApiModels.User\OneGate.Shared.ApiModels.User.csproj" />
       <ProjectReference Include="..\OneGate.Shared.ApiLibrary.Base\OneGate.Shared.ApiLibrary.Base.csproj" />
     </ItemGroup>
 

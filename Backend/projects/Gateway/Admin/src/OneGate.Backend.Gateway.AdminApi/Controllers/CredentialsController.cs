@@ -5,13 +5,12 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using OneGate.Backend.Transport.Dto.Account;
+using OneGate.Backend.Core.Users.Contracts.Credentials;
 using OneGate.Backend.Gateway.Base;
 using OneGate.Backend.Gateway.Base.Authentication;
 using OneGate.Backend.Gateway.Base.Options;
 using OneGate.Backend.Transport.Bus;
-using OneGate.Backend.Transport.Contracts.Account;
-using OneGate.Shared.ApiModels.Account;
+using OneGate.Shared.ApiModels.Admin.Credentials;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace OneGate.Backend.Gateway.AdminApi.Controllers
@@ -22,11 +21,11 @@ namespace OneGate.Backend.Gateway.AdminApi.Controllers
     public class CredentialsController : BaseController
     {
         private readonly ILogger<CredentialsController> _logger;
-        private readonly IOgBus _bus;
+        private readonly ITransportBus _bus;
 
         private readonly AuthenticationOptions _authenticationOptions;
 
-        public CredentialsController(ILogger<CredentialsController> logger, IOgBus bus,
+        public CredentialsController(ILogger<CredentialsController> logger, ITransportBus bus,
             IOptions<AuthenticationOptions> authenticationOptions)
         {
             _logger = logger;
@@ -35,29 +34,27 @@ namespace OneGate.Backend.Gateway.AdminApi.Controllers
         }
 
         [HttpPost]
-        [ProducesResponseType(typeof(AccessTokenModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(TokenModel), StatusCodes.Status200OK)]
         [SwaggerOperation("Create authorization token")]
         [Route("auth")]
         public async Task<IActionResult> CreateTokenAsync([FromBody] AuthModel request)
         {
             if (request.ClientFingerprint != _authenticationOptions.ClientFingerprint)
-                throw new ApiException("Invalid client key", StatusCodes.Status403Forbidden);
-
-            var payload = await _bus.Call<CreateAuthorizationContext, AuthorizationResponse>(
-                new CreateAuthorizationContext
-                {
-                    AuthDto = new AuthDto
-                    {
-                        Username = request.Username,
-                        Password = request.Password
-                    }
-                });
-
-            if (payload.Account == null)
                 return Challenge();
 
-            var token = JwtBuilder.FromCredentials(_authenticationOptions, payload.Account.Id);
-            var response = new AccessTokenModel
+            var payload = await _bus.Call<CreateAuthorization, AuthorizationResponse>(
+                new CreateAuthorization
+                {
+                    Username = request.Username,
+                    Password = request.Password,
+                    IsAdmin = true
+                });
+
+            if (payload.AuthorizedAccount == null)
+                return Challenge();
+
+            var token = JwtBuilder.FromCredentials(_authenticationOptions, payload.AuthorizedAccount.Id);
+            var response = new TokenModel
             {
                 Token = new JwtSecurityTokenHandler().WriteToken(token)
             };

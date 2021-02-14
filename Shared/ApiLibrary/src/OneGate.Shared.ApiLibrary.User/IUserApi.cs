@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using OneGate.Shared.ApiModels.Account;
+using OneGate.Shared.ApiModels.User.Account;
 
 namespace OneGate.Shared.ApiLibrary.User
 {

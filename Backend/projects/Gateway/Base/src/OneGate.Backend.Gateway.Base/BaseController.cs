@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using OneGate.Shared.ApiModels.Common;
+using OneGate.Shared.ApiModels.Base;
 
 namespace OneGate.Backend.Gateway.Base
 {

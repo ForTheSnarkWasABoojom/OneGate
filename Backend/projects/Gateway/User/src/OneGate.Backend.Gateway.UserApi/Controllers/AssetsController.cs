@@ -1,15 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using OneGate.Backend.Transport.Dto.Asset;
+using OneGate.Backend.Core.Assets.Contracts.Asset;
 using OneGate.Backend.Gateway.Base;
-using OneGate.Backend.Gateway.UserApi.Converters;
 using OneGate.Backend.Transport.Bus;
-using OneGate.Backend.Transport.Contracts.Asset;
-using OneGate.Shared.ApiModels.Asset;
+using OneGate.Shared.ApiModels.User.Asset;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace OneGate.Backend.Gateway.UserApi.Controllers
@@ -18,15 +17,15 @@ namespace OneGate.Backend.Gateway.UserApi.Controllers
     [Route(RouteBase + "assets")]
     public class AssetsController : BaseController
     {
+        private readonly IMapper _mapper;
         private readonly ILogger<AssetsController> _logger;
-        private readonly IConverter _converter;
-        private readonly IOgBus _bus;
+        private readonly ITransportBus _bus;
 
-        public AssetsController(ILogger<AssetsController> logger, IOgBus bus, IConverter converter)
+        public AssetsController(ILogger<AssetsController> logger, ITransportBus bus, IMapper mapper)
         {
             _logger = logger;
             _bus = bus;
-            _converter = converter;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -34,14 +33,16 @@ namespace OneGate.Backend.Gateway.UserApi.Controllers
         [SwaggerOperation("Get assets by specified filter")]
         public async Task<IActionResult> GetAssetsRangeAsync([FromQuery] AssetFilterModel request)
         {
-            var assetFilterDto = _converter.ToDto(request);
             var payload = await _bus.Call<GetAssets, AssetsResponse>(new GetAssets
             {
-                Filter = assetFilterDto
+                Id = request.Id,
+                Shift = request.Shift,
+                Count = request.Count
             });
+            var assetsDto = payload.Assets;
 
-            var response = payload.Assets.Select(_converter.FromDto);
-            return Ok(response);
+            var assets = _mapper.Map<IEnumerable<AssetDto>, IEnumerable<AssetModel>>(assetsDto);
+            return Ok(assets);
         }
 
         [HttpGet]
@@ -53,14 +54,12 @@ namespace OneGate.Backend.Gateway.UserApi.Controllers
         {
             var payload = await _bus.Call<GetAssets, AssetsResponse>(new GetAssets
             {
-                Filter = new AssetFilterDto
-                {
-                    Id = id
-                }
+                Id = id
             });
+            var assetDto = payload.Assets.FirstOrDefault();
 
-            var response = _converter.FromDto(payload.Assets.FirstOrDefault());
-            return StrictOk(response);
+            var assets = _mapper.Map<AssetDto, AssetModel>(assetDto);
+            return StrictOk(assets);
         }
     }
 }

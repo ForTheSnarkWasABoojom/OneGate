@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using MassTransit;
@@ -7,10 +6,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using OneGate.Backend.Engines.Base.OhlcProvider;
 using OneGate.Backend.Transport.Bus;
-using OneGate.Backend.Transport.Contracts.Asset;
-using OneGate.Backend.Transport.Contracts.Timeseries.Ohlc;
-using OneGate.Backend.Transport.Dto.Asset;
-using OneGate.Backend.Transport.Dto.Exchange;
 
 namespace OneGate.Backend.Engines.Fake.Static
 {
@@ -18,12 +13,12 @@ namespace OneGate.Backend.Engines.Fake.Static
     {
         private readonly ILogger<DaemonService> _logger;
 
-        private readonly IOgBus _bus;
+        private readonly ITransportBus _bus;
         private readonly IPublishEndpoint _endpoint;
 
         private readonly List<IOhlcProvider> _ohlcProviders = new List<IOhlcProvider>();
 
-        public DaemonService(ILogger<DaemonService> logger, IOgBus bus, IPublishEndpoint endpoint)
+        public DaemonService(ILogger<DaemonService> logger, ITransportBus bus, IPublishEndpoint endpoint)
         {
             _logger = logger;
             _bus = bus;
@@ -34,7 +29,7 @@ namespace OneGate.Backend.Engines.Fake.Static
         {
             _logger.LogInformation("Fake static engine daemon service started");
 
-            var assets = (await _bus.Call<GetAssets, AssetsResponse>(new GetAssets
+            /*var assets = (await _bus.Call<GetAssets, AssetsResponse>(new GetAssets
             {
                 Filter = new AssetFilterDto
                 {
@@ -52,7 +47,7 @@ namespace OneGate.Backend.Engines.Fake.Static
                 provider.OnPriceChanged += RaiseOhlcSeriesChangedAsync;
 
                 _ohlcProviders.Add(provider);
-            }
+            }*/
         }
 
         public async Task StopAsync(CancellationToken cancellationToken)
@@ -62,12 +57,12 @@ namespace OneGate.Backend.Engines.Fake.Static
 
         private async Task RaiseOhlcSeriesChangedAsync(IOhlcProvider sender, OhlcProviderEventArgs args)
         {
-            await _endpoint.Publish(new OnOhlcSeriesUpdated
+            /*await _endpoint.Publish(new OnOhlcSeriesUpdated
             {
                 AssetId = sender.AssetId,
                 Data = args.OhlcByInterval,
                 LastUpdate = DateTime.Now
-            });
+            });*/
         }
     }
 }

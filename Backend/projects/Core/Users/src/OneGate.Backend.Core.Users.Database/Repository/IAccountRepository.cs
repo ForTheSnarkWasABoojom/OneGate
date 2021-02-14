@@ -1,15 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using OneGate.Backend.Core.Base.Database.Repository;
 using OneGate.Backend.Core.Users.Database.Models;
 
 namespace OneGate.Backend.Core.Users.Database.Repository
 {
-    public interface IAccountRepository
+    public interface IAccountRepository : IRepository<Account>
     {
-        public Task<Account> AddAsync(Account model);
-        public Task<IEnumerable<Account>> FilterAsync(int? id, string email, string firstName,
-            string lastName, bool? isAdmin, int shift, int count);
-        public Task RemoveAsync(int id);
-        public Task<Account> FindAsync(string username, string password);
     }
 }

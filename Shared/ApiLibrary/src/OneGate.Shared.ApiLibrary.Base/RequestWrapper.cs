@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
 using Flurl;
 using Flurl.Http;
-using OneGate.Shared.ApiModels.Common;
 using OneGate.Shared.ApiLibrary.Base.Exceptions;
+using OneGate.Shared.ApiModels.Base;
 
 namespace OneGate.Shared.ApiLibrary.Base
 {
@@ -13,6 +13,13 @@ namespace OneGate.Shared.ApiLibrary.Base
         {
             var task = url.PostJsonAsync(model).ReceiveJson<TResponse>();
             return await FlurlExceptionWrapper(task);
+        }
+        
+        public static async Task PostRequestAsync<TRequest>(this Url url, TRequest model = null)
+            where TRequest : class
+        {
+            var task = url.PostJsonAsync(model).ReceiveJson();
+            await FlurlExceptionWrapper(task);
         }
 
         public static async Task<TResponse> GetRequestAsync<TRequest, TResponse>(this Url url, TRequest model = null)

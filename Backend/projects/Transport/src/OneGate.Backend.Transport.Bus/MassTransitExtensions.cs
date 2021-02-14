@@ -7,15 +7,16 @@ using EntityFramework.Exceptions.Common;
 using MassTransit;
 using MassTransit.Topology;
 using Microsoft.Extensions.DependencyInjection;
-using OneGate.Backend.Transport.Bus.OgFormatter;
+using OneGate.Backend.Transport.Bus.Contracts;
 using OneGate.Backend.Transport.Bus.Options;
+using OneGate.Backend.Transport.Bus.TransportFormatter;
 
 namespace OneGate.Backend.Transport.Bus
 {
     public static class MassTransitExtensions
     {
-        public static async Task MarshallWith<TRequest, TResponse>(this ConsumeContext<TRequest> context,
-            Func<TRequest, Task<TResponse>> action)
+        public static async Task RespondFromMethod<TRequest, TResponse>(this ConsumeContext<TRequest> context,
+            Func<TRequest, Task<TResponse>> action, IResponseExceptionHandler exceptionHandler)
             where TRequest : class
             where TResponse : class
         {
@@ -26,42 +27,12 @@ namespace OneGate.Backend.Transport.Bus
             }
             catch (Exception ex)
             {
-                await context.RespondAsync(FromException(ex));
+                var errorResponse = exceptionHandler.CreateErrorResponse(ex);
+                await context.RespondAsync(errorResponse);
             }
         }
 
-        private static ErrorResponse FromException(Exception exception)
-        {
-            return exception switch
-            {
-                ApiException ex => new ErrorResponse
-                {
-                    StatusCode = ex.StatusCode,
-                    Message = ex.Message,
-                    InnerExceptionMessage = ex.InnerExceptionMessage
-                },
-                UniqueConstraintException ex => new ErrorResponse
-                {
-                    StatusCode = 409,
-                    Message = "Entity must be unique",
-                    InnerExceptionMessage = ex.Message
-                },
-                ReferenceConstraintException ex => new ErrorResponse
-                {
-                    StatusCode = 424,
-                    Message = "Entity has wrong dependencies",
-                    InnerExceptionMessage = ex.Message
-                },
-                { } ex => new ErrorResponse
-                {
-                    StatusCode = 500,
-                    Message = ex.Message,
-                    InnerExceptionMessage = ex.ToString()
-                }
-            };
-        }
-
-        public static IServiceCollection UseMassTransit(this IServiceCollection services, RabbitMqOptions options,
+        public static IServiceCollection UseTransportBus(this IServiceCollection services, RabbitMqOptions options,
             IEnumerable<KeyValuePair<Type, Type>> consumers = null)
         {
             services.AddMassTransit(x =>
@@ -73,9 +44,9 @@ namespace OneGate.Backend.Transport.Bus
                         h.Username(options.Username);
                         h.Password(options.Password);
                     });
-                    cfg.SetMessageSerializer(() => new OgMessageSerializer());
-                    cfg.AddMessageDeserializer(OgMessageDeserializer.ContentTypeValue,
-                        () => new OgMessageDeserializer(OgMessageSerializer.DeserializerInstance));
+                    cfg.SetMessageSerializer(() => new TransportMessageSerializer());
+                    cfg.AddMessageDeserializer(TransportMessageDeserializer.ContentTypeValue,
+                        () => new TransportMessageDeserializer(TransportMessageSerializer.DeserializerInstance));
                     cfg.ConfigureEndpoints(context);
                 });
 
@@ -86,7 +57,7 @@ namespace OneGate.Backend.Transport.Bus
                 }
             });
             services.AddMassTransitHostedService();
-            services.AddTransient<IOgBus, OgBus>();
+            services.AddTransient<ITransportBus, TransportBus>();
 
             return services;
         }

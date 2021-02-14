@@ -1,17 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using OneGate.Backend.Transport.Dto.Portfolio;
+using OneGate.Backend.Core.Users.Contracts.Portfolio;
 using OneGate.Backend.Gateway.Base;
 using OneGate.Backend.Gateway.Base.Extensions.Claims;
-using OneGate.Backend.Gateway.UserApi.Converters;
 using OneGate.Backend.Transport.Bus;
-using OneGate.Backend.Transport.Contracts.Common;
-using OneGate.Backend.Transport.Contracts.Portfolio;
-using OneGate.Shared.ApiModels.Portfolio;
+using OneGate.Backend.Transport.Bus.Contracts;
+using OneGate.Backend.Transport.Contracts;
+using OneGate.Shared.ApiModels.User.Portfolio;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace OneGate.Backend.Gateway.UserApi.Controllers
@@ -20,16 +20,15 @@ namespace OneGate.Backend.Gateway.UserApi.Controllers
     [Route(RouteBase + "portfolios")]
     public class PortfoliosController : BaseController
     {
+        private readonly IMapper _mapper;
         private readonly ILogger<PortfoliosController> _logger;
+        private readonly ITransportBus _bus;
 
-        private readonly IConverter _converter;
-        private readonly IOgBus _bus;
-
-        public PortfoliosController(ILogger<PortfoliosController> logger, IOgBus bus, IConverter converter)
+        public PortfoliosController(ILogger<PortfoliosController> logger, ITransportBus bus, IMapper mapper)
         {
             _logger = logger;
             _bus = bus;
-            _converter = converter;
+            _mapper = mapper;
         }
 
         [HttpPost]
@@ -37,14 +36,18 @@ namespace OneGate.Backend.Gateway.UserApi.Controllers
         [SwaggerOperation("Create new portfolio")]
         public async Task<IActionResult> CreatePortfolioAsync([FromBody] CreatePortfolioModel request)
         {
-            var createPortfolioDto = _converter.ToDto(request);
+            var orderDto = _mapper.Map<CreatePortfolioModel, PortfolioDto>(request);
+            orderDto.OwnerId = User.GetAccountId();
+            
             var payload = await _bus.Call<CreatePortfolio, CreatedResourceResponse>(new CreatePortfolio
             {
-                Portfolio = createPortfolioDto,
-                OwnerId = User.GetAccountId()
+                Portfolio = orderDto
             });
 
-            return CreatedAtAction(nameof(GetPortfolioAsync), new {id = payload.Resource.Id});
+            return CreatedAtAction(nameof(GetPortfolioAsync), new
+            {
+                id = payload.Id
+            });
         }
 
         [HttpGet]
@@ -57,29 +60,30 @@ namespace OneGate.Backend.Gateway.UserApi.Controllers
         {
             var payload = await _bus.Call<GetPortfolios, PortfoliosResponse>(new GetPortfolios
             {
-                Filter = new PortfolioFilterDto
-                {
-                    Id = id
-                }
+                Id = id
             });
+            var portfolioDto = payload.Portfolios.FirstOrDefault();
 
-            var response = _converter.FromDto(payload.Portfolios.FirstOrDefault());
-            return StrictOk(response);
+            var portfolio = _mapper.Map<PortfolioDto, PortfolioModel>(portfolioDto);
+            return StrictOk(portfolio);
         }
 
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<PortfolioDto>), StatusCodes.Status200OK)]
         [SwaggerOperation("Search portfolios")]
-        public async Task<IActionResult> GetPortfoliosRangeAsync([FromQuery] PortfolioFilterDto request)
+        public async Task<IActionResult> GetPortfoliosRangeAsync([FromQuery] PortfolioFilterModel request)
         {
             var payload = await _bus.Call<GetPortfolios, PortfoliosResponse>(new GetPortfolios
             {
-                Filter = request,
-                OwnerId = User.GetAccountId()
+                Id = request.Id,
+                OwnerId = User.GetAccountId(),
+                Shift = request.Shift,
+                Count = request.Count
             });
+            var portfoliosDto = payload.Portfolios;
 
-            var response = payload.Portfolios.Select(_converter.FromDto);
-            return Ok(response);
+            var portfolios = _mapper.Map<IEnumerable<PortfolioDto>, IEnumerable<PortfolioModel>>(portfoliosDto);
+            return Ok(portfolios);
         }
 
         [HttpDelete]

@@ -1,15 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using OneGate.Backend.Engines.Base.Extensions;
-using OneGate.Backend.Engines.Base.OhlcProvider;
-using OneGate.Backend.Transport.Dto.Series.Ohlc;
-
-namespace OneGate.Backend.Engines.Fake.Static
+﻿namespace OneGate.Backend.Engines.Fake.Static
 {
-    public class GaussianRandomOhlcProvider : IOhlcProvider
+    /*public class GaussianRandomOhlcProvider : IOhlcProvider
     {
         private static readonly Random Random = new Random();
 
@@ -74,5 +65,5 @@ namespace OneGate.Backend.Engines.Fake.Static
             await OnPriceChanged.Raise(this, new OhlcProviderEventArgs(
                 _lastCandles.ToDictionary(entry => entry.Key,entry => entry.Value)));
         }
-    }
+    }*/
 }
