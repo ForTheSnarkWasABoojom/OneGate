@@ -26,7 +26,7 @@ namespace OneGate.Backend.Transport.Bus.TransportFormatter
 
         public override bool HasMessageType(Type messageType)
         {
-            return _envelope.Contract == MassTransitExtensions.GetEntityName(messageType);
+            return _envelope.Contract == TransportExtensions.GetEntityName(messageType);
         }
 
         public override bool TryGetMessage<T>(out ConsumeContext<T> consumeContext)
@@ -55,11 +55,7 @@ namespace OneGate.Backend.Transport.Bus.TransportFormatter
         public override Uri ResponseAddress => ConvertToUri(_envelope.ResponseAddress);
         public override Uri FaultAddress => ConvertToUri(_envelope.FaultAddress);
         public override DateTime? SentTime => _envelope.SentTime;
-
-        public override Headers Headers => _envelope.Headers != null
-            ? (Headers) new JsonEnvelopeHeaders(_envelope.Headers)
-            : NoMessageHeaders.Instance;
-
+        public override Headers Headers => NoMessageHeaders.Instance;
         public override HostInfo Host => default;
         public override IEnumerable<string> SupportedMessageTypes => Enumerable.Empty<string>();
 

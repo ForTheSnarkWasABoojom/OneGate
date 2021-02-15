@@ -3,17 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using EntityFramework.Exceptions.Common;
 using MassTransit;
 using MassTransit.Topology;
 using Microsoft.Extensions.DependencyInjection;
-using OneGate.Backend.Transport.Bus.Contracts;
 using OneGate.Backend.Transport.Bus.Options;
 using OneGate.Backend.Transport.Bus.TransportFormatter;
 
 namespace OneGate.Backend.Transport.Bus
 {
-    public static class MassTransitExtensions
+    public static class TransportExtensions
     {
         public static async Task RespondFromMethod<TRequest, TResponse>(this ConsumeContext<TRequest> context,
             Func<TRequest, Task<TResponse>> action, IResponseExceptionHandler exceptionHandler)

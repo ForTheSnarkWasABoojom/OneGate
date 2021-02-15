@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using MassTransit;
-using OneGate.Backend.Core.Timeseries.Contracts;
 using OneGate.Backend.Core.Timeseries.Contracts.Series;
 using OneGate.Backend.Core.Timeseries.Services;
 using OneGate.Backend.Transport.Bus;

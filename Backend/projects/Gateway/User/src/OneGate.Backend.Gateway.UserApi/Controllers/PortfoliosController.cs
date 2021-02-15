@@ -5,12 +5,12 @@ using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using OneGate.Backend.Core.Base.Contracts;
 using OneGate.Backend.Core.Users.Contracts.Portfolio;
 using OneGate.Backend.Gateway.Base;
 using OneGate.Backend.Gateway.Base.Extensions.Claims;
 using OneGate.Backend.Transport.Bus;
 using OneGate.Backend.Transport.Bus.Contracts;
-using OneGate.Backend.Transport.Contracts;
 using OneGate.Shared.ApiModels.User.Portfolio;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -39,7 +39,7 @@ namespace OneGate.Backend.Gateway.UserApi.Controllers
             var orderDto = _mapper.Map<CreatePortfolioModel, PortfolioDto>(request);
             orderDto.OwnerId = User.GetAccountId();
             
-            var payload = await _bus.Call<CreatePortfolio, CreatedResourceResponse>(new CreatePortfolio
+            var payload = await _bus.RequestAsync<CreatePortfolio, CreatedResourceResponse>(new CreatePortfolio
             {
                 Portfolio = orderDto
             });
@@ -58,7 +58,7 @@ namespace OneGate.Backend.Gateway.UserApi.Controllers
         [Route("{id}")]
         public async Task<IActionResult> GetPortfolioAsync([FromRoute] int id)
         {
-            var payload = await _bus.Call<GetPortfolios, PortfoliosResponse>(new GetPortfolios
+            var payload = await _bus.RequestAsync<GetPortfolios, PortfoliosResponse>(new GetPortfolios
             {
                 Id = id
             });
@@ -73,7 +73,7 @@ namespace OneGate.Backend.Gateway.UserApi.Controllers
         [SwaggerOperation("Search portfolios")]
         public async Task<IActionResult> GetPortfoliosRangeAsync([FromQuery] PortfolioFilterModel request)
         {
-            var payload = await _bus.Call<GetPortfolios, PortfoliosResponse>(new GetPortfolios
+            var payload = await _bus.RequestAsync<GetPortfolios, PortfoliosResponse>(new GetPortfolios
             {
                 Id = request.Id,
                 OwnerId = User.GetAccountId(),
@@ -92,7 +92,7 @@ namespace OneGate.Backend.Gateway.UserApi.Controllers
         [Route("{id}")]
         public async Task<IActionResult> DeletePortfolioAsync([FromRoute] int id)
         {
-            var payload = await _bus.Call<DeletePortfolio, SuccessResponse>(new DeletePortfolio
+            var payload = await _bus.RequestAsync<DeletePortfolio, SuccessResponse>(new DeletePortfolio
             {
                 Id = id,
                 OwnerId = User.GetAccountId()

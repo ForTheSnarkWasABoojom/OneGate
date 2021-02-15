@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using AutoMapper;
-using LinqKit;
 using OneGate.Backend.Core.Base.Database.Repository;
-using OneGate.Backend.Core.Timeseries.Contracts;
+using OneGate.Backend.Core.Base.Linq;
 using OneGate.Backend.Core.Timeseries.Contracts.Series;
 using OneGate.Backend.Core.Timeseries.Database.Models;
 using OneGate.Backend.Core.Timeseries.Database.Repository;
@@ -16,7 +15,7 @@ namespace OneGate.Backend.Core.Timeseries.Services
     {
         private readonly ISeriesRepository _series;
         private readonly IMapper _mapper;
-        
+
         public SeriesService(ISeriesRepository series, IMapper mapper)
         {
             _series = series;
@@ -25,15 +24,14 @@ namespace OneGate.Backend.Core.Timeseries.Services
 
         public async Task<SeriesResponse> GetSeriesAsync(GetSeries request)
         {
-            Expression<Func<Series, bool>> filter = p => p.LayerId == request.LayoutId;
+            Expression<Func<Series, bool>> filter = p => true;
             var limits = new QueryLimits(request.Shift, request.Count);
 
-            if (request.StartTimestamp != null)
-                filter.And(p => p.Timestamp >= request.StartTimestamp);
-            
-            if (request.EndTimestamp != null)
-                filter.And(p => p.Timestamp <= request.EndTimestamp);
-            
+            filter
+                .FilterBy(p => p.LayerId == request.LayoutId)
+                .FilterBy(p => p.Timestamp == request.StartTimestamp, request.StartTimestamp)
+                .FilterBy(p => p.Timestamp == request.EndTimestamp, request.EndTimestamp);
+
             var series = await _series.FilterAsync(filter, limits: limits);
 
             var seriesDto = _mapper.Map<IEnumerable<Series>, IEnumerable<SeriesDto>>(series);

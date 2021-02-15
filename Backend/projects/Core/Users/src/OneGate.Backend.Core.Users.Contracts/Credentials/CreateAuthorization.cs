@@ -13,6 +13,6 @@ namespace OneGate.Backend.Core.Users.Contracts.Credentials
         public string Password { get; set; }
         
         [JsonProperty("is_admin")]
-        public bool IsAdmin { get; set; }
+        public bool? IsAdmin { get; set; }
     }
 }

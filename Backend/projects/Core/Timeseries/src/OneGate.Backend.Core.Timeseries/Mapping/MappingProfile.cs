@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using OneGate.Backend.Core.Timeseries.Contracts;
 using OneGate.Backend.Core.Timeseries.Contracts.Series;
 using OneGate.Backend.Core.Timeseries.Database.Models;
 

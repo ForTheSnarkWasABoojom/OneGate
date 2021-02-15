@@ -4,7 +4,6 @@ using OneGate.Backend.Core.Users.Contracts.Account;
 using OneGate.Backend.Core.Users.Contracts.Credentials;
 using OneGate.Backend.Core.Users.Contracts.Order;
 using OneGate.Backend.Core.Users.Contracts.Portfolio;
-using OneGate.Backend.Core.Users.Database.Repository;
 using OneGate.Backend.Core.Users.Services;
 using OneGate.Backend.Transport.Bus;
 

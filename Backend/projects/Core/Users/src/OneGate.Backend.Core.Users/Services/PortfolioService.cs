@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using AutoMapper;
-using LinqKit;
 using OneGate.Backend.Core.Base.Database.Repository;
+using OneGate.Backend.Core.Base.Linq;
 using OneGate.Backend.Core.Users.Contracts.Portfolio;
 using OneGate.Backend.Core.Users.Database.Models;
 using OneGate.Backend.Core.Users.Database.Repository;
-using OneGate.Backend.Transport.Bus;
 using OneGate.Backend.Transport.Bus.Contracts;
 using OneGate.Backend.Transport.Contracts;
 
@@ -40,12 +39,10 @@ namespace OneGate.Backend.Core.Users.Services
         {
             Expression<Func<Portfolio, bool>> filter = p => true;
             var limits = new QueryLimits(request.Shift, request.Count);
-            
-            if (request.Id != null)
-                filter.And(p => p.Id == request.Id);
-            
-            if (request.OwnerId != null)
-                filter.And(p => p.OwnerId == request.OwnerId);
+
+            filter
+                .FilterBy(p => p.Id == request.Id, request.Id)
+                .FilterBy(p => p.OwnerId == request.OwnerId, request.OwnerId);
             
             var portfolios = await _portfolios.FilterAsync(filter, limits: limits);
 

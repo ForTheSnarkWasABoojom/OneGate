@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using OneGate.Backend.Core.Users.Contracts.Portfolio;
-using OneGate.Backend.Transport.Bus;
 using OneGate.Backend.Transport.Bus.Contracts;
 using OneGate.Backend.Transport.Contracts;
 

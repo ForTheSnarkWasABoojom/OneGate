@@ -1,6 +1,6 @@
 ﻿using MassTransit.Topology;
 using Newtonsoft.Json;
-using OneGate.Backend.Transport.Contracts;
+using OneGate.Backend.Core.Base.Contracts;
 
 namespace OneGate.Backend.Core.Assets.Contracts.Exchange
 {
@@ -9,5 +9,8 @@ namespace OneGate.Backend.Core.Assets.Contracts.Exchange
     {
         [JsonProperty("id")]
         public int? Id { get; set; }
+        
+        [JsonProperty("title")]
+        public string Title { get; set; }
     }
 }

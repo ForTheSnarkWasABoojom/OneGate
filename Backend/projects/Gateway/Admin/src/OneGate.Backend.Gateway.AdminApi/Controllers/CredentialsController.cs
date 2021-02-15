@@ -42,7 +42,7 @@ namespace OneGate.Backend.Gateway.AdminApi.Controllers
             if (request.ClientFingerprint != _authenticationOptions.ClientFingerprint)
                 return Challenge();
 
-            var payload = await _bus.Call<CreateAuthorization, AuthorizationResponse>(
+            var payload = await _bus.RequestAsync<CreateAuthorization, AuthorizationResponse>(
                 new CreateAuthorization
                 {
                     Username = request.Username,

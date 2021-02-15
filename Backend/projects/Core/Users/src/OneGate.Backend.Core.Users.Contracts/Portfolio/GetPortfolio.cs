@@ -1,6 +1,6 @@
 ﻿using MassTransit.Topology;
 using Newtonsoft.Json;
-using OneGate.Backend.Transport.Contracts;
+using OneGate.Backend.Core.Base.Contracts;
 
 namespace OneGate.Backend.Core.Users.Contracts.Portfolio
 {

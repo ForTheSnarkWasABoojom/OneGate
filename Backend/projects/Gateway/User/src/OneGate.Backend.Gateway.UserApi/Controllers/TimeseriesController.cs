@@ -4,7 +4,6 @@ using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using OneGate.Backend.Core.Timeseries.Contracts;
 using OneGate.Backend.Core.Timeseries.Contracts.Series;
 using OneGate.Backend.Gateway.Base;
 using OneGate.Backend.Transport.Bus;
@@ -33,7 +32,7 @@ namespace OneGate.Backend.Gateway.UserApi.Controllers
         [SwaggerOperation("Get timeseries by specified filter")]
         public async Task<IActionResult> GetTimeseriesAsync([FromQuery] SeriesFilterModel request)
         {
-            var payload = await _bus.Call<GetSeries, SeriesResponse>(
+            var payload = await _bus.RequestAsync<GetSeries, SeriesResponse>(
                 new GetSeries
                 {
                     LayoutId = request.LayoutId,

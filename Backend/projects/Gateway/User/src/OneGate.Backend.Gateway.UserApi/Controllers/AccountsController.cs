@@ -6,12 +6,12 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using OneGate.Backend.Core.Base.Contracts;
 using OneGate.Backend.Core.Users.Contracts.Account;
 using OneGate.Backend.Gateway.Base;
 using OneGate.Backend.Gateway.Base.Extensions.Claims;
 using OneGate.Backend.Gateway.Base.Options;
 using OneGate.Backend.Transport.Bus;
-using OneGate.Backend.Transport.Contracts;
 using OneGate.Shared.ApiModels.User.Account;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -48,7 +48,7 @@ namespace OneGate.Backend.Gateway.UserApi.Controllers
                 return Challenge();
 
             var accountDto = _mapper.Map<AccountDto>(request);
-            await _bus.Call<CreateAccount, CreatedResourceResponse>(new CreateAccount
+            await _bus.RequestAsync<CreateAccount, CreatedResourceResponse>(new CreateAccount
             {
                 Account = accountDto,
                 Password = request.Password
@@ -63,7 +63,7 @@ namespace OneGate.Backend.Gateway.UserApi.Controllers
         [SwaggerOperation("Current account details")]
         public async Task<IActionResult> GetCurrentAccountAsync()
         {
-            var payload = await _bus.Call<GetAccounts, AccountsResponse>(new GetAccounts
+            var payload = await _bus.RequestAsync<GetAccounts, AccountsResponse>(new GetAccounts
             {
                 Id = User.GetAccountId()
             });

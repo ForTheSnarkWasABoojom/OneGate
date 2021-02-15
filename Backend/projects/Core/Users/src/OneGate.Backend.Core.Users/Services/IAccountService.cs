@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
 using OneGate.Backend.Core.Users.Contracts.Account;
 using OneGate.Backend.Core.Users.Contracts.Credentials;
-using OneGate.Backend.Transport.Bus;
 using OneGate.Backend.Transport.Bus.Contracts;
 using OneGate.Backend.Transport.Contracts;
 

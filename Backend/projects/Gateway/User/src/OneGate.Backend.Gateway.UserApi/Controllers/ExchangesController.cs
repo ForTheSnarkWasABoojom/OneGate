@@ -33,9 +33,10 @@ namespace OneGate.Backend.Gateway.UserApi.Controllers
         [SwaggerOperation("Get exchanges by specified filter")]
         public async Task<IActionResult> GetExchangesRangeAsync([FromQuery] ExchangeFilterModel request)
         {
-            var payload = await _bus.Call<GetExchanges, ExchangesResponse>(new GetExchanges
+            var payload = await _bus.RequestAsync<GetExchanges, ExchangesResponse>(new GetExchanges
             {
                 Id = request.Id,
+                Title = request.Title,
                 Shift = request.Shift,
                 Count = request.Count
             });
@@ -52,7 +53,7 @@ namespace OneGate.Backend.Gateway.UserApi.Controllers
         [Route("{id}")]
         public async Task<IActionResult> GetExchangeAsync([FromRoute] int id)
         {
-            var payload = await _bus.Call<GetExchanges, ExchangesResponse>(new GetExchanges
+            var payload = await _bus.RequestAsync<GetExchanges, ExchangesResponse>(new GetExchanges
             {
                 Id = id
             });

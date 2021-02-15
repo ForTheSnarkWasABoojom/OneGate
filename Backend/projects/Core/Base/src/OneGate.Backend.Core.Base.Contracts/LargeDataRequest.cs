@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace OneGate.Backend.Transport.Contracts
+namespace OneGate.Backend.Core.Base.Contracts
 {
     public abstract class LargeDataRequest
     {

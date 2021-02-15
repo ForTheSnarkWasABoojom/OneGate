@@ -9,7 +9,6 @@ using OneGate.Backend.Core.Users.Contracts.Account;
 using OneGate.Backend.Gateway.Base;
 using OneGate.Backend.Transport.Bus;
 using OneGate.Backend.Transport.Bus.Contracts;
-using OneGate.Backend.Transport.Contracts;
 using OneGate.Shared.ApiModels.Admin.Account;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -37,7 +36,7 @@ namespace OneGate.Backend.Gateway.AdminApi.Controllers
         [SwaggerOperation("Search accounts")]
         public async Task<IActionResult> GetAccountsRangeAsync([FromQuery] AccountFilterModel request)
         {
-            var payload = await _bus.Call<GetAccounts, AccountsResponse>(new GetAccounts
+            var payload = await _bus.RequestAsync<GetAccounts, AccountsResponse>(new GetAccounts
             {
                 Id = request.Id,
                 Email = request.Email
@@ -55,7 +54,7 @@ namespace OneGate.Backend.Gateway.AdminApi.Controllers
         [Route("{id}")]
         public async Task<IActionResult> GetAccountAsync([FromRoute] int id)
         {
-            var payload = await _bus.Call<GetAccounts, AccountsResponse>(new GetAccounts
+            var payload = await _bus.RequestAsync<GetAccounts, AccountsResponse>(new GetAccounts
             {
                 Id = id
             });
@@ -70,7 +69,7 @@ namespace OneGate.Backend.Gateway.AdminApi.Controllers
         [Route("{id}")]
         public async Task<IActionResult> DeleteAccountAsync([FromRoute] int id)
         {
-            await _bus.Call<DeleteAccount, SuccessResponse>(new DeleteAccount
+            await _bus.RequestAsync<DeleteAccount, SuccessResponse>(new DeleteAccount
             {
                 Id = id
             });

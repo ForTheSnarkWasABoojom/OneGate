@@ -7,5 +7,8 @@ namespace OneGate.Shared.ApiModels.User.Exchange
     {
         [FromQuery(Name = "id")]
         public int? Id { get; set; }
+        
+        [FromQuery(Name = "title")]
+        public string Title { get; set; }
     }
 }

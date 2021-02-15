@@ -5,7 +5,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\..\..\Transport\src\OneGate.Backend.Transport.Contracts\OneGate.Backend.Transport.Contracts.csproj" />
+      <ProjectReference Include="..\..\..\Base\src\OneGate.Backend.Core.Base.Contracts\OneGate.Backend.Core.Base.Contracts.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="JsonSubTypes" Version="1.8.0" />
     </ItemGroup>
 
 </Project>

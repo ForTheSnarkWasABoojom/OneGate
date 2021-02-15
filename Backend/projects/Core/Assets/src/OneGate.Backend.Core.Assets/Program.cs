@@ -8,11 +8,11 @@ using Microsoft.Extensions.Hosting;
 using OneGate.Backend.Core.Assets.Consumers;
 using OneGate.Backend.Core.Assets.Mapping;
 using OneGate.Backend.Core.Assets.Services;
-using OneGate.Backend.Core.Base;
 using OneGate.Backend.Core.Base.Database;
 using OneGate.Backend.Core.Base.Logging;
 using OneGate.Backend.Core.Assets.Database;
 using OneGate.Backend.Core.Assets.Database.Repository;
+using OneGate.Backend.Core.Base.Exceptions;
 using OneGate.Backend.Transport.Bus;
 using OneGate.Backend.Transport.Bus.Options;
 

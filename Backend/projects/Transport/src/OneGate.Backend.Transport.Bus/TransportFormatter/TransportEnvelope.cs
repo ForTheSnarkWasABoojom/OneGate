@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using MassTransit;
 using Newtonsoft.Json;
 
@@ -46,9 +45,6 @@ namespace OneGate.Backend.Transport.Bus.TransportFormatter
         [JsonProperty("sent_time")]
         public DateTime? SentTime { get; set; }
 
-        [JsonProperty("headers")]
-        public IDictionary<string, object> Headers { get; set; }
-
         public static TransportEnvelope FromSendContext(SendContext context, object payload)
         {
             var result = new TransportEnvelope();
@@ -85,14 +81,9 @@ namespace OneGate.Backend.Transport.Bus.TransportFormatter
 
             result.SentTime = context.SentTime ?? DateTime.UtcNow;
 
-            result.Headers = new Dictionary<string, object>();
-
-            foreach (var (key, value) in context.Headers.GetAll())
-                result.Headers[key] = value;
-
             result.Payload = payload;
 
-            result.Contract = MassTransitExtensions.GetEntityName(payload.GetType());
+            result.Contract = TransportExtensions.GetEntityName(payload.GetType());
 
             return result;
         }

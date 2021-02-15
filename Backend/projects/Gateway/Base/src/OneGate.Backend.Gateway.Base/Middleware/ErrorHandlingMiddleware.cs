@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
-using MassTransit;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using OneGate.Backend.Transport.Bus;
 using OneGate.Backend.Transport.Bus.Exceptions;
 using OneGate.Shared.ApiModels.Base;
 using TransportException = OneGate.Backend.Transport.Bus.Exceptions.TransportException;

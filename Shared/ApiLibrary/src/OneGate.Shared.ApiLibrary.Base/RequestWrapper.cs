@@ -35,11 +35,11 @@ namespace OneGate.Shared.ApiLibrary.Base
             {
                 return await task;
             }
-            catch (FlurlParsingException ex)
+            catch (FlurlParsingException)
             {
                 throw new ServerApiException("Can`t parse server response");
             }
-            catch (FlurlHttpTimeoutException ex)
+            catch (FlurlHttpTimeoutException)
             {
                 throw new ServerApiException("Timeout exceeded");
             }

@@ -2,7 +2,6 @@
 using OneGate.Backend.Core.Assets.Contracts.Asset;
 using OneGate.Backend.Core.Assets.Contracts.Exchange;
 using OneGate.Backend.Core.Assets.Contracts.Layer;
-using OneGate.Backend.Core.Timeseries.Contracts;
 using OneGate.Backend.Core.Timeseries.Contracts.Series;
 using OneGate.Backend.Core.Users.Contracts.Account;
 using OneGate.Backend.Core.Users.Contracts.Order;

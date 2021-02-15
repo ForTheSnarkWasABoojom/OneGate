@@ -33,9 +33,11 @@ namespace OneGate.Backend.Gateway.UserApi.Controllers
         [SwaggerOperation("Get assets by specified filter")]
         public async Task<IActionResult> GetAssetsRangeAsync([FromQuery] AssetFilterModel request)
         {
-            var payload = await _bus.Call<GetAssets, AssetsResponse>(new GetAssets
+            var payload = await _bus.RequestAsync<GetAssets, AssetsResponse>(new GetAssets
             {
                 Id = request.Id,
+                Ticker = request.Ticker,
+                ExchangeId = request.ExchangeId,
                 Shift = request.Shift,
                 Count = request.Count
             });
@@ -52,7 +54,7 @@ namespace OneGate.Backend.Gateway.UserApi.Controllers
         [Route("{id}")]
         public async Task<IActionResult> GetAssetAsync([FromRoute] int id)
         {
-            var payload = await _bus.Call<GetAssets, AssetsResponse>(new GetAssets
+            var payload = await _bus.RequestAsync<GetAssets, AssetsResponse>(new GetAssets
             {
                 Id = id
             });

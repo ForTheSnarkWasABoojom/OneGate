@@ -14,14 +14,14 @@ namespace OneGate.Backend.Transport.Bus
             _bus = bus;
         }
 
-        public async Task<TResponse> Call<TRequest, TResponse>(TRequest request)
+        public async Task<TResponse> RequestAsync<TRequest, TResponse>(TRequest request)
             where TRequest : class
             where TResponse : class
         {
-            return await Call<TRequest, TResponse>(request, default);
+            return await RequestAsync<TRequest, TResponse>(request, default);
         }
 
-        public async Task<TResponse> Call<TRequest, TResponse>(TRequest request, RequestTimeout requestTimeout)
+        public async Task<TResponse> RequestAsync<TRequest, TResponse>(TRequest request, RequestTimeout requestTimeout)
             where TRequest : class
             where TResponse : class
         {

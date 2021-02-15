@@ -5,12 +5,12 @@ using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using OneGate.Backend.Core.Base.Contracts;
 using OneGate.Backend.Core.Users.Contracts.Order;
 using OneGate.Backend.Gateway.Base;
 using OneGate.Backend.Gateway.Base.Extensions.Claims;
 using OneGate.Backend.Transport.Bus;
 using OneGate.Backend.Transport.Bus.Contracts;
-using OneGate.Backend.Transport.Contracts;
 using OneGate.Shared.ApiModels.User.Order;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -37,7 +37,7 @@ namespace OneGate.Backend.Gateway.UserApi.Controllers
         public async Task<IActionResult> CreateOrderAsync([FromBody] CreateOrderModel request)
         {
             var orderDto = _mapper.Map<CreateOrderModel, OrderDto>(request);
-            var payload = await _bus.Call<CreateOrder, CreatedResourceResponse>(new CreateOrder
+            var payload = await _bus.RequestAsync<CreateOrder, CreatedResourceResponse>(new CreateOrder
             {
                 Order = orderDto
             });
@@ -56,7 +56,7 @@ namespace OneGate.Backend.Gateway.UserApi.Controllers
         [Route("{id}")]
         public async Task<IActionResult> GetOrderAsync([FromRoute] int id)
         {
-            var payload = await _bus.Call<GetOrders, OrdersResponse>(new GetOrders
+            var payload = await _bus.RequestAsync<GetOrders, OrdersResponse>(new GetOrders
             {
                 Id = id,
                 OwnerId = User.GetAccountId()
@@ -72,7 +72,7 @@ namespace OneGate.Backend.Gateway.UserApi.Controllers
         [SwaggerOperation("Get orders by specified filter")]
         public async Task<IActionResult> GetOrdersRangeAsync([FromQuery] OrderFilterModel request)
         {
-            var payload = await _bus.Call<GetOrders, OrdersResponse>(new GetOrders
+            var payload = await _bus.RequestAsync<GetOrders, OrdersResponse>(new GetOrders
             {
                 Id = request.Id,
                 OwnerId = User.GetAccountId()
@@ -89,7 +89,7 @@ namespace OneGate.Backend.Gateway.UserApi.Controllers
         [Route("{id}")]
         public async Task<IActionResult> DeleteOrderAsync([FromRoute] int id)
         {
-            var payload = await _bus.Call<DeleteOrder, SuccessResponse>(new DeleteOrder
+            var payload = await _bus.RequestAsync<DeleteOrder, SuccessResponse>(new DeleteOrder
             {
                 Id = id,
                 OwnerId = User.GetAccountId()
