@@ -4,24 +4,21 @@ using System.Threading.Tasks;
 using MassTransit;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using OneGate.Backend.Engines.Base.OhlcProvider;
-using OneGate.Backend.Transport.Bus;
+using OneGate.Backend.Engines.Shared.OhlcProvider;
 
 namespace OneGate.Backend.Engines.Fake.Static
 {
     public class DaemonService : IHostedService
     {
         private readonly ILogger<DaemonService> _logger;
-
-        private readonly ITransportBus _bus;
+        
         private readonly IPublishEndpoint _endpoint;
 
         private readonly List<IOhlcProvider> _ohlcProviders = new List<IOhlcProvider>();
 
-        public DaemonService(ILogger<DaemonService> logger, ITransportBus bus, IPublishEndpoint endpoint)
+        public DaemonService(ILogger<DaemonService> logger, IPublishEndpoint endpoint)
         {
             _logger = logger;
-            _bus = bus;
             _endpoint = endpoint;
         }
 

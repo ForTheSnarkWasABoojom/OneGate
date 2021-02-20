@@ -19,7 +19,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\..\Base\src\OneGate.Backend.Core.Base.Database\OneGate.Backend.Core.Base.Database.csproj" />
+      <ProjectReference Include="..\..\..\Shared\src\OneGate.Backend.Core.Shared.Database\OneGate.Backend.Core.Shared.Database.csproj" />
     </ItemGroup>
 
 </Project>

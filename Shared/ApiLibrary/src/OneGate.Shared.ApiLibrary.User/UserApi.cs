@@ -1,5 +1,8 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Flurl;
+using Flurl.Http;
+using Microsoft.Extensions.Options;
 using OneGate.Shared.ApiLibrary.Base;
 using OneGate.Shared.ApiModels.User.Account;
 
@@ -8,20 +11,20 @@ namespace OneGate.Shared.ApiLibrary.User
     public class UserApi : IUserApi
     {
         private readonly string _accessToken;
-        private readonly string _baseUrl;
+        private readonly Uri _baseUrl;
 
-        public UserApi(string baseUrl, string accessToken)
+        public UserApi(IOptions<ApiClientOptions> options, string accessToken)
         {
             _accessToken = accessToken;
-            _baseUrl = baseUrl;
+            _baseUrl = options.Value.BaseUri;
         }
         
-        public async Task<AccountModel> GetMyAccount()
+        public async Task<Account> GetAccount()
         {
-            var result = await _baseUrl
+            return await _baseUrl
                 .AppendPathSegment("accounts")
-                .GetRequestAsync<CreateAccountModel, AccountModel>();
-            return result;
+                .WithOAuthBearerToken(_accessToken)
+                .GetJsonAsync<Account>();
         }
     }
 }

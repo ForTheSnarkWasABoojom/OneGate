@@ -10,6 +10,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\..\Base\src\OneGate.Backend.Engines.Base\OneGate.Backend.Engines.Base.csproj" />
+      <ProjectReference Include="..\..\..\Shared\src\OneGate.Backend.Engines.Shared\OneGate.Backend.Engines.Shared.csproj" />
     </ItemGroup>
 </Project>

@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\Shared\src\OneGate.Backend.Core.Shared.Api.Client\OneGate.Backend.Core.Shared.Api.Client.csproj" />
+      <ProjectReference Include="..\OneGate.Backend.Core.Users.Api.Contracts\OneGate.Backend.Core.Users.Api.Contracts.csproj" />
+    </ItemGroup>
+
+</Project>

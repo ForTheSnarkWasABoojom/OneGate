@@ -18,6 +18,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\..\Shared\ApiLibrary\src\OneGate.Shared.ApiLibrary.User\OneGate.Shared.ApiLibrary.User.csproj" />
+      <ProjectReference Include="..\..\projects\Core\Users\src\OneGate.Backend.Core.Users.Api.Client\OneGate.Backend.Core.Users.Api.Client.csproj" />
     </ItemGroup>
 
     <ItemGroup>
