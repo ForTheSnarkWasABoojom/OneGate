@@ -15,6 +15,10 @@ namespace OneGate.Backend.Core.Assets.Database.Models
         [Column("title")]
         [Required]
         public string Title { get; set; }
+        
+        [Column("engine_id")]
+        [Required]
+        public int EngineId { get; set; }
 
         [MaxLength(500)]
         [Column("description")]
@@ -24,9 +28,5 @@ namespace OneGate.Backend.Core.Assets.Database.Models
         [MaxLength(150)]
         [Column("website")]
         public string Website { get; set; }
-        
-        [Column("engine_type")]
-        [Required]
-        public string EngineType { get; set; }
     }
 }

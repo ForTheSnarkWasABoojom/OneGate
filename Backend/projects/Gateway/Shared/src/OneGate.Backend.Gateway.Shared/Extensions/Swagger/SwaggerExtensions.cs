@@ -13,7 +13,7 @@ namespace OneGate.Backend.Gateway.Shared.Extensions.Swagger
             {
                 options.SwaggerDoc("v1", new OpenApiInfo
                 {
-                    Title = $"OneGate - {apiName} v{version} API",
+                    Title = $"OneGate Gateway - {apiName} v{version} API",
                     Version = $"v{version}"
                 });
                 options.OperationFilter<AuthOperationFilter>();

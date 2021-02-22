@@ -5,6 +5,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\..\..\Core\Engines\src\OneGate.Backend.Core.Engines.Api.Client\OneGate.Backend.Core.Engines.Api.Client.csproj" />
       <ProjectReference Include="..\..\..\..\Transport\src\OneGate.Backend.Transport.Bus\OneGate.Backend.Transport.Bus.csproj" />
     </ItemGroup>
 
