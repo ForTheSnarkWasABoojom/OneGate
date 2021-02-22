@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using OneGate.Backend.Core.Users.Api.Client;
 using OneGate.Backend.Core.Users.Api.Contracts.Account;
+using OneGate.Backend.Core.Users.Api.Contracts.Administrator;
 using OneGate.Backend.Gateway.Shared;
 using OneGate.Backend.Gateway.Shared.Authentication;
 using OneGate.Backend.Gateway.Shared.Options;
@@ -42,11 +43,10 @@ namespace OneGate.Backend.Gateway.Admin.Api.Controllers
             if (request.ClientFingerprint != _authenticationOptions.ClientFingerprint)
                 return Challenge();
 
-            var payload = await _usersApiClient.GetAccountsAsync(new FilterAccountsDto
+            var payload = await _usersApiClient.GetAdministratorsAsync(new FilterAdministratorsDto
             {
                 Email = request.Username,
-                Password = request.Password,
-                IsAdmin = true
+                Password = request.Password
             });
 
             var account = payload.FirstOrDefault();

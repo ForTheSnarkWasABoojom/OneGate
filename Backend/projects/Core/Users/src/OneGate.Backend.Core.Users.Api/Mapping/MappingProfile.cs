@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using OneGate.Backend.Core.Users.Api.Contracts.Account;
+using OneGate.Backend.Core.Users.Api.Contracts.Administrator;
 using OneGate.Backend.Core.Users.Api.Contracts.Order;
 using OneGate.Backend.Core.Users.Api.Contracts.Order.Limit;
 using OneGate.Backend.Core.Users.Api.Contracts.Order.Market;
@@ -13,9 +14,29 @@ namespace OneGate.Backend.Core.Users.Api.Mapping
     {
         public MappingProfile()
         {
-            CreateMap<CreateAccountDto, Account>();
-            CreateMap<Account, AccountDto>();
-            
+            CreateMapForAccount();
+
+            CreateMapForAdministrator();
+
+            CreateMapForOrder();
+
+            CreateMapForPortfolio();
+        }
+
+        private void CreateMapForAdministrator()
+        {
+            CreateMap<CreateAdministratorDto, Administrator>();
+            CreateMap<Administrator, AdministratorDto>();
+        }
+
+        private void CreateMapForPortfolio()
+        {
+            CreateMap<CreatePortfolioDto, Portfolio>();
+            CreateMap<Portfolio, PortfolioDto>();
+        }
+
+        private void CreateMapForOrder()
+        {
             CreateMap<CreateOrderDto, Order>()
                 .IncludeAllDerived();
 
@@ -25,13 +46,16 @@ namespace OneGate.Backend.Core.Users.Api.Mapping
 
             CreateMap<Order, OrderDto>()
                 .IncludeAllDerived();
-            
+
             CreateMap<MarketOrder, MarketOrderDto>();
             CreateMap<LimitOrder, LimitOrderDto>();
             CreateMap<StopOrder, StopOrderDto>();
-            
-            CreateMap<CreatePortfolioDto, Portfolio>();
-            CreateMap<Portfolio, PortfolioDto>();
+        }
+
+        private void CreateMapForAccount()
+        {
+            CreateMap<CreateAccountDto, Account>();
+            CreateMap<Account, AccountDto>();
         }
     }
 }

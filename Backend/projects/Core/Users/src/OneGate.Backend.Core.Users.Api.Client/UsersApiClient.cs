@@ -6,6 +6,7 @@ using Flurl.Http;
 using Microsoft.Extensions.Options;
 using OneGate.Backend.Core.Shared.Api.Client;
 using OneGate.Backend.Core.Users.Api.Contracts.Account;
+using OneGate.Backend.Core.Users.Api.Contracts.Administrator;
 using OneGate.Backend.Core.Users.Api.Contracts.Order;
 using OneGate.Backend.Core.Users.Api.Contracts.Portfolio;
 
@@ -44,6 +45,34 @@ namespace OneGate.Backend.Core.Users.Api.Client
         {
             await _baseUrl
                 .AppendPathSegment("accounts")
+                .AppendPathSegment(id)
+                .DeleteAsync();
+        }
+
+        public async Task<AdministratorDto> CreateAdministratorAsync(CreateAdministratorDto request)
+        {
+            var result = await _baseUrl
+                .AppendPathSegment("administrators")
+                .PostJsonAsync(request)
+                .ReceiveJson<AdministratorDto>();
+
+            return result;
+        }
+
+        public async Task<IEnumerable<AdministratorDto>> GetAdministratorsAsync(FilterAdministratorsDto request)
+        {
+            var result = await _baseUrl
+                .AppendPathSegment("administrators")
+                .SetQueryParamsFromModel(request)
+                .GetJsonAsync<IEnumerable<AdministratorDto>>();
+
+            return result;
+        }
+
+        public async Task DeleteAdministratorAsync(int id)
+        {
+            await _baseUrl
+                .AppendPathSegment("administrators")
                 .AppendPathSegment(id)
                 .DeleteAsync();
         }

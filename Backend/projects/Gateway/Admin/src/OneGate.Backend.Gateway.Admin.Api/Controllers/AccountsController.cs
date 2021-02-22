@@ -30,7 +30,6 @@ namespace OneGate.Backend.Gateway.Admin.Api.Controllers
 
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<Account>), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [SwaggerOperation("Search accounts")]
         public async Task<IActionResult> GetAccountsRangeAsync([FromQuery] FilterAccountsRequest request)
         {

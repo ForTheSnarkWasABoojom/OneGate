@@ -8,15 +8,14 @@ namespace OneGate.Backend.Core.Timeseries.Api.Mapping
     {
         public MappingProfile()
         {
-            CreateMap<SeriesDto, Series>()
-                .IncludeAllDerived();
-            
-            CreateMap<OhlcSeriesDto, OhlcSeries>();
-            CreateMap<PointSeriesDto, PointSeries>();
-            
+            CreateMapForSeries();
+        }
+
+        private void CreateMapForSeries()
+        {
             CreateMap<Series, SeriesDto>()
                 .IncludeAllDerived();
-            
+
             CreateMap<OhlcSeries, OhlcSeriesDto>();
             CreateMap<PointSeries, PointSeriesDto>();
         }

@@ -29,6 +29,7 @@ namespace OneGate.Backend.Core.Users.Database
         }
 
         public DbSet<Account> Accounts { get; set; }
+        public DbSet<Administrator> Administrators { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Portfolio> Portfolios { get; set; }
     }

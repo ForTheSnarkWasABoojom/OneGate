@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OneGate.Backend.Core.Shared.Api.Contracts;
 
-namespace OneGate.Backend.Core.Users.Api.Contracts.Account
+namespace OneGate.Backend.Core.Users.Api.Contracts.Administrator
 {
-    public class FilterAccountsDto : FilterDto
+    public class FilterAdministratorsDto : FilterDto
     {
         [FromQuery(Name = "id")]
         public int? Id { get; set; }

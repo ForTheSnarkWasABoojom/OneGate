@@ -10,23 +10,30 @@ namespace OneGate.Backend.Core.Assets.Api.Mapping
     {
         public MappingProfile()
         {
-            CreateMap<AssetDto, Asset>()
-                .IncludeAllDerived();
-            
-            CreateMap<IndexAssetDto, IndexAsset>();
-            CreateMap<StockAssetDto, StockAsset>();
+            CreateMapForAsset();
 
+            CreateMapForExchange();
+
+            CreateMapForLayer();
+        }
+
+        private void CreateMapForLayer()
+        {
+            CreateMap<LayersDto, Layer>();
+        }
+
+        private void CreateMapForExchange()
+        {
+            CreateMap<Exchange, ExchangeDto>();
+        }
+
+        private void CreateMapForAsset()
+        {
             CreateMap<Asset, AssetDto>()
                 .IncludeAllDerived();
             
             CreateMap<IndexAsset, IndexAssetDto>();
             CreateMap<StockAsset, StockAssetDto>();
-            
-            CreateMap<ExchangeDto, Exchange>();
-            CreateMap<Exchange, ExchangeDto>();
-            
-            CreateMap<LayersDto, Layer>();
-            CreateMap<Layer, LayersDto>();
         }
     }
 }
