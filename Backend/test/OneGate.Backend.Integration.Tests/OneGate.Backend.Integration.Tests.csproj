@@ -10,6 +10,8 @@
         <PackageReference Include="AutoFixture" Version="4.15.0" />
         <PackageReference Include="FakeItEasy" Version="6.2.1" />
         <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
+        <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.11" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.11" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
         <PackageReference Include="xunit" Version="2.4.0" />
         <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0" />
@@ -17,7 +19,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\..\Shared\ApiLibrary\src\OneGate.Shared.ApiLibrary.User\OneGate.Shared.ApiLibrary.User.csproj" />
       <ProjectReference Include="..\..\projects\Core\Users\src\OneGate.Backend.Core.Users.Api.Client\OneGate.Backend.Core.Users.Api.Client.csproj" />
     </ItemGroup>
 
