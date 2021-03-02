@@ -5,7 +5,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\..\..\..\..\Shared\ApiModels\src\OneGate.Shared.ApiModels.User\OneGate.Shared.ApiModels.User.csproj" />
       <ProjectReference Include="..\..\..\..\Core\Assets\src\OneGate.Backend.Core.Assets.Api.Client\OneGate.Backend.Core.Assets.Api.Client.csproj" />
       <ProjectReference Include="..\..\..\..\Core\Timeseries\src\OneGate.Backend.Core.Timeseries.Api.Client\OneGate.Backend.Core.Timeseries.Api.Client.csproj" />
       <ProjectReference Include="..\..\..\..\Core\Users\src\OneGate.Backend.Core.Users.Api.Client\OneGate.Backend.Core.Users.Api.Client.csproj" />
