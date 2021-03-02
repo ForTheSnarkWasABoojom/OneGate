@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using OneGate.Backend.Core.Assets.Api.Contracts.Asset;
 using OneGate.Backend.Core.Assets.Api.Contracts.Exchange;
-using OneGate.Backend.Core.Assets.Api.Contracts.Layer;
 using OneGate.Backend.Core.Assets.Database.Models;
 
 namespace OneGate.Backend.Core.Assets.Api.Mapping
@@ -13,13 +12,6 @@ namespace OneGate.Backend.Core.Assets.Api.Mapping
             CreateMapForAsset();
 
             CreateMapForExchange();
-
-            CreateMapForLayer();
-        }
-
-        private void CreateMapForLayer()
-        {
-            CreateMap<LayersDto, Layer>();
         }
 
         private void CreateMapForExchange()

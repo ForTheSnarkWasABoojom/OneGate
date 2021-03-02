@@ -37,8 +37,8 @@ namespace OneGate.Backend.Core.Timeseries.Api.Controllers
 
             filter
                 .FilterBy(p => p.LayerId == request.LayoutId)
-                .FilterBy(p => p.Timestamp == request.StartTimestamp, request.StartTimestamp)
-                .FilterBy(p => p.Timestamp == request.EndTimestamp, request.EndTimestamp);
+                .FilterBy(p => p.Timestamp >= request.StartTimestamp, request.StartTimestamp)
+                .FilterBy(p => p.Timestamp <= request.EndTimestamp, request.EndTimestamp);
 
             var series = await _series.FilterAsync(filter, limits: limits);
 

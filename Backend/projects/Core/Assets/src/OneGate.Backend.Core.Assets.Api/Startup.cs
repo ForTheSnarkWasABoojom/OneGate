@@ -61,7 +61,6 @@ namespace OneGate.Backend.Core.Assets.Api
             // Repositories.
             services.AddTransient<IExchangeRepository, ExchangeRepository>();
             services.AddTransient<IAssetRepository, AssetRepository>();
-            services.AddTransient<ILayerRepository, LayerRepository>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
 
-namespace OneGate.Backend.Core.Assets.Api.Contracts.Layer
+namespace OneGate.Backend.Core.Timeseries.Api.Contracts.Layer
 {
-    public class LayersDto
+    public class LayerDto
     {
         [JsonProperty("id")]
         public int Id { get; set; }

@@ -18,12 +18,6 @@ namespace OneGate.Backend.Core.Shared.Api.Extensions.Swagger
                 });
                 options.OperationFilter<RemoveVersionOperationFilter>();
                 options.DocumentFilter<ReplaceVersionDocumentFilter>();
-                options.AddSecurityDefinition("bearer", new OpenApiSecurityScheme
-                {
-                    Type = SecuritySchemeType.Http,
-                    Scheme = "bearer",
-                    BearerFormat = "JWT"
-                });
                 options.EnableAnnotations(true, true);
             });
             services.AddSwaggerGenNewtonsoftSupport();

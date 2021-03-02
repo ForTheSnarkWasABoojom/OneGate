@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Flurl;
 using Flurl.Http;
@@ -18,12 +19,12 @@ namespace OneGate.Backend.Core.Engines.Api.Client
             _baseUrl = options.Value.BaseUri;
         }
 
-        public async Task<IEnumerable<AssetMappingDto>> GetAssetMappingsAsync(FilterAssetMappingsDto request)
+        public async Task<IEnumerable<AssetMappingDto>> GetAssetMappingsAsync(FilterAssetMappingsDto request, CancellationToken cancellationToken = default)
         {
             var result = await _baseUrl
                 .AppendPathSegment("asset_mappings")
                 .SetQueryParamsFromModel(request)
-                .GetJsonAsync<IEnumerable<AssetMappingDto>>();
+                .GetJsonAsync<IEnumerable<AssetMappingDto>>(cancellationToken);
 
             return result;
         }

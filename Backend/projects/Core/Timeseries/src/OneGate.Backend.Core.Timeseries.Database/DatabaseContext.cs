@@ -8,8 +8,9 @@ namespace OneGate.Backend.Core.Timeseries.Database
     {
         public DatabaseContext(DbContextOptions<DatabaseContext> options)
             : base(options)
-        { }
-        
+        {
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseExceptionProcessor();
@@ -17,16 +18,29 @@ namespace OneGate.Backend.Core.Timeseries.Database
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Series>()
-                .HasIndex(x => new { LayoutId = x.LayerId, x.Timestamp})
+            modelBuilder.Entity<Layer>()
+                .HasIndex(x => new
+                {
+                    x.AssetId,
+                    x.IsMaster
+                })
                 .IsUnique();
-            
+
+            modelBuilder.Entity<Series>()
+                .HasIndex(x => new
+                {
+                    x.LayerId,
+                    x.Timestamp
+                })
+                .IsUnique();
+
             modelBuilder.Entity<Series>()
                 .HasDiscriminator(x => x.Type)
                 .HasValue<OhlcSeries>("OHLC")
                 .HasValue<PointSeries>("POINT");
         }
-        
+
+        public DbSet<Layer> Layers { get; set; }
         public DbSet<Series> Series { get; set; }
     }
 }

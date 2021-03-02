@@ -20,10 +20,6 @@ namespace OneGate.Backend.Core.Assets.Database
             modelBuilder.Entity<Asset>()
                 .HasIndex(x => new {x.Type, x.ExchangeId, x.Ticker})
                 .IsUnique();
-            
-            modelBuilder.Entity<Layer>()
-                .HasIndex(x => new {x.Name})
-                .IsUnique();
 
             modelBuilder.Entity<Exchange>()
                 .HasIndex(x => new {x.Title})
@@ -36,7 +32,6 @@ namespace OneGate.Backend.Core.Assets.Database
         }
 
         public DbSet<Exchange> Exchanges { get; set; }
-        public DbSet<Layer> Layers { get; set; }
         public DbSet<Asset> Assets { get; set; }
     }
 }

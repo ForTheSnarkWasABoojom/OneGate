@@ -4,9 +4,6 @@ namespace OneGate.Backend.Core.Engines.Api.Contracts.AssetMapping
 {
     public class AssetMappingDto
     {
-        [JsonProperty("id")]
-        public int Id { get; set; }
-
         [JsonProperty("engine_id")]
         public int EngineId { get; set; }
 

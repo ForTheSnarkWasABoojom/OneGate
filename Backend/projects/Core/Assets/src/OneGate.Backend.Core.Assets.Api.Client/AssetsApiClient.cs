@@ -6,7 +6,6 @@ using Flurl.Http;
 using Microsoft.Extensions.Options;
 using OneGate.Backend.Core.Assets.Api.Contracts.Asset;
 using OneGate.Backend.Core.Assets.Api.Contracts.Exchange;
-using OneGate.Backend.Core.Assets.Api.Contracts.Layer;
 using OneGate.Backend.Core.Shared.Api.Client;
 
 namespace OneGate.Backend.Core.Assets.Api.Client
@@ -36,16 +35,6 @@ namespace OneGate.Backend.Core.Assets.Api.Client
                 .AppendPathSegment("exchanges")
                 .SetQueryParamsFromModel(request)
                 .GetJsonAsync<IEnumerable<ExchangeDto>>();
-
-            return result;
-        }
-
-        public async Task<IEnumerable<LayersDto>> GetLayersAsync(FilterLayersDto request)
-        {
-            var result = await _baseUrl
-                .AppendPathSegment("layer")
-                .SetQueryParamsFromModel(request)
-                .GetJsonAsync<IEnumerable<LayersDto>>();
 
             return result;
         }

@@ -1,9 +1,13 @@
+using AutoMapper;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using OneGate.Backend.Core.Engines.Api.Client;
-using OneGate.Backend.Engines.Fake.Static.Hosted;
+using OneGate.Backend.Engines.Shared.Domain;
 using OneGate.Backend.Engines.Shared.Logging;
+using OneGate.Backend.Engines.Shared.Static.HostedServices;
+using OneGate.Backend.Engines.Shared.Static.Mapping;
+using OneGate.Backend.Engines.Shared.Static.MarketProvider;
 using OneGate.Backend.Transport.Bus;
 using OneGate.Backend.Transport.Bus.Options;
 
@@ -36,8 +40,17 @@ namespace OneGate.Backend.Engines.Fake.Static
             
                     services.AddTransient<IEnginesApiClient, EnginesApiClient>();
                     
-                    // Ohlc daemon service.
-                    services.AddHostedService<FakeOhlcService>();
+                    // Automapper.
+                    services.AddAutoMapper(p =>
+                        p.AddProfile<MappingProfile>()
+                    );
+                    
+                    // Engine metadata.
+                    services.AddSingleton<IEngineMetadata, EngineMetadata>();
+
+                    // Market service.
+                    services.AddSingleton<IMarketProvider, MarketProvider>();
+                    services.AddHostedService<MarketService>();
                 }).UseLogging();
     }
 }

@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="AutoMapper" Version="10.1.1" />
+      <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="3.1.5" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\..\Core\Engines\src\OneGate.Backend.Core.Engines.Api.Client\OneGate.Backend.Core.Engines.Api.Client.csproj" />
+      <ProjectReference Include="..\..\..\..\Transport\src\OneGate.Backend.Transport.Contracts\OneGate.Backend.Transport.Contracts.csproj" />
+      <ProjectReference Include="..\OneGate.Backend.Engines.Shared\OneGate.Backend.Engines.Shared.csproj" />
+    </ItemGroup>
+
+</Project>

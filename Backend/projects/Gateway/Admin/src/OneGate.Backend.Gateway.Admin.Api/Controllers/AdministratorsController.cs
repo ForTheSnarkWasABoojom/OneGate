@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -8,10 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using OneGate.Backend.Core.Users.Api.Client;
-using OneGate.Backend.Core.Users.Api.Contracts.Account;
 using OneGate.Backend.Core.Users.Api.Contracts.Administrator;
 using OneGate.Backend.Gateway.Shared;
-using OneGate.Backend.Gateway.Shared.Extensions.Claims;
 using OneGate.Backend.Gateway.Shared.Options;
 using OneGate.Backend.Gateway.Shared.Utils;
 using OneGate.Shared.ApiModels.Admin.Administrator;

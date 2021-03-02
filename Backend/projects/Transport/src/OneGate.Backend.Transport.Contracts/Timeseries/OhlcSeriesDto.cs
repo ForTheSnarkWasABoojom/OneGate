@@ -1,10 +1,12 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using Newtonsoft.Json;
 
-namespace OneGate.Backend.Core.Timeseries.Api.Contracts.Series
+namespace OneGate.Backend.Transport.Contracts.Timeseries
 {
-    public class OhlcSeriesDto : SeriesDto
+    public class OhlcSeriesDto
     {
-        public override SeriesTypeDto? Type => SeriesTypeDto.OHLC;
+        [JsonProperty("interval")]
+        public SeriesIntervalDto Interval { get; set; }
         
         [JsonProperty("open")]
         public float Open { get; set; }
@@ -17,5 +19,8 @@ namespace OneGate.Backend.Core.Timeseries.Api.Contracts.Series
         
         [JsonProperty("close")]
         public float Close { get; set; }
+        
+        [JsonProperty("timestamp")]
+        public DateTime Timestamp { get; set; }
     }
 }

@@ -15,14 +15,18 @@ namespace OneGate.Backend.Core.Timeseries.Database.Models
         [Column("type")]
         [Required]
         public string Type { get; set; }
+        
+        [Required]
+        [Column("layer_id")]
+        public int LayerId { get; set; }
+        
+        [Required]
+        [Column("interval")] 
+        public string Interval { get; set; }
 
         [Required]
         [Column("timestamp")] 
         public DateTime Timestamp { get; set; }
-
-        [Required]
-        [Column("layer_id")]
-        public int LayerId { get; set; }
         
         [Column("last_update")]
         public DateTime LastUpdate { get; set; }

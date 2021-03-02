@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using OneGate.Backend.Core.Users.Api.Client;
-using OneGate.Backend.Core.Users.Api.Contracts.Account;
 using OneGate.Backend.Core.Users.Api.Contracts.Administrator;
 using OneGate.Backend.Gateway.Shared;
 using OneGate.Backend.Gateway.Shared.Authentication;
