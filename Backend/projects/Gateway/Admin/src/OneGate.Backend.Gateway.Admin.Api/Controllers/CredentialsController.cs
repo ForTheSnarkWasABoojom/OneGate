@@ -8,10 +8,10 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using OneGate.Backend.Core.Users.Api.Client;
 using OneGate.Backend.Core.Users.Api.Contracts.Administrator;
-using OneGate.Backend.Gateway.Shared;
-using OneGate.Backend.Gateway.Shared.Authentication;
-using OneGate.Backend.Gateway.Shared.Options;
-using OneGate.Shared.ApiModels.Admin.Credentials;
+using OneGate.Backend.Gateway.Admin.Api.Contracts.Credentials;
+using OneGate.Backend.Gateway.Shared.Api;
+using OneGate.Backend.Gateway.Shared.Api.Authentication;
+using OneGate.Backend.Gateway.Shared.Api.Options;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace OneGate.Backend.Gateway.Admin.Api.Controllers

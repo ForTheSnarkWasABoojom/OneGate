@@ -7,8 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using OneGate.Backend.Core.Assets.Api.Client;
 using OneGate.Backend.Core.Assets.Api.Contracts.Exchange;
-using OneGate.Backend.Gateway.Shared;
-using OneGate.Shared.ApiModels.User.Exchange;
+using OneGate.Backend.Gateway.Shared.Api;
+using OneGate.Backend.Gateway.User.Api.Contracts.Exchange;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace OneGate.Backend.Gateway.User.Api.Controllers
@@ -30,19 +30,19 @@ namespace OneGate.Backend.Gateway.User.Api.Controllers
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(IEnumerable<Exchange>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<ExchangeModel>), StatusCodes.Status200OK)]
         [SwaggerOperation("Get exchanges by specified filter")]
         public async Task<IActionResult> GetExchangesRangeAsync([FromQuery] FilterExchangesRequest request)
         {
             var filter = _mapper.Map<FilterExchangesRequest, FilterExchangesDto>(request);
             var payload = await _assetsApiClient.GetExchangesAsync(filter);
 
-            var exchanges = _mapper.Map<IEnumerable<ExchangeDto>, IEnumerable<Exchange>>(payload);
+            var exchanges = _mapper.Map<IEnumerable<ExchangeDto>, IEnumerable<ExchangeModel>>(payload);
             return Ok(exchanges);
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(Exchange), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ExchangeModel), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [SwaggerOperation("Exchange details")]
         [Route("{id}")]
@@ -54,7 +54,7 @@ namespace OneGate.Backend.Gateway.User.Api.Controllers
             });
             var exchangeDto = payload.FirstOrDefault();
 
-            var exchange = _mapper.Map<ExchangeDto, Exchange>(exchangeDto);
+            var exchange = _mapper.Map<ExchangeDto, ExchangeModel>(exchangeDto);
             return StrictOk(exchange);
         }
     }

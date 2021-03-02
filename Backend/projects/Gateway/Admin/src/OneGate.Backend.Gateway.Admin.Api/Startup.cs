@@ -7,12 +7,12 @@ using OneGate.Backend.Core.Assets.Api.Client;
 using OneGate.Backend.Core.Timeseries.Api.Client;
 using OneGate.Backend.Core.Users.Api.Client;
 using OneGate.Backend.Gateway.Admin.Api.Mapping;
-using OneGate.Backend.Gateway.Shared.Extensions.Authentication;
-using OneGate.Backend.Gateway.Shared.Extensions.Swagger;
-using OneGate.Backend.Gateway.Shared.Extensions.Validation;
-using OneGate.Backend.Gateway.Shared.Extensions.Versioning;
-using OneGate.Backend.Gateway.Shared.Middleware;
-using OneGate.Backend.Gateway.Shared.Options;
+using OneGate.Backend.Gateway.Shared.Api.Extensions.Authentication;
+using OneGate.Backend.Gateway.Shared.Api.Extensions.Swagger;
+using OneGate.Backend.Gateway.Shared.Api.Extensions.Validation;
+using OneGate.Backend.Gateway.Shared.Api.Extensions.Versioning;
+using OneGate.Backend.Gateway.Shared.Api.Middleware;
+using OneGate.Backend.Gateway.Shared.Api.Options;
 using Prometheus;
 
 namespace OneGate.Backend.Gateway.Admin.Api

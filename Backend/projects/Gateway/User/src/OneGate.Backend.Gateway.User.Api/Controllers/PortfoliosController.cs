@@ -7,9 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using OneGate.Backend.Core.Users.Api.Client;
 using OneGate.Backend.Core.Users.Api.Contracts.Portfolio;
-using OneGate.Backend.Gateway.Shared;
-using OneGate.Backend.Gateway.Shared.Extensions.Claims;
-using OneGate.Shared.ApiModels.User.Portfolio;
+using OneGate.Backend.Gateway.Shared.Api;
+using OneGate.Backend.Gateway.Shared.Api.Extensions.Claims;
+using OneGate.Backend.Gateway.User.Api.Contracts.Portfolio;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace OneGate.Backend.Gateway.User.Api.Controllers
@@ -48,7 +48,7 @@ namespace OneGate.Backend.Gateway.User.Api.Controllers
 
         [HttpGet]
         [ActionName(nameof(GetPortfolioAsync))]
-        [ProducesResponseType(typeof(Portfolio), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(PortfolioModel), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [SwaggerOperation("Portfolio details")]
         [Route("{id}")]
@@ -60,7 +60,7 @@ namespace OneGate.Backend.Gateway.User.Api.Controllers
             });
             var portfolioDto = payload.FirstOrDefault();
 
-            var portfolio = _mapper.Map<PortfolioDto, Portfolio>(portfolioDto);
+            var portfolio = _mapper.Map<PortfolioDto, PortfolioModel>(portfolioDto);
             return StrictOk(portfolio);
         }
 
@@ -73,7 +73,7 @@ namespace OneGate.Backend.Gateway.User.Api.Controllers
             filter.OwnerId = User.GetAccountId();
             var payload = await _usersApiClient.GetPortfoliosAsync(filter);
 
-            var portfolios = _mapper.Map<IEnumerable<PortfolioDto>, IEnumerable<Portfolio>>(payload);
+            var portfolios = _mapper.Map<IEnumerable<PortfolioDto>, IEnumerable<PortfolioModel>>(payload);
             return Ok(portfolios);
         }
 

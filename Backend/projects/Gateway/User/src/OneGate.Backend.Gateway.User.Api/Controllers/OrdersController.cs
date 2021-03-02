@@ -7,9 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using OneGate.Backend.Core.Users.Api.Client;
 using OneGate.Backend.Core.Users.Api.Contracts.Order;
-using OneGate.Backend.Gateway.Shared;
-using OneGate.Backend.Gateway.Shared.Extensions.Claims;
-using OneGate.Shared.ApiModels.User.Order;
+using OneGate.Backend.Gateway.Shared.Api;
+using OneGate.Backend.Gateway.Shared.Api.Extensions.Claims;
+using OneGate.Backend.Gateway.User.Api.Contracts.Order;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace OneGate.Backend.Gateway.User.Api.Controllers
@@ -45,7 +45,7 @@ namespace OneGate.Backend.Gateway.User.Api.Controllers
 
         [HttpGet]
         [ActionName(nameof(GetOrderAsync))]
-        [ProducesResponseType(typeof(Order), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(OrderModel), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [SwaggerOperation("Order details")]
         [Route("{id}")]
@@ -58,12 +58,12 @@ namespace OneGate.Backend.Gateway.User.Api.Controllers
             });
             var orderDto = payload.FirstOrDefault();
 
-            var order = _mapper.Map<OrderDto, Order>(orderDto);
+            var order = _mapper.Map<OrderDto, OrderModel>(orderDto);
             return StrictOk(order);
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(IEnumerable<Order>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<OrderModel>), StatusCodes.Status200OK)]
         [SwaggerOperation("Get orders by specified filter")]
         public async Task<IActionResult> GetOrdersRangeAsync([FromQuery] FilterOrdersRequest request)
         {
@@ -71,7 +71,7 @@ namespace OneGate.Backend.Gateway.User.Api.Controllers
             filter.OwnerId = User.GetAccountId();
             var payload = await _usersApiClient.GetOrdersAsync(filter);
 
-            var orders = _mapper.Map<IEnumerable<OrderDto>, IEnumerable<Order>>(payload);
+            var orders = _mapper.Map<IEnumerable<OrderDto>, IEnumerable<OrderModel>>(payload);
             return Ok(orders);
         }
 

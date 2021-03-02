@@ -8,10 +8,10 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using OneGate.Backend.Core.Users.Api.Client;
 using OneGate.Backend.Core.Users.Api.Contracts.Administrator;
-using OneGate.Backend.Gateway.Shared;
-using OneGate.Backend.Gateway.Shared.Options;
-using OneGate.Backend.Gateway.Shared.Utils;
-using OneGate.Shared.ApiModels.Admin.Administrator;
+using OneGate.Backend.Gateway.Admin.Api.Contracts.Administrator;
+using OneGate.Backend.Gateway.Shared.Api;
+using OneGate.Backend.Gateway.Shared.Api.Options;
+using OneGate.Backend.Gateway.Shared.Api.Utils;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace OneGate.Backend.Gateway.Admin.Api.Controllers
@@ -56,14 +56,14 @@ namespace OneGate.Backend.Gateway.Admin.Api.Controllers
         }
         
         [HttpGet]
-        [ProducesResponseType(typeof(IEnumerable<Administrator>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<AdministratorModel>), StatusCodes.Status200OK)]
         [SwaggerOperation("Search administrators")]
         public async Task<IActionResult> GetAdministratorsRangeAsync([FromQuery] FilterAdministratorsRequest request)
         {
             var filter = _mapper.Map<FilterAdministratorsRequest, FilterAdministratorsDto>(request);
             var accounts = await _usersApiClient.GetAdministratorsAsync(filter);
 
-            var accountsModel = _mapper.Map<IEnumerable<AdministratorDto>, IEnumerable<Administrator>>(accounts);
+            var accountsModel = _mapper.Map<IEnumerable<AdministratorDto>, IEnumerable<AdministratorModel>>(accounts);
 
             return Ok(accountsModel);
         }

@@ -7,8 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using OneGate.Backend.Core.Users.Api.Client;
 using OneGate.Backend.Core.Users.Api.Contracts.Account;
-using OneGate.Backend.Gateway.Shared;
-using OneGate.Shared.ApiModels.Admin.Account;
+using OneGate.Backend.Gateway.Admin.Api.Contracts.Account;
+using OneGate.Backend.Gateway.Shared.Api;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace OneGate.Backend.Gateway.Admin.Api.Controllers
@@ -29,20 +29,20 @@ namespace OneGate.Backend.Gateway.Admin.Api.Controllers
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(IEnumerable<Account>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<AccountModel>), StatusCodes.Status200OK)]
         [SwaggerOperation("Search accounts")]
         public async Task<IActionResult> GetAccountsRangeAsync([FromQuery] FilterAccountsRequest request)
         {
             var filter = _mapper.Map<FilterAccountsRequest, FilterAccountsDto>(request);
             var accounts = await _usersApiClient.GetAccountsAsync(filter);
 
-            var accountsModel = _mapper.Map<IEnumerable<AccountDto>, IEnumerable<Account>>(accounts);
+            var accountsModel = _mapper.Map<IEnumerable<AccountDto>, IEnumerable<AccountModel>>(accounts);
 
             return Ok(accountsModel);
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(Account), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(AccountModel), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [SwaggerOperation("Account details")]
         [Route("{id}")]
@@ -54,7 +54,7 @@ namespace OneGate.Backend.Gateway.Admin.Api.Controllers
             });
             var account = payload.FirstOrDefault();
 
-            var accountModel = _mapper.Map<AccountDto, Account>(account);
+            var accountModel = _mapper.Map<AccountDto, AccountModel>(account);
             return StrictOk(accountModel);
         }
 

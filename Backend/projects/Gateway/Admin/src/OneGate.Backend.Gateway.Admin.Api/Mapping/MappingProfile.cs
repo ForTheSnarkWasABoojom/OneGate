@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using OneGate.Backend.Core.Users.Api.Contracts.Account;
-using OneGate.Shared.ApiModels.Admin.Account;
+using OneGate.Backend.Gateway.Admin.Api.Contracts.Account;
 
 namespace OneGate.Backend.Gateway.Admin.Api.Mapping
 {
@@ -13,7 +13,7 @@ namespace OneGate.Backend.Gateway.Admin.Api.Mapping
         
         private void CreateMapForAccount()
         {
-            CreateMap<AccountDto, Account>();
+            CreateMap<AccountDto, AccountModel>();
             
             CreateMap<FilterAccountsRequest, FilterAccountsDto>();
         }

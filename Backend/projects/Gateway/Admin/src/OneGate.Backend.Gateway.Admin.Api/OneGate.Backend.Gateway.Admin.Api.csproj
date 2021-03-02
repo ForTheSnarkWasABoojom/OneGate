@@ -9,7 +9,8 @@
       <ProjectReference Include="..\..\..\..\Core\Assets\src\OneGate.Backend.Core.Assets.Api.Client\OneGate.Backend.Core.Assets.Api.Client.csproj" />
       <ProjectReference Include="..\..\..\..\Core\Timeseries\src\OneGate.Backend.Core.Timeseries.Api.Client\OneGate.Backend.Core.Timeseries.Api.Client.csproj" />
       <ProjectReference Include="..\..\..\..\Core\Users\src\OneGate.Backend.Core.Users.Api.Client\OneGate.Backend.Core.Users.Api.Client.csproj" />
-      <ProjectReference Include="..\..\..\Shared\src\OneGate.Backend.Gateway.Shared\OneGate.Backend.Gateway.Shared.csproj" />
+      <ProjectReference Include="..\..\..\Shared\src\OneGate.Backend.Gateway.Shared.Api\OneGate.Backend.Gateway.Shared.Api.csproj" />
+      <ProjectReference Include="..\OneGate.Backend.Gateway.Admin.Api.Contracts\OneGate.Backend.Gateway.Admin.Api.Contracts.csproj" />
     </ItemGroup>
 
 

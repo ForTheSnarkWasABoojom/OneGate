@@ -8,11 +8,11 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using OneGate.Backend.Core.Users.Api.Client;
 using OneGate.Backend.Core.Users.Api.Contracts.Account;
-using OneGate.Backend.Gateway.Shared;
-using OneGate.Backend.Gateway.Shared.Extensions.Claims;
-using OneGate.Backend.Gateway.Shared.Options;
-using OneGate.Backend.Gateway.Shared.Utils;
-using OneGate.Shared.ApiModels.User.Account;
+using OneGate.Backend.Gateway.Shared.Api;
+using OneGate.Backend.Gateway.Shared.Api.Extensions.Claims;
+using OneGate.Backend.Gateway.Shared.Api.Options;
+using OneGate.Backend.Gateway.Shared.Api.Utils;
+using OneGate.Backend.Gateway.User.Api.Contracts.Account;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace OneGate.Backend.Gateway.User.Api.Controllers
@@ -57,7 +57,7 @@ namespace OneGate.Backend.Gateway.User.Api.Controllers
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(Account), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(AccountModel), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [SwaggerOperation("Current account details")]
         public async Task<IActionResult> GetCurrentAccountAsync()
@@ -68,7 +68,7 @@ namespace OneGate.Backend.Gateway.User.Api.Controllers
             });
             var accountDto = payload.FirstOrDefault();
 
-            var account = _mapper.Map<AccountDto, Account>(accountDto);
+            var account = _mapper.Map<AccountDto, AccountModel>(accountDto);
             return StrictOk(account);
         }
     }

@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
-using OneGate.Backend.Gateway.Shared.Extensions.Logging;
+using OneGate.Backend.Gateway.Shared.Api.Extensions.Logging;
 
 namespace OneGate.Backend.Gateway.User.Api
 {

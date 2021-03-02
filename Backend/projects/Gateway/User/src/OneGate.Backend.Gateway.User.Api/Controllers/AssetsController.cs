@@ -7,8 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using OneGate.Backend.Core.Assets.Api.Client;
 using OneGate.Backend.Core.Assets.Api.Contracts.Asset;
-using OneGate.Backend.Gateway.Shared;
-using OneGate.Shared.ApiModels.User.Asset;
+using OneGate.Backend.Gateway.Shared.Api;
+using OneGate.Backend.Gateway.User.Api.Contracts.Asset;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace OneGate.Backend.Gateway.User.Api.Controllers
@@ -29,19 +29,19 @@ namespace OneGate.Backend.Gateway.User.Api.Controllers
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(IEnumerable<Asset>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<AssetModel>), StatusCodes.Status200OK)]
         [SwaggerOperation("Get assets by specified filter")]
         public async Task<IActionResult> GetAssetsRangeAsync([FromQuery] FilterAssetsRequest request)
         {
             var filter = _mapper.Map<FilterAssetsRequest, FilterAssetsDto>(request);
             var payload = await _assetsApiClient.GetAssetsAsync(filter);
 
-            var assets = _mapper.Map<IEnumerable<AssetDto>, IEnumerable<Asset>>(payload);
+            var assets = _mapper.Map<IEnumerable<AssetDto>, IEnumerable<AssetModel>>(payload);
             return Ok(assets);
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(Asset), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(AssetModel), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [SwaggerOperation("Asset details")]
         [Route("{id}")]
@@ -53,7 +53,7 @@ namespace OneGate.Backend.Gateway.User.Api.Controllers
             });
             var assetDto = payload.FirstOrDefault();
 
-            var assets = _mapper.Map<AssetDto, Asset>(assetDto);
+            var assets = _mapper.Map<AssetDto, AssetModel>(assetDto);
             return StrictOk(assets);
         }
     }
