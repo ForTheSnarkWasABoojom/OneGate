@@ -1,14 +1,17 @@
-﻿//using OneGate.Frontend.ApiLibrary;
+﻿using System;
+using System.Collections.ObjectModel;
+using OneGate.Backend.Gateway.User.Api.Contracts.Series;
 using ReactiveUI;
 
 namespace OneGate.Frontend.DesktopApp.ViewModels.Frames
 {
     public class TradingViewModel : ViewModelBase
     {
+        private const string CheckMark = "✓";
+
         #region Exchanges binding.
 
         /*private ObservableCollection<ExchangeDto> _exchanges;
-
         public ObservableCollection<ExchangeDto> Exchanges
         {
             get => _exchanges;
@@ -16,7 +19,6 @@ namespace OneGate.Frontend.DesktopApp.ViewModels.Frames
         }
 
         private ExchangeDto _curExchange;
-
         public ExchangeDto CurExchange
         {
             get => _curExchange;
@@ -28,7 +30,6 @@ namespace OneGate.Frontend.DesktopApp.ViewModels.Frames
         #region Asset types binding.
 
         private ObservableCollection<AssetTypeDto> _assetTypes;
-
         public ObservableCollection<AssetTypeDto> AssetTypes
         {
             get => _assetTypes;
@@ -36,7 +37,6 @@ namespace OneGate.Frontend.DesktopApp.ViewModels.Frames
         }
 
         private AssetTypeDto _curAssetType;
-
         public AssetTypeDto CurAssetType
         {
             get
@@ -54,7 +54,6 @@ namespace OneGate.Frontend.DesktopApp.ViewModels.Frames
         #region Ticker binding.
 
         private ObservableCollection<AssetDto> _tickers;
-
         public ObservableCollection<AssetDto> Tickers
         {
             get
@@ -68,7 +67,6 @@ namespace OneGate.Frontend.DesktopApp.ViewModels.Frames
         }
 
         private AssetDto _curTicker;
-
         public AssetDto CurTicker
         {
             get
@@ -82,7 +80,58 @@ namespace OneGate.Frontend.DesktopApp.ViewModels.Frames
             }
         }*/
 
+
+        private ObservableCollection<GraphLayer> _layers;
+        public ObservableCollection<GraphLayer> Layers
+        {
+            get => _layers;
+            set => this.RaiseAndSetIfChanged(ref _layers, value);
+        }
+
+        private ObservableCollection<GraphLayer> _currentLayers;
+        private GraphLayer _currentLayer;
+        public GraphLayer CurrentLayer
+        {
+            get => _currentLayer;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _currentLayer, value);
+                this.RaiseAndSetIfChanged(ref _currentLayer, null);
+                if (value == null)
+                {
+                    if (Layers.Count > 0)
+                    {
+                        this.RaiseAndSetIfChanged(ref _currentLayer, Layers[0]);
+                        this.RaiseAndSetIfChanged(ref _currentLayer, null);
+                    }
+                    return;
+                }
+                int index = Layers.IndexOf(value);
+                if (_currentLayers.Contains(_layers[index]))
+                {
+                    _graph.RemoveLayer(_layers[index]);
+                    _currentLayers.Remove(_layers[index]);
+                    Layers[index].Name = Layers[index].Name.Substring(1);
+                }
+                else
+                {
+                    _graph.AddLayer(_layers[index]);
+                    _currentLayers.Add(_layers[index]);
+                    Layers[index].Name = CheckMark + Layers[index].Name;
+                }
+                CurrentLayer = null;
+            }
+        }
+
+        private ObservableCollection<OhlcSeriesModel> _ohlcData;
+        public ObservableCollection<OhlcSeriesModel> OhlcData
+        {
+            get => _ohlcData;
+            set => this.RaiseAndSetIfChanged(ref _ohlcData, value);
+        }
         #endregion
+
+        private readonly GraphViewModel _graph;
 
         private ViewModelBase _content;
         public ViewModelBase Content
@@ -103,12 +152,19 @@ namespace OneGate.Frontend.DesktopApp.ViewModels.Frames
             set
             {
                 _linesContent = this;
-
                 this.RaiseAndSetIfChanged(ref _linesContent, value);
             }
         }
 
-        private async void InitializeCollections()
+        public TradingViewModel(/*OneGateApi serverApi*/)
+        {
+            //ServerApi = serverApi;
+            InitializeCollections();
+            _graph = new GraphViewModel(OhlcData);
+            Content = _graph;
+        }
+
+        private void InitializeCollections()
         {
             /*Exchanges = new ObservableCollection<ExchangeDto>();
             AssetTypes = new ObservableCollection<AssetTypeDto>();
@@ -130,13 +186,45 @@ namespace OneGate.Frontend.DesktopApp.ViewModels.Frames
             {
                 Tickers.Add(ticker);
             }*/
+            GenerateOhlcData();
+            
+            //*
+            Layers = new ObservableCollection<GraphLayer>();
+            _currentLayers = new ObservableCollection<GraphLayer>();
+            var pointLayer = new GraphLayer("Point graph 0");
+            pointLayer.Data = GraphViewModel.CalculateMovingAverage(OhlcData);
+            Layers.Add(pointLayer);
+            GenerateOhlcData();
+            var pointLayer1 = new GraphLayer("Point graph 1");
+            pointLayer1.Data = GraphViewModel.CalculateMovingAverage(OhlcData);
+            Layers.Add(pointLayer1);
+            GenerateOhlcData();
+            var pointLayer2 = new GraphLayer("Moving curve");
+            pointLayer2.Data = GraphViewModel.CalculateMovingAverage(OhlcData);
+            Layers.Add(pointLayer2);
+            //*/
         }
 
-        public TradingViewModel(/*OneGateApi serverApi*/)
+        /// <summary>
+        /// This is a temporary code that is needed to test the drawing of the graph.
+        /// </summary>
+        private void GenerateOhlcData()
         {
-            //ServerApi = serverApi;
-            InitializeCollections();
-            Content = new GraphViewModel();
+            OhlcData = new ObservableCollection<OhlcSeriesModel>();
+            var date = DateTime.Now;
+            for (int i = 0; i < 100; ++i)
+            {
+                var random = new Random();
+                OhlcData.Add(new OhlcSeriesModel()
+                {
+                    Open = random.NextDouble() * random.Next(1, 100),
+                    High = random.NextDouble() * random.Next(1, 100),
+                    Low = random.NextDouble() * random.Next(1, 100),
+                    Close = random.NextDouble() * random.Next(1, 100),
+                    Timestamp = date
+                });
+                date = date.AddDays(1);
+            }
         }
     }
 }

@@ -7,7 +7,7 @@ namespace OneGate.Frontend.DesktopApp.Views.Frames
     {
         public TradingView()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         private void InitializeComponent()

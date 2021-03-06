@@ -213,11 +213,11 @@ namespace OneGate.Frontend.DesktopApp.ViewModels
                     });
                 BaseWindow.Content = new SignInViewModel();
             }
-            catch (OneGateApiException e)
+            catch (ApiException e)
             {
                 ShowErrorMessage(e.Message);
             }
-            */
+            //*/
         }
 
         /// <summary>
@@ -240,7 +240,7 @@ namespace OneGate.Frontend.DesktopApp.ViewModels
         /// Clears the error line.
         /// </summary>
         private void ClearErrorForm()
-            => ClearErrorForm();
+            => ShowErrorMessage("");
 
         /// <summary>
         /// Switch to the sign in form.

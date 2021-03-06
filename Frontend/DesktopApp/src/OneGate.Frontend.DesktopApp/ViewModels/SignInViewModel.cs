@@ -113,6 +113,7 @@ namespace OneGate.Frontend.DesktopApp.ViewModels
                 IsFormEnabled = true;
             }
             */
+            BaseWindow.Content = new MainViewModel();
         }
 
         /// <summary>
