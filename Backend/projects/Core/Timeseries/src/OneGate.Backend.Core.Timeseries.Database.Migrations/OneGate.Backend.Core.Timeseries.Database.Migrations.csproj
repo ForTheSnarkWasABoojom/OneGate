@@ -12,7 +12,15 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\..\Shared\src\OneGate.Backend.Core.Shared.Database\OneGate.Backend.Core.Shared.Database.csproj" />
+      <ProjectReference Include="..\OneGate.Backend.Core.Timeseries.Database\OneGate.Backend.Core.Timeseries.Database.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Migrations" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="Migrations\20210306221523_1615068894.Designer.cs" />
     </ItemGroup>
 
 </Project>

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using OneGate.Backend.Core.Shared.Api.Contracts;
 
@@ -6,13 +7,13 @@ namespace OneGate.Backend.Core.Timeseries.Api.Contracts.Layer
 {
     public class FilterLayersDto : FilterDto
     {
-        [JsonProperty("id")]
+        [FromQuery(Name = "id")]
         public int? Id { get; set; }
         
-        [JsonProperty("asset_id")]
+        [FromQuery(Name = "asset_id")]
         public int? AssetId { get; set; }
 
-        [JsonProperty("is_master")]
+        [FromQuery(Name = "is_master")]
         [DefaultValue(true)]
         public bool? IsMaster { get; set; } = true;
     }

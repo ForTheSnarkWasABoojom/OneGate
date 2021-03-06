@@ -60,6 +60,7 @@ namespace OneGate.Backend.Core.Timeseries.Api
             
             // Repositories.
             services.AddTransient<ISeriesRepository, SeriesRepository>();
+            services.AddTransient<ILayerRepository, LayerRepository>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

@@ -10,15 +10,19 @@ cd ../
 
 declare -A assemblies
 
-assemblies["OneGate.Backend.Gateway.UserApi"]="Gateway/User/src"
-assemblies["OneGate.Backend.Gateway.AdminApi"]="Gateway/Admin/src"
+assemblies["OneGate.Backend.Gateway.User.Api"]="Gateway/User/src"
+assemblies["OneGate.Backend.Gateway.Admin.Api"]="Gateway/Admin/src"
 
-assemblies["OneGate.Backend.Core.Records"]="Core/Records/src"
-assemblies["OneGate.Backend.Core.Timeseries"]="Core/Timeseries/src"
-assemblies["OneGate.Backend.Core.Users"]="Core/Users/src"
+assemblies["OneGate.Backend.Core.Assets.Api"]="Core/Assets/src"
+assemblies["OneGate.Backend.Core.Analytics.Api"]="Core/Analytics/src"
+assemblies["OneGate.Backend.Core.Engines.Api"]="Core/Engines/src"
+assemblies["OneGate.Backend.Core.Timeseries.Api"]="Core/Timeseries/src"
+assemblies["OneGate.Backend.Core.Users.Api"]="Core/Users/src"
 
-assemblies["OneGate.Backend.Engines.FakeEngine"]="Engines/Fake/src"
-assemblies["OneGate.Backend.Engines.FakeStaticEngine"]="Engines/Fake/src"
+assemblies["OneGate.Backend.Core.Timeseries.Worker"]="Core/Timeseries/src"
+
+assemblies["OneGate.Backend.Engines.Fake.Static"]="Engines/Fake/src"
+assemblies["OneGate.Backend.Engines.Fake.Worker"]="Engines/Fake/src"
 
 # Dll build
 for name in "${!assemblies[@]}"; do
@@ -32,15 +36,19 @@ done
 
 declare -A images
 
-assemblies["OneGate.Backend.Gateway.UserApi"]="onegate/gateway-user-api"
-assemblies["OneGate.Backend.Gateway.AdminApi"]="onegate/gateway-admin-api"
+assemblies["OneGate.Backend.Gateway.User.Api"]="onegate/gateway-user-api"
+assemblies["OneGate.Backend.Gateway.Admin.Api"]="onegate/gateway-admin-api"
 
-assemblies["OneGate.Backend.Core.Records"]="onegate/core-records"
-assemblies["OneGate.Backend.Core.Timeseries"]="onegate/core-timeseries"
-assemblies["OneGate.Backend.Core.Users"]="onegate/core-users"
+assemblies["OneGate.Backend.Core.Assets.Api"]="onegate/core-assets-api"
+assemblies["OneGate.Backend.Core.Analytics.Api"]="onegate/core-analytics-api"
+assemblies["OneGate.Backend.Core.Engines.Api"]="onegate/core-engines-api"
+assemblies["OneGate.Backend.Core.Timeseries.Api"]="onegate/core-timeseries-api"
+assemblies["OneGate.Backend.Core.Users.Api"]="onegate/core-users-api"
 
-assemblies["OneGate.Backend.Engines.FakeEngine"]="onegate/engine-fake"
-assemblies["OneGate.Backend.Engines.FakeStaticEngine"]="onegate/core-fake-static"
+assemblies["OneGate.Backend.Core.Timeseries.Worker"]="onegate/core-timeseries-worker"
+
+assemblies["OneGate.Backend.Engines.Fake.Static"]="onegate/engines-fake-static"
+assemblies["OneGate.Backend.Engines.Fake.Worker"]="onegate/engines-fake-worker"
 
 # Images build
 for name in "${!images[@]}"; do

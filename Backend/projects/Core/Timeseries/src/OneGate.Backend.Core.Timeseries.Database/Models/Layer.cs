@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace OneGate.Backend.Core.Timeseries.Database.Models
 {
     [Table("layer")]
-    public abstract class Layer
+    public class Layer
     {
         [Key]
         [Column("id")]
