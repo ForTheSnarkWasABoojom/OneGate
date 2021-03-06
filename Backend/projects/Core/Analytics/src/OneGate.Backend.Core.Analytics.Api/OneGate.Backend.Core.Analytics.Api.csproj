@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\Shared\src\OneGate.Backend.Core.Shared.Api\OneGate.Backend.Core.Shared.Api.csproj" />
+      <ProjectReference Include="..\..\..\Shared\src\OneGate.Backend.Core.Shared\OneGate.Backend.Core.Shared.csproj" />
+      <ProjectReference Include="..\OneGate.Backend.Core.Analytics.Database\OneGate.Backend.Core.Analytics.Database.csproj" />
+    </ItemGroup>
+
+</Project>

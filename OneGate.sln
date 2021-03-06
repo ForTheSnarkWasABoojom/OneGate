@@ -114,6 +114,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Gateway.Use
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Gateway.Admin.Api.Contracts", "Backend\projects\Gateway\Admin\src\OneGate.Backend.Gateway.Admin.Api.Contracts\OneGate.Backend.Gateway.Admin.Api.Contracts.csproj", "{5AC3CD0B-EC6E-40DF-82F1-06BEEE926063}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Analytics", "Analytics", "{22DA4BB1-E15B-4762-9506-695E378A3557}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Core.Analytics.Api", "Backend\projects\Core\Analytics\src\OneGate.Backend.Core.Analytics.Api\OneGate.Backend.Core.Analytics.Api.csproj", "{9029C60D-D203-4DEC-83F2-4E4E6501E429}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Core.Analytics.Database", "Backend\projects\Core\Analytics\src\OneGate.Backend.Core.Analytics.Database\OneGate.Backend.Core.Analytics.Database.csproj", "{18CC4B07-D939-4A96-83A1-52342B505A2B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Core.Analytics.Api.Contracts", "Backend\projects\Core\Analytics\src\OneGate.Backend.Core.Analytics.Api.Contracts\OneGate.Backend.Core.Analytics.Api.Contracts.csproj", "{71E965AA-5206-42C9-B944-F54AF2EC5551}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Core.Analytics.Worker", "Backend\projects\Core\Analytics\src\OneGate.Backend.Core.Analytics.Worker\OneGate.Backend.Core.Analytics.Worker.csproj", "{E4158FBE-8CCE-499D-A612-183395D8C0CC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -175,6 +185,11 @@ Global
 		{E95575F4-3F16-496A-AAB1-777B1ABE8D2E} = {3BD34714-C4A4-423D-9DBC-1E38A4801F52}
 		{486BA5F5-6D0A-4A9C-ADF5-9F52859088B3} = {2CF5B7A0-5EA8-4F36-932C-1D562EA8C5A6}
 		{5AC3CD0B-EC6E-40DF-82F1-06BEEE926063} = {3BCA344A-88B1-4F4C-8BDD-10675FEEF7E9}
+		{22DA4BB1-E15B-4762-9506-695E378A3557} = {73EA0E81-8D5D-4DC2-87E7-EC09BDB5136D}
+		{9029C60D-D203-4DEC-83F2-4E4E6501E429} = {22DA4BB1-E15B-4762-9506-695E378A3557}
+		{18CC4B07-D939-4A96-83A1-52342B505A2B} = {22DA4BB1-E15B-4762-9506-695E378A3557}
+		{71E965AA-5206-42C9-B944-F54AF2EC5551} = {22DA4BB1-E15B-4762-9506-695E378A3557}
+		{E4158FBE-8CCE-499D-A612-183395D8C0CC} = {22DA4BB1-E15B-4762-9506-695E378A3557}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{7CB50320-F0E0-48E5-9B37-D5797DC8D56E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -333,5 +348,21 @@ Global
 		{5AC3CD0B-EC6E-40DF-82F1-06BEEE926063}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5AC3CD0B-EC6E-40DF-82F1-06BEEE926063}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5AC3CD0B-EC6E-40DF-82F1-06BEEE926063}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9029C60D-D203-4DEC-83F2-4E4E6501E429}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9029C60D-D203-4DEC-83F2-4E4E6501E429}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9029C60D-D203-4DEC-83F2-4E4E6501E429}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9029C60D-D203-4DEC-83F2-4E4E6501E429}.Release|Any CPU.Build.0 = Release|Any CPU
+		{18CC4B07-D939-4A96-83A1-52342B505A2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18CC4B07-D939-4A96-83A1-52342B505A2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18CC4B07-D939-4A96-83A1-52342B505A2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18CC4B07-D939-4A96-83A1-52342B505A2B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71E965AA-5206-42C9-B944-F54AF2EC5551}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71E965AA-5206-42C9-B944-F54AF2EC5551}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71E965AA-5206-42C9-B944-F54AF2EC5551}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71E965AA-5206-42C9-B944-F54AF2EC5551}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E4158FBE-8CCE-499D-A612-183395D8C0CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4158FBE-8CCE-499D-A612-183395D8C0CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4158FBE-8CCE-499D-A612-183395D8C0CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4158FBE-8CCE-499D-A612-183395D8C0CC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
