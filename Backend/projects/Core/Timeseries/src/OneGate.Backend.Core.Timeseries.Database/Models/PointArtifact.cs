@@ -3,8 +3,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OneGate.Backend.Core.Timeseries.Database.Models
 {
-    [Table("series")]
-    public class PointSeries : Series
+    [Table("artifact")]
+    public class PointArtifact : Artifact
     {
         [Required] 
         [Column("value")]

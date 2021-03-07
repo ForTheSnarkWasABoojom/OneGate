@@ -14,7 +14,6 @@ using OneGate.Backend.Core.Timeseries.Database.Repository;
 
 namespace OneGate.Backend.Core.Timeseries.Api.Controllers
 {
-    [ApiVersion("1")]
     [Route(RouteBase + "layers")]
     public class LayersController : BaseController
     {
@@ -30,20 +29,20 @@ namespace OneGate.Backend.Core.Timeseries.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetLayersAsync([FromQuery] FilterLayersDto request)
+        public async Task<IActionResult> GetLayersAsync([FromQuery] FilterLayerDto request)
         {
             Expression<Func<Layer, bool>> filter = p => true;
             var limits = new QueryLimits(request.Shift, request.Count);
 
             filter
-                .FilterBy(p => p.Id == request.Id)
+                .FilterBy(p => p.OwnerId == request.OwnerId, request.OwnerId)
                 .FilterBy(p => p.AssetId == request.AssetId, request.AssetId)
-                .FilterBy(p => p.IsMaster == request.IsMaster, request.IsMaster);
+                .FilterBy(p => p.Interval == request.Interval, request.Interval);
 
-            var layers = await _layers.FilterAsync(filter, limits: limits);
+            var assets = await _layers.FilterAsync(filter, limits: limits);
 
-            var layersDto = _mapper.Map<IEnumerable<LayerDto>>(layers);
-            return Ok(layersDto);
+            var assetsDto = _mapper.Map<IEnumerable<LayerDto>>(assets);
+            return Ok(assetsDto);
         }
     }
 }

@@ -6,7 +6,7 @@ using Flurl.Http;
 using Microsoft.Extensions.Options;
 using OneGate.Backend.Core.Shared.Api.Client;
 using OneGate.Backend.Core.Timeseries.Api.Contracts.Layer;
-using OneGate.Backend.Core.Timeseries.Api.Contracts.Series;
+using OneGate.Backend.Core.Timeseries.Api.Contracts.Ohlc;
 
 namespace OneGate.Backend.Core.Timeseries.Api.Client
 {
@@ -19,22 +19,12 @@ namespace OneGate.Backend.Core.Timeseries.Api.Client
             _baseUrl = options.Value.BaseUri;
         }
 
-        public async Task<IEnumerable<SeriesDto>> GetTimeseriesAsync(FilterSeriesDto request)
+        public async Task<IEnumerable<OhlcDto>> GetOhlcsAsync(FilterOhlcDto request)
         {
             var result = await _baseUrl
-                .AppendPathSegment("timeseries")
+                .AppendPathSegment("ohlcs")
                 .SetQueryParamsFromModel(request)
-                .GetJsonAsync<IEnumerable<SeriesDto>>();
-
-            return result;
-        }
-        
-        public async Task<IEnumerable<LayerDto>> GetLayersAsync(FilterLayersDto request)
-        {
-            var result = await _baseUrl
-                .AppendPathSegment("layer")
-                .SetQueryParamsFromModel(request)
-                .GetJsonAsync<IEnumerable<LayerDto>>();
+                .GetJsonAsync<IEnumerable<OhlcDto>>();
 
             return result;
         }

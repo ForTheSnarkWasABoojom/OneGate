@@ -4,8 +4,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OneGate.Backend.Core.Timeseries.Database.Models
 {
-    [Table("series")]
-    public abstract class Series
+    [Table("artifact")]
+    public abstract class Artifact
     {
         [Key]
         [Required]
@@ -19,10 +19,6 @@ namespace OneGate.Backend.Core.Timeseries.Database.Models
         [Required]
         [Column("layer_id")]
         public int LayerId { get; set; }
-        
-        [Required]
-        [Column("interval")] 
-        public string Interval { get; set; }
 
         [Required]
         [Column("timestamp")] 

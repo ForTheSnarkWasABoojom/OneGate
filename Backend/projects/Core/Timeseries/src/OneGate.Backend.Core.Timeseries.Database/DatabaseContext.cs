@@ -21,26 +21,38 @@ namespace OneGate.Backend.Core.Timeseries.Database
             modelBuilder.Entity<Layer>()
                 .HasIndex(x => new
                 {
+                    x.OwnerId,
                     x.AssetId,
-                    x.IsMaster
+                    x.Interval
                 })
                 .IsUnique();
 
-            modelBuilder.Entity<Series>()
+            modelBuilder.Entity<Artifact>()
                 .HasIndex(x => new
                 {
+                    x.Type,
                     x.LayerId,
                     x.Timestamp
                 })
                 .IsUnique();
+            
+            modelBuilder.Entity<Ohlc>()
+                .HasIndex(x => new
+                {
+                    x.AssetId,
+                    x.Interval,
+                    x.Timestamp
+                })
+                .IsUnique();
 
-            modelBuilder.Entity<Series>()
+            modelBuilder.Entity<Artifact>()
                 .HasDiscriminator(x => x.Type)
-                .HasValue<OhlcSeries>("OHLC")
-                .HasValue<PointSeries>("POINT");
+                .HasValue<PointArtifact>("POINT")
+                .HasValue<AdviceArtifact>("ADVICE");
         }
-
+        
+        public DbSet<Ohlc> Ohlcs { get; set; }
         public DbSet<Layer> Layers { get; set; }
-        public DbSet<Series> Series { get; set; }
+        public DbSet<Artifact> Artifacts { get; set; }
     }
 }

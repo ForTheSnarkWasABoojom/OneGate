@@ -6,8 +6,8 @@ using OneGate.Backend.Core.Timeseries.Database.Models;
 
 namespace OneGate.Backend.Core.Timeseries.Database.Repository
 {
-    public interface ISeriesRepository : IRepository<Series>
+    public interface IOhlcRepository : IRepository<Ohlc>
     {
-        public Task<IEnumerable<Series>> AddOrUpdateAsync(IEnumerable<Series> entity, DateTime createdAt = default);
+        public Task<List<Ohlc>> AddOrUpdateRangeAsync(IEnumerable<Ohlc> entity, DateTime createdAt = default);
     }
 }

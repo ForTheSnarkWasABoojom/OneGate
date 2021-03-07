@@ -1,12 +1,12 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace OneGate.Backend.Gateway.User.Api.Contracts.Series
+namespace OneGate.Backend.Core.Timeseries.Api.Contracts.Artifact
 {
     [JsonConverter(typeof(StringEnumConverter))]
-    public enum SeriesType
+    public enum ArtifactTypeDto
     {
         POINT,
-        OHLC
+        ADVICE
     }
 }

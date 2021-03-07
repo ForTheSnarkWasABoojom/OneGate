@@ -10,25 +10,21 @@ namespace OneGate.Backend.Core.Timeseries.Worker.Services
 {
     public class SeriesService : ISeriesService
     {
-        private readonly ILayerRepository _layers;
-        private readonly ISeriesRepository _series;
+        private readonly IOhlcRepository _ohlcs;
         private readonly IMapper _mapper;
 
-        public SeriesService(IMapper mapper, ILayerRepository layers, ISeriesRepository series)
+        public SeriesService(IMapper mapper, IOhlcRepository ohlcs)
         {
             _mapper = mapper;
-            _layers = layers;
-            _series = series;
+            _ohlcs = ohlcs;
         }
 
         public async Task UpdateMarketDataAsync(MarketDataUpdated request)
         {
-            var masterLayer = await _layers.FindMasterAsync(request.AssetId);
+            var ohlcRange = _mapper.Map<IEnumerable<Ohlc>>(request.Ohlc).ToList();
+            ohlcRange.ForEach(p => p.AssetId = request.AssetId);
             
-            var ohlcRange = _mapper.Map<IEnumerable<OhlcSeries>>(request.Ohlc).ToList();
-            ohlcRange.ForEach(p => p.LayerId = masterLayer.Id);
-            
-            await _series.AddOrUpdateAsync(ohlcRange, request.CreatedAt);
+            await _ohlcs.AddOrUpdateRangeAsync(ohlcRange, request.CreatedAt);
         }
     }
 }

@@ -3,7 +3,7 @@ using OneGate.Backend.Core.Timeseries.Database.Models;
 
 namespace OneGate.Backend.Core.Timeseries.Database.Repository
 {
-    public interface ILayerRepository : IRepository<Layer>
+    public interface IArtifactRepository : IRepository<Artifact>
     {
     }
 }

@@ -3,9 +3,9 @@ using System.Drawing;
 using ReactiveUI;
 using ScottPlot.Avalonia;
 using ScottPlot;
-using OneGate.Backend.Gateway.User.Api.Contracts.Series;
 using ScottPlot.Plottable;
 using System.Collections.Generic;
+using OneGate.Backend.Gateway.User.Api.Contracts.Timeseries;
 
 namespace OneGate.Frontend.DesktopApp.ViewModels.Frames
 {
@@ -21,8 +21,8 @@ namespace OneGate.Frontend.DesktopApp.ViewModels.Frames
 
         private double[] _tickPositions;
 
-        private ObservableCollection<OhlcSeriesModel> _ohlcData;
-        public ObservableCollection<OhlcSeriesModel> OhlcData
+        private ObservableCollection<OhlcModel> _ohlcData;
+        public ObservableCollection<OhlcModel> OhlcData
         {
             get => _ohlcData;
             set
@@ -48,7 +48,7 @@ namespace OneGate.Frontend.DesktopApp.ViewModels.Frames
         /// <summary>
         /// Creates an OHLC graph.
         /// </summary>
-        public GraphViewModel(ObservableCollection<OhlcSeriesModel> data)
+        public GraphViewModel(ObservableCollection<OhlcModel> data)
         {
             OhlcData = data;
             _layers = new List<GraphLayer>();
@@ -136,7 +136,7 @@ namespace OneGate.Frontend.DesktopApp.ViewModels.Frames
         /// <summary>
         /// Converts the OhlcSeries collection to an array of data for AvaPlot.
         /// </summary>
-        public static OHLC[] ConvertToScottPlotOhlc(ObservableCollection<OhlcSeriesModel> data)
+        public static OHLC[] ConvertToScottPlotOhlc(ObservableCollection<OhlcModel> data)
         {
             var ohlcs = new OHLC[data.Count];
             for (int i = 0; i < data.Count; ++i)
@@ -149,14 +149,14 @@ namespace OneGate.Frontend.DesktopApp.ViewModels.Frames
         /// <summary>
         /// Converts an instance of OhlcSeries to a data instance for AvaPlot.
         /// </summary>
-        public static OHLC ConvertToScottPlotOhlc(OhlcSeriesModel data)
+        public static OHLC ConvertToScottPlotOhlc(OhlcModel data)
             => new OHLC(data.Open, data.High, data.Low, data.Close, data.Timestamp.ToOADate());
 
         /// <summary>
         /// Converts the OhlcSeries collection to an array of tick labels.
         /// This is a description of the abscissa axis.
         /// </summary>
-        private void ConvertToTickLabels(ObservableCollection<OhlcSeriesModel> data)
+        private void ConvertToTickLabels(ObservableCollection<OhlcModel> data)
         {
             _tickLabels = new string[data.Count / 7];
             _tickPositions = new double[data.Count / 7];
@@ -170,16 +170,16 @@ namespace OneGate.Frontend.DesktopApp.ViewModels.Frames
         /// <summary>
         /// Converts an instance of OhlcSeries to a tick label.
         /// </summary>
-        public static string ConvertToTickLabels(OhlcSeriesModel data)
+        public static string ConvertToTickLabels(OhlcModel data)
             => data.Timestamp.ToString().Split(' ')[0];
 
         /// <summary>
         /// Converts OHLC data to the coordinates of the graph points by Close.
         /// </summary>
-        public static double[][] ConvertToPointGraphCoordinates(ObservableCollection<OhlcSeriesModel> data)
+        public static double[][] ConvertToPointGraphCoordinates(ObservableCollection<OhlcModel> data)
             => new double[][] { ConvertToArrayOfX(data), ConvertToArrayOfY(data) };
 
-        public static double[] ConvertToArrayOfX(ObservableCollection<OhlcSeriesModel> data)
+        public static double[] ConvertToArrayOfX(ObservableCollection<OhlcModel> data)
         {
             var xS = new double[data.Count];
             for (int i = 0; i < data.Count; ++i)
@@ -189,7 +189,7 @@ namespace OneGate.Frontend.DesktopApp.ViewModels.Frames
             return xS;
         }
 
-        public static double[] ConvertToArrayOfY(ObservableCollection<OhlcSeriesModel> data)
+        public static double[] ConvertToArrayOfY(ObservableCollection<OhlcModel> data)
         {
             var yS = new double[data.Count];
             for (int i = 0; i < data.Count; ++i)
@@ -202,7 +202,7 @@ namespace OneGate.Frontend.DesktopApp.ViewModels.Frames
         /// <summary>
         /// Calculates the coordinates of the points of the moving line.
         /// </summary>
-        public static double[][] CalculateMovingAverage(ObservableCollection<OhlcSeriesModel> data)
+        public static double[][] CalculateMovingAverage(ObservableCollection<OhlcModel> data)
         {
             int period = (int)(data[data.Count - 1].Timestamp - data[0].Timestamp).TotalDays;
             double[] buffer = new double[period];

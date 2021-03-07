@@ -12,13 +12,17 @@ namespace OneGate.Backend.Core.Timeseries.Database.Models
         public int Id { get; set; }
         
         [Required]
+        [Column("owner_id")]
+        public int OwnerId { get; set; }
+        
+        [Required]
         [Column("asset_id")]
         public int AssetId { get; set; }
-
-        [Required]
-        [Column("is_master")]
-        public bool IsMaster { get; set; }
         
+        [Required]
+        [Column("interval")]
+        public string Interval { get; set; }
+
         [MaxLength(100)]
         [Column("name")]
         public string Name { get; set; }

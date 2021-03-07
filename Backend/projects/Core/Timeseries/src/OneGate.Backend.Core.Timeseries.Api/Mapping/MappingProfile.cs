@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
-using OneGate.Backend.Core.Timeseries.Api.Contracts.Series;
+using OneGate.Backend.Core.Timeseries.Api.Contracts.Artifact;
+using OneGate.Backend.Core.Timeseries.Api.Contracts.Layer;
+using OneGate.Backend.Core.Timeseries.Api.Contracts.Ohlc;
 using OneGate.Backend.Core.Timeseries.Database.Models;
 
 namespace OneGate.Backend.Core.Timeseries.Api.Mapping
@@ -8,16 +10,28 @@ namespace OneGate.Backend.Core.Timeseries.Api.Mapping
     {
         public MappingProfile()
         {
-            CreateMapForSeries();
+            CreateMapForOhlc();
+            CreateMapForLayer();
+            CreateMapForArtifact();
         }
 
-        private void CreateMapForSeries()
+        private void CreateMapForLayer()
         {
-            CreateMap<Series, SeriesDto>()
-                .IncludeAllDerived();
+            CreateMap<Layer, LayerDto>();
+        }
 
-            CreateMap<OhlcSeries, OhlcSeriesDto>();
-            CreateMap<PointSeries, PointSeriesDto>();
+        private void CreateMapForOhlc()
+        {
+            CreateMap<Ohlc, OhlcDto>();
+        }
+        
+        private void CreateMapForArtifact()
+        {
+            CreateMap<Artifact, ArtifactDto>()
+                .IncludeAllDerived();
+            
+            CreateMap<PointArtifact, PointArtifactDto>();
+            CreateMap<AdviceArtifact, PointArtifactDto>();
         }
     }
 }

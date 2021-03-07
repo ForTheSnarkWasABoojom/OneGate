@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using OneGate.Backend.Gateway.User.Api.Contracts.Series;
+using OneGate.Backend.Gateway.User.Api.Contracts.Timeseries;
 using ReactiveUI;
 
 namespace OneGate.Frontend.DesktopApp.ViewModels.Frames
@@ -123,8 +123,8 @@ namespace OneGate.Frontend.DesktopApp.ViewModels.Frames
             }
         }
 
-        private ObservableCollection<OhlcSeriesModel> _ohlcData;
-        public ObservableCollection<OhlcSeriesModel> OhlcData
+        private ObservableCollection<OhlcModel> _ohlcData;
+        public ObservableCollection<OhlcModel> OhlcData
         {
             get => _ohlcData;
             set => this.RaiseAndSetIfChanged(ref _ohlcData, value);
@@ -210,12 +210,12 @@ namespace OneGate.Frontend.DesktopApp.ViewModels.Frames
         /// </summary>
         private void GenerateOhlcData()
         {
-            OhlcData = new ObservableCollection<OhlcSeriesModel>();
+            OhlcData = new ObservableCollection<OhlcModel>();
             var date = DateTime.Now;
             for (int i = 0; i < 100; ++i)
             {
                 var random = new Random();
-                OhlcData.Add(new OhlcSeriesModel()
+                OhlcData.Add(new OhlcModel()
                 {
                     Open = random.NextDouble() * random.Next(1, 100),
                     High = random.NextDouble() * random.Next(1, 100),

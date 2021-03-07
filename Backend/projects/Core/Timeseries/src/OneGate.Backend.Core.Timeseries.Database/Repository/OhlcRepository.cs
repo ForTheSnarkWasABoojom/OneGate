@@ -8,31 +8,31 @@ using OneGate.Backend.Core.Timeseries.Database.Models;
 
 namespace OneGate.Backend.Core.Timeseries.Database.Repository
 {
-    public class SeriesRepository : GenericRepository<Series>, ISeriesRepository
+    public class OhlcRepository : GenericRepository<Ohlc>, IOhlcRepository
     {
         private readonly DatabaseContext _db;
 
-        public SeriesRepository(DatabaseContext db) : base(db, db.Series)
+        public OhlcRepository(DatabaseContext db) : base(db, db.Ohlcs)
         {
             _db = db;
         }
 
-        public async Task<IEnumerable<Series>> AddOrUpdateAsync(IEnumerable<Series> entity, DateTime createdAt = default)
+        public async Task<List<Ohlc>> AddOrUpdateRangeAsync(IEnumerable<Ohlc> entity, DateTime createdAt = default)
         {
-            var seriesRange = entity.ToArray();
+            var seriesRange = entity.ToList();
             var lastUpdate = (createdAt == default) ? DateTime.Now : createdAt;
-            
-            await _db.Series
+
+            await _db.Ohlcs
                 .UpsertRange(seriesRange)
                 .On(x => new
                 {
-                    x.LayerId,
+                    x.AssetId,
                     x.Interval,
                     x.Timestamp
                 })
                 .UpdateIf(p => p.LastUpdate < lastUpdate)
                 .RunAsync();
-            
+
             return seriesRange;
         }
     }

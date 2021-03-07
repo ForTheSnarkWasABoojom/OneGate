@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using OneGate.Backend.Core.Assets.Api.Contracts.Asset;
 using OneGate.Backend.Core.Assets.Api.Contracts.Exchange;
-using OneGate.Backend.Core.Timeseries.Api.Contracts.Series;
 using OneGate.Backend.Core.Users.Api.Contracts.Account;
 using OneGate.Backend.Core.Users.Api.Contracts.Order;
 using OneGate.Backend.Core.Users.Api.Contracts.Order.Limit;
@@ -16,7 +15,6 @@ using OneGate.Backend.Gateway.User.Api.Contracts.Order.Limit;
 using OneGate.Backend.Gateway.User.Api.Contracts.Order.Market;
 using OneGate.Backend.Gateway.User.Api.Contracts.Order.Stop;
 using OneGate.Backend.Gateway.User.Api.Contracts.Portfolio;
-using OneGate.Backend.Gateway.User.Api.Contracts.Series;
 
 namespace OneGate.Backend.Gateway.User.Api.Mapping
 {
@@ -30,22 +28,9 @@ namespace OneGate.Backend.Gateway.User.Api.Mapping
             
             CreateMapForPortfolio();
 
-            CreateMapForSeries();
-            
             CreateMapForAsset();
             
             CreateMapForExchange();
-        }
-
-        private void CreateMapForSeries()
-        {
-            CreateMap<SeriesDto, SeriesModel>()
-                .IncludeAllDerived();
-            
-            CreateMap<PointSeriesDto, PointSeriesModel>();
-            CreateMap<OhlcSeriesDto, OhlcSeriesModel>();
-            
-            CreateMap<FilterSeriesRequest, FilterSeriesDto>();
         }
 
         private void CreateMapForAccount()
