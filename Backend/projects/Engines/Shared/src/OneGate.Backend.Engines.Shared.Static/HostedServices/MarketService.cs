@@ -66,11 +66,11 @@ namespace OneGate.Backend.Engines.Shared.Static.HostedServices
 
         private async Task PublishSeriesAsync(int assetId, List<OhlcSeries> ohlcRange, CancellationToken cancellationToken)
         {
-            var ohlcRangeDtos = _mapper.Map<List<OhlcSeriesDto>>(ohlcRange);
+            var ohlcsDtos = _mapper.Map<List<OhlcSeriesDto>>(ohlcRange);
             await _bus.Publish(new MarketDataUpdated
             {
                 AssetId = assetId,
-                Ohlc = ohlcRangeDtos
+                Ohlcs = ohlcsDtos
             }, cancellationToken);
         }
 

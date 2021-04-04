@@ -140,6 +140,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Core.Assets
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Core.Analytics.Database.Migrations", "Backend\projects\Core\Analytics\src\OneGate.Backend.Core.Analytics.Database.Migrations\OneGate.Backend.Core.Analytics.Database.Migrations.csproj", "{5394BF57-2E62-45ED-A408-8B9DBDE4CC55}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Core.Analytics.Scheduler", "Backend\projects\Core\Analytics\src\OneGate.Backend.Core.Analytics.Scheduler\OneGate.Backend.Core.Analytics.Scheduler.csproj", "{B6046B48-BC8F-4B01-BB0B-0B721728142F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -214,6 +216,7 @@ Global
 		{F2E084B5-6827-4911-A81B-65143CDFF55D} = {3BD34714-C4A4-423D-9DBC-1E38A4801F52}
 		{09CBB9B7-8B11-4F78-A310-90F4CEC51E39} = {2CF5B7A0-5EA8-4F36-932C-1D562EA8C5A6}
 		{7B532B3D-5F04-4076-8BE7-AA0A38EE59C5} = {3BCA344A-88B1-4F4C-8BDD-10675FEEF7E9}
+		{B6046B48-BC8F-4B01-BB0B-0B721728142F} = {22DA4BB1-E15B-4762-9506-695E378A3557}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{7CB50320-F0E0-48E5-9B37-D5797DC8D56E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -420,5 +423,9 @@ Global
 		{7B532B3D-5F04-4076-8BE7-AA0A38EE59C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7B532B3D-5F04-4076-8BE7-AA0A38EE59C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7B532B3D-5F04-4076-8BE7-AA0A38EE59C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6046B48-BC8F-4B01-BB0B-0B721728142F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6046B48-BC8F-4B01-BB0B-0B721728142F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6046B48-BC8F-4B01-BB0B-0B721728142F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6046B48-BC8F-4B01-BB0B-0B721728142F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -10,7 +10,7 @@ namespace OneGate.Backend.Transport.Contracts.Timeseries
         [JsonProperty("asset_id")]
         public int AssetId { get; set; }
         
-        [JsonProperty("ohlc")]
-        public List<OhlcSeriesDto> Ohlc { get; set; }
+        [JsonProperty("ohlcs")]
+        public List<OhlcSeriesDto> Ohlcs { get; set; }
     }
 }

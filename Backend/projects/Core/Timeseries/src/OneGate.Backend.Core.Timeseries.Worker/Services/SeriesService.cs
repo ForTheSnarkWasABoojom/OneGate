@@ -21,10 +21,10 @@ namespace OneGate.Backend.Core.Timeseries.Worker.Services
 
         public async Task UpdateMarketDataAsync(MarketDataUpdated request)
         {
-            var ohlcRange = _mapper.Map<IEnumerable<Ohlc>>(request.Ohlc).ToList();
-            ohlcRange.ForEach(p => p.AssetId = request.AssetId);
+            var ohlcs = _mapper.Map<IEnumerable<Ohlc>>(request.Ohlcs).ToList();
+            ohlcs.ForEach(p => p.AssetId = request.AssetId);
             
-            await _ohlcs.AddOrUpdateRangeAsync(ohlcRange, request.CreatedAt);
+            await _ohlcs.AddOrUpdateRangeAsync(ohlcs, request.CreatedAt);
         }
     }
 }
