@@ -21,7 +21,7 @@ namespace OneGate.Backend.Gateway.User.Api.Client
         public Task<AssetModel> GetAssetAsync(int id);
 
 
-        public Task CreateTokenAsync(AuthRequest request);
+        public Task<TokenResponse> CreateTokenAsync(AuthRequest request);
 
         public Task<IEnumerable<ExchangeModel>> GetExchangesRangeAsync(FilterExchangesRequest request);
 

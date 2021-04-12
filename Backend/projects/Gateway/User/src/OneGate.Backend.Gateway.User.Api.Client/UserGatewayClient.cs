@@ -59,11 +59,14 @@ namespace OneGate.Backend.Gateway.User.Api.Client
             return result; 
         }
 
-        public async Task CreateTokenAsync(AuthRequest request)
+        public async Task<TokenResponse> CreateTokenAsync(AuthRequest request)
         {
             var result = await _baseUrl
                 .AppendPathSegment("credentials/auth")
-                .PostJsonAsync(request);
+                .PostJsonAsync(request)
+                .ReceiveJson<TokenResponse>();
+            
+            return result;
         }
         
         
