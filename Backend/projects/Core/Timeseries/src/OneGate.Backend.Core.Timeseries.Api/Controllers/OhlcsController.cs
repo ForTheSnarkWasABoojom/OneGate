@@ -33,8 +33,8 @@ namespace OneGate.Backend.Core.Timeseries.Api.Controllers
         {
             Expression<Func<Ohlc, bool>> filter = p => true;
             var limits = new QueryLimits(request.Shift, request.Count);
-
-            filter
+            
+            filter = filter
                 .FilterBy(p => p.AssetId == request.AssetId)
                 .FilterBy(p => p.Interval == request.Interval)
                 .FilterBy(p => p.Timestamp >= request.StartTimestamp, request.StartTimestamp)

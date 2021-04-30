@@ -35,7 +35,7 @@ namespace OneGate.Backend.Core.Timeseries.Api.Controllers
             Expression<Func<Artifact, bool>> filter = p => true;
             var limits = new QueryLimits(request.Shift, request.Count);
 
-            filter
+            filter = filter
                 .FilterBy(p => p.LayerId == request.LayerId)
                 .FilterBy(p => p.Timestamp >= request.StartTimestamp, request.StartTimestamp)
                 .FilterBy(p => p.Timestamp <= request.EndTimestamp, request.EndTimestamp);

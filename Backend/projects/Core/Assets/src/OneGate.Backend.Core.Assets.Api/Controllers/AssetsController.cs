@@ -35,7 +35,7 @@ namespace OneGate.Backend.Core.Assets.Api.Controllers
             Expression<Func<Asset, bool>> filter = p => true;
             var limits = new QueryLimits(request.Shift, request.Count);
 
-            filter
+            filter = filter
                 .FilterBy(p => p.Id == request.Id, request.Id)
                 .FilterBy(p => p.Ticker == request.Ticker, request.Ticker)
                 .FilterBy(p => p.ExchangeId == request.ExchangeId, request.ExchangeId);

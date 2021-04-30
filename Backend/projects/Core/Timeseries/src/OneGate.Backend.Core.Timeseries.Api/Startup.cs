@@ -9,6 +9,7 @@ using OneGate.Backend.Core.Shared.Api.Middleware;
 using OneGate.Backend.Core.Shared.Database;
 using OneGate.Backend.Core.Timeseries.Api.Mapping;
 using OneGate.Backend.Core.Timeseries.Database;
+using OneGate.Backend.Core.Timeseries.Database.Repository;
 using Prometheus;
 
 namespace OneGate.Backend.Core.Timeseries.Api
@@ -56,6 +57,9 @@ namespace OneGate.Backend.Core.Timeseries.Api
 
             var connectionString = ConnectionString.Build(dbOptions);
             services.AddDbContext<DatabaseContext>(p => p.UseNpgsql(connectionString));
+            
+            // Repositories.
+            services.AddTransient<IOhlcRepository, OhlcRepository>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

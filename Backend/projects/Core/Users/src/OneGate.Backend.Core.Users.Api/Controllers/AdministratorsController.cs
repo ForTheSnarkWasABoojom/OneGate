@@ -44,7 +44,7 @@ namespace OneGate.Backend.Core.Users.Api.Controllers
             Expression<Func<Administrator, bool>> filter = p => true;
             var limits = new QueryLimits(request.Shift, request.Count);
 
-            filter
+            filter = filter
                 .FilterBy(p => p.Id == request.Id, request.Id)
                 .FilterBy(p => p.Email == request.Email, request.Email)
                 .FilterBy(p => p.Password == request.Password, request.Password);

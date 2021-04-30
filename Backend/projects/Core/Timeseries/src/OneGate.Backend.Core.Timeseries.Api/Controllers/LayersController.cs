@@ -34,7 +34,7 @@ namespace OneGate.Backend.Core.Timeseries.Api.Controllers
             Expression<Func<Layer, bool>> filter = p => true;
             var limits = new QueryLimits(request.Shift, request.Count);
 
-            filter
+            filter = filter
                 .FilterBy(p => p.OwnerId == request.OwnerId, request.OwnerId)
                 .FilterBy(p => p.AssetId == request.AssetId, request.AssetId)
                 .FilterBy(p => p.Interval == request.Interval, request.Interval);

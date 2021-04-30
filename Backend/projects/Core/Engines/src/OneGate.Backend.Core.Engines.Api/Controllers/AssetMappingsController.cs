@@ -44,7 +44,7 @@ namespace OneGate.Backend.Core.Engines.Api.Controllers
             Expression<Func<AssetMapping, bool>> filter = p => true;
             var limits = new QueryLimits(request.Shift, request.Count);
 
-            filter
+            filter = filter
                 .FilterBy(p => p.Id == request.Id, request.Id)
                 .FilterBy(p => p.AssetId == request.AssetId, request.AssetId)
                 .FilterBy(p => p.EngineId == request.EngineId, request.EngineId);
