@@ -1,5 +1,6 @@
 import json
 import os
+from datetime import datetime
 from typing import Optional
 
 from ContractModels.AnalyticsReportCreated import AnalyticsReportCreated
@@ -18,10 +19,10 @@ class TransportPublisher(TransportPublisherABC):
             try:
                 # Perform connection
                 output_connection = await connect(
-                    url=os.environ.get('OneGate__RabbitMQ__URL'),
-                    host=os.environ.get('OneGate__RabbitMq_Host'),
-                    login=os.environ.get('OneGate__RabbitMQ_User'),
-                    password=os.environ.get('OneGate__RabbitMQ_Password'),
+                    url=os.environ.get('OneGate__RabbitMq__URL'),
+                    host=os.environ.get('OneGate__RabbitMq__Host'),
+                    login=os.environ.get('OneGate__RabbitMQ__User'),
+                    password=os.environ.get('OneGate__RabbitMQ__Password'),
                     loop=self.loop
                 )
                 # Creating a channel
@@ -30,7 +31,8 @@ class TransportPublisher(TransportPublisherABC):
                     self.output_queue_name,
                     durable=True
                 )
-                await self.send_queue.bind(routing_key=self.output_exchange_name)
+                self.output_exchange = await self.send_channel.declare_exchange(self.output_exchange_name)
+                await self.send_queue.bind(routing_key=self.output_exchange_name, exchange=self.output_exchange)
                 is_connected_output = False
             except Exception as e:
                 await asyncio.sleep(1)
@@ -40,19 +42,21 @@ class TransportPublisher(TransportPublisherABC):
         while is_connected_input:
             try:
                 self.input_connection = await connect(
-                    url=os.environ.get('OneGate__RabbitMQ__URL'),
-                    host=os.environ.get('OneGate__RabbitMq_Host'),
-                    login=os.environ.get('OneGate__RabbitMQ_User'),
-                    password=os.environ.get('OneGate__RabbitMQ_Password'),
+                    url=os.environ.get('OneGate__RabbitMq__URL'),
+                    host=os.environ.get('OneGate__RabbitMq__Host'),
+                    login=os.environ.get('OneGate__RabbitMQ__User'),
+                    password=os.environ.get('OneGate__RabbitMQ__Password'),
                     loop=self.loop)
 
                 self.receive_channel = await self.input_connection.channel()
-                self.receive_channel.set_qos(prefetch_count=1)
+
+                # await self.receive_channel.set_qos(prefetch_count=1)
                 self.receive_queue = await self.receive_channel.declare_queue(
                     self.input_queue_name,
                     durable=True
                 )
-                await self.receive_queue.bind(routing_key=self.input_exchange_name)
+                self.input_exchange = await self.receive_channel.declare_exchange(self.input_exchange_name)
+                await self.receive_queue.bind(routing_key=self.input_exchange_name, exchange=self.input_exchange)
                 # Blocking connection
                 await self.receive_queue.consume(callback_func)
                 is_connected_input = False
@@ -68,15 +72,17 @@ class TransportPublisher(TransportPublisherABC):
         report = json.loads(complex_json.body)
         return parse_obj_as(CreateAnalyticsReport, report)
 
-    async def send_message(self, job_id: int, buy_probability: Optional[float] = 0,
+    async def send_message(self, timestamp: datetime, job_id: int, buy_probability: Optional[float] = 0,
                            sell_probability: Optional[float] = 0, hold_probability: Optional[float] = 0) -> None:
         response = AnalyticsReportCreated(buy_probability=buy_probability,
                                           sell_probability=sell_probability,
                                           hold_probability=hold_probability,
-                                          job_id=job_id)
+                                          job_id=job_id,
+                                          timestamp=timestamp)
         message = Message(
-            body=response.json())
+            body=bytes(response.json(), encoding='utf-8'))
 
-        await self.send_channel.publish(
+        await self.output_exchange.publish(
             message, routing_key=self.output_exchange_name,
         )
+

@@ -10,7 +10,7 @@ from ContractModels.CreateAnalyticsReport import CreateAnalyticsReport
 
 class OhlcCache:
     data: Dict[str, Dict[str, pd.DataFrame]]
-    intervals: List[str] = ['m1', 'm5', 'm15', 'm30', 'H1', 'H4', 'D1', 'M1']
+    intervals: List[str] = ['m1', 'm5', 'm15', 'm30', 'H1', 'H4', 'D', 'M1']
     df_columns: List[str] = ['high', 'low', 'open', 'close', 'timestamp']
 
     def __init__(self):
@@ -32,7 +32,7 @@ class OhlcCache:
         df = self.data[asset_id][interval]
 
         if len(df) == 0:
-            start_date = timestamp - timedelta(days=window_size + 1)
+            start_date = timestamp - timedelta(days=window_size + 100)
         else:
             last_line = df.iloc[-1]
             start_date = last_line['timestamp']
@@ -50,7 +50,7 @@ class OhlcCache:
         """
         # check if asset_id already exists
         df_for_id = self.data.get(asset_id)
-        if not df_for_id:
+        if df_for_id is None:
             self.data[asset_id] = {}
             for interval in OhlcCache.intervals:
                 self.data[asset_id][interval] = pd.DataFrame(
@@ -58,6 +58,6 @@ class OhlcCache:
 
         # check if dataframe already exists
         df = self.data.get(asset_id).get(interval)
-        if not df:
+        if df is None:
             self.data[asset_id][interval] = pd.DataFrame(
                 columns=OhlcCache.df_columns)
