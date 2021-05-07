@@ -1,0 +1,3 @@
+image.tag: 12.5.0
+postgresqlUsername: "test"
+postgresqlPassword: "test"

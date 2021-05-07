@@ -1,0 +1,6 @@
+app: engines
+environment: local
+
+container:
+  image: onegate/engines-fake-worker-api
+  version: 1.0.0

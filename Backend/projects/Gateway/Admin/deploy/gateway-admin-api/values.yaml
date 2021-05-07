@@ -1,0 +1,6 @@
+app: gateway
+environment: local
+
+container:
+  image: onegate/gateway-admin-api
+  version: 1.0.0

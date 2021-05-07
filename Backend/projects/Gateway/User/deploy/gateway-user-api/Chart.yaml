@@ -1,0 +1,3 @@
+﻿apiVersion: v2
+name: gateway-user-api
+version: 1.0.0

@@ -1,0 +1,7 @@
+image.tag: 3.8.10
+persistence.enabled: true
+persistence:
+  size: 10Gi
+auth:
+  username: "test"
+  password: "test"

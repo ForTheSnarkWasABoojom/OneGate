@@ -1,0 +1,6 @@
+app: core
+environment: local
+
+container:
+  image: onegate/core-asset-api
+  version: 1.0.0
