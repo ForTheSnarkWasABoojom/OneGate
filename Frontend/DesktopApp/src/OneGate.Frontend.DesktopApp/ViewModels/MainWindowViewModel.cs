@@ -1,4 +1,6 @@
-﻿using ReactiveUI;
+﻿using Microsoft.Extensions.Options;
+using OneGate.Frontend.Client;
+using ReactiveUI;
 
 namespace OneGate.Frontend.DesktopApp.ViewModels
 {
@@ -22,9 +24,9 @@ namespace OneGate.Frontend.DesktopApp.ViewModels
         /// <summary>
         /// The constructor initializes the ServerApi and Content properties.
         /// </summary>
-        public MainWindowViewModel()
+        public MainWindowViewModel(IOptions<OneGateClientOptions> options)
         {
-            Content = new SignInViewModel();
+            Content = new SignInViewModel(options);
             //Content = new MainViewModel();
         }
     }

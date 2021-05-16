@@ -1,6 +1,9 @@
-﻿using System.Reactive;
+﻿using System;
+using System.Reactive;
 using System.Threading.Tasks;
-//using OneGate.Frontend.ApiLibrary;
+using Microsoft.Extensions.Options;
+using OneGate.Backend.Gateway.User.Api.Contracts.Credentials;
+using OneGate.Frontend.Client;
 using ReactiveUI;
 
 namespace OneGate.Frontend.DesktopApp.ViewModels
@@ -72,8 +75,9 @@ namespace OneGate.Frontend.DesktopApp.ViewModels
 
         public ReactiveCommand<Unit, Unit> RegistrationCommand { get; }
 
-        public SignInViewModel()
+        public SignInViewModel(IOptions<OneGateClientOptions> options)
         {
+            ConnectionOptions = options;
             SignInCommand = ReactiveCommand.CreateFromTask(SignInAsync);
             RegistrationCommand = ReactiveCommand.CreateFromTask(SwitchToRegistrationAsync);
         }
@@ -86,40 +90,43 @@ namespace OneGate.Frontend.DesktopApp.ViewModels
                 || string.IsNullOrWhiteSpace(_password));
 
         /// <summary>
-        /// Implements user authorization.
+        /// Processes the account login command.
         /// </summary>
         private async Task SignInAsync()
-        {
+        { 
             IsFormEnabled = false;
-            /*
             try
             {
-                var result = await OneGateApi.CreateTokenAsync(Configuration.EndpointUri, 
-                    new OAuthDto
-                    {
-                        Username = Email,
-                        Password = Password
-                    }, 
-                    new ClientKeyDto
-                    {
-                        ClientKey = Configuration.ClientKey
-                    });
-                var api = new OneGateApi(Configuration.EndpointUri, result.AccessToken);
-                BaseWindow.Content = new MainViewModel(api);
+                var session = await SignInAsync(ConnectionOptions, Email, Password);
+                BaseWindow.Content = new MainViewModel(ConnectionOptions, session);
             }
-            catch (OneGateApiException e)
+            catch (Exception e)
             {
                 Error = e.Message;
                 IsFormEnabled = true;
             }
-            */
-            BaseWindow.Content = new MainViewModel();
+        }
+
+        /// <summary>
+        /// Implements user authorization.
+        /// </summary>
+        public static async Task<OneGateClientSession> SignInAsync(IOptions<OneGateClientOptions> options, 
+            string username, string password)
+        {
+            var client = new OneGateClient(options);
+            var model = new AuthRequest()
+            {
+                Username = username,
+                Password = password
+            };
+            var result = await client.SignInAsync(model);
+            return new OneGateClientSession(result.AccessToken);
         }
 
         /// <summary>
         /// Implements the transition to the registration form.
         /// </summary>
         private async Task SwitchToRegistrationAsync()
-            => BaseWindow.Content = new SignUpViewModel();
+            => BaseWindow.Content = new SignUpViewModel(ConnectionOptions);
     }
 }

@@ -1,12 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30907.101
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Frontend", "Frontend", "{CA29249D-28FB-4E87-8D92-B6E49B9A3403}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backend", "Backend", "{CF69B503-BD2E-4CA4-91AC-E4A349DC906A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Transport", "Transport", "{D8C9C40E-BBB8-47CD-BCF4-B54D7529F7C6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Transport.Bus", "Backend\projects\Transport\src\OneGate.Backend.Transport.Bus\OneGate.Backend.Transport.Bus.csproj", "{7CB50320-F0E0-48E5-9B37-D5797DC8D56E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OneGate.Backend.Transport.Bus", "Backend\projects\Transport\src\OneGate.Backend.Transport.Bus\OneGate.Backend.Transport.Bus.csproj", "{7CB50320-F0E0-48E5-9B37-D5797DC8D56E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gateway", "Gateway", "{1FDB1DFE-F129-423C-BC5B-8C4963D11ED4}"
 EndProject
@@ -18,205 +21,138 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Users", "Users", "{C149E0EC
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Timeseries", "Timeseries", "{E52FC773-868B-4326-8638-DFBF333E756E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Core.Timeseries.Database", "Backend\projects\Core\Timeseries\src\OneGate.Backend.Core.Timeseries.Database\OneGate.Backend.Core.Timeseries.Database.csproj", "{78A42F55-C68D-48E5-8DCE-C7D177AFDEAC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OneGate.Backend.Core.Timeseries.Database", "Backend\projects\Core\Timeseries\src\OneGate.Backend.Core.Timeseries.Database\OneGate.Backend.Core.Timeseries.Database.csproj", "{78A42F55-C68D-48E5-8DCE-C7D177AFDEAC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Core.Timeseries.Worker", "Backend\projects\Core\Timeseries\src\OneGate.Backend.Core.Timeseries.Worker\OneGate.Backend.Core.Timeseries.Worker.csproj", "{A92160E6-899C-4372-9835-79A55F53501B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OneGate.Backend.Core.Timeseries.Worker", "Backend\projects\Core\Timeseries\src\OneGate.Backend.Core.Timeseries.Worker\OneGate.Backend.Core.Timeseries.Worker.csproj", "{A92160E6-899C-4372-9835-79A55F53501B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Core.Users.Database", "Backend\projects\Core\Users\src\OneGate.Backend.Core.Users.Database\OneGate.Backend.Core.Users.Database.csproj", "{F9499820-AFAD-4943-A9D8-72F26C0B0D0A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OneGate.Backend.Core.Users.Database", "Backend\projects\Core\Users\src\OneGate.Backend.Core.Users.Database\OneGate.Backend.Core.Users.Database.csproj", "{F9499820-AFAD-4943-A9D8-72F26C0B0D0A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Core.Users.Worker", "Backend\projects\Core\Users\src\OneGate.Backend.Core.Users.Worker\OneGate.Backend.Core.Users.Worker.csproj", "{C01FD71B-EC13-460A-AB6A-0AC27EF0FD58}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OneGate.Backend.Core.Users.Worker", "Backend\projects\Core\Users\src\OneGate.Backend.Core.Users.Worker\OneGate.Backend.Core.Users.Worker.csproj", "{C01FD71B-EC13-460A-AB6A-0AC27EF0FD58}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Fake", "Fake", "{CEC863FB-3B19-44F7-A26E-AE222E8E019F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Engines.Fake.Worker", "Backend\projects\Engines\Fake\src\OneGate.Backend.Engines.Fake.Worker\OneGate.Backend.Engines.Fake.Worker.csproj", "{90C2FB98-1D15-4790-B889-D8102C8105D1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OneGate.Backend.Engines.Fake.Worker", "Backend\projects\Engines\Fake\src\OneGate.Backend.Engines.Fake.Worker\OneGate.Backend.Engines.Fake.Worker.csproj", "{90C2FB98-1D15-4790-B889-D8102C8105D1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Engines.Fake.Static", "Backend\projects\Engines\Fake\src\OneGate.Backend.Engines.Fake.Static\OneGate.Backend.Engines.Fake.Static.csproj", "{4EA14BFB-1385-437B-A6E9-6CF0826494B1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OneGate.Backend.Engines.Fake.Static", "Backend\projects\Engines\Fake\src\OneGate.Backend.Engines.Fake.Static\OneGate.Backend.Engines.Fake.Static.csproj", "{4EA14BFB-1385-437B-A6E9-6CF0826494B1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "User", "User", "{2CF5B7A0-5EA8-4F36-932C-1D562EA8C5A6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Admin", "Admin", "{3BCA344A-88B1-4F4C-8BDD-10675FEEF7E9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Gateway.Admin.Api", "Backend\projects\Gateway\Admin\src\OneGate.Backend.Gateway.Admin.Api\OneGate.Backend.Gateway.Admin.Api.csproj", "{CB5D94FB-0FFE-4CA2-9706-15FF85E6B93F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OneGate.Backend.Gateway.Admin.Api", "Backend\projects\Gateway\Admin\src\OneGate.Backend.Gateway.Admin.Api\OneGate.Backend.Gateway.Admin.Api.csproj", "{CB5D94FB-0FFE-4CA2-9706-15FF85E6B93F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Gateway.User.Api", "Backend\projects\Gateway\User\src\OneGate.Backend.Gateway.User.Api\OneGate.Backend.Gateway.User.Api.csproj", "{94687BD7-B145-4EB5-8837-BA8C6BCBF324}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OneGate.Backend.Gateway.User.Api", "Backend\projects\Gateway\User\src\OneGate.Backend.Gateway.User.Api\OneGate.Backend.Gateway.User.Api.csproj", "{94687BD7-B145-4EB5-8837-BA8C6BCBF324}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DesktopApp", "DesktopApp", "{3B8696CA-00F2-41D6-8110-D2292BD3D87A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Frontend.DesktopApp", "Frontend\DesktopApp\src\OneGate.Frontend.DesktopApp\OneGate.Frontend.DesktopApp.csproj", "{68FBD170-9CCF-4287-A933-7E79690832B9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OneGate.Frontend.DesktopApp", "Frontend\DesktopApp\src\OneGate.Frontend.DesktopApp\OneGate.Frontend.DesktopApp.csproj", "{68FBD170-9CCF-4287-A933-7E79690832B9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Integration", "Integration", "{9C2FF838-590F-4579-83E9-10404D26FF47}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Integration.Tests", "Backend\test\OneGate.Backend.Integration.Tests\OneGate.Backend.Integration.Tests.csproj", "{41B0E09D-C35C-4747-AD10-1AA113928A3B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OneGate.Backend.Integration.Tests", "Backend\test\OneGate.Backend.Integration.Tests\OneGate.Backend.Integration.Tests.csproj", "{41B0E09D-C35C-4747-AD10-1AA113928A3B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Core.Users.Api.Contracts", "Backend\projects\Core\Users\src\OneGate.Backend.Core.Users.Api.Contracts\OneGate.Backend.Core.Users.Api.Contracts.csproj", "{A661E1A0-AC06-4147-A751-3F0557AA9408}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OneGate.Backend.Core.Users.Api.Contracts", "Backend\projects\Core\Users\src\OneGate.Backend.Core.Users.Api.Contracts\OneGate.Backend.Core.Users.Api.Contracts.csproj", "{A661E1A0-AC06-4147-A751-3F0557AA9408}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Core.Timeseries.Api.Contracts", "Backend\projects\Core\Timeseries\src\OneGate.Backend.Core.Timeseries.Api.Contracts\OneGate.Backend.Core.Timeseries.Api.Contracts.csproj", "{91140D3E-F64C-4279-B016-B8ED4DBE674B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OneGate.Backend.Core.Timeseries.Api.Contracts", "Backend\projects\Core\Timeseries\src\OneGate.Backend.Core.Timeseries.Api.Contracts\OneGate.Backend.Core.Timeseries.Api.Contracts.csproj", "{91140D3E-F64C-4279-B016-B8ED4DBE674B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Assets", "Assets", "{E445C86F-7FD6-47C7-98C8-2A47083D318A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Core.Assets.Worker", "Backend\projects\Core\Assets\src\OneGate.Backend.Core.Assets.Worker\OneGate.Backend.Core.Assets.Worker.csproj", "{DC28F0F4-2E30-4575-8A6C-4A3E671031BD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OneGate.Backend.Core.Assets.Worker", "Backend\projects\Core\Assets\src\OneGate.Backend.Core.Assets.Worker\OneGate.Backend.Core.Assets.Worker.csproj", "{DC28F0F4-2E30-4575-8A6C-4A3E671031BD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Core.Assets.Api.Contracts", "Backend\projects\Core\Assets\src\OneGate.Backend.Core.Assets.Api.Contracts\OneGate.Backend.Core.Assets.Api.Contracts.csproj", "{F6ABF255-58FF-4FC7-AE05-C1DB1284B613}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OneGate.Backend.Core.Assets.Api.Contracts", "Backend\projects\Core\Assets\src\OneGate.Backend.Core.Assets.Api.Contracts\OneGate.Backend.Core.Assets.Api.Contracts.csproj", "{F6ABF255-58FF-4FC7-AE05-C1DB1284B613}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Core.Assets.Database", "Backend\projects\Core\Assets\src\OneGate.Backend.Core.Assets.Database\OneGate.Backend.Core.Assets.Database.csproj", "{23BB057D-80CE-4EA4-8529-F2E1531FA1F9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OneGate.Backend.Core.Assets.Database", "Backend\projects\Core\Assets\src\OneGate.Backend.Core.Assets.Database\OneGate.Backend.Core.Assets.Database.csproj", "{23BB057D-80CE-4EA4-8529-F2E1531FA1F9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Core.Assets.Api", "Backend\projects\Core\Assets\src\OneGate.Backend.Core.Assets.Api\OneGate.Backend.Core.Assets.Api.csproj", "{904D0E4A-956E-43A6-B1C1-750A27A3282D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OneGate.Backend.Core.Assets.Api", "Backend\projects\Core\Assets\src\OneGate.Backend.Core.Assets.Api\OneGate.Backend.Core.Assets.Api.csproj", "{904D0E4A-956E-43A6-B1C1-750A27A3282D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Core.Timeseries.Api", "Backend\projects\Core\Timeseries\src\OneGate.Backend.Core.Timeseries.Api\OneGate.Backend.Core.Timeseries.Api.csproj", "{77EBAEB3-E3B5-4041-9EB4-05A1C6AC09ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OneGate.Backend.Core.Timeseries.Api", "Backend\projects\Core\Timeseries\src\OneGate.Backend.Core.Timeseries.Api\OneGate.Backend.Core.Timeseries.Api.csproj", "{77EBAEB3-E3B5-4041-9EB4-05A1C6AC09ED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Core.Users.Api", "Backend\projects\Core\Users\src\OneGate.Backend.Core.Users.Api\OneGate.Backend.Core.Users.Api.csproj", "{086B54EB-0F0E-4563-812D-E901BC79F29E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OneGate.Backend.Core.Users.Api", "Backend\projects\Core\Users\src\OneGate.Backend.Core.Users.Api\OneGate.Backend.Core.Users.Api.csproj", "{086B54EB-0F0E-4563-812D-E901BC79F29E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Core.Users.Api.Client", "Backend\projects\Core\Users\src\OneGate.Backend.Core.Users.Api.Client\OneGate.Backend.Core.Users.Api.Client.csproj", "{CD7AE0B0-D95C-44CC-92B1-A97903CF7DF2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OneGate.Backend.Core.Users.Api.Client", "Backend\projects\Core\Users\src\OneGate.Backend.Core.Users.Api.Client\OneGate.Backend.Core.Users.Api.Client.csproj", "{CD7AE0B0-D95C-44CC-92B1-A97903CF7DF2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Core.Timeseries.Api.Client", "Backend\projects\Core\Timeseries\src\OneGate.Backend.Core.Timeseries.Api.Client\OneGate.Backend.Core.Timeseries.Api.Client.csproj", "{0035C673-42AB-4D13-B1D1-7FC7B61C9279}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OneGate.Backend.Core.Timeseries.Api.Client", "Backend\projects\Core\Timeseries\src\OneGate.Backend.Core.Timeseries.Api.Client\OneGate.Backend.Core.Timeseries.Api.Client.csproj", "{0035C673-42AB-4D13-B1D1-7FC7B61C9279}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Core.Assets.Api.Client", "Backend\projects\Core\Assets\src\OneGate.Backend.Core.Assets.Api.Client\OneGate.Backend.Core.Assets.Api.Client.csproj", "{21C5E45F-473F-44EB-91BB-C52960BA1250}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OneGate.Backend.Core.Assets.Api.Client", "Backend\projects\Core\Assets\src\OneGate.Backend.Core.Assets.Api.Client\OneGate.Backend.Core.Assets.Api.Client.csproj", "{21C5E45F-473F-44EB-91BB-C52960BA1250}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{7E774831-F1AD-4A5C-A641-6948EF4AABFF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Core.Shared", "Backend\projects\Core\Shared\src\OneGate.Backend.Core.Shared\OneGate.Backend.Core.Shared.csproj", "{3BE3B285-0AFC-4DB9-8F01-993EA6809C53}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OneGate.Backend.Core.Shared", "Backend\projects\Core\Shared\src\OneGate.Backend.Core.Shared\OneGate.Backend.Core.Shared.csproj", "{3BE3B285-0AFC-4DB9-8F01-993EA6809C53}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Core.Shared.Api", "Backend\projects\Core\Shared\src\OneGate.Backend.Core.Shared.Api\OneGate.Backend.Core.Shared.Api.csproj", "{839C0E84-093E-41B4-A4C4-D7BEB872C59D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OneGate.Backend.Core.Shared.Api", "Backend\projects\Core\Shared\src\OneGate.Backend.Core.Shared.Api\OneGate.Backend.Core.Shared.Api.csproj", "{839C0E84-093E-41B4-A4C4-D7BEB872C59D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Core.Shared.Api.Client", "Backend\projects\Core\Shared\src\OneGate.Backend.Core.Shared.Api.Client\OneGate.Backend.Core.Shared.Api.Client.csproj", "{9DA66F32-B1ED-4EB6-A74C-577CDE58E3E9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OneGate.Backend.Core.Shared.Api.Client", "Backend\projects\Core\Shared\src\OneGate.Backend.Core.Shared.Api.Client\OneGate.Backend.Core.Shared.Api.Client.csproj", "{9DA66F32-B1ED-4EB6-A74C-577CDE58E3E9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Core.Shared.Api.Contracts", "Backend\projects\Core\Shared\src\OneGate.Backend.Core.Shared.Api.Contracts\OneGate.Backend.Core.Shared.Api.Contracts.csproj", "{F3053476-BAAA-42A8-8603-DA11500530CC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OneGate.Backend.Core.Shared.Api.Contracts", "Backend\projects\Core\Shared\src\OneGate.Backend.Core.Shared.Api.Contracts\OneGate.Backend.Core.Shared.Api.Contracts.csproj", "{F3053476-BAAA-42A8-8603-DA11500530CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Core.Shared.Database", "Backend\projects\Core\Shared\src\OneGate.Backend.Core.Shared.Database\OneGate.Backend.Core.Shared.Database.csproj", "{EAF5D8C6-A017-48C3-A8D9-E690DF024C59}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OneGate.Backend.Core.Shared.Database", "Backend\projects\Core\Shared\src\OneGate.Backend.Core.Shared.Database\OneGate.Backend.Core.Shared.Database.csproj", "{EAF5D8C6-A017-48C3-A8D9-E690DF024C59}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Gateway.Shared.Api", "Backend\projects\Gateway\Shared\src\OneGate.Backend.Gateway.Shared.Api\OneGate.Backend.Gateway.Shared.Api.csproj", "{E95575F4-3F16-496A-AAB1-777B1ABE8D2E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OneGate.Backend.Gateway.Shared.Api", "Backend\projects\Gateway\Shared\src\OneGate.Backend.Gateway.Shared.Api\OneGate.Backend.Gateway.Shared.Api.csproj", "{E95575F4-3F16-496A-AAB1-777B1ABE8D2E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Engines.Shared", "Backend\projects\Engines\Shared\src\OneGate.Backend.Engines.Shared\OneGate.Backend.Engines.Shared.csproj", "{9429C14C-E4E0-40DB-958E-52F31635C9B8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OneGate.Backend.Engines.Shared", "Backend\projects\Engines\Shared\src\OneGate.Backend.Engines.Shared\OneGate.Backend.Engines.Shared.csproj", "{9429C14C-E4E0-40DB-958E-52F31635C9B8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Core.Engines.Api", "Backend\projects\Core\Engines\src\OneGate.Backend.Core.Engines.Api\OneGate.Backend.Core.Engines.Api.csproj", "{E9D465B9-A66A-4EB7-AA34-BCD3CDC8B926}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OneGate.Backend.Core.Engines.Api", "Backend\projects\Core\Engines\src\OneGate.Backend.Core.Engines.Api\OneGate.Backend.Core.Engines.Api.csproj", "{E9D465B9-A66A-4EB7-AA34-BCD3CDC8B926}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Engines", "Engines", "{7ACB85EF-FC7A-43EA-8530-C6DC6FC4F10D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Core.Engines.Database", "Backend\projects\Core\Engines\src\OneGate.Backend.Core.Engines.Database\OneGate.Backend.Core.Engines.Database.csproj", "{345CC642-B3BC-4AA9-A6B4-C83D470AEA12}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OneGate.Backend.Core.Engines.Database", "Backend\projects\Core\Engines\src\OneGate.Backend.Core.Engines.Database\OneGate.Backend.Core.Engines.Database.csproj", "{345CC642-B3BC-4AA9-A6B4-C83D470AEA12}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Core.Engines.Api.Client", "Backend\projects\Core\Engines\src\OneGate.Backend.Core.Engines.Api.Client\OneGate.Backend.Core.Engines.Api.Client.csproj", "{7AD9D6DE-B28B-42A5-9B38-5DCD496AF488}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OneGate.Backend.Core.Engines.Api.Client", "Backend\projects\Core\Engines\src\OneGate.Backend.Core.Engines.Api.Client\OneGate.Backend.Core.Engines.Api.Client.csproj", "{7AD9D6DE-B28B-42A5-9B38-5DCD496AF488}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Core.Engines.Api.Contracts", "Backend\projects\Core\Engines\src\OneGate.Backend.Core.Engines.Api.Contracts\OneGate.Backend.Core.Engines.Api.Contracts.csproj", "{9E11A2B0-1E97-4B76-8B5A-4E49501B139E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OneGate.Backend.Core.Engines.Api.Contracts", "Backend\projects\Core\Engines\src\OneGate.Backend.Core.Engines.Api.Contracts\OneGate.Backend.Core.Engines.Api.Contracts.csproj", "{9E11A2B0-1E97-4B76-8B5A-4E49501B139E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{5E7BD560-8BEB-4640-B81C-72173F694EFE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Engines.Shared.Static", "Backend\projects\Engines\Shared\src\OneGate.Backend.Engines.Shared.Static\OneGate.Backend.Engines.Shared.Static.csproj", "{68CDD6B4-02F4-40BE-A0C6-E73C1CE54752}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OneGate.Backend.Engines.Shared.Static", "Backend\projects\Engines\Shared\src\OneGate.Backend.Engines.Shared.Static\OneGate.Backend.Engines.Shared.Static.csproj", "{68CDD6B4-02F4-40BE-A0C6-E73C1CE54752}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Engines.Fake", "Backend\projects\Engines\Fake\src\OneGate.Backend.Engines.Fake\OneGate.Backend.Engines.Fake.csproj", "{EA803385-E952-4AAA-95E0-0F8088E2BB88}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OneGate.Backend.Engines.Fake", "Backend\projects\Engines\Fake\src\OneGate.Backend.Engines.Fake\OneGate.Backend.Engines.Fake.csproj", "{EA803385-E952-4AAA-95E0-0F8088E2BB88}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Transport.Contracts", "Backend\projects\Transport\src\OneGate.Backend.Transport.Contracts\OneGate.Backend.Transport.Contracts.csproj", "{B72330F7-B4AE-4E97-B8B8-AFF6E4955E3A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OneGate.Backend.Transport.Contracts", "Backend\projects\Transport\src\OneGate.Backend.Transport.Contracts\OneGate.Backend.Transport.Contracts.csproj", "{B72330F7-B4AE-4E97-B8B8-AFF6E4955E3A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Gateway.Shared.Api.Contracts", "Backend\projects\Gateway\Shared\src\OneGate.Backend.Gateway.Shared.Api.Contracts\OneGate.Backend.Gateway.Shared.Api.Contracts.csproj", "{98A5AE60-8C8D-4638-8A03-A4F0A9E2A8DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OneGate.Backend.Gateway.Shared.Api.Contracts", "Backend\projects\Gateway\Shared\src\OneGate.Backend.Gateway.Shared.Api.Contracts\OneGate.Backend.Gateway.Shared.Api.Contracts.csproj", "{98A5AE60-8C8D-4638-8A03-A4F0A9E2A8DD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{3BD34714-C4A4-423D-9DBC-1E38A4801F52}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Gateway.User.Api.Contracts", "Backend\projects\Gateway\User\src\OneGate.Backend.Gateway.User.Api.Contracts\OneGate.Backend.Gateway.User.Api.Contracts.csproj", "{486BA5F5-6D0A-4A9C-ADF5-9F52859088B3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OneGate.Backend.Gateway.User.Api.Contracts", "Backend\projects\Gateway\User\src\OneGate.Backend.Gateway.User.Api.Contracts\OneGate.Backend.Gateway.User.Api.Contracts.csproj", "{486BA5F5-6D0A-4A9C-ADF5-9F52859088B3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Gateway.Admin.Api.Contracts", "Backend\projects\Gateway\Admin\src\OneGate.Backend.Gateway.Admin.Api.Contracts\OneGate.Backend.Gateway.Admin.Api.Contracts.csproj", "{5AC3CD0B-EC6E-40DF-82F1-06BEEE926063}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OneGate.Backend.Gateway.Admin.Api.Contracts", "Backend\projects\Gateway\Admin\src\OneGate.Backend.Gateway.Admin.Api.Contracts\OneGate.Backend.Gateway.Admin.Api.Contracts.csproj", "{5AC3CD0B-EC6E-40DF-82F1-06BEEE926063}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Gateway.Shared.Api.Client", "Backend\projects\Gateway\Shared\src\OneGate.Backend.Gateway.Shared.Api.Client\OneGate.Backend.Gateway.Shared.Api.Client.csproj", "{F2E084B5-6827-4911-A81B-65143CDFF55D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OneGate.Backend.Gateway.Shared.Api.Client", "Backend\projects\Gateway\Shared\src\OneGate.Backend.Gateway.Shared.Api.Client\OneGate.Backend.Gateway.Shared.Api.Client.csproj", "{F2E084B5-6827-4911-A81B-65143CDFF55D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Gateway.User.Api.Client", "Backend\projects\Gateway\User\src\OneGate.Backend.Gateway.User.Api.Client\OneGate.Backend.Gateway.User.Api.Client.csproj", "{09CBB9B7-8B11-4F78-A310-90F4CEC51E39}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OneGate.Backend.Gateway.User.Api.Client", "Backend\projects\Gateway\User\src\OneGate.Backend.Gateway.User.Api.Client\OneGate.Backend.Gateway.User.Api.Client.csproj", "{09CBB9B7-8B11-4F78-A310-90F4CEC51E39}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Gateway.Admin.Api.Client", "Backend\projects\Gateway\Admin\src\OneGate.Backend.Gateway.Admin.Api.Client\OneGate.Backend.Gateway.Admin.Api.Client.csproj", "{7B532B3D-5F04-4076-8BE7-AA0A38EE59C5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OneGate.Backend.Gateway.Admin.Api.Client", "Backend\projects\Gateway\Admin\src\OneGate.Backend.Gateway.Admin.Api.Client\OneGate.Backend.Gateway.Admin.Api.Client.csproj", "{7B532B3D-5F04-4076-8BE7-AA0A38EE59C5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Analytics", "Analytics", "{22DA4BB1-E15B-4762-9506-695E378A3557}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Core.Analytics.Api", "Backend\projects\Core\Analytics\src\OneGate.Backend.Core.Analytics.Api\OneGate.Backend.Core.Analytics.Api.csproj", "{9029C60D-D203-4DEC-83F2-4E4E6501E429}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OneGate.Backend.Core.Analytics.Api", "Backend\projects\Core\Analytics\src\OneGate.Backend.Core.Analytics.Api\OneGate.Backend.Core.Analytics.Api.csproj", "{9029C60D-D203-4DEC-83F2-4E4E6501E429}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Core.Analytics.Database", "Backend\projects\Core\Analytics\src\OneGate.Backend.Core.Analytics.Database\OneGate.Backend.Core.Analytics.Database.csproj", "{18CC4B07-D939-4A96-83A1-52342B505A2B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OneGate.Backend.Core.Analytics.Database", "Backend\projects\Core\Analytics\src\OneGate.Backend.Core.Analytics.Database\OneGate.Backend.Core.Analytics.Database.csproj", "{18CC4B07-D939-4A96-83A1-52342B505A2B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Core.Analytics.Api.Contracts", "Backend\projects\Core\Analytics\src\OneGate.Backend.Core.Analytics.Api.Contracts\OneGate.Backend.Core.Analytics.Api.Contracts.csproj", "{71E965AA-5206-42C9-B944-F54AF2EC5551}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OneGate.Backend.Core.Analytics.Api.Contracts", "Backend\projects\Core\Analytics\src\OneGate.Backend.Core.Analytics.Api.Contracts\OneGate.Backend.Core.Analytics.Api.Contracts.csproj", "{71E965AA-5206-42C9-B944-F54AF2EC5551}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Core.Analytics.Worker", "Backend\projects\Core\Analytics\src\OneGate.Backend.Core.Analytics.Worker\OneGate.Backend.Core.Analytics.Worker.csproj", "{E4158FBE-8CCE-499D-A612-183395D8C0CC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OneGate.Backend.Core.Analytics.Worker", "Backend\projects\Core\Analytics\src\OneGate.Backend.Core.Analytics.Worker\OneGate.Backend.Core.Analytics.Worker.csproj", "{E4158FBE-8CCE-499D-A612-183395D8C0CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Core.Timeseries.Database.Migrations", "Backend\projects\Core\Timeseries\src\OneGate.Backend.Core.Timeseries.Database.Migrations\OneGate.Backend.Core.Timeseries.Database.Migrations.csproj", "{2576A342-268D-4704-B0A8-A7E8DDB93DDF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OneGate.Backend.Core.Timeseries.Database.Migrations", "Backend\projects\Core\Timeseries\src\OneGate.Backend.Core.Timeseries.Database.Migrations\OneGate.Backend.Core.Timeseries.Database.Migrations.csproj", "{2576A342-268D-4704-B0A8-A7E8DDB93DDF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Core.Users.Database.Migrations", "Backend\projects\Core\Users\src\OneGate.Backend.Core.Users.Database.Migrations\OneGate.Backend.Core.Users.Database.Migrations.csproj", "{62FDABB8-0183-42B3-B3F9-2E092D1D3C62}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OneGate.Backend.Core.Users.Database.Migrations", "Backend\projects\Core\Users\src\OneGate.Backend.Core.Users.Database.Migrations\OneGate.Backend.Core.Users.Database.Migrations.csproj", "{62FDABB8-0183-42B3-B3F9-2E092D1D3C62}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Core.Engines.Database.Migrations", "Backend\projects\Core\Engines\src\OneGate.Backend.Core.Engines.Database.Migrations\OneGate.Backend.Core.Engines.Database.Migrations.csproj", "{0A686066-AF81-45EC-BCEE-F3A42D6B189B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OneGate.Backend.Core.Engines.Database.Migrations", "Backend\projects\Core\Engines\src\OneGate.Backend.Core.Engines.Database.Migrations\OneGate.Backend.Core.Engines.Database.Migrations.csproj", "{0A686066-AF81-45EC-BCEE-F3A42D6B189B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Core.Assets.Database.Migrations", "Backend\projects\Core\Assets\src\OneGate.Backend.Core.Assets.Database.Migrations\OneGate.Backend.Core.Assets.Database.Migrations.csproj", "{51D554B9-2248-4E1C-B0B9-F235480E0A33}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OneGate.Backend.Core.Assets.Database.Migrations", "Backend\projects\Core\Assets\src\OneGate.Backend.Core.Assets.Database.Migrations\OneGate.Backend.Core.Assets.Database.Migrations.csproj", "{51D554B9-2248-4E1C-B0B9-F235480E0A33}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Core.Analytics.Database.Migrations", "Backend\projects\Core\Analytics\src\OneGate.Backend.Core.Analytics.Database.Migrations\OneGate.Backend.Core.Analytics.Database.Migrations.csproj", "{5394BF57-2E62-45ED-A408-8B9DBDE4CC55}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OneGate.Backend.Core.Analytics.Database.Migrations", "Backend\projects\Core\Analytics\src\OneGate.Backend.Core.Analytics.Database.Migrations\OneGate.Backend.Core.Analytics.Database.Migrations.csproj", "{5394BF57-2E62-45ED-A408-8B9DBDE4CC55}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGate.Backend.Core.Analytics.Scheduler", "Backend\projects\Core\Analytics\src\OneGate.Backend.Core.Analytics.Scheduler\OneGate.Backend.Core.Analytics.Scheduler.csproj", "{B6046B48-BC8F-4B01-BB0B-0B721728142F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OneGate.Frontend.Client", "Frontend\Client\src\OneGate.Frontend.Client\OneGate.Frontend.Client.csproj", "{4790ADFC-DCA0-4E81-9D41-782D3F0BB399}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{3FFC66DB-8931-42AD-91C4-61759884F974}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OneGate.Backend.Core.Analytics.Scheduler", "Backend\projects\Core\Analytics\src\OneGate.Backend.Core.Analytics.Scheduler\OneGate.Backend.Core.Analytics.Scheduler.csproj", "{B6046B48-BC8F-4B01-BB0B-0B721728142F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{D8C9C40E-BBB8-47CD-BCF4-B54D7529F7C6} = {CF69B503-BD2E-4CA4-91AC-E4A349DC906A}
-		{7CB50320-F0E0-48E5-9B37-D5797DC8D56E} = {D8C9C40E-BBB8-47CD-BCF4-B54D7529F7C6}
-		{1FDB1DFE-F129-423C-BC5B-8C4963D11ED4} = {CF69B503-BD2E-4CA4-91AC-E4A349DC906A}
-		{73EA0E81-8D5D-4DC2-87E7-EC09BDB5136D} = {CF69B503-BD2E-4CA4-91AC-E4A349DC906A}
-		{9E5561C1-7BB9-4F26-8388-D1487E0778E7} = {CF69B503-BD2E-4CA4-91AC-E4A349DC906A}
-		{C149E0EC-4A5C-40A9-8007-F55CFA229253} = {73EA0E81-8D5D-4DC2-87E7-EC09BDB5136D}
-		{E52FC773-868B-4326-8638-DFBF333E756E} = {73EA0E81-8D5D-4DC2-87E7-EC09BDB5136D}
-		{78A42F55-C68D-48E5-8DCE-C7D177AFDEAC} = {E52FC773-868B-4326-8638-DFBF333E756E}
-		{A92160E6-899C-4372-9835-79A55F53501B} = {E52FC773-868B-4326-8638-DFBF333E756E}
-		{F9499820-AFAD-4943-A9D8-72F26C0B0D0A} = {C149E0EC-4A5C-40A9-8007-F55CFA229253}
-		{C01FD71B-EC13-460A-AB6A-0AC27EF0FD58} = {C149E0EC-4A5C-40A9-8007-F55CFA229253}
-		{CEC863FB-3B19-44F7-A26E-AE222E8E019F} = {9E5561C1-7BB9-4F26-8388-D1487E0778E7}
-		{90C2FB98-1D15-4790-B889-D8102C8105D1} = {CEC863FB-3B19-44F7-A26E-AE222E8E019F}
-		{4EA14BFB-1385-437B-A6E9-6CF0826494B1} = {CEC863FB-3B19-44F7-A26E-AE222E8E019F}
-		{2CF5B7A0-5EA8-4F36-932C-1D562EA8C5A6} = {1FDB1DFE-F129-423C-BC5B-8C4963D11ED4}
-		{3BCA344A-88B1-4F4C-8BDD-10675FEEF7E9} = {1FDB1DFE-F129-423C-BC5B-8C4963D11ED4}
-		{CB5D94FB-0FFE-4CA2-9706-15FF85E6B93F} = {3BCA344A-88B1-4F4C-8BDD-10675FEEF7E9}
-		{94687BD7-B145-4EB5-8837-BA8C6BCBF324} = {2CF5B7A0-5EA8-4F36-932C-1D562EA8C5A6}
-		{3B8696CA-00F2-41D6-8110-D2292BD3D87A} = {CA29249D-28FB-4E87-8D92-B6E49B9A3403}
-		{68FBD170-9CCF-4287-A933-7E79690832B9} = {3B8696CA-00F2-41D6-8110-D2292BD3D87A}
-		{9C2FF838-590F-4579-83E9-10404D26FF47} = {CF69B503-BD2E-4CA4-91AC-E4A349DC906A}
-		{41B0E09D-C35C-4747-AD10-1AA113928A3B} = {9C2FF838-590F-4579-83E9-10404D26FF47}
-		{A661E1A0-AC06-4147-A751-3F0557AA9408} = {C149E0EC-4A5C-40A9-8007-F55CFA229253}
-		{91140D3E-F64C-4279-B016-B8ED4DBE674B} = {E52FC773-868B-4326-8638-DFBF333E756E}
-		{E445C86F-7FD6-47C7-98C8-2A47083D318A} = {73EA0E81-8D5D-4DC2-87E7-EC09BDB5136D}
-		{DC28F0F4-2E30-4575-8A6C-4A3E671031BD} = {E445C86F-7FD6-47C7-98C8-2A47083D318A}
-		{F6ABF255-58FF-4FC7-AE05-C1DB1284B613} = {E445C86F-7FD6-47C7-98C8-2A47083D318A}
-		{23BB057D-80CE-4EA4-8529-F2E1531FA1F9} = {E445C86F-7FD6-47C7-98C8-2A47083D318A}
-		{904D0E4A-956E-43A6-B1C1-750A27A3282D} = {E445C86F-7FD6-47C7-98C8-2A47083D318A}
-		{77EBAEB3-E3B5-4041-9EB4-05A1C6AC09ED} = {E52FC773-868B-4326-8638-DFBF333E756E}
-		{086B54EB-0F0E-4563-812D-E901BC79F29E} = {C149E0EC-4A5C-40A9-8007-F55CFA229253}
-		{CD7AE0B0-D95C-44CC-92B1-A97903CF7DF2} = {C149E0EC-4A5C-40A9-8007-F55CFA229253}
-		{0035C673-42AB-4D13-B1D1-7FC7B61C9279} = {E52FC773-868B-4326-8638-DFBF333E756E}
-		{21C5E45F-473F-44EB-91BB-C52960BA1250} = {E445C86F-7FD6-47C7-98C8-2A47083D318A}
-		{7E774831-F1AD-4A5C-A641-6948EF4AABFF} = {73EA0E81-8D5D-4DC2-87E7-EC09BDB5136D}
-		{3BE3B285-0AFC-4DB9-8F01-993EA6809C53} = {7E774831-F1AD-4A5C-A641-6948EF4AABFF}
-		{839C0E84-093E-41B4-A4C4-D7BEB872C59D} = {7E774831-F1AD-4A5C-A641-6948EF4AABFF}
-		{9DA66F32-B1ED-4EB6-A74C-577CDE58E3E9} = {7E774831-F1AD-4A5C-A641-6948EF4AABFF}
-		{F3053476-BAAA-42A8-8603-DA11500530CC} = {7E774831-F1AD-4A5C-A641-6948EF4AABFF}
-		{EAF5D8C6-A017-48C3-A8D9-E690DF024C59} = {7E774831-F1AD-4A5C-A641-6948EF4AABFF}
-		{7ACB85EF-FC7A-43EA-8530-C6DC6FC4F10D} = {73EA0E81-8D5D-4DC2-87E7-EC09BDB5136D}
-		{E9D465B9-A66A-4EB7-AA34-BCD3CDC8B926} = {7ACB85EF-FC7A-43EA-8530-C6DC6FC4F10D}
-		{345CC642-B3BC-4AA9-A6B4-C83D470AEA12} = {7ACB85EF-FC7A-43EA-8530-C6DC6FC4F10D}
-		{7AD9D6DE-B28B-42A5-9B38-5DCD496AF488} = {7ACB85EF-FC7A-43EA-8530-C6DC6FC4F10D}
-		{9E11A2B0-1E97-4B76-8B5A-4E49501B139E} = {7ACB85EF-FC7A-43EA-8530-C6DC6FC4F10D}
-		{5E7BD560-8BEB-4640-B81C-72173F694EFE} = {9E5561C1-7BB9-4F26-8388-D1487E0778E7}
-		{9429C14C-E4E0-40DB-958E-52F31635C9B8} = {5E7BD560-8BEB-4640-B81C-72173F694EFE}
-		{68CDD6B4-02F4-40BE-A0C6-E73C1CE54752} = {5E7BD560-8BEB-4640-B81C-72173F694EFE}
-		{EA803385-E952-4AAA-95E0-0F8088E2BB88} = {CEC863FB-3B19-44F7-A26E-AE222E8E019F}
-		{B72330F7-B4AE-4E97-B8B8-AFF6E4955E3A} = {D8C9C40E-BBB8-47CD-BCF4-B54D7529F7C6}
-		{3BD34714-C4A4-423D-9DBC-1E38A4801F52} = {1FDB1DFE-F129-423C-BC5B-8C4963D11ED4}
-		{98A5AE60-8C8D-4638-8A03-A4F0A9E2A8DD} = {3BD34714-C4A4-423D-9DBC-1E38A4801F52}
-		{E95575F4-3F16-496A-AAB1-777B1ABE8D2E} = {3BD34714-C4A4-423D-9DBC-1E38A4801F52}
-		{486BA5F5-6D0A-4A9C-ADF5-9F52859088B3} = {2CF5B7A0-5EA8-4F36-932C-1D562EA8C5A6}
-		{5AC3CD0B-EC6E-40DF-82F1-06BEEE926063} = {3BCA344A-88B1-4F4C-8BDD-10675FEEF7E9}
-		{22DA4BB1-E15B-4762-9506-695E378A3557} = {73EA0E81-8D5D-4DC2-87E7-EC09BDB5136D}
-		{9029C60D-D203-4DEC-83F2-4E4E6501E429} = {22DA4BB1-E15B-4762-9506-695E378A3557}
-		{18CC4B07-D939-4A96-83A1-52342B505A2B} = {22DA4BB1-E15B-4762-9506-695E378A3557}
-		{71E965AA-5206-42C9-B944-F54AF2EC5551} = {22DA4BB1-E15B-4762-9506-695E378A3557}
-		{E4158FBE-8CCE-499D-A612-183395D8C0CC} = {22DA4BB1-E15B-4762-9506-695E378A3557}
-		{2576A342-268D-4704-B0A8-A7E8DDB93DDF} = {E52FC773-868B-4326-8638-DFBF333E756E}
-		{62FDABB8-0183-42B3-B3F9-2E092D1D3C62} = {C149E0EC-4A5C-40A9-8007-F55CFA229253}
-		{0A686066-AF81-45EC-BCEE-F3A42D6B189B} = {7ACB85EF-FC7A-43EA-8530-C6DC6FC4F10D}
-		{51D554B9-2248-4E1C-B0B9-F235480E0A33} = {E445C86F-7FD6-47C7-98C8-2A47083D318A}
-		{5394BF57-2E62-45ED-A408-8B9DBDE4CC55} = {22DA4BB1-E15B-4762-9506-695E378A3557}
-		{F2E084B5-6827-4911-A81B-65143CDFF55D} = {3BD34714-C4A4-423D-9DBC-1E38A4801F52}
-		{09CBB9B7-8B11-4F78-A310-90F4CEC51E39} = {2CF5B7A0-5EA8-4F36-932C-1D562EA8C5A6}
-		{7B532B3D-5F04-4076-8BE7-AA0A38EE59C5} = {3BCA344A-88B1-4F4C-8BDD-10675FEEF7E9}
-		{B6046B48-BC8F-4B01-BB0B-0B721728142F} = {22DA4BB1-E15B-4762-9506-695E378A3557}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{7CB50320-F0E0-48E5-9B37-D5797DC8D56E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -375,6 +311,18 @@ Global
 		{5AC3CD0B-EC6E-40DF-82F1-06BEEE926063}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5AC3CD0B-EC6E-40DF-82F1-06BEEE926063}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5AC3CD0B-EC6E-40DF-82F1-06BEEE926063}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2E084B5-6827-4911-A81B-65143CDFF55D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2E084B5-6827-4911-A81B-65143CDFF55D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2E084B5-6827-4911-A81B-65143CDFF55D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2E084B5-6827-4911-A81B-65143CDFF55D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09CBB9B7-8B11-4F78-A310-90F4CEC51E39}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09CBB9B7-8B11-4F78-A310-90F4CEC51E39}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09CBB9B7-8B11-4F78-A310-90F4CEC51E39}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09CBB9B7-8B11-4F78-A310-90F4CEC51E39}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B532B3D-5F04-4076-8BE7-AA0A38EE59C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B532B3D-5F04-4076-8BE7-AA0A38EE59C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B532B3D-5F04-4076-8BE7-AA0A38EE59C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B532B3D-5F04-4076-8BE7-AA0A38EE59C5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9029C60D-D203-4DEC-83F2-4E4E6501E429}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9029C60D-D203-4DEC-83F2-4E4E6501E429}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9029C60D-D203-4DEC-83F2-4E4E6501E429}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -411,21 +359,92 @@ Global
 		{5394BF57-2E62-45ED-A408-8B9DBDE4CC55}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5394BF57-2E62-45ED-A408-8B9DBDE4CC55}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5394BF57-2E62-45ED-A408-8B9DBDE4CC55}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F2E084B5-6827-4911-A81B-65143CDFF55D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F2E084B5-6827-4911-A81B-65143CDFF55D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F2E084B5-6827-4911-A81B-65143CDFF55D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F2E084B5-6827-4911-A81B-65143CDFF55D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{09CBB9B7-8B11-4F78-A310-90F4CEC51E39}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{09CBB9B7-8B11-4F78-A310-90F4CEC51E39}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{09CBB9B7-8B11-4F78-A310-90F4CEC51E39}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{09CBB9B7-8B11-4F78-A310-90F4CEC51E39}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7B532B3D-5F04-4076-8BE7-AA0A38EE59C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7B532B3D-5F04-4076-8BE7-AA0A38EE59C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7B532B3D-5F04-4076-8BE7-AA0A38EE59C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7B532B3D-5F04-4076-8BE7-AA0A38EE59C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4790ADFC-DCA0-4E81-9D41-782D3F0BB399}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4790ADFC-DCA0-4E81-9D41-782D3F0BB399}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4790ADFC-DCA0-4E81-9D41-782D3F0BB399}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4790ADFC-DCA0-4E81-9D41-782D3F0BB399}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B6046B48-BC8F-4B01-BB0B-0B721728142F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B6046B48-BC8F-4B01-BB0B-0B721728142F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B6046B48-BC8F-4B01-BB0B-0B721728142F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B6046B48-BC8F-4B01-BB0B-0B721728142F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D8C9C40E-BBB8-47CD-BCF4-B54D7529F7C6} = {CF69B503-BD2E-4CA4-91AC-E4A349DC906A}
+		{7CB50320-F0E0-48E5-9B37-D5797DC8D56E} = {D8C9C40E-BBB8-47CD-BCF4-B54D7529F7C6}
+		{1FDB1DFE-F129-423C-BC5B-8C4963D11ED4} = {CF69B503-BD2E-4CA4-91AC-E4A349DC906A}
+		{73EA0E81-8D5D-4DC2-87E7-EC09BDB5136D} = {CF69B503-BD2E-4CA4-91AC-E4A349DC906A}
+		{9E5561C1-7BB9-4F26-8388-D1487E0778E7} = {CF69B503-BD2E-4CA4-91AC-E4A349DC906A}
+		{C149E0EC-4A5C-40A9-8007-F55CFA229253} = {73EA0E81-8D5D-4DC2-87E7-EC09BDB5136D}
+		{E52FC773-868B-4326-8638-DFBF333E756E} = {73EA0E81-8D5D-4DC2-87E7-EC09BDB5136D}
+		{78A42F55-C68D-48E5-8DCE-C7D177AFDEAC} = {E52FC773-868B-4326-8638-DFBF333E756E}
+		{A92160E6-899C-4372-9835-79A55F53501B} = {E52FC773-868B-4326-8638-DFBF333E756E}
+		{F9499820-AFAD-4943-A9D8-72F26C0B0D0A} = {C149E0EC-4A5C-40A9-8007-F55CFA229253}
+		{C01FD71B-EC13-460A-AB6A-0AC27EF0FD58} = {C149E0EC-4A5C-40A9-8007-F55CFA229253}
+		{CEC863FB-3B19-44F7-A26E-AE222E8E019F} = {9E5561C1-7BB9-4F26-8388-D1487E0778E7}
+		{90C2FB98-1D15-4790-B889-D8102C8105D1} = {CEC863FB-3B19-44F7-A26E-AE222E8E019F}
+		{4EA14BFB-1385-437B-A6E9-6CF0826494B1} = {CEC863FB-3B19-44F7-A26E-AE222E8E019F}
+		{2CF5B7A0-5EA8-4F36-932C-1D562EA8C5A6} = {1FDB1DFE-F129-423C-BC5B-8C4963D11ED4}
+		{3BCA344A-88B1-4F4C-8BDD-10675FEEF7E9} = {1FDB1DFE-F129-423C-BC5B-8C4963D11ED4}
+		{CB5D94FB-0FFE-4CA2-9706-15FF85E6B93F} = {3BCA344A-88B1-4F4C-8BDD-10675FEEF7E9}
+		{94687BD7-B145-4EB5-8837-BA8C6BCBF324} = {2CF5B7A0-5EA8-4F36-932C-1D562EA8C5A6}
+		{3B8696CA-00F2-41D6-8110-D2292BD3D87A} = {CA29249D-28FB-4E87-8D92-B6E49B9A3403}
+		{68FBD170-9CCF-4287-A933-7E79690832B9} = {3B8696CA-00F2-41D6-8110-D2292BD3D87A}
+		{9C2FF838-590F-4579-83E9-10404D26FF47} = {CF69B503-BD2E-4CA4-91AC-E4A349DC906A}
+		{41B0E09D-C35C-4747-AD10-1AA113928A3B} = {9C2FF838-590F-4579-83E9-10404D26FF47}
+		{A661E1A0-AC06-4147-A751-3F0557AA9408} = {C149E0EC-4A5C-40A9-8007-F55CFA229253}
+		{91140D3E-F64C-4279-B016-B8ED4DBE674B} = {E52FC773-868B-4326-8638-DFBF333E756E}
+		{E445C86F-7FD6-47C7-98C8-2A47083D318A} = {73EA0E81-8D5D-4DC2-87E7-EC09BDB5136D}
+		{DC28F0F4-2E30-4575-8A6C-4A3E671031BD} = {E445C86F-7FD6-47C7-98C8-2A47083D318A}
+		{F6ABF255-58FF-4FC7-AE05-C1DB1284B613} = {E445C86F-7FD6-47C7-98C8-2A47083D318A}
+		{23BB057D-80CE-4EA4-8529-F2E1531FA1F9} = {E445C86F-7FD6-47C7-98C8-2A47083D318A}
+		{904D0E4A-956E-43A6-B1C1-750A27A3282D} = {E445C86F-7FD6-47C7-98C8-2A47083D318A}
+		{77EBAEB3-E3B5-4041-9EB4-05A1C6AC09ED} = {E52FC773-868B-4326-8638-DFBF333E756E}
+		{086B54EB-0F0E-4563-812D-E901BC79F29E} = {C149E0EC-4A5C-40A9-8007-F55CFA229253}
+		{CD7AE0B0-D95C-44CC-92B1-A97903CF7DF2} = {C149E0EC-4A5C-40A9-8007-F55CFA229253}
+		{0035C673-42AB-4D13-B1D1-7FC7B61C9279} = {E52FC773-868B-4326-8638-DFBF333E756E}
+		{21C5E45F-473F-44EB-91BB-C52960BA1250} = {E445C86F-7FD6-47C7-98C8-2A47083D318A}
+		{7E774831-F1AD-4A5C-A641-6948EF4AABFF} = {73EA0E81-8D5D-4DC2-87E7-EC09BDB5136D}
+		{3BE3B285-0AFC-4DB9-8F01-993EA6809C53} = {7E774831-F1AD-4A5C-A641-6948EF4AABFF}
+		{839C0E84-093E-41B4-A4C4-D7BEB872C59D} = {7E774831-F1AD-4A5C-A641-6948EF4AABFF}
+		{9DA66F32-B1ED-4EB6-A74C-577CDE58E3E9} = {7E774831-F1AD-4A5C-A641-6948EF4AABFF}
+		{F3053476-BAAA-42A8-8603-DA11500530CC} = {7E774831-F1AD-4A5C-A641-6948EF4AABFF}
+		{EAF5D8C6-A017-48C3-A8D9-E690DF024C59} = {7E774831-F1AD-4A5C-A641-6948EF4AABFF}
+		{E95575F4-3F16-496A-AAB1-777B1ABE8D2E} = {3BD34714-C4A4-423D-9DBC-1E38A4801F52}
+		{9429C14C-E4E0-40DB-958E-52F31635C9B8} = {5E7BD560-8BEB-4640-B81C-72173F694EFE}
+		{E9D465B9-A66A-4EB7-AA34-BCD3CDC8B926} = {7ACB85EF-FC7A-43EA-8530-C6DC6FC4F10D}
+		{7ACB85EF-FC7A-43EA-8530-C6DC6FC4F10D} = {73EA0E81-8D5D-4DC2-87E7-EC09BDB5136D}
+		{345CC642-B3BC-4AA9-A6B4-C83D470AEA12} = {7ACB85EF-FC7A-43EA-8530-C6DC6FC4F10D}
+		{7AD9D6DE-B28B-42A5-9B38-5DCD496AF488} = {7ACB85EF-FC7A-43EA-8530-C6DC6FC4F10D}
+		{9E11A2B0-1E97-4B76-8B5A-4E49501B139E} = {7ACB85EF-FC7A-43EA-8530-C6DC6FC4F10D}
+		{5E7BD560-8BEB-4640-B81C-72173F694EFE} = {9E5561C1-7BB9-4F26-8388-D1487E0778E7}
+		{68CDD6B4-02F4-40BE-A0C6-E73C1CE54752} = {5E7BD560-8BEB-4640-B81C-72173F694EFE}
+		{EA803385-E952-4AAA-95E0-0F8088E2BB88} = {CEC863FB-3B19-44F7-A26E-AE222E8E019F}
+		{B72330F7-B4AE-4E97-B8B8-AFF6E4955E3A} = {D8C9C40E-BBB8-47CD-BCF4-B54D7529F7C6}
+		{98A5AE60-8C8D-4638-8A03-A4F0A9E2A8DD} = {3BD34714-C4A4-423D-9DBC-1E38A4801F52}
+		{3BD34714-C4A4-423D-9DBC-1E38A4801F52} = {1FDB1DFE-F129-423C-BC5B-8C4963D11ED4}
+		{486BA5F5-6D0A-4A9C-ADF5-9F52859088B3} = {2CF5B7A0-5EA8-4F36-932C-1D562EA8C5A6}
+		{5AC3CD0B-EC6E-40DF-82F1-06BEEE926063} = {3BCA344A-88B1-4F4C-8BDD-10675FEEF7E9}
+		{F2E084B5-6827-4911-A81B-65143CDFF55D} = {3BD34714-C4A4-423D-9DBC-1E38A4801F52}
+		{09CBB9B7-8B11-4F78-A310-90F4CEC51E39} = {2CF5B7A0-5EA8-4F36-932C-1D562EA8C5A6}
+		{7B532B3D-5F04-4076-8BE7-AA0A38EE59C5} = {3BCA344A-88B1-4F4C-8BDD-10675FEEF7E9}
+		{22DA4BB1-E15B-4762-9506-695E378A3557} = {73EA0E81-8D5D-4DC2-87E7-EC09BDB5136D}
+		{9029C60D-D203-4DEC-83F2-4E4E6501E429} = {22DA4BB1-E15B-4762-9506-695E378A3557}
+		{18CC4B07-D939-4A96-83A1-52342B505A2B} = {22DA4BB1-E15B-4762-9506-695E378A3557}
+		{71E965AA-5206-42C9-B944-F54AF2EC5551} = {22DA4BB1-E15B-4762-9506-695E378A3557}
+		{E4158FBE-8CCE-499D-A612-183395D8C0CC} = {22DA4BB1-E15B-4762-9506-695E378A3557}
+		{2576A342-268D-4704-B0A8-A7E8DDB93DDF} = {E52FC773-868B-4326-8638-DFBF333E756E}
+		{62FDABB8-0183-42B3-B3F9-2E092D1D3C62} = {C149E0EC-4A5C-40A9-8007-F55CFA229253}
+		{0A686066-AF81-45EC-BCEE-F3A42D6B189B} = {7ACB85EF-FC7A-43EA-8530-C6DC6FC4F10D}
+		{51D554B9-2248-4E1C-B0B9-F235480E0A33} = {E445C86F-7FD6-47C7-98C8-2A47083D318A}
+		{5394BF57-2E62-45ED-A408-8B9DBDE4CC55} = {22DA4BB1-E15B-4762-9506-695E378A3557}
+		{4790ADFC-DCA0-4E81-9D41-782D3F0BB399} = {3FFC66DB-8931-42AD-91C4-61759884F974}
+		{3FFC66DB-8931-42AD-91C4-61759884F974} = {CA29249D-28FB-4E87-8D92-B6E49B9A3403}
+		{B6046B48-BC8F-4B01-BB0B-0B721728142F} = {22DA4BB1-E15B-4762-9506-695E378A3557}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {741C94AC-818A-44A6-B523-3822A375DDFA}
 	EndGlobalSection
 EndGlobal

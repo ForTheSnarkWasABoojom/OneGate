@@ -6,6 +6,7 @@ using ScottPlot;
 using ScottPlot.Plottable;
 using System.Collections.Generic;
 using OneGate.Backend.Gateway.User.Api.Contracts.Timeseries;
+using OneGate.Frontend.Client;
 
 namespace OneGate.Frontend.DesktopApp.ViewModels.Frames
 {
@@ -71,7 +72,7 @@ namespace OneGate.Frontend.DesktopApp.ViewModels.Frames
             _plot.Title("The random graph");
             _plot.YLabel("Stock Price (USD)");
             _plot.XTicks(_tickPositions, _tickLabels);
-            Graph.Reset(this._plot);
+            Graph.Reset(_plot);
         }
 
         /// <summary>
@@ -197,30 +198,6 @@ namespace OneGate.Frontend.DesktopApp.ViewModels.Frames
                 yS[i] = data[i].Close;
             }
             return yS;
-        }
-
-        /// <summary>
-        /// Calculates the coordinates of the points of the moving line.
-        /// </summary>
-        public static double[][] CalculateMovingAverage(ObservableCollection<OhlcModel> data)
-        {
-            int period = (int)(data[data.Count - 1].Timestamp - data[0].Timestamp).TotalDays;
-            double[] buffer = new double[period];
-            double[] yS = new double[data.Count];
-            yS[0] = data[0].Close;
-            int currentIndex = 0;
-            for (int i = 0; i < data.Count; ++i)
-            {
-                buffer[currentIndex] = data[i].Close / period;
-                double ma = 0.0;
-                for (int j = 0; j < period; ++j)
-                {
-                    ma += buffer[j];
-                }
-                yS[i] = ma;
-                currentIndex = (currentIndex + 1) % period;
-            }
-            return new double[][] { ConvertToArrayOfX(data), yS };
         }
     }
 }

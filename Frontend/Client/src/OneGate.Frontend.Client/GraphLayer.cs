@@ -1,4 +1,4 @@
-﻿namespace OneGate.Frontend.DesktopApp.ViewModels.Frames
+﻿namespace OneGate.Frontend.Client
 {
     public class GraphLayer
     {

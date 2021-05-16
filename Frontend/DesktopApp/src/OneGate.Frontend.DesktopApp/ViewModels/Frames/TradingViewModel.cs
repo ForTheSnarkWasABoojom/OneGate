@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Options;
 using OneGate.Backend.Gateway.User.Api.Contracts.Timeseries;
+using OneGate.Frontend.Client;
 using ReactiveUI;
 
 namespace OneGate.Frontend.DesktopApp.ViewModels.Frames
@@ -156,15 +159,17 @@ namespace OneGate.Frontend.DesktopApp.ViewModels.Frames
             }
         }
 
-        public TradingViewModel(/*OneGateApi serverApi*/)
+        public TradingViewModel(IOptions<OneGateClientOptions> options, 
+            OneGateClientSession session)
         {
-            //ServerApi = serverApi;
-            InitializeCollections();
+            ConnectionOptions = options;
+            ClientSession = session;
+            InitializeCollectionsAsync();
             _graph = new GraphViewModel(OhlcData);
             Content = _graph;
         }
 
-        private void InitializeCollections()
+        private async Task InitializeCollectionsAsync()
         {
             /*Exchanges = new ObservableCollection<ExchangeDto>();
             AssetTypes = new ObservableCollection<AssetTypeDto>();
@@ -186,44 +191,16 @@ namespace OneGate.Frontend.DesktopApp.ViewModels.Frames
             {
                 Tickers.Add(ticker);
             }*/
-            GenerateOhlcData();
-            
-            //*
-            Layers = new ObservableCollection<GraphLayer>();
-            _currentLayers = new ObservableCollection<GraphLayer>();
-            var pointLayer = new GraphLayer("Point graph 0");
-            pointLayer.Data = GraphViewModel.CalculateMovingAverage(OhlcData);
-            Layers.Add(pointLayer);
-            GenerateOhlcData();
-            var pointLayer1 = new GraphLayer("Point graph 1");
-            pointLayer1.Data = GraphViewModel.CalculateMovingAverage(OhlcData);
-            Layers.Add(pointLayer1);
-            GenerateOhlcData();
-            var pointLayer2 = new GraphLayer("Moving curve");
-            pointLayer2.Data = GraphViewModel.CalculateMovingAverage(OhlcData);
-            Layers.Add(pointLayer2);
-            //*/
-        }
-
-        /// <summary>
-        /// This is a temporary code that is needed to test the drawing of the graph.
-        /// </summary>
-        private void GenerateOhlcData()
-        {
-            OhlcData = new ObservableCollection<OhlcModel>();
-            var date = DateTime.Now;
-            for (int i = 0; i < 100; ++i)
+            try
             {
-                var random = new Random();
-                OhlcData.Add(new OhlcModel()
-                {
-                    Open = random.NextDouble() * random.Next(1, 100),
-                    High = random.NextDouble() * random.Next(1, 100),
-                    Low = random.NextDouble() * random.Next(1, 100),
-                    Close = random.NextDouble() * random.Next(1, 100),
-                    Timestamp = date
-                });
-                date = date.AddDays(1);
+                var client = new OneGateClient(ConnectionOptions);
+                OhlcData = await client.GetOhlcData();
+                Layers = await client.GetGraphLayers();
+                _currentLayers = new ObservableCollection<GraphLayer>();
+            }
+            catch (Exception e)
+            {
+                // To do.
             }
         }
     }

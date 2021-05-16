@@ -2,7 +2,8 @@
 using System.Threading.Tasks;
 using ReactiveUI;
 using OneGate.Frontend.DesktopApp.ViewModels.Frames;
-//using OneGate.Frontend.ApiLibrary;
+using OneGate.Frontend.Client;
+using Microsoft.Extensions.Options;
 
 namespace OneGate.Frontend.DesktopApp.ViewModels
 {
@@ -35,13 +36,15 @@ namespace OneGate.Frontend.DesktopApp.ViewModels
 
         public ReactiveCommand<Unit, Unit> GoSettings { get; }
 
-        public MainViewModel(/*OneGateApi serverApi*/)
+        public MainViewModel(IOptions<OneGateClientOptions> options,
+            OneGateClientSession session)
         {
-            ////ServerApi = serverApi;
+            ConnectionOptions = options;
+            ClientSession = session;
 
             // Attention! Currently, all tasks do not asynchronous!
             //async Task OpenTradingContent() => Content = new TradingViewModel(ServerApi);
-            async Task OpenTradingContent() => Content = new TradingViewModel();
+            async Task OpenTradingContent() => Content = new TradingViewModel(ConnectionOptions, ClientSession);
             GoTrading = ReactiveCommand.CreateFromTask(OpenTradingContent);
             //async Task OpenBotsContent() => Content = new BotsViewModel(ServerApi);
             async Task OpenBotsContent() => Content = new BotsViewModel();
@@ -55,7 +58,7 @@ namespace OneGate.Frontend.DesktopApp.ViewModels
             
             // By default, the Trading content is displayed.
             //Content = new TradingViewModel(ServerApi);
-            Content = new TradingViewModel();
+            Content = new TradingViewModel(ConnectionOptions, ClientSession);
         }
     }
 }

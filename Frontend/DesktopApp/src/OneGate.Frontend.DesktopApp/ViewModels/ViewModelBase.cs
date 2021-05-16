@@ -1,4 +1,5 @@
-﻿//using OneGate.Frontend.ApiLibrary;
+﻿using Microsoft.Extensions.Options;
+using OneGate.Frontend.Client;
 using ReactiveUI;
 
 namespace OneGate.Frontend.DesktopApp.ViewModels
@@ -9,12 +10,13 @@ namespace OneGate.Frontend.DesktopApp.ViewModels
         /// Reference to the base window of the 
         /// application where the controls are located.
         /// </summary>
-        public IBaseWindow BaseWindow;
+        public IBaseWindow BaseWindow { get; set; }
 
         /// <summary>
-        /// Implements access to an instance of 
-        /// the OneGateApi class (server API).
+        /// Client options for connecting to the server.
         /// </summary>
-        //public OneGateApi ServerApi { get; set; }
+        public IOptions<OneGateClientOptions> ConnectionOptions { get; set; }
+
+        public OneGateClientSession ClientSession { get; set; }
     }
 }

@@ -8,7 +8,13 @@
 		<AvaloniaResource Include="Styles\**" />
 	</ItemGroup>
 	<ItemGroup>
+		<None Remove="appsettings.json" />
 		<None Remove="Assets\onegate-logo.ico" />
+	</ItemGroup>
+	<ItemGroup>
+	  <EmbeddedResource Include="appsettings.json">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </EmbeddedResource>
 	</ItemGroup>
     <ItemGroup>
       <PackageReference Include="Avalonia" Version="0.10.0" />
@@ -18,7 +24,7 @@
       <PackageReference Include="ScottPlot.Avalonia" Version="4.1.9-beta" />
     </ItemGroup>
     <ItemGroup>
-      <ProjectReference Include="..\..\..\..\Backend\projects\Gateway\User\src\OneGate.Backend.Gateway.User.Api.Contracts\OneGate.Backend.Gateway.User.Api.Contracts.csproj" />
+      <ProjectReference Include="..\..\..\Client\src\OneGate.Frontend.Client\OneGate.Frontend.Client.csproj" />
     </ItemGroup>
     <ItemGroup>
 	  <Compile Update="Views\BaseSignInUpView.axaml.cs">

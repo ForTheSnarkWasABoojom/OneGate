@@ -1,8 +1,11 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Reactive;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-//using OneGate.Frontend.ApiLibrary;
+using Microsoft.Extensions.Options;
+using OneGate.Backend.Gateway.User.Api.Contracts.Account;
+using OneGate.Frontend.Client;
 using ReactiveUI;
 
 namespace OneGate.Frontend.DesktopApp.ViewModels
@@ -158,8 +161,9 @@ namespace OneGate.Frontend.DesktopApp.ViewModels
 
         public ReactiveCommand<Unit, Unit> BackCommand { get; }
 
-        public SignUpViewModel()
+        public SignUpViewModel(IOptions<OneGateClientOptions> options)
         {
+            ConnectionOptions = options;
             RegisterCommand = ReactiveCommand.CreateFromTask(RegisterAsync);
             BackCommand = ReactiveCommand.CreateFromTask(SwitchToAuthorizationAsync);
         }
@@ -197,27 +201,24 @@ namespace OneGate.Frontend.DesktopApp.ViewModels
             IsFormEnabled = false;
             FirstName = RefactorNameAccordingToTheStandard(FirstName);
             LastName = RefactorNameAccordingToTheStandard(LastName);
-            /*
             try
             {
-                var result = await OneGateApi.CreateAccountAsync(Configuration.EndpointUri, 
-                    new CreateAccountDto
-                    {
-                        FirstName = FirstName,
-                        LastName = LastName,
-                        Email = Email,
-                        Password = Password
-                    }, new ClientKeyDto
-                    {
-                        ClientKey = Configuration.ClientKey
-                    });
-                BaseWindow.Content = new SignInViewModel();
+                var client = new OneGateClient(ConnectionOptions);
+                var model = new CreateAccountRequest()
+                {
+                    FirstName = FirstName,
+                    LastName = LastName,
+                    Email = Email,
+                    Password = Password
+                };
+                await client.CreateAccountAsync(model);
+                var session = await SignInViewModel.SignInAsync(ConnectionOptions, Email, Password);
+                BaseWindow.Content = new MainViewModel(ConnectionOptions, session);
             }
-            catch (ApiException e)
+            catch (Exception e)
             {
                 ShowErrorMessage(e.Message);
             }
-            //*/
         }
 
         /// <summary>
@@ -225,7 +226,13 @@ namespace OneGate.Frontend.DesktopApp.ViewModels
         /// the first letter is always uppercase, the rest are lowercase.
         /// </summary>
         private string RefactorNameAccordingToTheStandard(string name)
-            => char.ToUpper(name[0]) + name.Substring(1).ToLower();
+        {
+            if (name == null)
+            {
+                name = "";
+            }
+            return char.ToUpper(name[0]) + name.Substring(1).ToLower();
+        }
 
         /// <summary>
         /// Display the reason of the error.
@@ -246,6 +253,6 @@ namespace OneGate.Frontend.DesktopApp.ViewModels
         /// Switch to the sign in form.
         /// </summary>
         private async Task SwitchToAuthorizationAsync()
-            => BaseWindow.Content = new SignInViewModel();
+            => BaseWindow.Content = new SignInViewModel(ConnectionOptions);
     }
 }
